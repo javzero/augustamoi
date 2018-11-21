@@ -54,7 +54,7 @@ class ColorController extends Controller
         $category = new CatalogColor($request->all());
         $category->save();
         
-        return redirect()->route('cat_colors.index')->with('message','Color creada');
+        return redirect()->route('cat_colors.index')->with('message','Color creado');
     }
 
     /*
