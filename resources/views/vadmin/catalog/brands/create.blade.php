@@ -8,12 +8,12 @@
 	@component('vadmin.components.header')
 		@slot('breadcrums')
 			<li class="breadcrumb-item"><a href="{{ url('vadmin')}}">Inicio</a></li>
-			<li class="breadcrumb-item"><a href="{{ route('cat_seasons.index')}}">Listado de temporadas</a></li>
-			<li class="breadcrumb-item active">Nueva temporada</li>
+			<li class="breadcrumb-item"><a href="{{ route('cat_brands.index')}}">Listado de marcas</a></li>
+			<li class="breadcrumb-item active">Nueva marca</li>
 		@endslot
 		@slot('actions')
 			<div class="list-actions">
-				<h1>Nueva temporada</h1>
+				<h1>Nueva marca</h1>
 			</div>
 		@endslot
 	@endcomponent
@@ -22,10 +22,10 @@
 @section('content')
 	<div class="row inner-wrapper">
 		<div class="col-sm-12 col-md-6">
-			{!! Form::open(['route' => 'cat_seasons.store', 'method' => 'POST', 'files' => true, 'class' => 'row big-form', 'data-parsley-validate' => '']) !!}	
-				@include('vadmin.catalog.seasons.form')
+			{!! Form::open(['route' => 'cat_brands.store', 'method' => 'POST', 'files' => true, 'class' => 'row big-form', 'data-parsley-validate' => '']) !!}	
+				@include('vadmin.catalog.brands.form')
 				<div class="form-actions right">
-					<a href="{{ route('cat_seasons.index')}}">
+					<a href="{{ route('cat_brands.index')}}">
 						<button type="button" class="btn btnRed mx-1">
 							<i class="icon-cross2"></i>
 						</button>
@@ -39,7 +39,7 @@
 		<div class="col-sm-12 col-md-6">
 			@component('vadmin.components.infoContainer')
 				@slot('text')
-				Las <b>temporadas</b> actuarán como filtros en el catálogo principal de la tienda<br><br>
+				Las <b>marcas</b> actuarán como filtros en el catálogo principal de la tienda<br><br>
 				@endslot
 			@endcomponent
 		</div>

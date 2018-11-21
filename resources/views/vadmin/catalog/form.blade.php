@@ -36,15 +36,15 @@
          {{-- Season --}}
          <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
-                {!! Form::label('seasons', 'Temporada') !!}
-                {!! Form::select('seasons[]', $seasons, null, ['class' => ' Select-Tags form-control', 'multiple']) !!}
+                {!! Form::label('brand_id', 'Marca') !!}
+                {!! Form::select('brand_id', $brands, null, ['class' => 'Select-Brand form-control']) !!}
             </div>
         </div>
         {{-- Category --}}
         <div class="col-xs-12 col-sm-12 col-md-6">
             <div class="form-group">
                 {!! Form::label('category_id', 'Categoría') !!}
-                {!! Form::select('category_id', $categories, null, ['class' => 'form-control Select-Category-', 'placeholder' => 'Seleccione una opcion',
+                {!! Form::select('category_id', $categories, null, ['class' => 'form-control Select-Category', 'placeholder' => 'Seleccione una opcion',
                 'required' => '']) !!}
             </div>
         </div> 
@@ -97,6 +97,9 @@
                     
                     
                     <tbody id="ExistingVariants">
+                        @if(isset($inheritData))
+                        @php $article = $inheritData @endphp
+                        @endif
                         @if(isset($article))
                         @foreach($article->variants as $variant) 
                         <tr id="VariantID{{ $variant->id }}">

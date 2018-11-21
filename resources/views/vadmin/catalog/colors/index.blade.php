@@ -88,3 +88,9 @@
 @section('scripts')
 	@include('vadmin.components.bladejs')
 @endsection
+
+@section('custom_js')
+	<script>
+		allowEnterOnForms = true;
+	</script>
+@endsection

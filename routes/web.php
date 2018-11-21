@@ -242,8 +242,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['active-user', 'admin']], f
     Route::resource('cat_colors', 'Catalog\ColorController');
     Route::post('update_cat_color_field', 'Catalog\ColorController@updateField');
     // Seasons
-    Route::resource('cat_seasons', 'Catalog\SeasonController');
-    Route::post('update_cat_season_field', 'Catalog\SeasonController@updateField');
+    Route::resource('cat_brands', 'Catalog\BrandController');
+    Route::post('update_cat_brand_field', 'Catalog\BrandController@updateField');
     // CatalogArticle Images
     Route::post('catalog_make_thumb/{id}', 'Catalog\ArticlesController@makeThumb');
     Route::get('article/{id}/images/setFeatured/{image}', 'Catalog\ImagesController@setFeatured');
@@ -290,7 +290,7 @@ Route::prefix('vadmin')->middleware('admin')->group(function () {
     Route::post('destroy_cat_categorias', 'Catalog\CategoriesController@destroy');
     Route::post('destroy_coupons', 'Catalog\CouponController@destroy');
     Route::post('destroy_cat_colors', 'Catalog\ColorController@destroy');
-    Route::post('destroy_cat_seasons', 'Catalog\SeasonController@destroy');
+    Route::post('destroy_cat_brands', 'Catalog\BrandController@destroy');
     Route::post('destroy_cat_tags', 'Catalog\TagsController@destroy');
     Route::post('destroy_cat_variant', 'Catalog\VariantsController@destroy');
     Route::post('destroy_stored_contacts', 'VadminController@destroyStoredContacts');

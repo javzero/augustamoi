@@ -95,15 +95,12 @@
 	</div>
 @endsection
 
-{{-- SCRIPT INCLUDES --}}
 @section('scripts')
 	@include('vadmin.components.bladejs')
 @endsection
 
-{{-- CUSTOM JS SCRIPTS--}}
 @section('custom_js')
 	<script>
-		$('.CatalogTagsLi').addClass('open');
-		$('.CatalogTagsList').addClass('active');
+		allowEnterOnForms = true;
 	</script>
 @endsection

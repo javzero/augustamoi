@@ -9,7 +9,7 @@ class CatalogArticle extends Model
 {
     protected $table = "catalog_articles";
 
-    protected $fillable = ['category_id', 'user_id', 'name', 'code',  'description', 'color', 'textile', 'stock', 'stockmin', 'price', 'discount', 'reseller_price', 'reseller_discount', 'thumb', 'status', 'slug'];
+    protected $fillable = ['category_id', 'brand_id', 'user_id', 'name', 'code',  'description', 'color', 'textile', 'stock', 'stockmin', 'price', 'discount', 'reseller_price', 'reseller_discount', 'thumb', 'status', 'slug'];
 
     public function variants(){
     	return $this->hasMany('App\CatalogVariant', 'article_id');
@@ -52,8 +52,8 @@ class CatalogArticle extends Model
     	return $this->belongsToMany('App\CatalogTag');
     }
 
-    public function seasons(){
-    	return $this->belongsToMany('App\CatalogSeason');
+    public function brands(){
+    	return $this->belongsToMany('App\CatalogBrand');
     }
 
     public function featuredImageName(){

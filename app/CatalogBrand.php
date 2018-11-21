@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CatalogSeason extends Model
+class CatalogBrand extends Model
 {
-    protected $table = "catalog_seasons";
+    protected $table = "catalog_brands";
 
     protected $fillable = ['name'];
 

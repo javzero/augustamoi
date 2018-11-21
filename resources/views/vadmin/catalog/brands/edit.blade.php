@@ -8,7 +8,7 @@
 	@component('vadmin.components.header')
 		@slot('breadcrums')
 			<li class="breadcrumb-item"><a href="{{ url('vadmin')}}">Inicio</a></li>
-			<li class="breadcrumb-item"><a href="{{ route('cat_seasons.index')}}">Listado de temporadas</a></li>
+			<li class="breadcrumb-item"><a href="{{ route('cat_brands.index')}}">Listado de temporadas</a></li>
 			<li class="breadcrumb-item active">Edición de color</li>
 		@endslot
 		@slot('actions')
@@ -24,14 +24,14 @@
 		<div class="col-sm-12 col-md-6">
 			{!! Form::model($item, [
 					'method' => 'PATCH',
-					'url' => ['vadmin/cat_seasons', $item->id],
+					'url' => ['vadmin/cat_brands', $item->id],
 					'files' => true,
 					'class' => 'row big-form', 
 					'data-parsley-validate' => ''
 				]) !!}
-				@include('vadmin.catalog.seasons.form')
+				@include('vadmin.catalog.brands.form')
 				<div class="form-actions right">
-					<a href="{{ route('cat_seasons.index')}}">
+					<a href="{{ route('cat_brands.index')}}">
 						<button type="button" class="btn btnRed mx-1">
 							<i class="icon-cross2"></i>
 						</button>
@@ -56,6 +56,9 @@
 @section('scripts')
 	<script type="text/javascript" src="{{ asset('plugins/validation/parsley.min.js') }}" ></script>
 	<script type="text/javascript" src="{{ asset('plugins/validation/es/parsley-es.min.js') }}" ></script>
+	<script>
+		allowEnterOnForms = true;
+	</script>
 @endsection
 
 

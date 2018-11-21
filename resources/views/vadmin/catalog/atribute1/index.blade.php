@@ -93,12 +93,10 @@
 	</div>
 @endsection
 
-{{-- SCRIPT INCLUDES --}}
 @section('scripts')
 	@include('vadmin.components.bladejs')
 @endsection
 
-{{-- CUSTOM JS SCRIPTS--}}
 @section('custom_js')
 	<script>
 		allowEnterOnForms = true;

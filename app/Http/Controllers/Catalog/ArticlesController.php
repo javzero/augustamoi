@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\CatalogCategory;
 use App\CatalogTag;
-use App\CatalogSeason;
+use App\CatalogBrand;
 use App\CatalogArticle;
 use App\CatalogFav;
 use App\CatalogImage;
@@ -187,14 +187,36 @@ class ArticlesController extends Controller
         $atribute1 = CatalogAtribute1::orderBy('id', 'ASC')->get();
         $colors = CatalogColor::orderBy('name', 'ASC')->get();
         $tags = CatalogTag::orderBy('name', 'ASC')->pluck('name', 'id');
-        $seasons = CatalogSeason::orderBy('name', 'ASC')->pluck('name', 'id');
+        $brands = CatalogBrand::orderBy('name', 'ASC')->pluck('name', 'id');
         return view('vadmin.catalog.create')
             ->with('categories', $categories)
             ->with('atribute1', $atribute1)
             ->with('tags', $tags)
             ->with('colors', $colors)
-            ->with('seasons', $seasons);
+            ->with('brands', $brands);
     }
+
+    
+    public function createFromAnother($model, $id)
+    {
+        $inheritData = CatalogArticle::findOrFail($id);
+        $categories = CatalogCategory::orderBy('name', 'ASC')->pluck('name', 'id');
+        $atribute1 = CatalogAtribute1::orderBy('name', 'ASC')->get();
+        $colors = CatalogColor::orderBy('name', 'ASC')->get();
+        $tags = CatalogTag::orderBy('name', 'ASC')->pluck('name', 'id');
+        $brands = CatalogBrand::orderBy('name', 'ASC')->pluck('name', 'id');
+        
+
+        return view('vadmin.catalog.create-from-another')
+            ->with('inheritData', $inheritData)
+            ->with('categories', $categories)
+            ->with('atribute1', $atribute1)
+            ->with('tags', $tags)
+            ->with('colors', $colors)
+            ->with('brands', $brands);
+    }
+
+
 
     public function checkSlug($slug)
     {
@@ -318,7 +340,7 @@ class ArticlesController extends Controller
         //  Sync Relations
             $article->atribute1()->sync($request->atribute1);
             $article->tags()->sync($request->tags);
-            $article->seasons()->sync($request->seasons);
+            $article->brands()->sync($request->brands);
         //  Save Images
             if ($images) {
                 try {
@@ -352,22 +374,6 @@ class ArticlesController extends Controller
         return redirect()->route('catalogo.index')->with('message', 'Artículo agregado al catálogo');
     }
 
-    public function createFromAnother($model, $id)
-    {
-        $inheritData = CatalogArticle::findOrFail($id);
-        $categories = CatalogCategory::orderBy('name', 'ASC')->pluck('name', 'id');
-        $atribute1 = CatalogAtribute1::orderBy('name', 'ASC')->pluck('name', 'id');
-        $tags = CatalogTag::orderBy('name', 'ASC')->pluck('name', 'id');
-        $seasons = CatalogSeason::orderBy('name', 'ASC')->pluck('name', 'id');
-
-        return view('vadmin.catalog.create-from-another')
-            ->with('inheritData', $inheritData)
-            ->with('categories', $categories)
-            ->with('atribute1', $atribute1)
-            ->with('tags', $tags)
-            ->with('seasons', $seasons);
-    }
-
     /*
     |--------------------------------------------------------------------------
     | UPDATE
@@ -382,7 +388,7 @@ class ArticlesController extends Controller
         $colors = CatalogColor::orderBy('name', 'ASC')->get();
         $article = CatalogArticle::find($id);
         $categories = CatalogCategory::orderBy('name', 'DESC')->pluck('name', 'id');
-        $seasons = CatalogSeason::orderBy('name', 'ASC')->pluck('name', 'id');
+        $brands = CatalogBrand::orderBy('name', 'ASC')->pluck('name', 'id');
 
         $article->each(function ($article) {
             $article->images;
@@ -394,7 +400,7 @@ class ArticlesController extends Controller
             ->with('tags', $tags)
             ->with('atribute1', $atribute1)
             ->with('colors', $colors)
-            ->with('seasons', $seasons);
+            ->with('brands', $brands);
 
 
     }
@@ -483,8 +489,6 @@ class ArticlesController extends Controller
             // dd($request->variants);
             try 
             {   
-                $e = 0;
-                $n = 0;
                 foreach ($request->variants as $newVariant => $data)
                 {
                     // echo $newVariant.'<br>';
@@ -492,13 +496,11 @@ class ArticlesController extends Controller
                     
                     if($existingVariant)
                     {
-                        $e +=1;
                         $existingVariant->stock = $data['stock'];
                         $existingVariant->save();   
                     }
                     else
                     {
-                        $n +=1;
                         $item = new CatalogVariant();
                         $item->article_id = $article->id;
                         $item->combination = $newVariant;
@@ -520,7 +522,6 @@ class ArticlesController extends Controller
             // Sync Relations
             $article->atribute1()->sync($request->atribute1);
             $article->tags()->sync($request->tags);
-            $article->seasons()->sync($request->seasons);
 
             if (!$article->images->isEmpty()) 
             {

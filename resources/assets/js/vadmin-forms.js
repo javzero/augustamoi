@@ -19,6 +19,15 @@ $('.Select-Tags').chosen({
     no_results_text: 'No se ha encontrado la etiqueta'
 });
 
+$('.Select-Brand').chosen({
+    placeholder_text_single: 'Seleccione la marca',
+    // max_selected_options: 3,
+    search_contains: true,
+    no_results_text: 'No se ha encontrado la marca'
+});
+
+
+
 $('.Select-Atribute').chosen({
     placeholder_text_multiple: 'Seleccionar',
     // max_selected_options: 3,

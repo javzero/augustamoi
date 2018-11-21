@@ -195,7 +195,7 @@
 				{{-- ===============================  --}}
 				{{-- Colors --}}
 				
-				{{-- <li class="has-sub is-shown {{ Menu::activeMenu('cat_colors') }}">
+				<li class="has-sub is-shown {{ Menu::activeMenu('cat_colors') }}">
 					<a href="#" data-i18n="nav.menu_levels.second_level_child.main" class="menu-item">
 						Colores
 					</a>
@@ -211,24 +211,24 @@
 							</a>
 						</li>
 					</ul>
-				</li> --}}
+				</li>
 
 				{{-- ===============================  --}}
 
 				{{-- Seasons --}}
-				<li class="has-sub is-shown {{ Menu::activeMenu('cat_seasons') }}">
+				<li class="has-sub is-shown {{ Menu::activeMenu('cat_brands') }}">
 					<a href="#" data-i18n="nav.menu_levels.second_level_child.main" class="menu-item">
-						Temporadas
+						Marcas
 					</a>
 					<ul class="menu-content" style="">
-						<li class="is-shown {{ Menu::activeMenu('cat_seasons') }}">
-							<a href="{{ route('cat_seasons.index') }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item">
+						<li class="is-shown {{ Menu::activeMenu('cat_brands') }}">
+							<a href="{{ route('cat_brands.index') }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item">
 								<i class="icon-list"></i> Listado
 							</a>
 						</li>
-						<li class="is-shown {{ Menu::activeMenu('cat_seasons') }}">
-							<a href="{{ route('cat_seasons.create') }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item">
-								<i class="icon-plus-round"></i> Nueva Temporada
+						<li class="is-shown {{ Menu::activeMenu('cat_brands') }}">
+							<a href="{{ route('cat_brands.create') }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item">
+								<i class="icon-plus-round"></i> Nueva Marca
 							</a>
 						</li>
 					</ul>
