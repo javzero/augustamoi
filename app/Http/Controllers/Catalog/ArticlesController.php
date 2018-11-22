@@ -277,7 +277,6 @@ class ArticlesController extends Controller
 
     public function store(Request $request)
     {
-
         if ($request->discount == null) {
             $request->discount = '0';
         }

@@ -8,8 +8,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\CatalogArticle;
+use App\CatalogVariant;
 use App\CatalogAtribute1;
 use App\CatalogCategory;
+use App\CatalogColor;
 use App\CatalogCoupon;
 use App\CatalogImage;
 use App\CatalogTag;
@@ -41,27 +43,6 @@ class StoreController extends Controller
         $this->settings = Settings::find(1);
         // $this->middleware('auth:customer');
         //$customer = auth()->guard('customer')->user();     
-    }
-    
-    public function getSetPaginationCookie($request)
-    {
-       
-        if($request)
-        {
-            Cookie::queue('store-pagination', $request, 2000);
-            $pagination = $request;
-        }
-        else
-        {   
-            if(Cookie::get('store-pagination'))
-            {
-                $pagination = Cookie::get('store-pagination');
-            }
-            else{
-                $pagination = 24;
-            }
-        } 
-        return $pagination;
     }
 
     public function index(Request $request)
@@ -127,9 +108,6 @@ class StoreController extends Controller
         else if(isset($request->marca))
         {
             $articles = CatalogArticle::orderBy($orderBy, $order)->active()->where('brand_id', $request->marca)->paginate($pagination);
-            // $articles = CatalogArticle::whereHas('band', function ($query) use($brand){
-            //     $query->where('catalog_brand_id', $brand);
-            // })->paginate($pagination);
         }
         else 
         {
@@ -139,6 +117,30 @@ class StoreController extends Controller
         return view('store.index')->with('articles', $articles);
     }
     
+    // Pagination
+    public function getSetPaginationCookie($request)
+    {
+       
+        if($request)
+        {
+            Cookie::queue('store-pagination', $request, 2000);
+            $pagination = $request;
+        }
+        else
+        {   
+            if(Cookie::get('store-pagination'))
+            {
+                $pagination = Cookie::get('store-pagination');
+            }
+            else{
+                $pagination = 24;
+            }
+        } 
+        return $pagination;
+    }
+
+    // Search
+    // ---------------------------------------------------
     public function searchSize($name)
 	{
         // Set and Get pagination cookie
@@ -195,9 +197,17 @@ class StoreController extends Controller
             ->with('articles', $articles);
     }
     
+    /*
+    |--------------------------------------------------------------------------
+    | SHOW
+    |--------------------------------------------------------------------------
+    */
+
     public function show(Request $request)
     {
         $article = CatalogArticle::findOrFail($request->id);
+        $atribute1 = CatalogAtribute1::orderBy('name', 'ASC')->pluck('name','id');
+        $colors = CatalogColor::orderBy('name', 'ASC')->pluck('name','id');
         $user = auth()->guard('customer')->user();
 
         if($user)
@@ -216,8 +226,16 @@ class StoreController extends Controller
 
         return view('store.show')
             ->with('article', $article)
+            ->with('sizes', $atribute1)
+            ->with('colors', $colors)
             ->with('isFav', $isFav)
             ->with('user', $user);
+    }
+
+    public function checkVariantStock(Request $request)
+    {
+        $variant = CatalogVariant::where('article_id', $request->article_id)->where('color', $request->color)->first();
+        dd($variant);
     }
 
     /*

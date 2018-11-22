@@ -162,6 +162,33 @@ window.sumDivs = function (origins, target) {
 }
 
 
+// Check product variant stock
+// -------------------------------------------
+window.checkVariantStock = function() {
+    let form = $('#AddToCartForm');
+    let data = form.serialize();
+    console.log(form.data('route'));
+
+    $.ajax({
+        url: form.data('route'),
+        method: 'GET',
+        dataType: 'JSON',
+        data: data,
+        success: function (data) {
+            console.log(data);
+            $('#Error').html(data.responseText);
+        },
+        error: function (data) {
+            $('#Error').html(data.responseText);
+            // location.reload();
+            console.log(data);
+        }
+    });
+
+
+
+}
+
 // Set cart items JSON
 // -------------------------------------------
 window.setItemsData = function () {

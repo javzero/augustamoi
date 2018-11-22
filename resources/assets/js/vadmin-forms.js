@@ -172,8 +172,8 @@ window.makeVariants = function()
         {
             let variantRow = "<tr>" +
                                 "<td class='Combination' data-combination="+ value['color'] +"/" + value['size'] + ">"+ value['color'] +"/" + value['size'] + "</td>" +
-                                "<input name='variants["+value['combination']+"][color]' value="+ value['color'] +" type='hidden' class='form-control'>" +
-                                "<input name='variants["+value['combination']+"][size]' value="+ value['size'] +" type='hidden' class='form-control'>" +
+                                "<input name='variants["+value['combination']+"][color]' value="+ value['color_id'] +" type='hidden' class='form-control'>" +
+                                "<input name='variants["+value['combination']+"][size]' value="+ value['size_id'] +" type='hidden' class='form-control'>" +
                                 "<td><input name='variants["+value['combination']+"][stock]' value='10' type='number' min='0' class='form-control'></td>" +
                                 "<td><a class='RemoveDynRow delete-icon'><i class='delete-icon fa fa-trash'></i></a></td>" +
                              "</tr>";

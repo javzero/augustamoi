@@ -47,8 +47,12 @@
     $('.AddToCart').on('submit', function(e){
         e.preventDefault();
         let data = $(this).serialize();
-        addToCart("{{ route('store.addToCartLive') }}", data);
+        console.log(data);
+        checkVariantStock(data);
+        // addToCart("{{ route('store.addToCartLive') }}", data);
     });
+
+    
 
     /*
     |--------------------------------------------------------------------------

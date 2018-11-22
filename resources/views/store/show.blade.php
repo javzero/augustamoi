@@ -68,90 +68,54 @@
 				<a class="navi-link" href="#">{{ $article->category->name }}</a>
 				{{--  Article Name  --}}
 				<h2 class="text-normal">{{ $article->name }}</h2>
+				<div class="mb-3"> #{{ $article->code }}</div>
 			</div>
+			{{-- PRICE --}}
 			@if($article->reseller_discount > 0)
 				DESCUENTO % {{ $article->reseller_discount }}!!
 				<span class="h2 d-block">
-					<del class="text-muted text-normal">$ {{ $article->reseller_price }}</del>
+					<del class="text-muted text-small">$ {{ $article->reseller_price }}</del>
 					&nbsp; ${{ calcValuePercentNeg($article->reseller_price, $article->reseller_discount) }}
 				</span>
 			@else
 				<span class="h2 d-block">$ {{ $article->reseller_price }}</span>
 			@endif
-			{{-- @if(Auth::guard('customer')->check() && Auth::guard('customer')->user()->group == '3') --}}
-			{{-- Reseller Article Price and Discount --}}	
-				{{-- @if($article->reseller_discount > 0)
-					DESCUENTO % {{ $article->reseller_discount }}!!
-					<span class="h2 d-block">
-						<del class="text-muted text-normal">$ {{ $article->reseller_price }}</del>
-						&nbsp; ${{ calcValuePercentNeg($article->reseller_price, $article->reseller_discount) }}
-					</span>
-				@else
-					<span class="h2 d-block">$ {{ $article->reseller_price }}</span>
-				@endif
-			@else --}}
-			{{-- Article Price and Discount --}}
-				{{-- @if($article->discount > 0)
-					DESCUENTO % {{ $article->discount }}!!
-					<span class="h2 d-block">
-						<del class="text-muted text-normal">$ {{ $article->price }}</del>
-						&nbsp; ${{ calcValuePercentNeg($article->price, $article->discount) }}
-					</span>
-				@else
-					<span class="h2 d-block">$ {{ $article->price }}</span>
-				@endif
-			@endif --}}
-			<div class="mb-3"><span class="text-medium">Código:</span> #{{ $article->code }}</div>
-			{{-- Id: {{ $article->id }} <br> --}}
+		
 			{{-- Article Description --}}
 			<p>{{ strip_tags($article->description) }}</p>
+			<div class="item"><div class="title">Tela: {{ $article->textile }}</div> <br></div>
 			<div class="row">
 				<div class="col-sm-12 descriptions">
-					<div class="item">
-						<div class="title">Talle / Color: </div>
-					</div> <br>
+					{!! Form::open(['id' => 'AddToCartForm', 'class' => 'AddToCart form-group price', 'onchange' => 'checkVariantStock()', 
+					'data-route' => (url('tienda/checkVariantStock')) ]) !!}
+					<input type="hidden" name="article_id" value="{{ $article->id }}">
+					<div class="row">
+						<div class="col-xs-4 col-sm-4 col-md-4">
+							<div class="form-group">
+								{!! Form::select('color', $colors, null, ['class' => 'form-control', 'required' => '', 'placeholder' => 'Color']) !!}
+							</div>
+						</div>
+						<div class="col-xs-4 col-sm-4 col-md-4">
+							<div class="form-group">
+								{!! Form::select('size', $sizes, null, ['class' => 'form-control', 'required' => '', 'placeholder' => 'Talle']) !!}
+							</div>
+						</div>
+						<div class="col-xs-4 col-sm-4 col-md-4">
+							<div class="form-group">
+								{!! Form::number('quantity', null, ['class' => 'form-control', 'min' => '0', 'required' => '', 'placeholder' => 'Cantidad']) !!}
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="AvailableStock col-md-12">
+						</div>
+					</div>
 					<div class="row">
 						<div class="col-md-12">
-							@foreach($article->variants as $variant)
-								<div style="float: left; border: 1px solid #ccc; padding: 2px 5px; margin: 0 5px 10px 0; white-space: nowrap">{{ $variant->color }} / {{ $variant->size}}</div>
-							@endforeach
+							<input type="submit" class="btn main-btn" value="Agregar al carro">
 						</div>
 					</div>
-					{{-- <div class="item"><div class="title">Talle:</div> <span class="prop">@foreach($article->atribute1 as $atribute) {{ $atribute->name }} @endforeach</span></div>
-					<div class="item"><div class="title">Color:</div> <span class="prop">{{ $article->color }}</span></div> --}}
-					<div class="item"><div class="title">Tela:</div> <br>
-					<div style="float: left; border: 1px solid #ccc; padding: 2px 5px; margin: 0 5px 10px 0; white-space: nowrap">{{ $article->textile }}</div>
-					</div>
-				</div>
-			</div>
-			<div class="row margin-top-1x">
-				{{-- Form --}}
-				<div class="col-sm-12 price-and-stock">
-					@if($article->stock > 0)
-						@if(Auth::guard('customer')->check())
-						<div class="AvailableStock stock">
-							Stock disponible: {{ $article->stock }}
-						</div>
-						{{-- {!! Form::open(['class' => 'AddToCart price']) !!}	
-							{{ csrf_field() }}
-							<input type="number" min="0" max="{{ $article->stock }}" name="quantity" class="quantity-input" value="1">
-							<input type="submit" class="input-button" value="Agregar">
-							<input type="hidden" value="{{ $article->id }}" name="articleId">
-						{!! Form::close() !!} --}}
-						{!! Form::open(['class' => 'AddToCart form-group price']) !!}
-							{{ csrf_field() }}	
-							<div class="input-with-btn">
-								<input class="form-control input-field short-input" name="quantity" type="number" min="1" max="{{ $article->stock }}" value="1" placeholder="1" required>
-								<button class="btn input-btn">Agregar al carro</button>
-							</div>
-							<input type="hidden" value="{{ $article->id }}" name="articleId">
-						{!! Form::close() !!}
-						@else
-						<a href="{{ url('tienda/login') }}" class="btn input-btn">Comprar</a>
-						@endif
-					@else
-						No hay stock disponible
-					@endif
+					{!! Form::close() !!}
 				</div>
 			</div>
 			<hr class="mb-3">

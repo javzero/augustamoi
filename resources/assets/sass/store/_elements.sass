@@ -899,7 +899,7 @@ ul.pagination
 					font-family: $font2
 					width: 100%
 					// height: 80px
-					height: 61px
+					height: 40px
 					@include flex-column()
 					h3
 						font-weight: 300
@@ -920,6 +920,12 @@ ul.pagination
 							margin-right: 5px
 							font-size: 1rem
 							font-weight: 300
+					.input-fit
+						display: flex
+						// flex-direction: row
+						input
+							max-width: 100%
+							// display: flex
 					.col-add
 						margin-top: 5px
 						white-space: nowrap
@@ -1006,6 +1012,11 @@ ul.pagination
 			padding: 1px 5px
 			font-size: 0.7rem
 
+@media (max-width: 400px)
+	.articles-container
+		.article
+			min-width: 100%
+
 .top-right-ribbon
 	position: absolute
 	right: 0
@@ -1089,6 +1100,8 @@ ul.pagination
 		position: relative
 		min-height: 430px
 		.title-desktop
+			h2
+				margin-bottom: 0
 		.fav-container
 			position: absolute
 			right: 13px
@@ -1116,14 +1129,6 @@ ul.pagination
 
 			.prop
 	.price-and-stock
-		position: absolute
-		bottom: 10px
-		left: 0
-		.stock
-			margin-bottom: 15px
-		.price
-			input
-				max-width: 100px
 
 @media (max-width: 575px)
 	.product-show

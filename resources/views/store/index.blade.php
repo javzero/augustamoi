@@ -102,7 +102,7 @@
 										<div class="col-price pad0">
 											<del>$ {{ $article->reseller_price + 0 }}</del> 
 											<span class="price">
-													$ {{ calcValuePercentNeg($article->reseller_price, $article->reseller_discount + 0) }}
+												$ {{ calcValuePercentNeg($article->reseller_price, $article->reseller_discount + 0) }}
 											</span>
 											{{-- @if(Auth::guard('customer')->check() && Auth::guard('customer')->user()->group == '3')
 												@if($article->reseller_discount > 0)
@@ -125,6 +125,11 @@
 											@endif --}}
 										</div>
 										<div class="col-add pad0">
+											<a href="{{ url('tienda/articulo/'.$article->id) }}" class="btn btn-outline-primary btn-sm">Ver producto</a>
+											{{-- <div class="row input-fit">
+												<div class="col-xs-6 col-sm-6"><input type="text" value="1"></div>
+												<div class="col-xs-6 col-sm-6"><input type="text" value="1"></div>
+											</div> --}}
 											{{-- @if(Auth::guard('customer')->check()) --}}
 											{{--  Check if product is in favs  --}}
 											{{-- <a class="AddToFavs fa-icon fav-icon-nofav fav-btn
@@ -132,7 +137,7 @@
 												data-id="{{ $article->id }}" data-toggle="tooltip" title="Agregar a Favoritos">
 											</a>
 											@endif --}}
-											@if(Auth::guard('customer')->check())
+											{{-- @if(Auth::guard('customer')->check())
 												{!! Form::open(['class' => 'AddToCart price']) !!}	
 													{{ csrf_field() }}
 													<input type="number" min="1" max="{{ $article->stock }}" name="quantity" class="quantity-input" value="1"
@@ -142,7 +147,7 @@
 												{!! Form::close() !!}
 											@else
 												<a href="{{ url('tienda/articulo/'.$article->id) }}" class="btn btn-outline-primary btn-sm">Ver detalles</a>
-											@endif
+											@endif --}}
 										</div>
 									</div>
 								</div>
