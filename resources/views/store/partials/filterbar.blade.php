@@ -29,12 +29,12 @@
             <option value="{{ route('store', 'categoria=').$category->id }}"> {{ $category->name }} </option>
         @endforeach
     </select>
-    {{-- Seasons --}}
+    {{-- Brands --}}
     <select class="form-control item" name="categories" onchange="location = this.value;">
-        <option value="Etiquetas" selected disabled>Temporadas</option>
+        <option value="Etiquetas" selected disabled>Marcas</option>
         <option value="{{ route('store') }}"> Todas </option>
-        @foreach($seasons as $season)
-            <option value="{{ route('store', 'temporada=').$season->id }}"> {{ $season->name }} </option>
+        @foreach($brands as $brand)
+            <option value="{{ route('store', 'marca=').$brand->id }}"> {{ $brand->name }} </option>
         @endforeach
     </select>
     <div class="back-to-list-desktop">

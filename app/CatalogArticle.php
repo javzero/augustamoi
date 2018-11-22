@@ -70,7 +70,7 @@ class CatalogArticle extends Model
     }
 
     public function scopeActive($query){
-        return $query->where('status', '1')->where('stock', '>', '0');
+        return $query->where('status', '1');
     }
 
     public function scopeSearch($query, $term, $categories, $tags)

@@ -6,27 +6,27 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Auth;
-use App\CatalogCategory;
+use Illuminate\Support\Facades\View;
 use App\CatalogArticle;
-use App\CatalogImage;
 use App\CatalogAtribute1;
+use App\CatalogCategory;
+use App\CatalogCoupon;
+use App\CatalogImage;
 use App\CatalogTag;
 use App\CatalogFav;
 use App\Customer;
 use App\Shipping;
 use App\Payment;
 use App\GeoProv;
-use App\Cart;
-use App\CartItem;
-use App\CatalogCoupon;
+use App\Traits\CartTrait;
+use App\Mail\SendMail;
 use Carbon\Carbon;
 use App\Settings;
+use App\CartItem;
+use App\Cart;
 use Cookie;
-use PDF;
-use App\Traits\CartTrait;
-use Illuminate\Support\Facades\View;
 use Mail;
-use App\Mail\SendMail;
+use PDF;
 
 
 class StoreController extends Controller
@@ -66,13 +66,13 @@ class StoreController extends Controller
 
     public function index(Request $request)
     {   
+                
         $pagination = $this->getSetPaginationCookie($request->get('results'));
         $order = 'DESC';
         $orderBy = 'id';
         $order2 = 'ASC';
         $orderBy2 = 'discount';
         
-
         if($request->precio)
         {
             $orderBy = 'price';
@@ -81,17 +81,19 @@ class StoreController extends Controller
                 $order = 'ASC';
                 $order2 = 'ASC';
             }
-
-            if(auth()->guard('customer')->check())
-            {
-                if(auth()->guard('customer')->user()->group == '3')
-                {
-                    $orderBy = 'reseller_price';
-                    $orderBy2 = 'reseller_discount';
-                }
-            }
+            
+            // IF RESELLER
+            // if(auth()->guard('customer')->check())
+            // {
+            //     if(auth()->guard('customer')->user()->group == '3')
+            //     {
+            //         $orderBy = 'reseller_price';
+            //         $orderBy2 = 'reseller_discount';
+            //     }
+            // }
         }
 
+        
         if(isset($request->buscar))
         {   
             $tags = CatalogTag::with(['articles' => function($query) { $query->where('status', '=', '1'); }])->get();
@@ -120,24 +122,23 @@ class StoreController extends Controller
             $articles = CatalogArticle::whereHas('tags', function ($query) use($tag){
                 $query->where('catalog_tag_id', $tag);
             })->paginate($pagination);
-
+            
         }
-        else if(isset($request->temporada))
+        else if(isset($request->marca))
         {
-            $season = $request->temporada;
-            $articles = CatalogArticle::whereHas('seasons', function ($query) use($season){
-                $query->where('catalog_season_id', $season);
-            })->paginate($pagination);
+            $articles = CatalogArticle::orderBy($orderBy, $order)->active()->where('brand_id', $request->marca)->paginate($pagination);
+            // $articles = CatalogArticle::whereHas('band', function ($query) use($brand){
+            //     $query->where('catalog_brand_id', $brand);
+            // })->paginate($pagination);
         }
         else 
         {
             $articles = CatalogArticle::orderBy($orderBy, $order)->orderBy($orderBy2, $order2)->active()->paginate($pagination);
-        }
+        }      
         
-        return view('store.index')
-            ->with('articles', $articles);
+        return view('store.index')->with('articles', $articles);
     }
-
+    
     public function searchSize($name)
 	{
         // Set and Get pagination cookie

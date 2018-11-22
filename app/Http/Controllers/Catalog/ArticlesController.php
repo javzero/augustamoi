@@ -77,7 +77,6 @@ class ArticlesController extends Controller
         }
         $categories = CatalogCategory::orderBy('id', 'ASC')->pluck('name', 'id');
         
-
         // ---------- Redirect -------------
         if ($request->redirect == 'stock') {
             return view('vadmin.catalog.stock')
