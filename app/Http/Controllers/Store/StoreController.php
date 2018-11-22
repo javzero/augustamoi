@@ -206,8 +206,18 @@ class StoreController extends Controller
     public function show(Request $request)
     {
         $article = CatalogArticle::findOrFail($request->id);
-        $atribute1 = CatalogAtribute1::orderBy('name', 'ASC')->pluck('name','id');
-        $colors = CatalogColor::orderBy('name', 'ASC')->pluck('name','id');
+        
+        // Get only used colors and sizes
+        $variants = $article->variants;
+        $colorsId = []; $sizesId = [];
+        foreach($variants as $variant) 
+        { 
+            $colorsId[] = $variant->color;
+            $sizesId[] = $variant->size;
+        }
+
+        $atribute1 = CatalogAtribute1::whereIn('id', $sizesId)->orderBy('name', 'ASC')->pluck('name','id');
+        $colors = CatalogColor::whereIn('id', $colorsId)->orderBy('name', 'ASC')->pluck('name','id');
         $user = auth()->guard('customer')->user();
 
         if($user)
@@ -234,8 +244,15 @@ class StoreController extends Controller
 
     public function checkVariantStock(Request $request)
     {
-        $variant = CatalogVariant::where('article_id', $request->article_id)->where('color', $request->color)->first();
-        dd($variant);
+        $variant = null;
+        if($request->color != null && $request->size != null && $request->article_id)
+        {
+            $variant = CatalogVariant::where('article_id', $request->article_id)->where('color', $request->color)->where('size', $request->size)->first();
+        }
+        if($variant != null)
+            return response()->json(['response' => true, 'message' => $variant->stock]);
+        else
+            return response()->json(['response' => false, 'message' => 'No se encontró variante']);
     }
 
     /*

@@ -80,7 +80,6 @@
 			@else
 				<span class="h2 d-block">$ {{ $article->reseller_price }}</span>
 			@endif
-		
 			{{-- Article Description --}}
 			<p>{{ strip_tags($article->description) }}</p>
 			<div class="item"><div class="title">Tela: {{ $article->textile }}</div> <br></div>
@@ -102,7 +101,7 @@
 						</div>
 						<div class="col-xs-4 col-sm-4 col-md-4">
 							<div class="form-group">
-								{!! Form::number('quantity', null, ['class' => 'form-control', 'min' => '0', 'required' => '', 'placeholder' => 'Cantidad']) !!}
+								{!! Form::number('quantity', null, ['id' => 'MaxQuantity', 'class' => 'form-control', 'min' => '0', 'required' => '', 'placeholder' => 'Cantidad']) !!}
 							</div>
 						</div>
 					</div>

@@ -94,8 +94,6 @@
                             <th></th>
                         </tr>
                     </thead>
-                    
-                    
                     <tbody id="ExistingVariants">
                         @if(isset($inheritData))
                         @php $article = $inheritData @endphp

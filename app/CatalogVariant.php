@@ -15,4 +15,14 @@ class CatalogVariant extends Model
     	return $this->belongsTo('App\Article');
     }
 
+    public function colors()
+    {
+        return $this->hasMany('App\CatalogColor');
+    }
+
+    public function sizes()
+    {
+        return $this->hasMany('App\CatalogAtribute1');
+    }
+
 }

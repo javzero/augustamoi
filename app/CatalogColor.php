@@ -14,7 +14,11 @@ class CatalogColor extends Model
     {
         return $this->hasMany('App\CatalogColor');
     }
-
+    
+    public function variants(){
+		return $this->belongsToMany('App\CatalogVariants');
+    }
+    
     public function scopeSearchname($query, $name)
     {
         return $query->where('name','LIKE', "%$name%");

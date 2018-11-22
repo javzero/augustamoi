@@ -14,6 +14,10 @@ class CatalogAtribute1 extends Model
 		return $this->belongsToMany('App\CatalogArticle');
     }
     
+    public function variants(){
+		return $this->belongsToMany('App\CatalogVariants');
+    }
+    
     public function scopeSearchName($query, $name)
     {
         return $query->where('name','=', $name);

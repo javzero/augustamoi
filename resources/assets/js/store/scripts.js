@@ -176,6 +176,11 @@ window.checkVariantStock = function() {
         data: data,
         success: function (data) {
             console.log(data);
+            if(data.response == true)
+            {
+                $('.AvailableStock').html("Stock disponible: " + data.message);
+                $('#MaxQuantity').prop("max", data.message);
+            }
             $('#Error').html(data.responseText);
         },
         error: function (data) {

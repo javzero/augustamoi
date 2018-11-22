@@ -89,6 +89,7 @@
 						<th>Cód.</th>
 						<th>Título</th>
 						<th>Variantes (Color / Talle - Stock)</th>
+						<th>Estado</th>
 					@endslot
 					@slot('tableContent')
 						@foreach($articles as $item)
@@ -124,22 +125,15 @@
 										</div>
 										{{-- <span class="tag tag-pill btnBlue"> ({{ $variant->stock }})</span> --}}
 									@endforeach
-									{{-- <table class="table table-striped custom-list">
-										<thead>
-											<tr>
-												<th>Combinación</th>
-												<th>Stock</th>
-											</tr>
-										</thead>
-										<tbody>
-											@foreach($item->variants as $variant)
-											<tr>
-												<th>{{ $variant->combination }}</th>
-												<th>{{ $variant->stock }}</th>
-											</tr>
-											@endforeach
-										</tbody>
-									</table> --}}
+								</td>
+								{{-- STATUS --}}
+								<td class="w-50 pad0 centered">
+									<label class="switch">
+										<input class="UpdateStatus switch-checkbox" type="checkbox" 
+										data-model="CatalogArticle" data-id="{{ $item->id }}"
+										@if($item->status == '1') checked @endif>
+										<span class="slider round"></span>
+									</label>
 								</td>
 							</tr>					
 						@endforeach
