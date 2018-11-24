@@ -61,7 +61,7 @@ Route::group(['prefix'=> 'vadmin'], function() {
 |
 */
 
-// Route::get('/', ['as' => 'web', 'uses' => 'WebController@home']);
+Route::get('/', ['as' => 'web', 'uses' => 'WebController@home']);
 // Route::get('contacto', function(){ return view('web.web.contacto'); });
 
 /*
@@ -83,7 +83,7 @@ Route::post('mail_sender', 'WebController@mail_sender');
 | Store
 |--------------------------------------------------------------------------
 */
-Route::get('/', 'Store\StoreController@index')->middleware('active-customer');
+// Route::get('/', 'Store\StoreController@index')->middleware('active-customer');
 Route::get('tienda', ['as' => 'store', 'uses' => 'Store\StoreController@index'])->middleware('active-customer');
 Route::get('politica-de-exclusividad', function(){ return view('store.reseller-policy'); });
 Route::get('condiciones-de-compra', function(){ return view('store.buy-conditions'); });
