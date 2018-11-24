@@ -2,10 +2,10 @@
 <div class="topbar">
 	<div class="topbar-column">
 		Seguinos: 
-		<a class="social-button sb-facebook shape-none sb-dark" href="https://www.facebook.com/santaosadia/" target="_blank">
+		<a class="social-button sb-facebook shape-none sb-dark" href="https://www.facebook.com/augustamoi/" target="_blank">
 			<i class="socicon-facebook"></i>
 		</a>
-		<a class="social-button sb-instagram shape-none sb-dark" href="https://www.instagram.com/santaosadia/" target="_blank">
+		<a class="social-button sb-instagram shape-none sb-dark" href="https://www.instagram.com/augustamoi/" target="_blank">
 			<i class="socicon-instagram"></i>
 		</a>
 	</div>
