@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\CatalogArticle;
 use App\CatalogVariant;
-use App\CatalogAtribute1;
+use App\CatalogSize;
 use App\CatalogCategory;
 use App\CatalogColor;
 use App\CatalogCoupon;
@@ -146,7 +146,7 @@ class StoreController extends Controller
         // Set and Get pagination cookie
         $pagination = $this->getSetPaginationCookie(null);
 
-        $size = CatalogAtribute1::searchName($name)->first();
+        $size = CatalogSize::searchName($name)->first();
 		$articles = $size->articles()->paginate($pagination);
         $articles->each(function($articles){
             $articles->category;
@@ -212,11 +212,11 @@ class StoreController extends Controller
         $colorsId = []; $sizesId = [];
         foreach($variants as $variant) 
         { 
-            $colorsId[] = $variant->color;
-            $sizesId[] = $variant->size;
+            $colorsId[] = $variant->color_id;
+            $sizesId[] = $variant->size_id;
         }
 
-        $atribute1 = CatalogAtribute1::whereIn('id', $sizesId)->orderBy('name', 'ASC')->pluck('name','id');
+        $atribute1 = CatalogSize::whereIn('id', $sizesId)->orderBy('name', 'ASC')->pluck('name','id');
         $colors = CatalogColor::whereIn('id', $colorsId)->orderBy('name', 'ASC')->pluck('name','id');
         $user = auth()->guard('customer')->user();
 
@@ -245,9 +245,9 @@ class StoreController extends Controller
     public function checkVariantStock(Request $request)
     {
         $variant = null;
-        if($request->color != null && $request->size != null && $request->article_id)
+        if($request->color_id != null && $request->size_id != null && $request->article_id)
         {
-            $variant = CatalogVariant::where('article_id', $request->article_id)->where('color', $request->color)->where('size', $request->size)->first();
+            $variant = CatalogVariant::where('article_id', $request->article_id)->where('color', $request->color_id)->where('size', $request->size_id)->first();
         }
         if($variant != null)
             return response()->json(['response' => true, 'message' => $variant->stock]);

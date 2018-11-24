@@ -237,8 +237,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['active-user', 'admin']], f
     Route::post('cat_article_status/{id}', 'Catalog\ArticlesController@updateStatus');
     Route::post('deleteArticleImg/{id}', 'Portfolio\ArticlesController@deleteArticleImg');
     // Sizes
-    Route::resource('cat_atribute1', 'Catalog\CatalogAtribute1Controller');
-    Route::post('update_cat_attribute1_field', 'Catalog\CatalogAtribute1Controller@updateField');
+    Route::resource('cat_sizes', 'Catalog\CatalogSizeController');
+    Route::post('update_cat_size_field', 'Catalog\CatalogSizeController@updateField');
     // Colors
     Route::resource('cat_colors', 'Catalog\ColorController');
     Route::post('update_cat_color_field', 'Catalog\ColorController@updateField');
@@ -295,7 +295,7 @@ Route::prefix('vadmin')->middleware('admin')->group(function () {
     Route::post('destroy_cat_tags', 'Catalog\TagsController@destroy');
     Route::post('destroy_cat_variant', 'Catalog\VariantsController@destroy');
     Route::post('destroy_stored_contacts', 'VadminController@destroyStoredContacts');
-    Route::post('destroy_cat_atribute1', 'Catalog\CatalogAtribute1Controller@destroy');
+    Route::post('destroy_cat_sizes', 'Catalog\CatalogSizeController@destroy');
     Route::post('destroy_product_image', 'Catalog\ImagesController@destroy');
     Route::post('destroy_portfolio_image', 'Portfolio\ImagesController@destroy');
     Route::post('destroy_shippings', 'Catalog\ShippingsController@destroy');

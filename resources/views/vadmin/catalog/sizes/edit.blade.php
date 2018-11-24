@@ -1,5 +1,5 @@
 @extends('vadmin.partials.main')
-@section('title', 'VADmin | Nuevo Talle')
+@section('title', 'VADmin | Editar Categoría')
 
 @section('styles')
 @endsection
@@ -8,26 +8,33 @@
 	@component('vadmin.components.header')
 		@slot('breadcrums')
 			<li class="breadcrumb-item"><a href="{{ url('vadmin')}}">Inicio</a></li>
-			<li class="breadcrumb-item"><a href="{{ route('cat_atribute1.index')}}">Listado de talles</a></li>
-			<li class="breadcrumb-item active">Nuevo talle</li>
+			<li class="breadcrumb-item"><a href="{{ route('cat_sizes.index')}}">Listado de Talles</a></li>
+			<li class="breadcrumb-item active">Edición de Talle</li>
 		@endslot
 		@slot('actions')
 			<div class="list-actions">
-				<h1>Nuevo talle</h1>
+				<h2>Editando Talle</h2>
+				{{-- Edit --}}
+				<a href="#" id="EditBtn" class="btn btnGreen Hidden"><i class="icon-pencil2"></i> Editar</a>
 			</div>
 		@endslot
 	@endcomponent
 @endsection
 
 @section('content')
-	<div class="row inner-wrapper">
+	<div class="row	inner-wrapper">
 		<div class="col-sm-12 col-md-6">
-			{!! Form::open(['route' => 'cat_atribute1.store', 'method' => 'POST', 'class' => 'row big-form', 'data-parsley-validate' => '']) !!}	
-				@include('vadmin.catalog.atribute1.form')
+			{!! Form::model($item, [
+					'method' => 'PATCH',
+					'url' => ['vadmin/cat_sizes', $item->id],
+					'class' => 'row big-form', 
+					'data-parsley-validate' => ''
+				]) !!}
+				@include('vadmin.catalog.sizes.form')
 				<div class="form-actions right">
-					<a href="{{ route('cat_atribute1.index')}}">
+					<a href="{{ route('cat_sizes.index')}}">
 						<button type="button" class="btn btnRed mx-1">
-							<i class="icon-cross2"></i>
+							<i class="icon-cross2"></i> 
 						</button>
 					</a>
 					<button type="submit" class="btn btnGreen">
@@ -52,7 +59,4 @@
 @section('scripts')
 	<script type="text/javascript" src="{{ asset('plugins/validation/parsley.min.js') }}" ></script>
 	<script type="text/javascript" src="{{ asset('plugins/validation/es/parsley-es.min.js') }}" ></script>
-	<script>
-		allowEnterOnForms = true;
-	</script>
 @endsection

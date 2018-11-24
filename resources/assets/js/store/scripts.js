@@ -168,30 +168,45 @@ window.checkVariantStock = function() {
     let form = $('#AddToCartForm');
     let data = form.serialize();
     console.log(form.data('route'));
-
+    let allowSubmit = false;
     $.ajax({
         url: form.data('route'),
         method: 'GET',
         dataType: 'JSON',
+        async: false,
         data: data,
         success: function (data) {
-            console.log(data);
             if(data.response == true)
             {
-                $('.AvailableStock').html("Stock disponible: " + data.message);
+                if(data.message == '0')
+                    {
+                        $('.AvailableStock').html("No hay stock disponible");
+                        $('#AddToCartFormBtn').prop('disabled', true);
+                    }
+                    else
+                    {
+                        $('.AvailableStock').html("Stock disponible: " + data.message);
+                        $('#AddToCartFormBtn').prop('disabled', false);
+                        allowSubmit = true;
+                        console.log("Entro en SUCCESS");
+                    }
                 $('#MaxQuantity').prop("max", data.message);
             }
-            $('#Error').html(data.responseText);
+            else
+            {
+                $('#Error').html(data.responseText);
+                console.log("Entro en error 1");
+            }
         },
         error: function (data) {
             $('#Error').html(data.responseText);
             // location.reload();
+            allowSubmit = false;
             console.log(data);
+            console.log("Entro en error 2");
         }
     });
-
-
-
+    return allowSubmit;
 }
 
 // Set cart items JSON

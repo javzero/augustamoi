@@ -8,21 +8,20 @@ class CatalogVariant extends Model
 {
     protected $table = "catalog_variants";
 
-    protected $fillable = ['article_id', 'combination', 'color', 'size', 'price', 'discount', 'stock'];
+    protected $fillable = ['article_id', 'combination', 'color_id', 'size_id', 'price', 'discount', 'stock'];
 
     public function article()
     {
     	return $this->belongsTo('App\Article');
     }
 
-    public function colors()
-    {
-        return $this->hasMany('App\CatalogColor');
+    public function color(){
+    	return $this->belongsTo('App\CatalogColor', 'color_id');
     }
 
-    public function sizes()
+    public function size()
     {
-        return $this->hasMany('App\CatalogAtribute1');
+        return $this->belongsTo('App\CatalogSize', 'size_id');
     }
 
 }

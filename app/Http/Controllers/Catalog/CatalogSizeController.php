@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Catalog;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\CatalogAtribute1;
+use App\Http\Controllers\Controller;;
+use App\CatalogSize;
 
-class CatalogAtribute1Controller extends Controller
+class CatalogSizeController extends Controller
 {
     // routeGroup: 
-    // viewName:   catalog-atribute1
-    // crudName:   catalogatribute1
-    // crudNameSingular: catalogatribute1
+    // viewName:   catalog-size
+    // crudName:   CatalogSize
+    // crudNameSingular: CatalogSize
 
     /*
     |--------------------------------------------------------------------------
@@ -24,17 +24,17 @@ class CatalogAtribute1Controller extends Controller
         $name = $request->get('name');
 
         if(isset($name)){
-            $atribute1 = CatalogAtribute1::searchname($name)->orderBy('id', 'ASC')->paginate(15); 
+            $size = CatalogSize::searchname($name)->orderBy('id', 'ASC')->paginate(15); 
         } else {
-            $atribute1 = CatalogAtribute1::orderBy('id','ASC')->paginate(15);
+            $size = CatalogSize::orderBy('id','ASC')->paginate(15);
         }
-        return view('vadmin.catalog.atribute1.index')->with('atribute1', $atribute1);    
+        return view('vadmin.catalog.sizes.index')->with('size', $size);    
     }
 
     public function show($id)
     {
-        $catalogatribute1 = CatalogAtribute1::findOrFail($id);
-        return view('vadmin.catalog.atribute1.show', compact('catalogatribute1'));
+        $CatalogSize = CatalogSize::findOrFail($id);
+        return view('vadmin.catalog.sizes.show', compact('CatalogSize'));
     }
 
     /*
@@ -45,23 +45,23 @@ class CatalogAtribute1Controller extends Controller
 
     public function create()
     {
-        return view('vadmin.catalog.atribute1.create');
+        return view('vadmin.catalog.sizes.create');
     }
-
+    
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name'          => 'required|max:10|unique:catalog_atribute1',
+            'name'          => 'required|max:10|unique:catalog_sizes',
         ],[
             'name.required' => 'Debe ingresar un talle',
             'name.max'      => 'Se permiten 10 caracteres máximo',
             'name.unique'   => 'El talle ya existe',
         ]);
 
-        $item = new CatalogAtribute1($request->all());
+        $item = new CatalogSize($request->all());
         $item->save();
 
-        return redirect()->route('cat_atribute1.index')->with('message','Atributo Creado');
+        return redirect()->route('cat_sizes.index')->with('message','Talle creado');
 
     }
 
@@ -73,16 +73,16 @@ class CatalogAtribute1Controller extends Controller
 
     public function edit($id)
     {
-        $item = CatalogAtribute1::findOrFail($id);
-        return view('vadmin.catalog.atribute1.edit')->with('item', $item);
+        $item = CatalogSize::findOrFail($id);
+        return view('vadmin.catalog.sizes.edit')->with('item', $item);
     }
 
     public function update($id, Request $request)
     { 
-        $item = CatalogAtribute1::find($id);
+        $item = CatalogSize::find($id);
 
         $this->validate($request,[
-            'name'          => 'required|max:10|unique:catalog_atribute1,name,'.$item->id,
+            'name'          => 'required|max:10|unique:catalog_sizes,name,'.$item->id,
         ],[
             'name.required' => 'Debe ingresar un nombre',
             'name.unique'   => 'El item ya existe'
@@ -91,12 +91,12 @@ class CatalogAtribute1Controller extends Controller
         $item->fill($request->all());
         $item->save();
 
-        return redirect()->route('cat_atribute1.index')->with('message','Atributo actualizado');
+        return redirect()->route('cat_sizes.index')->with('message','Talle actualizado');
     }
 
     public function updateField(Request $request)
     {
-        $article = CatalogAtribute1::find($request->id);
+        $article = CatalogSize::find($request->id);
         $article->{$request->field} = $request->value;
         
         try {
@@ -122,36 +122,19 @@ class CatalogAtribute1Controller extends Controller
     public function destroy(Request $request)
     {   
         $ids = json_decode('['.str_replace("'",'"',$request->id).']', true);
-        
-        if(is_array($ids)) {
-            try {
-                foreach ($ids as $id) {
-                    $record = CatalogAtribute1::find($id);
-                    $record->delete();
-                }
-                return response()->json([
-                    'success'   => true,
-                ]); 
-            }  catch (\Exception $e) {
-                return response()->json([
-                    'success'   => false,
-                    'error'    => 'Error: '.$e
-                ]);    
-            }
-        } else {
-            try {
-                $record = CatalogAtribute1::find($id);
+        try {
+            foreach ($ids as $id) {
+                $record = CatalogSize::find($id);
                 $record->delete();
-                    return response()->json([
-                        'success'   => true,
-                    ]);  
-                    
-                } catch (\Exception $e) {
-                    return response()->json([
-                        'success'   => false,
-                        'error'    => 'Error: '.$e
-                    ]);    
-                }
+            }
+            return response()->json([
+                'success'   => true,
+            ]); 
+        }  catch (\Exception $e) {
+            return response()->json([
+                'success'   => false,
+                'error'    => 'Error: '.$e->getMessage()
+            ]);    
         }
     }
 

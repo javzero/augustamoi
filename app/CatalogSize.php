@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CatalogAtribute1 extends Model
+class CatalogSize extends Model
 {
-    protected $table = 'catalog_atribute1';
+    protected $table = 'catalog_sizes';
 
     protected $fillable = ['name'];
     

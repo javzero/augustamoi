@@ -76,7 +76,7 @@
                 </div>
                 <div class="colors">
                     <span class="sub-title">Talles: </span>
-                    @foreach($atribute1 as $size)
+                    @foreach($sizes as $size)
                     <label class="items checkbox-inline">
                         <input class="VariantSize" type="checkbox" name="size" 
                         data-name="{{ $size->name }}" value="{{ $size->id }}"> {{ $size->name}}
@@ -99,14 +99,12 @@
                         @php $article = $inheritData @endphp
                         @endif
                         @if(isset($article))
-                        @foreach($article->variants as $variant) 
+                        @foreach($article->variants as $variant)
                         <tr id="VariantID{{ $variant->id }}">
-                            <td class='Combination' data-combination="{{ $variant->color }}/{{ $variant->size }}">{{ $variant->color }} / {{ $variant->size }}</td>
-                                <input name="variants[{{ $variant->combination }}][color]" value="{{ $variant->color }}" type='hidden' class='form-control'>
-                                <input name="variants[{{ $variant->combination }}][size]" value="{{ $variant->size }}" type='hidden' class='form-control'>
+                            <td class='Combination' data-combination="{{ $variant->color->name }}/{{ $variant->size->name }}">{{ $variant->color->name }} / {{ $variant->size->name }}</td>
+                                <input name="variants[{{ $variant->combination }}][color]" value="{{ $variant->color_id }}" type='hidden' class='form-control'>
+                                <input name="variants[{{ $variant->combination }}][size]" value="{{ $variant->size_id }}" type='hidden' class='form-control'>
                                 <td class="width-100"><input name="variants[{{ $variant->combination }}][stock]" value='{{ $variant->stock }}' type='number' min='0' class='form-control'></td>
-                                {{-- <td><input name="variants[{{ $variant->combination }}][price]" value='{{ $variant->price }}' type='number' min='0' class='form-control'></td>
-                                <td><input name="variants[{{ $variant->combination }}][discount]" value='{{ $variant->discount }}' type='number' min='0' class='form-control'></td> --}}
                                 <td>
                                     <a class="RemoveVariant delete-icon" 
                                         data-id='{{ $variant->id }}'

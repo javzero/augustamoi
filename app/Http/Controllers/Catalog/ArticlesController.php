@@ -10,7 +10,7 @@ use App\CatalogBrand;
 use App\CatalogArticle;
 use App\CatalogFav;
 use App\CatalogImage;
-use App\CatalogAtribute1;
+use App\CatalogSize;
 use App\CatalogColor;
 use App\CatalogVariant;
 use Validator;
@@ -183,16 +183,16 @@ class ArticlesController extends Controller
     {
 
         $categories = CatalogCategory::orderBy('name', 'ASC')->pluck('name', 'id');
-        $atribute1 = CatalogAtribute1::orderBy('id', 'ASC')->get();
+        $sizes = CatalogSize::orderBy('id', 'ASC')->get();
         $colors = CatalogColor::orderBy('name', 'ASC')->get();
         $tags = CatalogTag::orderBy('name', 'ASC')->pluck('name', 'id');
         $brands = CatalogBrand::orderBy('name', 'ASC')->pluck('name', 'id');
         return view('vadmin.catalog.create')
             ->with('categories', $categories)
-            ->with('atribute1', $atribute1)
             ->with('tags', $tags)
+            ->with('brands', $brands)
             ->with('colors', $colors)
-            ->with('brands', $brands);
+            ->with('sizes', $sizes);
     }
 
     
@@ -200,7 +200,7 @@ class ArticlesController extends Controller
     {
         $inheritData = CatalogArticle::findOrFail($id);
         $categories = CatalogCategory::orderBy('name', 'ASC')->pluck('name', 'id');
-        $atribute1 = CatalogAtribute1::orderBy('name', 'ASC')->get();
+        $size = CatalogSize::orderBy('name', 'ASC')->get();
         $colors = CatalogColor::orderBy('name', 'ASC')->get();
         $tags = CatalogTag::orderBy('name', 'ASC')->pluck('name', 'id');
         $brands = CatalogBrand::orderBy('name', 'ASC')->pluck('name', 'id');
@@ -209,7 +209,7 @@ class ArticlesController extends Controller
         return view('vadmin.catalog.create-from-another')
             ->with('inheritData', $inheritData)
             ->with('categories', $categories)
-            ->with('atribute1', $atribute1)
+            ->with('size', $size)
             ->with('tags', $tags)
             ->with('colors', $colors)
             ->with('brands', $brands);
@@ -317,15 +317,16 @@ class ArticlesController extends Controller
         {
             try 
             {
+                // dd($request->variants);
                 foreach ($request->variants as $index => $data)
                 {
                     $item = new CatalogVariant();
                     $item->article_id = $article->id;
                     $item->combination = $index;
-                    $item->color = $data['color'];
-                    $item->size = $data['size'];
+                    $item->color_id = $data['color'];
+                    $item->size_id = $data['size'];
                     $item->stock = $data['stock'];
-                    $item->save();    
+                    $item->save();
                 }
             } 
             catch (\Exception $e) 
@@ -336,7 +337,7 @@ class ArticlesController extends Controller
         
 
         //  Sync Relations
-            $article->atribute1()->sync($request->atribute1);
+            $article->size()->sync($request->size);
             $article->tags()->sync($request->tags);
             $article->brands()->sync($request->brands);
         //  Save Images
@@ -382,7 +383,7 @@ class ArticlesController extends Controller
     public function edit($id)
     {
         $tags = CatalogTag::orderBy('name', 'DESC')->pluck('name', 'id');
-        $atribute1 = CatalogAtribute1::orderBy('name', 'DESC')->get();
+        $sizes = CatalogSize::orderBy('name', 'DESC')->get();
         $colors = CatalogColor::orderBy('name', 'ASC')->get();
         $article = CatalogArticle::find($id);
         $categories = CatalogCategory::orderBy('name', 'DESC')->pluck('name', 'id');
@@ -396,11 +397,9 @@ class ArticlesController extends Controller
             ->with('categories', $categories)
             ->with('article', $article)
             ->with('tags', $tags)
-            ->with('atribute1', $atribute1)
+            ->with('sizes', $sizes)
             ->with('colors', $colors)
             ->with('brands', $brands);
-
-
     }
 
     
@@ -502,8 +501,8 @@ class ArticlesController extends Controller
                         $item = new CatalogVariant();
                         $item->article_id = $article->id;
                         $item->combination = $newVariant;
-                        $item->color = $data['color'];
-                        $item->size = $data['size'];
+                        $item->color_id = $data['color'];
+                        $item->size_id = $data['size'];
                         $item->stock = $data['stock'];
                         $item->save();   
                     }    
@@ -518,7 +517,7 @@ class ArticlesController extends Controller
             // die();
 
             // Sync Relations
-            $article->atribute1()->sync($request->atribute1);
+            $article->size()->sync($request->size);
             $article->tags()->sync($request->tags);
 
             if (!$article->images->isEmpty()) 
@@ -697,7 +696,7 @@ class ArticlesController extends Controller
                 }
                 $record = CatalogArticle::find($id);
                 $record->tags()->detach();
-                $record->atribute1()->detach();
+                $record->size()->detach();
 
                 $images = $record->images;
                 foreach ($images as $image) {

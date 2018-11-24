@@ -12,18 +12,26 @@
 @section('content')
 	<div class="dashboard">
 		<div class="content-body"><!--native-font-stack -->
-			{{-- <section id="global-settings" class="card">
+			<section id="global-settings" class="card">
 				<div class="card-header">
 					<h4 class="card-title"><i class="icon-android-hand"></i> Bienvenid@ {{ Auth::user()->name }}</h4>
 				</div>
 				<div class="card-body collapse in">
 					<div class="card-block">
 						<div class="card-text">
-							Este es un mensaje de los desarrolladores	
+							<h1><i style="color: red" class="fa fa-exclamation-circle"></i> Mensaje del desarrollador</h1>
+							<hr class="softhr">
+							<p>
+								<span style="color: blue; font-size: 2rem">Diego !</span> 
+								Hoy a la noche (viernes) hice unos cambios internos importantes sobre la carga de variantes para funciones futuras. <br>
+								No pude probar a full la carga de productos. 
+								Tal vez modifiqué algo que haga que tire errores. <br> Cualquier cosa avisame, pero mañana sábado ya lo estoy re checkeando. <br>
+								Saludos ! <b>Lea. <i class="fas fa-blind"></i></b>
+							</p>
 						</div>
 					</div>
 				</div>
-			</section> --}}
+			</section>
 			<div class="row">
 				<div class="col-xl-6 col-md-6 col-sm-12">
 					<div class="card">

@@ -44,8 +44,8 @@ class CatalogArticle extends Model
     	return $this->hasMany('App\CatalogImage', 'article_id');
     }
 
-    public function atribute1(){
-    	return $this->belongsToMany('App\CatalogAtribute1');
+    public function size(){
+    	return $this->belongsToMany('App\CatalogSize');
     }
 
     public function tags(){

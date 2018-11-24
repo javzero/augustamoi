@@ -14,25 +14,25 @@
 		@slot('actions')
 			{{-- Actions --}}
 			<div class="list-actions">
-				<a href="{{ route('cat_atribute1.create') }}" class="btn btnBlue"><i class="icon-plus-round"></i>  Nuevo Talle</a>
+				<a href="{{ route('cat_sizes.create') }}" class="btn btnBlue"><i class="icon-plus-round"></i>  Nuevo Talle</a>
 				{{-- <button id="SearchFiltersBtn" class="btn btnBlue"><i class="icon-ios-search-strong"></i></button> --}}
 				{{-- Edit --}}
 				<button class="EditBtn btn btnGreen Hidden"><i class="icon-pencil2"></i> Editar</button>
 				<input id="EditId" type="hidden">
 				{{-- Delete --}}
 				{{--  THIS VALUE MUST BE THE NAME OF THE SECTION CONTROLLER  --}}
-				<input id="ModelName" type="hidden" value="cat_atribute1">
+				<input id="ModelName" type="hidden" value="cat_sizes">
 				<button class="DeleteBtn btn btnRed Hidden"><i class="icon-bin2"></i> Eliminar</button>
 				<input id="RowsToDeletion" type="hidden" name="rowstodeletion[]" value="">
 				{{-- If Search --}}
 				{{-- @if(isset($_GET['name']))
-				<a href="{{ url('vadmin/cat_atribute1') }}"><button type="button" class="btn btnGrey">Mostrar Todos</button></a>
-				<div class="results">{{ $atribute1->total() }} resultados de búsqueda</div>
+				<a href="{{ url('vadmin/cat_size') }}"><button type="button" class="btn btnGrey">Mostrar Todos</button></a>
+				<div class="results">{{ $size->total() }} resultados de búsqueda</div>
 				@endif --}}
 			</div>
 		@endslot
 		@slot('searcher')
-			{{-- @include('vadmin.catalog.atribute1.searcher') --}}
+			{{-- @include('vadmin.catalog.size.searcher') --}}
 		@endslot
 	@endcomponent
 @endsection
@@ -48,14 +48,14 @@
 			@component('vadmin.components.list')
 				@slot('actions', '')
 				@slot('title', 'Talles')
-					@if(!$atribute1->count() == '0')
+					@if(!$size->count() == '0')
 					@slot('tableTitles')
 						<th></th>
 						<th>Nombre</th>
 						<th>Fecha de Creación</th>
 					@endslot
 					@slot('tableContent')
-						@foreach($atribute1 as $item)
+						@foreach($size as $item)
 							<tr>
 								<td class="w-50">
 									<label class="custom-control custom-checkbox list-checkbox">
@@ -87,7 +87,7 @@
 			@endcomponent
 			
 			{{--  Pagination  --}}
-			{!! $atribute1->render() !!}
+			{!! $size->render() !!}
 		</div>
 		<div id="Error"></div>	
 	</div>

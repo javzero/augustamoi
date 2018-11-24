@@ -174,18 +174,18 @@
 					</a>
 				</li>
 				{{-- Sizes --}}
-				<li class="has-sub is-shown {{ Menu::activeMenu('cat_atribute1') }}">
+				<li class="has-sub is-shown {{ Menu::activeMenu('cat_sizes') }}">
 					<a href="#" data-i18n="nav.menu_levels.second_level_child.main" class="menu-item">
 						Talles
 					</a>
 					<ul class="menu-content" style="">
-						<li class="is-shown {{ Menu::activeMenu('cat_atribute1') }}">
-							<a href="{{ route('cat_atribute1.index') }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item">
+						<li class="is-shown {{ Menu::activeMenu('cat_sizes') }}">
+							<a href="{{ route('cat_sizes.index') }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item">
 							<i class="icon-list"></i> Listado
 						</a>
 						</li>
-							<li class="is-shown {{ Menu::activeMenu('cat_atribute1') }}">
-								<a href="{{ route('cat_atribute1.create') }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item">
+							<li class="is-shown {{ Menu::activeMenu('cat_sizes') }}">
+								<a href="{{ route('cat_sizes.create') }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item">
 								<i class="icon-plus-round"></i> Nuevo Talle
 							</a>
 						</li>

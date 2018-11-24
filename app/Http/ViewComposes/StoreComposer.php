@@ -3,7 +3,6 @@
 namespace App\Http\ViewComposers;
 
 use Illuminate\Contracts\View\View;
-// use App\Cart;
 use App\Traits\CartTrait;
 use App\Settings;
 

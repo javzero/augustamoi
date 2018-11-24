@@ -14,9 +14,9 @@ class CatalogColor extends Model
     {
         return $this->hasMany('App\CatalogColor');
     }
-    
+
     public function variants(){
-		return $this->belongsToMany('App\CatalogVariants');
+		return $this->hasMany('App\CatalogVariant', 'color_id');
     }
     
     public function scopeSearchname($query, $name)

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\CartItem;
 use App\Cart;
 use App\CatalogArticle;
+use App\CatalogVariant;
 use App\Traits\CartTrait;
 
 class CartItemController extends Controller
@@ -15,9 +16,10 @@ class CartItemController extends Controller
 
     public function store(Request $request)
     {   
+        // dd($request->all());
         // This come from Customer Model getCartAttribute()
         $activeCartId = auth()->guard('customer')->user()->cart->id;
-
+        
         // Check if article is already stored in cart
         $existingCartItem = CartItem::where('cart_id', $activeCartId)->where('article_id', $request->articleId)->first();
         if(!$existingCartItem)
@@ -25,14 +27,18 @@ class CartItemController extends Controller
             // Create New Cart Item
             $cartItem = new CartItem();
             $cartItem->cart_id = $activeCartId;
-            $cartItem->article_id = $request->articleId;
+            $cartItem->article_id = $request->article_id;
             $cartItem->quantity = $request->quantity;
             $cartItem->size = $request->size;
-    
-            $article = CatalogArticle::where('id', $request->articleId)->first();
+            
+            $article = CatalogArticle::where('id', $request->article_id)->first();
+            $variant = CatalogVariant::where('article_id', $request->article_id)->where('color', $request->color_id)->where('size', $request->size_id)->first();
+            if(!$variant)
+                return response()->json(['response' => 'warning', 'message' => 'No se ha encontrado la variante']); 
+            // dd($variant);
     
             // Stock management 
-            if($request->quantity > $article->stock)
+            if($request->quantity > $variant->stock)
             {
                 return response()->json(['response' => 'warning', 'message' => 'Seleccionó una cantidad mayor al stock disponible']); 
             } 
@@ -44,12 +50,14 @@ class CartItemController extends Controller
             }
     
             $cartItem->article_name = $article->name;
-            $cartItem->color = $article->color;
-            
-            if(isset($article->atribute1->first()->name))
-            {
-                $cartItem->size = $article->atribute1->first()->name;
-            }
+            dd($variant->color->name);
+            $cartItem->color = $variant->color->name;
+            $cartItem->size = $variant->size->name;
+
+            // if(isset($article->atribute1->first()->name))
+            // {
+            //     $cartItem->size = $article->atribute1->first()->name;
+            // }
 
             $cartItem->textile = $article->textile;
             try{

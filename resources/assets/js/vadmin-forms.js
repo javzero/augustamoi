@@ -179,7 +179,6 @@ window.makeVariants = function()
                              "</tr>";
             variantsContainer.append(variantRow);
         }
-
     });
     $('#HeaderVariants').removeClass('Hidden');
 }

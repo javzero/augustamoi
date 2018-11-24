@@ -44,12 +44,16 @@
     |--------------------------------------------------------------------------
     */
 
-    $('.AddToCart').on('submit', function(e){
+    $('#AddToCartForm').on('submit', function(e){
         e.preventDefault();
         let data = $(this).serialize();
-        console.log(data);
-        checkVariantStock(data);
-        // addToCart("{{ route('store.addToCartLive') }}", data);
+        const route = "{{ route('store.addToCartLive') }}";
+
+        if(checkVariantStock())
+        {
+            addToCart(route, data);
+        }
+        
     });
 
     
