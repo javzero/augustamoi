@@ -200,7 +200,7 @@ class ArticlesController extends Controller
     {
         $inheritData = CatalogArticle::findOrFail($id);
         $categories = CatalogCategory::orderBy('name', 'ASC')->pluck('name', 'id');
-        $size = CatalogSize::orderBy('name', 'ASC')->get();
+        $sizes = CatalogSize::orderBy('name', 'ASC')->get();
         $colors = CatalogColor::orderBy('name', 'ASC')->get();
         $tags = CatalogTag::orderBy('name', 'ASC')->pluck('name', 'id');
         $brands = CatalogBrand::orderBy('name', 'ASC')->pluck('name', 'id');
@@ -209,7 +209,7 @@ class ArticlesController extends Controller
         return view('vadmin.catalog.create-from-another')
             ->with('inheritData', $inheritData)
             ->with('categories', $categories)
-            ->with('size', $size)
+            ->with('sizes', $sizes)
             ->with('tags', $tags)
             ->with('colors', $colors)
             ->with('brands', $brands);
