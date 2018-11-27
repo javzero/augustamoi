@@ -29,7 +29,9 @@
                             {{ $item->article->name }}
                         @endif
                         </a>
-                        {{-- {{ $item->color }} | Talle: {{ $item->size }}  --}}
+                    </div>
+                    <div class="col-xs-12">
+                        {{ $item->color }} / {{ $item->size }} 
                     </div>
                     <div class="details-2">
                         <div class="column-1 price">

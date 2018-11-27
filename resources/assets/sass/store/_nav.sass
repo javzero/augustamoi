@@ -94,3 +94,33 @@
 	.topbar .topbar-column
 		.e-mail-field
 			display: none !important
+
+
+
+.left-nav-container
+
+.site-branding
+	text-align: center
+	position: relative
+	top: auto
+	left: auto
+
+@media (max-width: 600px)
+	.navbar
+		min-height: auto
+		height: auto
+		.site-branding
+			position: relative
+			@include flex-center
+			.site-logo
+				padding: 0
+				padding-top: 20px
+				img
+					width: 150px
+		.toolbar
+			position: relative
+			@include flex-center
+			margin: 0
+			height: auto
+			left: auto
+			right: auto

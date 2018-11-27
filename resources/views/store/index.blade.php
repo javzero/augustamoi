@@ -169,9 +169,9 @@
 				{!! $articles->appends(request()->query())->render()!!}
 			</div>
 			<!-- SideBar -->
-			<div class="CheckoutCart col-sm-4 col-md-4 col-lg-3 checkout-cart">
+			{{-- <div class="CheckoutCart col-sm-4 col-md-4 col-lg-3 checkout-cart">
 				@include('store.partials.checkout-cart')
-			</div>
+			</div> --}}
 		</div>
 	</div>
 	<div id="Error"></div>

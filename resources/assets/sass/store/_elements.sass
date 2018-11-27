@@ -126,25 +126,6 @@
 	.index-header
 		margin-bottom: 25px
 
-@media (max-width: 600px)
-	.navbar
-		min-height: auto
-		height: auto
-		.site-branding
-			position: relative
-			@include flex-center
-			.site-logo
-				padding: 0
-				padding-top: 20px
-				img
-					width: 150px
-		.toolbar
-			position: relative
-			@include flex-center
-			margin: 0
-			height: auto
-			left: auto
-			right: auto
 
 
 .user-info-wrapper .user-info .user-avatar>img
@@ -218,10 +199,12 @@
 .main-overlay
 	display: none
 	position: fixed
+	top: 0
+	left: 0
 	width: 100%
 	height: 100%
 	background-color: rgba(0, 0, 0, 0.5)
-	z-index: 9998
+	z-index: 9900
 	
 .custom-badge
 	display: inline-block
@@ -616,7 +599,10 @@
 
 .checkout-cart
 	display: none
-	position: relative
+	position: absolute
+	right: 0
+	top: 105px
+	z-index: 9980
 	height: 100%
 	text-align: left
 	padding: 10px
@@ -679,7 +665,6 @@
 				max-height: 100%
 			.details-1
 				width: 100%
-				min-height: 42px
 				@include flex-center-left
 			.details-2
 				width: 100%

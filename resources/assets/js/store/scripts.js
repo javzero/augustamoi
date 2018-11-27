@@ -38,22 +38,28 @@ function modifyCartItemQ(e, newPriceTarget, newValue) {
 }
 
 
+$('#MainOverlay').click(function(){
+    checkoutSidebar('hide');
+})
 // Checkout sidebar
 // -------------------------------------------		
 window.checkoutSidebar = function (state) {
 
     const sidebar = $('.CheckoutCart');
-    const floatingCheckout = $('.CheckoutCartFloating');
+    // const floatingCheckout = $('.CheckoutCartFloating');
     const content = $('#MainContent');
+    const overlay = $('#MainOverlay');
 
     const show = function () {
         sidebar.addClass('active');
-        content.addClass('col-xs-12 col-lg-9 fix-column fix-column-small');
+        // content.addClass('col-xs-12 col-lg-9 fix-column fix-column-small');
+        overlay.fadeIn(200);
     }
 
     const hide = function () {
-        content.removeClass('col-lg-9 col-sm-8 col-md-8 fix-column fix-column-small');
+        // content.removeClass('col-lg-9 col-sm-8 col-md-8 fix-column fix-column-small');
         sidebar.removeClass('active');
+        overlay.fadeOut(100);
     }
 
 

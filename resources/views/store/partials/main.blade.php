@@ -30,7 +30,7 @@
 	</head>
 	<!-- Body-->
 	<body>
-		{{-- <div id="MainOverlay" class="main-overlay"></div> --}}
+		<div id="MainOverlay" class="main-overlay"></div>
 		<div id="full-loader" class="full-loader Hidden">
 			<div class="inner">
 				<img src="{{ asset('store-ui/images/loader.gif') }}" alt="Loader">
@@ -40,7 +40,10 @@
 		@include('store.partials.topbar')
 		@include('store.partials.nav') {{-- ToolBar is inside this nav include --}}
 		@include('store.partials.alerts')
-		
+		{{-- Checkout Sidebar --}}
+		<div class="CheckoutCart col-sm-4 col-md-4 col-lg-3 checkout-cart">
+			@include('store.partials.checkout-cart')
+		</div>
 		<div class="container-fluid custom-page-title pad0">
 			@yield('header-image')
 		</div>

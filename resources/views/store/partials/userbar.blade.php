@@ -2,14 +2,7 @@
 <div class="toolbar">
     <div class="inner">
         <a class="site-logo-mobile" href="{{ url('/') }}"><img style="width: 110px" src="{{ asset('images/logos/app-logo.png') }}" alt="Logo"></a>
-        <div class="text-links">
-            @if(Auth::guard('customer')->check() && Auth::guard('customer')->user()->group == '3' )
-                <a href="{{ url('politica-de-exclusividad') }}">Política de Exclusividad</a>
-                <a href="{{ url('condiciones-de-compra') }}">Condiciones de Compra</a>
-            @endif
-            <a href="{{ url('como-comprar') }}"><i class="far fa-question-circle"></i> Como comprar</a>
-            
-        </div>
+        
         <div class="tools">
             @if(Auth::guard('customer')->check())
                 {{-- @include('store.partials.cart-resumen-desktop') --}}
@@ -44,7 +37,6 @@
                                 </form>
                             </a>
                         </li> 
-                        {{ csrf_field() }}
                     </ul>
                 </div>
             @else
