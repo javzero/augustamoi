@@ -10,7 +10,7 @@ class CartItem extends Model
 {
     protected $table = "cart_items";
 
-    protected $fillable = ['cart_id', 'article_id', 'article_name', 'quantity', 'size', 'textile', 'color', 'final_price', 'order_discount'];
+    protected $fillable = ['cart_id', 'article_id', 'variant_id', 'article_name', 'combination', 'color', 'size', 'textile', 'quantity', 'final_price', 'order_discount'];
 
     public function cart()
     {
@@ -20,6 +20,11 @@ class CartItem extends Model
     public function customer()
     {
         return $this->belongsTo('App\Customer', 'id');
+    }
+
+    public function variant()
+    {
+        return $this->belongsTo('App\CatalogVariant', 'variant_id');
     }
 
     public function article()

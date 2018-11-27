@@ -245,10 +245,12 @@ class StoreController extends Controller
     public function checkVariantStock(Request $request)
     {
         $variant = null;
+        
         if($request->color_id != null && $request->size_id != null && $request->article_id)
         {
-            $variant = CatalogVariant::where('article_id', $request->article_id)->where('color', $request->color_id)->where('size', $request->size_id)->first();
+            $variant = CatalogVariant::where('article_id', $request->article_id)->where('color_id', $request->color_id)->where('size_id', $request->size_id)->first();
         }
+
         if($variant != null)
             return response()->json(['response' => true, 'message' => $variant->stock]);
         else
@@ -375,18 +377,20 @@ class StoreController extends Controller
         foreach($data['data'] as $item)
         {
             $cartItem = CartItem::findOrFail($item['id']);
-            $maxAvailable = $cartItem->article->stock + $cartItem->quantity;
+            $variant = CatalogVariant::findOrFail($item['variant_id']);
+            $maxAvailable = $variant->stock + $cartItem->quantity;
+
             // dd("Stock de art: ".$cartItem->article->stock." | Stock reservado: ". $cartItem->quantity."
             //  | Stock ingresado: ". $item['quantity']. " |  Máximo disponible: '". $maxAvailable);
             
             if($item['quantity'] == $cartItem->quantity)
             {
-                $newStock = $cartItem->article->stock;
+                $newStock = $variant->stock;
             }
             elseif($item['quantity'] <= 0)
             {
                 $message = "Ingresó un artículo con cantidad negativa";
-                $newStock = $cartItem->article->stock;
+                $newStock = $variant->stock;
             }
             else
             {
@@ -398,7 +402,7 @@ class StoreController extends Controller
                 }
                 else
                 {
-                    $newStock = $cartItem->article->stock - intVal($item['quantity']) + intVal($cartItem->quantity);
+                    $newStock = $variant->stock - intVal($item['quantity']) + intVal($cartItem->quantity);
                     $cartItem->quantity = intval($item['quantity']);
                     // dd("No supera || Requerido: " . $item['quantity'] . "| Nuevo Stock es: ". $newStock);
                 }
@@ -408,7 +412,7 @@ class StoreController extends Controller
             {
                 $cartItem->save();
                 // Return or discount stock
-                $this->replaceCartItemStock($cartItem->article->id, $newStock);
+                $this->replaceVariantStock($variant->id, $newStock);
             }
             catch (\Exception $e)
             {

@@ -62,10 +62,10 @@
                         {{-- Send this data to JSON via js with .Item-Data class --}}
                         <input class="Item-Data small-input under-element" name="data" type="number"  
                         min="1" max="{{ $item->quantity + $item->article->stock }}" value="{{ $item->quantity }}" required="" 
-                        data-price="{{$articlePrice}}" data-id="{{ $item->id }}" data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $item->article->stock }}">
+                        data-price="{{$articlePrice}}" data-id="{{ $item->id }}" data-variant="{{ $item->variant_id }}" data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $item->article->stock }}">
                     </div>
                     <div class="delete-item">
-                        <a onclick="removeFromCart('{{ route('store.removeFromCart') }}', {{ $item->id }}, {{ $item->quantity }}, '#Item'+{{ $item->id }}, 'reload');"><i class="far fa-trash-alt"></i></a>
+                        <a onclick="removeFromCart('{{ route('store.removeFromCart') }}', {{$item->id}}, {{ $item->variant_id }}, {{ $item->quantity }}, '#Item'+{{ $item->id }}, 'reload');"><i class="far fa-trash-alt"></i></a>
                     </div>
                 </div>{{-- / .item --}}
             @endforeach

@@ -117,12 +117,12 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="AvailableStock col-md-12">
-						</div>
+						{{-- Display Remaining Stock --}}
+						<div class="AvailableStock col-md-12"></div>
 					</div>
 					<div class="row">
 						<div class="col-md-12">
-							<input type="submit" id="AddToCartFormBtn" class="btn main-btn" value="Agregar al carro">
+							<input type="submit" id="AddToCartFormBtn" class="btn main-btn" value="Agregar al carro" disabled>
 						</div>
 					</div>
 					{!! Form::close() !!}

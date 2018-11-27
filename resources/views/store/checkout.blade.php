@@ -43,10 +43,11 @@
 										</a>
 										<div class="product-info">
 											<h4 class="product-title">
-												<a href="{{ url('tienda/articulo/'.$item->article->id) }}">{{ $item->article->name }}<small>{{ $item->article->size }}</small></a>
+												<a href="{{ url('tienda/articulo/'.$item->article->id) }}">
+													{{ $item->article->name }}</a>
 											</h4>
 											<span><em>Código:</em> #{{ $item->article->code }}</span>
-											<span><em>Talle: @foreach($item->article->atribute1 as $atribute) {{ $atribute->name }} @endforeach</em></span>
+											<span><em>Talle: {{ $item->size}}</em></span>
 											<span><em>Color: {{ $item->color }}</em></span>
 											<span><em>Textil: {{ $item->textile }}</em></span>
 										</div>
@@ -58,8 +59,8 @@
 									@php($articlePrice = $item->article->reseller_price)
 									@if($item->article->reseller_discount > 0)
 										<td class="text-lg">
-											@php($articlePrice = calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount))
-											<del class="text-muted">$ {{ $item->article->reseller_price }}</del><br>
+											@php($articlePrice = calcArticlePrice($item->article->reseller_price, $item->article->reseller_discount))
+											<del class="text-muted">$ {{ $item->article->reseller_price + 0 }} </del><br>
 											$ {{ $articlePrice }}
 										</td>
 									@else
@@ -69,7 +70,7 @@
 									{{-- Estandar Item Prices --}}
 									@if($item->article->discount > 0)
 										<td>
-											@php($articlePrice = calcValuePercentNeg($item->article->price, $item->article->discount))
+											@php($articlePrice = calcArticlePrice($item->article->price, $item->article->discount))
 											<del class="text-muted">$ {{ $item->article->price }}</del><br>
 											$ {{ $articlePrice }}
 										</td>
@@ -83,9 +84,9 @@
 									<div class="input-with-btn input-with-btn-mobile">
 										{{-- Send this data to JSON via js with .Item-Data class --}}
 										<input class="Item-Data small-input under-element" name="data" type="number" 
-										min="1"  max="{{ $item->quantity + $item->article->stock }}" value="{{ $item->quantity }}" placeholder="1" required="" 
-										data-price="{{$articlePrice}}" data-id="{{ $item->id }}">
-										<div class="under-input"> Stock: {{ $item->article->stock }} </div>
+										min="1"  max="{{ $item->quantity + $item->variant->id }}" value="{{ $item->quantity }}" placeholder="1" required="" 
+										data-price="{{$articlePrice}}" data-variant="{{ $item->variant_id }}" data-id="{{ $item->id }}">
+										<div class="under-input"> Stock: {{ $item->variant->stock }} </div>
 									</div>
 								</td>
 								<td>$ <span class="{{ $item->id }}-TotalItemPrice TotalItemPrice">{{ ($articlePrice * $item->quantity) }}</span></td>

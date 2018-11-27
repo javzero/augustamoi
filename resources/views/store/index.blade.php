@@ -1,7 +1,8 @@
 @extends('store.partials.main')
 
 @section('header-image')
-	<div class="index-header">		
+	<div class="index-header">	
+		<img src="{{ asset('webimages/web/top-banner.jpg')}}" alt="Augustamoi Banner">	
 	</div>
 @endsection
 
@@ -42,10 +43,12 @@
 							<div class="inner">
 								{{-- =========== Discount Badge =========== --}}
 								{{-- ====================================== --}}
-								<div class="overlay-ribbon top-right-ribbon">
-									<div class="triangle"></div>
-									<div class="text">	%{{ $article->reseller_discount }} <br> off !!</div>
-								</div> 
+								@if($article->reseller_discount > 0)
+									<div class="overlay-ribbon top-right-ribbon">
+										<div class="triangle"></div>
+										<div class="text">	%{{ $article->reseller_discount }} <br> off !!</div>
+									</div>
+								@endif
 								{{-- Reseller Discount --}}
 								{{-- @if(Auth::guard('customer')->check() && Auth::guard('customer')->user()->group == '3')
 									@if($article->reseller_discount > 0)
@@ -67,12 +70,12 @@
 								{{-- =============== Image ================ --}}
 								{{-- ====================================== --}}
 								<div class="image">
-									@if($article->stock < $article->stockmin)
+									{{-- @if($article->stock < $article->stockmin)
 										<div class="overlay-ribbon bottom-left-ribbon">
 											<div class="triangle"></div>
 											<div class="text">Bajo <br>Stock</div>
 										</div> 
-									@endif
+									@endif --}}
 									<img src="{{ asset($article->featuredImageName()) }}" alt="Producto del Catálogo">
 									@if(Auth::guard('customer')->check())
 									{{--  Check if product is in favs  --}}

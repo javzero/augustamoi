@@ -19,13 +19,21 @@
 				<div class="card-body collapse in">
 					<div class="card-block">
 						<div class="card-text">
-							<h1><i style="color: red" class="fa fa-exclamation-circle"></i> Mensaje del desarrollador</h1>
-							<hr class="softhr">
+							{{-- <h1><i style="color: red" class="fa fa-exclamation-circle"></i> Mensaje del desarrollador</h1> --}}
+							{{-- <hr class="softhr"> --}}
 							<p>
-								<span style="color: blue; font-size: 2rem">Diego !</span> 
-								Hoy a la noche (viernes) hice unos cambios internos importantes sobre la carga de variantes para funciones futuras. <br>
-								No pude probar a full la carga de productos. 
-								Tal vez modifiqué algo que haga que tire errores. <br> Cualquier cosa avisame, pero mañana sábado ya lo estoy re checkeando. <br>
+								<span style="color: blue; font-size: 2rem"><i class="fas fa-fire"></i> Actualización!</span>
+								<hr class="softhr">
+								- Completado el circuito del checkout basado en variantes color/talle con stock individual. <br>
+								- Checkeo de stock dinámico. <br>
+								- Ya se pueden "comprar" productos a manera de prueba. <br>
+								- Notificaciones al mail listas (Tienen que avisarme a que mail quieren que les lleguen) <br>
+								<hr class="softhr">
+								<span style="color: blue; font-size: 1rem; font-weight: 300"><i class="fas fa-cogs"></i> En que estoy trabajando: </span><br>
+								- Mañana martes voy a estár trabajando en la visual de la tienda para que se pueda utilizar cuanto antes. <br>
+								- Estoy trabajando en la limitación de comprar por cantidad mínima ($5000). <br>
+								- Simplificando el registro de cliente. 
+								<hr class="softhr">
 								Saludos ! <b>Lea. <i class="fas fa-blind"></i></b>
 							</p>
 						</div>

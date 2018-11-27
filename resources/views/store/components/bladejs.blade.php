@@ -31,11 +31,11 @@
         e.preventDefault();
         // Route - Target - Data - Action 
         // itemData is set in dom.
-        submitForm("{{ route('store.checkout-set-items') }}", "{{ route('store.processCheckout')}}", itemData, "continue");
+        submitCartToCheckout("{{ route('store.checkout-set-items') }}", "{{ route('store.processCheckout')}}", itemData, "continue");
     });
     
     $(document).on('click', '.UpdateDataBtn', function(e){
-        submitForm("{{ route('store.checkout-set-items') }}", "reload", itemData, "update");
+        submitCartToCheckout("{{ route('store.checkout-set-items') }}", "reload", itemData, "update");
     });
 
     /*
@@ -48,15 +48,11 @@
         e.preventDefault();
         let data = $(this).serialize();
         const route = "{{ route('store.addToCartLive') }}";
-
         if(checkVariantStock())
         {
             addToCart(route, data);
         }
-        
     });
-
-    
 
     /*
     |--------------------------------------------------------------------------

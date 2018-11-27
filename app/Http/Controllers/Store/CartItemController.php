@@ -16,53 +16,50 @@ class CartItemController extends Controller
 
     public function store(Request $request)
     {   
-        // dd($request->all());
+        $combination = $request->size_id;
         // This come from Customer Model getCartAttribute()
         $activeCartId = auth()->guard('customer')->user()->cart->id;
-        
-        // Check if article is already stored in cart
-        $existingCartItem = CartItem::where('cart_id', $activeCartId)->where('article_id', $request->articleId)->first();
+        $customerGroup = auth()->guard('customer')->user()->group;
+
+        // Find article
+        $article = CatalogArticle::where('id', $request->article_id)->first();
+        // Find variant
+        $variant = CatalogVariant::where('article_id', $request->article_id)->where('color_id', $request->color_id)->where('size_id', $request->size_id)->first();
+        // Check if variant is already stored as cartItem
+        $existingCartItem = CartItem::where('cart_id', $activeCartId)->where('variant_id', $variant->id)->first();
+
         if(!$existingCartItem)
         {
             // Create New Cart Item
             $cartItem = new CartItem();
             $cartItem->cart_id = $activeCartId;
             $cartItem->article_id = $request->article_id;
+            $cartItem->variant_id = $variant->id;
             $cartItem->quantity = $request->quantity;
-            $cartItem->size = $request->size;
             
-            $article = CatalogArticle::where('id', $request->article_id)->first();
-            $variant = CatalogVariant::where('article_id', $request->article_id)->where('color', $request->color_id)->where('size', $request->size_id)->first();
             if(!$variant)
-                return response()->json(['response' => 'warning', 'message' => 'No se ha encontrado la variante']); 
-            // dd($variant);
-    
+            return response()->json(['response' => 'warning', 'message' => 'No se ha encontrado la variante']); 
+            
             // Stock management 
             if($request->quantity > $variant->stock)
-            {
-                return response()->json(['response' => 'warning', 'message' => 'Seleccionó una cantidad mayor al stock disponible']); 
-            } 
-            else 
-            {
-                // Discount Stock
-                // * Note the minus (-) sign in $request->quantity
-                $newStock = $this->updateCartItemStock($article->id, -$request->quantity);
-            }
-    
+                return response()->json(['response' => 'warning', 'message' => 'Seleccionó una cantidad mayor al stock disponible']);
+            
+            // Calc Item Price   
+            // if($customerGroup == '3');
+            $cartItem->final_price = $this->calcArticlePrice($article->reseller_price, $article->reseller_discount);
             $cartItem->article_name = $article->name;
-            dd($variant->color->name);
+            $cartItem->combination = $variant->color->name.'/'.$variant->size->name;
             $cartItem->color = $variant->color->name;
             $cartItem->size = $variant->size->name;
-
-            // if(isset($article->atribute1->first()->name))
-            // {
-            //     $cartItem->size = $article->atribute1->first()->name;
-            // }
-
             $cartItem->textile = $article->textile;
-            try{
+            
+            try
+            {
                 $cartItem->save();
-                return response()->json(['response' => 'success', 'message' => 'Producto "'. $article->name .'" agregado']); 
+                // Discount Stock
+                // * Note the minus (-) sign in $request->quantity
+                $newStock = $this->updateVariantStock($variant->id, -$request->quantity);
+                return response()->json(['response' => 'success', 'newStock' => $newStock, 'message' => 'Producto "'. $article->name .'" agregado']); 
             } 
             catch (\Exception $e) 
             {
@@ -71,32 +68,28 @@ class CartItemController extends Controller
         }
         else
         {   
-            // Stock management 
-            // dd("Stock requerido: " . $request->quantity. " Estock de artículo: ". $existingCartItem->article->stock);
-            if($request->quantity > $existingCartItem->article->stock)
-            {
-                return response()->json(['response' => 'warning', 'message' => 'Seleccionó una cantidad mayor al stock disponible']); 
-            } 
-            else 
-            {
-                // Discount Stock
-                // * Note the minus (-) sign in $request->quantity
-                $newStock = $this->updateCartItemStock($existingCartItem->id, -$request->quantity);
-                // Update existing Cart Item
-                $existingCartItem->quantity += $request->quantity;
-            }
+            // Update existing CartItem
 
+            // Stock management 
+            if($request->quantity > $variant->stock)
+                return response()->json(['response' => 'warning', 'message' => 'Seleccionó una cantidad mayor al stock disponible']); 
+            
+            // Discount Stock
+            // * Note the minus (-) sign in $request->quantity
+            // Update existing Cart Item
+            $existingCartItem->quantity += $request->quantity;
+            
             try
             {
                 $existingCartItem->save();
-                return response()->json(['response' => 'success', 'message' => 'Producto "'. $existingCartItem->article->name .'" agregado']); 
+                $newStock = $this->updateVariantStock($variant->id, -$request->quantity);
+                return response()->json(['response' => 'success', 'newStock' => $newStock, 'message' => 'Producto "'. $existingCartItem->article->name .'" agregado']); 
             } 
             catch (\Exception $e) 
             {
                 return response()->json(['response' => 'error', 'message' => $e->getMessage()]); 
             }
-        }
-               
+        }      
     }
 
 
@@ -132,21 +125,21 @@ class CartItemController extends Controller
 
     public function destroy(Request $request)
     {
-        $item = CartItem::where('id', $request->itemid)->first();
+        $item = CartItem::where('id', $request->cartItemId)->first();
         try
         {
             // Return Stock
-            $this->updateCartItemStock($item->article->id, $request->quantity);
             $item->delete();
+            $this->updateVariantStock($request->variantId, $request->quantity);
         } 
         catch (\Exception $e) 
         {
             dd($e);
-            return redirect()->back()->with('message', 'Error al eliminar');
+            return redirect()->back()->with('message', 'Error al eliminar. '. $e->getMessage());
         }
         // If last article is deleted also delete activecart
         $cart = Cart::findOrFail($item->cart->id);
-        if($cart->Items->count() < 1)
+        if($cart->items->count() < 1)
         {
             $cart->delete();
             if(isset($request->action) && $request->action == 'reload')

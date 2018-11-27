@@ -215,12 +215,14 @@ window.setItemsData = function () {
     itemData = [];
 
     $('.Item-Data').each(function () {
-        var id = $(this).data('id');
-        var price = $(this).data('price');
-        var quantity = $(this).val();
+        let id = $(this).data('id');
+        let price = $(this).data('price');
+        let variant_id = $(this).data('variant');
+        let quantity = $(this).val();
 
         item = {}
         item['id'] = id;
+        item['variant_id'] = variant_id;
         item['price'] = price;
         item['quantity'] = quantity;
         // Update display total item price
@@ -244,15 +246,16 @@ window.addToCart = function (route, data) {
         dataType: 'JSON',
         data: data,
         success: function (data) {
-            console.log(data);
+            // console.log(data);
             if (data.response == 'success') {
+                $('.AvailableStock').html("Stock disponible: " + data.newStock);
                 toast_success('Ok!', data.message, 'bottomCenter', '', 2500);
                 updateTotals();
                 setItemsData();
                 setTimeout(function () {
                     setItemsData();
                     sumAllItems();
-                    openCheckoutDesktop();
+                    // openCheckoutDesktop();
                 }, 100);
             } else if (data.response == 'warning') {
                 toast_success('Ups!', data.message, 'bottomCenter');
@@ -271,15 +274,15 @@ window.addToCart = function (route, data) {
 
 // Remove product from cart
 // -------------------------------------------
-window.removeFromCart = function (route, id, quantity, div, action) {
+window.removeFromCart = function (route, cartItemId, variantId, quantity, div, action) {
     $.ajax({
         url: route,
         method: 'POST',
         dataType: 'JSON',
-        data: { itemid: id, quantity: quantity, action: action, method: 'ajax' },
+        data: { cartItemId: cartItemId, variantId: variantId, quantity: quantity, action: action, method: 'ajax' },
         success: function (data) {
             if (data.response == 'cart-removed') {
-                console.log(data);
+                // console.log(data);
                 updateTotals();
                 window.location = window.location.href.split("?")[0];
                 setItemsData();
@@ -287,7 +290,6 @@ window.removeFromCart = function (route, id, quantity, div, action) {
                 $(div).hide(100);
                 $(div).remove();
                 updateTotals();
-                console.log(div);
                 setItemsData();
             }   
         },
@@ -311,9 +313,9 @@ function updateTotals() {
     $(".AvailableStock").load(window.location.href + " .AvailableStock");
 }
 
-// Submit Form
+// Submit Cart Form to Checkout
 // -------------------------------------------
-window.submitForm = function (route, target, data, action) {
+window.submitCartToCheckout = function (route, target, data, action) {
     //console.log("Ruta: " + route + " Target: " + target + " Data: " + data + "Action: "+ action);
     $.ajax({
         url: route,

@@ -11,6 +11,20 @@ function calcFinalPriceConvert($cost, $percent, $currencyActualValue)
     $result  = $result * $currencyActualValue;
     return $result;
 }
+
+function calcArticlePrice($price, $discount)
+{
+    $result = $price + 0;
+    
+    if($discount > 0)
+    {
+        $percent = $price * $discount / 100;
+        $result =  $price - $discount;
+        $result = convertAndRoundDecimal($result, 2);
+    }
+    
+    return $result;
+}
     
 function calcValuePercentNeg($price, $percent)
 {

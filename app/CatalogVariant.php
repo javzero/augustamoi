@@ -19,6 +19,10 @@ class CatalogVariant extends Model
     	return $this->belongsTo('App\CatalogColor', 'color_id');
     }
 
+    public function cartItems(){
+    	return $this->hasMany('App\CatalogItem');
+    }
+
     public function size()
     {
         return $this->belongsTo('App\CatalogSize', 'size_id');

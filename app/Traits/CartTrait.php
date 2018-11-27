@@ -3,6 +3,7 @@
 namespace App\Traits;
 use App\Cart;
 use App\CatalogArticle;
+use App\CatalogVariant;
 use App\CatalogFav;
 use App\Settings;
 
@@ -129,11 +130,43 @@ trait CartTrait {
         return $result;
     }
 
+    public function calcArticlePrice($price, $discount)
+    {
+        $result = $price + 0;
+        
+        if($discount > 0)
+        {
+            $percent = $price * $discount / 100;
+            $result =  $price - $discount;
+            $result = convertAndRoundDecimal($result, 2);
+        }
+        
+        return $result;
+    }
+
     // Stock Update
     // ----------------------------------------------------------
+    public function updateVariantStock($variantId, $quantity)
+    {
+        try
+        {
+            $variant = CatalogVariant::where('id', $variantId)->first();
+            $newStock = intval($variant->stock) + intval($quantity);
+            $variant->stock = $newStock;
+            $variant->save();
+        } 
+        catch(\Exception $e)
+        {
+            return $e->getMessage();
+        }
+        return $newStock;
+    }
+
+
     public function updateCartItemStock($articleId, $quantity)
     {
-        try{
+        try
+        {
             //CatalogArticle::where('id', $articleId)->update(['stock'=>$newStock]);
             $article = CatalogArticle::where('id', $articleId)->first();
             $newStock = intval($article->stock) + intval($quantity);
@@ -147,9 +180,26 @@ trait CartTrait {
         return $newStock;
     }
 
+    public function replaceVariantStock($variantId, $newStock)
+    {
+        try
+        {
+            //CatalogArticle::where('id', $articleId)->update(['stock'=>$newStock]);
+            $variant = CatalogVariant::where('id', $variantId)->first();
+            $variant->stock = $newStock;
+            $variant->save();
+        } 
+        catch(\Exception $e)
+        {
+            return dd($e);
+        }
+        return $newStock;
+    }
+
     public function replaceCartItemStock($articleId, $newStock)
     {
-        try{
+        try
+        {
             //CatalogArticle::where('id', $articleId)->update(['stock'=>$newStock]);
             $article = CatalogArticle::where('id', $articleId)->first();
             $article->stock = $newStock;
@@ -162,6 +212,9 @@ trait CartTrait {
         return $newStock;
     }
 
+
+    // Favs
+    // ----------------------------------------------------------
     public function getCustomerFavs()
     {
         if(auth()->guard('customer')->check()){

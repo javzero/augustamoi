@@ -77,7 +77,7 @@
                     </td> --}}
                     <td><a href="">{{ $item->article->name }} (#{{ $item->article->code }})</a></td>
                     
-                    <td>@foreach($item->article->atribute1 as $atribute) {{ $atribute->name }} @endforeach | {{ $item->color }} | {{ $item->textile }}</td>
+                    <td>{{ $item->size}} | {{ $item->color }} | {{ $item->textile }}</td>
                     
                     @if($order['rawdata']->status != 'Active')
                     {{-- FIXED PRICES | ORDER READY --}}
