@@ -44,7 +44,8 @@
 										<div class="product-info">
 											<h4 class="product-title">
 												<a href="{{ url('tienda/articulo/'.$item->article->id) }}">
-													{{ $item->article->name }}</a>
+													{{ $item->article->name }}
+												</a>
 											</h4>
 											<span><em>Código:</em> #{{ $item->article->code }}</span>
 											<span><em>Talle: {{ $item->size}}</em></span>
@@ -60,23 +61,23 @@
 									@if($item->article->reseller_discount > 0)
 										<td class="text-lg">
 											@php($articlePrice = calcArticlePrice($item->article->reseller_price, $item->article->reseller_discount))
-											<del class="text-muted">$ {{ $item->article->reseller_price + 0 }} </del><br>
-											$ {{ $articlePrice }}
+											{{-- <del class="text-muted">$ {{ $item->article->reseller_price + 0 }} </del><br> --}}
+											$ {{ $articlePrice + 0 }}
 										</td>
 									@else
-										<td class="text-lg">$ {{ $articlePrice }}</td>
+										<td class="text-lg">$ {{ $articlePrice + 0 }}</td>
 									@endif
 								@else
 									{{-- Estandar Item Prices --}}
 									@if($item->article->discount > 0)
 										<td>
 											@php($articlePrice = calcArticlePrice($item->article->price, $item->article->discount))
-											<del class="text-muted">$ {{ $item->article->price }}</del><br>
+											<del class="text-muted">$ {{ $item->article->price + 0 }}</del><br>
 											$ {{ $articlePrice }}
 										</td>
 									@else
 										@php($articlePrice = $item->article->price)
-										<td class="text-lg">${{ $articlePrice }}</td>
+										<td class="text-lg">${{ $articlePrice + 0 }}</td>
 									@endif
 								@endif
 								{{-- Add Quantity to Cart Item --}}

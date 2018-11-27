@@ -41,21 +41,18 @@
                             @php($articlePrice = $item->article->reseller_price)
                             @if($item->article->reseller_discount > 0)
                                 @php($articlePrice = calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount))
-                                <del class="text-muted small">$ {{ $item->article->reseller_price }}</del>
-                                $ {{ $articlePrice }}
-                            @else
-                                $ {{ $articlePrice }}
+                                {{-- <del class="text-muted small">$ {{ $item->article->reseller_price }}</del> --}}
                             @endif
+                            $ {{ $articlePrice }}
                         @else
                             {{-- Estandar Item Prices --}}
                             @if($item->article->discount > 0)
                                     @php($articlePrice = calcValuePercentNeg($item->article->price, $item->article->discount))
                                     <del class="text-muted small">$ {{ $item->article->price }}</del>
-                                    $ {{ $articlePrice }}
                             @else
                                 @php($articlePrice = $item->article->price)
-                                ${{ $articlePrice }}
                             @endif
+                            $ {{ $articlePrice }}
                         @endif
                         </div>
                         {{-- <div class=""> Stock: {{ $item->article->stock }} </div> --}}
