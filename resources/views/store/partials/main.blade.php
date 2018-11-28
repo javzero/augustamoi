@@ -41,9 +41,10 @@
 		@include('store.partials.nav') {{-- ToolBar is inside this nav include --}}
 		@include('store.partials.alerts')
 		{{-- Checkout Sidebar --}}
-		<div class="CheckoutCart col-sm-4 col-md-4 col-lg-3 checkout-cart">
+		@include('store.partials.cart-sidebar');
+		{{-- <div class="CheckoutCart col-sm-4 col-md-4 col-lg-3 checkout-cart">
 			@include('store.partials.checkout-cart')
-		</div>
+		</div> --}}
 		<div class="container-fluid custom-page-title pad0">
 			@yield('header-image')
 		</div>
