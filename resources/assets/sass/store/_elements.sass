@@ -122,6 +122,9 @@
 	max-width: 100%
 	padding: 5px 0 5px 30px
 
+.custom-page-title
+	padding: 0
+	width: 100%
 @media (min-width: 768px)
 	.index-header
 		margin-bottom: 25px
@@ -455,7 +458,6 @@
 			max-width: 200px
 
 
-
 //////////////////////////////////////
 //                                  //
 //             FORMS                //
@@ -517,6 +519,7 @@
 			height: 35px
 
 .small-input
+	width: 60px
 	max-width: 70px
 	padding: 5px 10px
 	border-radius: 0 
@@ -595,167 +598,6 @@
 	// 		padding: 15px
 	// 		font-size: 1.2rem
 	// 		font-family: $font2
-
-
-.checkout-cart
-	display: none
-	position: absolute
-	right: 0
-	top: 105px
-	z-index: 9980
-	height: 100%
-	text-align: left
-	padding: 10px
-	@include transition(0.2s)
-	.inner
-		@include box-shadow
-		padding: 25px 15px
-		background-color: rgba(#fff,.9)
-		.top
-			margin-bottom: 20px
-			@include flex-center
-			.title
-				font-size: 1.2rem
-				margin-bottom: 10px	
-				i
-					font-size: 1rem
-					margin-right: 6px
-			.items
-				display: flex
-				width: 100%
-				text-align: right
-				padding: 0 15px
-				.text
-					font-size: 1rem
-					font-weight: 300
-					text-align: left
-					width: 50%
-				.button
-					float: right
-					width: 50%
-					padding-top: 10px
-					.main-btn-sm
-						padding: 9px 10px
-		.total-price-bottom
-			text-align: right
-			padding: 15px 0
-			font-size: 1.2rem
-			font-weight: 300
-		.empty-cart
-			padding: 15px
-			padding-top: 60px
-			text-align: center
-			font-family: $font1
-			font-size: 1.2rem
-		.close
-			position: absolute
-			right: 20px
-			top: 15px
-			z-index: 998
-		.item
-			padding: 0 65px 0 75px
-			position: relative
-			min-height: 75px
-			margin-bottom: 10px
-			img
-				position: absolute
-				left: 15px
-				padding: 0
-				height: 75px
-				max-height: 100%
-			.details-1
-				width: 100%
-				@include flex-center-left
-			.details-2
-				width: 100%
-				max-height: 30px
-				.column-1
-					font-weight: 900
-					text-align: left
-					font-size: 1rem
-			.delete-item
-				position: absolute
-				right: 6px
-				top: 6px
-				height: 25px
-				padding: 10px
-				padding: 3px 5px
-				i
-					font-size: 1rem
-				&:hover
-					background-color: $red
-					cursor: pointer
-					i
-						font-size: 1rem
-						color: #fff
-			.quantity
-				position: absolute
-				bottom: 5px
-				right: 10px
-				.small-input
-					border: 1px solid #ccc
-					padding: 2px
-					padding-left: 10px
-		.update-btn
-			margin-bottom: 10px
-					
-	
-		.checkout-cart-error
-			text-align: center
-			margin-top: 15px
-			padding: 15px
-			font-size: 1.2rem
-			font-family: $font2
-
-@media screen and (min-width: 930px) and (max-width: 1210px)
-	.fix-column-small
-		flex: 0 0 70%
-		max-width: 70%
-	.checkout-cart
-		flex: 1 0 25%
-		max-width: 30%
-
-// @media screen and (min-width: 930px) and (max-width: 1210px)
-
-@media (min-width: 930px)
-	.checkout-cart.scrolled
-		@include transition(0.2s)
-		position: fixed
-		right: 7px
-		top: 89px
-	.checkout-cart
-		// max-width: 30%
-
-// SideBar Checkout absolute in mobile
-@media (max-width: 930px)
-	.checkout-cart
-		position: absolute
-		top: -24px
-		right: 0
-		height: 100vh
-		z-index: 9998
-		flex: auto !important
-		max-width: 100% !important
-		.inner
-			background-color: #fff
-
-@media (max-width: 768px)
-	.checkout-cart
-		top: 0
-
-@media (max-width: 680px)
-	.checkout-cart
-		top: -40px
-
-
-.checkout-cart.active
-	display: block
-
-
-@media (max-width: 700px)
-	.checkout-cart
-		width: 100%
-
 
 
 .checkout-cart-floating
@@ -880,6 +722,7 @@ ul.pagination
 				padding: 5px
 				text-align: center
 				width: 100%
+				background-color: #f9f9f9
 				.title-info
 					font-family: $font2
 					width: 100%
@@ -1094,15 +937,17 @@ ul.pagination
 			font-size: 1.5rem
 			i
 				color: $red
-		.back-btn
-			position: absolute
-			bottom: -30px
-			right: 12px
-			font-size: 1rem
-			color: #000
-
+		// .back-btn
+		// 	position: absolute
+		// 	bottom: -30px
+		// 	right: 12px
+		// 	font-size: 1rem
+		// 	color: #000
 		h2
 			padding-top: 0
+	.back-btn
+		padding-left: 10px
+		margin-bottom: 10px
 	.descriptions
 		font-size: 1.1rem
 		.item
@@ -1377,138 +1222,6 @@ ul.pagination
 		.product-thumbnails
 			display: none
 
-// ------------- Horizontal Filters --------------- //
-
-.search-filters
-	margin-bottom: 15px
-	padding-left: 10px
-	padding-right: 10px
-	
-.horizontal-filters
-	padding: 0
-	position: relative
-	@include transition(0.2s)
-	input,select
-		margin-right: 5px
-		border: 1px solid #ccc
-		border-radius: 0
-	.filter-button
-		padding: 12px
-		background: $main-color
-		@include transition(0.2s)
-		color: #fff
-		&:hover
-			cursor: pointer
-			filter: brightness(1.2)
-
-.search-filter
-	.search-input
-		padding-right: 0
-	.trigger
-		display: none
-
-@media (max-width: 965px)
-	.horizontal-filters
-		form
-			width: 100%
-			margin-right: 0
-		select,input
-			width: 100%
-	.general-filters
-		display: none
-		@include transition(0.2s)
-		.item
-			margin: 0
-			margin-bottom: 5px
-	.search-filter
-		margin-top: 10px
-		width: 100%
-		padding-right: 50px
-		margin-bottom: 5px
-		// @include flex-center
-		form
-			max-width: 100%
-			width: 100%
-			margin-bottom: 0
-		.trigger
-			display: block
-			height: 100%
-			position: absolute
-			right: 0
-			top: 0
-			font-size: 1.5rem
-			@include flex-center()
-
-.back-to-list-mobile
-	display: none
-
-@media (max-width: 768px)
-	.back-to-list-desktop
-		display: none
-	.search-filters
-		margin-bottom: 0
-	.back-to-list-mobile
-		display: block
-
-.results-info
-	font-size: 1.2rem
-	font-family: $font2
-
-// ------------- Filters Left Sidebar --------------- //
-.sidebar
-	background: #fff
-	padding: 10px
-	margin-top: 10px
-	.table td, .table th
-		padding: 5px 1px
-		vertical-align: middle
-	.total
-		font-size: 1.5rem
-	.sidebar-widget
-		margin-bottom: 20px
-		.price
-			display: block
-			white-space: nowrap
-			margin-right: 15px
-			margin-bottom: 10px
-			i
-				font-size: 1rem
-				color: $main-color
-				margin-right: 10px
-		ul
-			padding: 0
-			list-style: none
-			li
-				a
-					text-decoration: none
-					color: #383838
-		.sq-badge .filled
-			background: $main-color
-			color: #fff
-
-.sidebar-trigger
-	display: none
-
-@media (max-width: 768px)
-	.sidebar-trigger
-		display: block
-		.main-btn
-			margin: 0
-			margin-left: 10px
-	.sidebar
-		display: none
-		.search-input
-			display: none
-		.sidebar-widget
-			.sq-badge
-				line-height: 2rem
-			ul li
-				display: inline
-				margin-right: 5px
-
-@media (max-width: 991px)
-	.sidebar
-		max-width: 100%
 
 
 //////////////////////////////////////

@@ -16,12 +16,13 @@
 				{{--  Article Name  --}}
 				<h2 class="text-normal">{{ $article->name }}</h2>
 			</div>
+			<a class="back-btn" href="{{ url('tienda') }}"><i class="icon-arrow-left"></i>&nbsp;Volver a la tienda</a>
 			<div class="row product-gallery">
 				<div class="col-xs-12 col-sm-3 col-md-3 pad0">
 					<ul class="product-thumbnails">
 						@foreach($article->images as $image)
-							<li>
-								<a href="#{{ $image->id }}">
+						<li>
+							<a href="#{{ $image->id }}">
 									<img src="{{ asset('webimages/catalogo/'. $image->name) }}" class="CheckCatalogImg" alt="Producto Bruna">
 								</a>
 							</li>
@@ -128,8 +129,7 @@
 				</div>
 			</div>
 			@endif
-			<hr class="mb-3">
-			<a class="back-btn" href="{{ url('tienda') }}"><i class="icon-arrow-left"></i>&nbsp;Volver a la tienda</a>
+			
 		</div>
 	</div>
 </div>

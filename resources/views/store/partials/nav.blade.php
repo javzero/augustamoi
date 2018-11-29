@@ -10,7 +10,7 @@
 		<div class="inner">
 			<!-- Site Logo-->
 			<a class="site-logo" href="{{ url('/') }}">
-				<h2>AugustaMoi</h2>
+				<h2 class="mobile-title">AugustaMoi</h2>
 				{{-- <img src="{{ asset('images/logos/app-logo.png') }}" alt="Logo"> --}}
 			</a>
 		</div>
@@ -19,13 +19,11 @@
 	@include('store.partials.userbar')
 
 </header>
-<div class="under-nav-container">
+{{-- <div class="under-nav-container">
 	@if(!Auth::guard('customer')->check())
 	<div class="login-register-btn-mobile">
 		<a href="{{ route('customer.login') }}"><button class="btn btn-primary btn-sm">Ingresar</button></a>
 		<a href="{{ url('tienda/registro') }}"><button class="btn btn-primary btn-sm">Registrarse</button></a>
-		{{-- <a href="{{ route('customer.register') }}"><button class="btn btn-primary btn-sm">Comprá Por Menor</button></a>
-        <a href="{{ route('customer.register', ['mostrar' => 'mayorista']) }}"><button class="btn btn-primary btn-sm">Comprá Por Mayor</button></a> --}}
 	</div>
 	@endif
 	<div class="text-links">
@@ -34,6 +32,5 @@
 		<a href="{{ url('condiciones-de-compra') }}">Condiciones de Compra</a>
 		@endif
 		<a href="{{ url('como-comprar') }}">Como comprar</a> 
-		{{-- <a href="{{ route('customer.register', ['mostrar' => 'mayorista']) }}">Vendé Bruna</a> --}}
 	</div>
-</div>
+</div> --}}

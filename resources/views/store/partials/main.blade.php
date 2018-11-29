@@ -30,34 +30,31 @@
 	</head>
 	<!-- Body-->
 	<body>
-		<div id="MainOverlay" class="main-overlay"></div>
+		{{-- <div id="MainOverlay" class="main-overlay"></div> --}}
 		<div id="full-loader" class="full-loader Hidden">
 			<div class="inner">
 				<img src="{{ asset('store-ui/images/loader.gif') }}" alt="Loader">
 			</div>
 		</div>
+		
 		@yield('modal')
 		@include('store.partials.topbar')
 		@include('store.partials.nav') {{-- ToolBar is inside this nav include --}}
 		@include('store.partials.alerts')
+		
 		{{-- Checkout Sidebar --}}
-		@include('store.partials.cart-sidebar');
-		{{-- <div class="CheckoutCart col-sm-4 col-md-4 col-lg-3 checkout-cart">
-			@include('store.partials.checkout-cart')
-		</div> --}}
-		<div class="container-fluid custom-page-title pad0">
-			@yield('header-image')
-		</div>
+		@include('store.partials.cart-sidebar')
+		<div class="container-fluid custom-page-title pad0"> @yield('header-image') </div>
 		
 		{{-- Site Content --}}
-		<div class="content">
-			@yield('content')
-		</div>
+		<div class="content"> @yield('content') </div>
 			
 		<!-- Site Footer-->
 		<footer class="site-footer">
 			<div class="container">
-				<p class="footer-copyright">© {{ date('Y') }} - Desarrollado por <a href="https://vimana.studio/es" target="_blank">&nbsp; Vimana Studio </a></p>
+				<p class="footer-copyright">
+					© {{ date('Y') }} - Desarrollado por <a href="https://vimana.studio/es" target="_blank">&nbsp; Vimana Studio </a>
+				</p>
 			</div>
 		</footer>
 
@@ -69,7 +66,7 @@
 		</div>
 		
 		{{-- Back To Top Button --}}
-		<a class="scroll-to-top-btn" href="#"><i class="icon-arrow-up"></i></a>
+		<a class="scroll-to-top-btn" href="#"> <i class="icon-arrow-up"></i> </a>
 
 		{{-- Backdrop --}}
 		<div class="site-backdrop"></div>

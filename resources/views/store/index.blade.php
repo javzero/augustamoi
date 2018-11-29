@@ -1,17 +1,15 @@
 @extends('store.partials.main')
 
 @section('header-image')
-	<div class="index-header">	
-		<img src="{{ asset('webimages/web/top-banner.jpg')}}" alt="Augustamoi Banner">	
-	</div>
+	<img src="{{ asset('webimages/web/top-banner.jpg')}}" alt="Augustamoi Banner">		
+	{{-- <div class="index-header">	
+	</div> --}}
 @endsection
 
 @section('content')
 
+	@include('store.partials.filterbar')
 	<div id="main" class="main-container container-fluid padding-bottom-3x mb-1">
-		<div class="row search-filters">
-			@include('store.partials.filterbar')
-		</div>
 		<div class="row">
 			{{-- col-xs-12 col-lg-9 col-sm-8 col-md-8 --}}
 			<div id="MainContent" class="col-xs-12 col-sm-12">

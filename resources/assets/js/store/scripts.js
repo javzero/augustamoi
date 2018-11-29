@@ -46,20 +46,16 @@ $('#MainOverlay').click(function(){
 window.checkoutSidebar = function (state) {
 
     const sidebar = $('.CheckoutCart');
-    // const floatingCheckout = $('.CheckoutCartFloating');
-    const content = $('#MainContent');
-    const overlay = $('#MainOverlay');
+    const body = $('body');
 
     const show = function () {
         sidebar.addClass('active');
-        // content.addClass('col-xs-12 col-lg-9 fix-column fix-column-small');
-        overlay.fadeIn(200);
+        body.addClass('allow-sidebar');
     }
 
     const hide = function () {
-        // content.removeClass('col-lg-9 col-sm-8 col-md-8 fix-column fix-column-small');
         sidebar.removeClass('active');
-        overlay.fadeOut(100);
+        body.removeClass('allow-sidebar');
     }
 
 
@@ -119,12 +115,18 @@ window.openCheckoutDesktop = function()
 
 window.openFilters = function () {
     const filters = $('#SearchFilters');
-    if (filters.css('display') == 'none') {
-        filters.css('display', 'inherit');
+    const trigger = $('#SearchFiltersTrigger');
+    if(filters.hasClass('active'))
+    {
+        filters.removeClass('active');
+        trigger.show();
     }
-    else {
-        filters.css('display', 'none');
+    else
+    {
+        filters.addClass('active');
+        trigger.hide();
     }
+
 }
 
 // Hide alerts
