@@ -24,15 +24,12 @@
 							<p>
 								<span style="color: blue; font-size: 2rem"><i class="fas fa-fire"></i> Actualización!</span>
 								<hr class="softhr">
-								- Completado el circuito del checkout basado en variantes color/talle con stock individual. <br>
-								- Checkeo de stock dinámico. <br>
-								- Ya se pueden "comprar" productos a manera de prueba. <br>
-								- Notificaciones al mail listas (Tienen que avisarme a que mail quieren que les lleguen) <br>
+
+								- Nueva barra lateral
+								- Nuevos filtros en tienda (Con mejor responsividad en móvil)
 								<hr class="softhr">
 								<span style="color: blue; font-size: 1rem; font-weight: 300"><i class="fas fa-cogs"></i> En que estoy trabajando: </span><br>
-								- Mañana martes voy a estár trabajando en la visual de la tienda para que se pueda utilizar cuanto antes. <br>
-								- Estoy trabajando en la limitación de comprar por cantidad mínima ($5000). <br>
-								- Simplificando el registro de cliente. 
+								- El tema diseño no está cerrado, yo hice todo lo referido a estructura y estoy esperando que viole termine de diseñar algunas cosas más para implementarlo.
 								<hr class="softhr">
 								Saludos ! <b>Lea. <i class="fas fa-blind"></i></b>
 							</p>
