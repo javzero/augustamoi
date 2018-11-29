@@ -10,9 +10,9 @@
 		</a>
 	</div>
 	<div class="topbar-column">
-		<a class="">&nbsp;<b>11-6761-8867 </b></a>
+		<a class="">&nbsp;<b>11-3321-2192 </b></a>
 		<a class="e-mail-field" href="mailto:info@augustamoi.com.ar">
-			<i class="icon-mail"></i>&nbsp; info@augustamoi.com.ar
+			<i class="icon-mail"></i>&nbsp; ventas@augustamoi.com.ar
 		</a>
 		@if(Auth::guard('customer')->check())
 			<button onclick="checkoutSidebar('show')" class="icon-btn-small"|><i class="fas fa-shopping-cart"></i></button>

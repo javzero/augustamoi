@@ -46,16 +46,16 @@ $('#MainOverlay').click(function(){
 window.checkoutSidebar = function (state) {
 
     const sidebar = $('.CheckoutCart');
-    const body = $('body');
+    const wrapper = $('.main-wrapper');
 
     const show = function () {
         sidebar.addClass('active');
-        body.addClass('allow-sidebar');
+        wrapper.addClass('allow-sidebar');
     }
 
     const hide = function () {
         sidebar.removeClass('active');
-        body.removeClass('allow-sidebar');
+        wrapper.removeClass('allow-sidebar');
     }
 
 

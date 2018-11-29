@@ -91,5 +91,4 @@
     @endif
     </div>
     <div class="SideContainerError side-container-error"></div> 
-    </div>
 </div>

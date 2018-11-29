@@ -65,7 +65,7 @@
     @if(isset($search) && $search == true || count($_GET) > 0 && !isset($_GET['results']))
         <div class="column">
             <div class="back-to-list-desktop">
-                <a href="{{ url('tienda') }}" class="form-control filter-button" type="button">VOLVER AL LISTADO</a>
+                <a href="{{ url('tienda') }}" class="form-control filter-button" type="button"><i class="fas fa-angle-left"></i> VOLVER AL LISTADO</a>
             </div>
         </div>
     @endif

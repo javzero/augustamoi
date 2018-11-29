@@ -47,7 +47,7 @@ class StoreController extends Controller
 
     public function index(Request $request)
     {   
-                
+        
         $pagination = $this->getSetPaginationCookie($request->get('results'));
         $order = 'DESC';
         $orderBy = 'id';
@@ -111,7 +111,7 @@ class StoreController extends Controller
         }
         else 
         {
-            $articles = CatalogArticle::orderBy($orderBy, $order)->orderBy($orderBy2, $order2)->active()->paginate($pagination);
+            $articles = CatalogArticle::orderByRaw('RAND()')->active()->paginate($pagination);
         }      
         
         return view('store.index')->with('articles', $articles);
