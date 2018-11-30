@@ -40,8 +40,8 @@
                 </div>
             @else
                 <div class="access-buttons">
-                    <a href="{{ route('customer.login') }}"><button class="btn btn-primary btn-sm">Ingresar</button></a>
-                    <a href="{{ url('tienda/registro') }}"><button class="btn btn-primary btn-sm">Registrarse</button></a>
+                    <a href="{{ route('customer.login') }}"><button class="btn  btn-main-sm-hollow">Ingresar</button></a>
+                    <a href="{{ url('tienda/registro') }}"><button class="btn  btn-main-sm">Registrarse</button></a>
                     {{-- <a href="{{ route('customer.register') }}"><button class="btn btn-primary btn-sm">Comprá Por Menor</button></a>
                     <a href="{{ route('customer.register-reseller', ['mostrar' => 'mayorista']) }}"><button class="btn btn-primary btn-sm">Comprá Por  Mayor</button></a>--}}
                 </div>

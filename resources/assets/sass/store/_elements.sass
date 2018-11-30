@@ -90,6 +90,7 @@
 	margin-top: 20px
 	position: relative
 	padding-bottom: 50px
+	border-radius: 0
 	.bottom-text
 		position: absolute
 		width: 100%
@@ -275,8 +276,23 @@
 	line-height: 0.5rem
 	font-size: 0.7rem
 	&:hover
+		border: 1px solid $main-color
+		background-color: transparent
+		color: #000
+
+.btn-main-sm-hollow
+	border: 1px solid $main-color
+	background-color: transparent
+	color: #383838
+	padding: 10px
+	height: 30px
+	margin-right: 0
+	line-height: 0.5rem
+	font-size: 0.7rem
+	&:hover
+		background-color: $main-color
 		color: #fff
-	
+
 .btn-green
 	background-color: $green
 	color: #000
@@ -475,6 +491,12 @@
 // select.form-control:not([size]):not([multiple])
 // 	height: 30px
 
+
+select
+	option
+		line-height: 1rem
+		font-size: 1rem
+		font-weight: 300
 .bordered-box
 	border: 1px solid #cccccc
 	padding: 5px
