@@ -16,7 +16,11 @@
 				{{--  Article Name  --}}
 				<h2 class="text-normal">{{ $article->name }}</h2>
 			</div>
-			<a class="back-btn btn main-btn" style="margin-left: 15px" href="{{ url('tienda') }}"><i class="icon-arrow-left"></i>&nbsp;Volver a la tienda</a>
+			<a href="{{ url('tienda') }}">
+				<button  class="btn btn-main-sm">
+					<i class="icon-arrow-left"></i>&nbsp;Volver a la tienda
+				</button>
+				</a>
 			<div class="row product-gallery">
 				<div class="col-xs-12 col-sm-3 col-md-3 pad0">
 					<ul class="product-thumbnails">

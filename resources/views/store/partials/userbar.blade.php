@@ -1,10 +1,6 @@
 <!-- Toolbar-->
 <div class="toolbar">
     <div class="inner">
-        <a class="site-logo-mobile" href="{{ url('/') }}">
-            {{-- <img style="width: 110px" src="{{ asset('images/logos/app-logo.png') }}" alt="Logo"> --}}
-            {{-- <h4>Augustamoi</h4> --}}
-        </a>
         
         <div class="tools">
             @if(Auth::guard('customer')->check())

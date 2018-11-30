@@ -128,29 +128,9 @@
 											@endif --}}
 										</div>
 										<div class="col-add pad0">
-											<a href="{{ url('tienda/articulo/'.$article->id) }}" class="btn btn-outline-primary btn-sm">Ver producto</a>
-											{{-- <div class="row input-fit">
-												<div class="col-xs-6 col-sm-6"><input type="text" value="1"></div>
-												<div class="col-xs-6 col-sm-6"><input type="text" value="1"></div>
-											</div> --}}
-											{{-- @if(Auth::guard('customer')->check()) --}}
-											{{--  Check if product is in favs  --}}
-											{{-- <a class="AddToFavs fa-icon fav-icon-nofav fav-btn
-												@if(in_array($article->id, $favs['articleFavs'])) fav-icon-isfav @endif"
-												data-id="{{ $article->id }}" data-toggle="tooltip" title="Agregar a Favoritos">
+											<a href="{{ url('tienda/articulo/'.$article->id) }}">
+												<button class="btn btn-main-sm"> Agregar al carro</button>
 											</a>
-											@endif --}}
-											{{-- @if(Auth::guard('customer')->check())
-												{!! Form::open(['class' => 'AddToCart price']) !!}	
-													{{ csrf_field() }}
-													<input type="number" min="1" max="{{ $article->stock }}" name="quantity" class="quantity-input" value="1"
-													data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $article->stock }}">
-													<input type="submit" class="input-button" value="Agregar" data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $article->stock }}">
-													<input type="hidden" value="{{ $article->id }}" name="articleId">
-												{!! Form::close() !!}
-											@else
-												<a href="{{ url('tienda/articulo/'.$article->id) }}" class="btn btn-outline-primary btn-sm">Ver detalles</a>
-											@endif --}}
 										</div>
 									</div>
 								</div>

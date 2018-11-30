@@ -40,12 +40,7 @@
 													{{ $item->article->name }}</a>
 													</h4>
 													<div class="text-lg text-medium text-muted">
-													{{ $item->article->textile }} | 
-													{{ $item->article->color }}  <br>
-													Talle: 
-														@foreach($item->article->atribute1 as $size)
-															{{ $size->name }}
-														@endforeach
+														Tela : {{ $item->article->textile }}
 													</div>
 													@if($item->article->status == '0')
 														<div class="dont-wrap">
@@ -59,17 +54,20 @@
 																<div class="color-green"> En stock</div>
 															</div>
 															@if(Auth::guard('customer')->check())
-															<div class="small-btn-and-input">
-																{!! Form::open(['class' => 'AddToCart price']) !!}	
-																	{{ csrf_field() }}
-																	<input type="number" min="1" max="{{ $item->article->stock }}" name="quantity" class="quantity-input" value="1"
-																	data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $item->article->stock }}">
-																	<input type="submit" class="input-button" value="Agregar" data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $item->article->stock }}">
-																	<input type="hidden" value="{{ $item->article->id }}" name="articleId">
-																{!! Form::close() !!}
-																@endif
-															</div>
-															{{-- <button class="btn btn-main-sm mt-1">Agregar al carro</button> --}}
+																{{-- <div class="small-btn-and-input">
+																	{!! Form::open(['class' => 'AddToCart price']) !!}	
+																		{{ csrf_field() }}
+																		<input type="number" min="1" max="{{ $item->article->stock }}" name="quantity" class="quantity-input" value="1"
+																		data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $item->article->stock }}">
+																		<input type="submit" class="input-button" value="Agregar" data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $item->article->stock }}">
+																		<input type="hidden" value="{{ $item->article->id }}" name="articleId">
+																	{!! Form::close() !!}
+																</div> --}}
+															@endif
+															<br>
+															<a href="{{ url('tienda/articulo/'.$item->article->id) }}">
+																<button class="btn btn-main-sm mt-1"> Agregar al carro</button>
+															</a>
 														@else
 														<div class="dont-wrap">
 															<div class="stock-title">Disponibilidad: </div>

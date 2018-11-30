@@ -7,30 +7,29 @@
 		<div class="search-tools"><span class="clear-search">Clear</span><span class="close-search"><i class="icon-cross"></i></span></div>
 	</form> --}}
 	<div class="site-branding">
-		<div class="inner">
+		{{-- <div class="inner"> --}}
 			<!-- Site Logo-->
-			<a class="site-logo" href="{{ url('/') }}">
-				<h2 class="mobile-title">AugustaMoi</h2>
-				{{-- <img src="{{ asset('images/logos/app-logo.png') }}" alt="Logo"> --}}
+			<a href="{{ url('/') }}">
+				<img src="{{ asset('webimages/web/app-logo.png') }}" alt="Augustamoi">
 			</a>
-		</div>
+		{{-- </div> --}}
 	</div>
 	<!-- Main Navigation-->
 	@include('store.partials.userbar')
 
 </header>
-{{-- <div class="under-nav-container">
+<div class="under-nav-container">
 	@if(!Auth::guard('customer')->check())
 	<div class="login-register-btn-mobile">
 		<a href="{{ route('customer.login') }}"><button class="btn btn-primary btn-sm">Ingresar</button></a>
 		<a href="{{ url('tienda/registro') }}"><button class="btn btn-primary btn-sm">Registrarse</button></a>
 	</div>
 	@endif
-	<div class="text-links">
-		@if(Auth::guard('customer')->check() && Auth::guard('customer')->user()->group == '3' )
+	{{-- <div class="text-links"> --}}
+		{{-- @if(Auth::guard('customer')->check() && Auth::guard('customer')->user()->group == '3' )
 		<a href="{{ url('politica-de-exclusividad') }}">Política de Exclusividad</a>
 		<a href="{{ url('condiciones-de-compra') }}">Condiciones de Compra</a>
-		@endif
-		<a href="{{ url('como-comprar') }}">Como comprar</a> 
-	</div>
-</div> --}}
+		@endif --}}
+		{{-- <a href="{{ url('como-comprar') }}">Como comprar</a>  --}}
+	{{-- </div> --}}
+</div>
