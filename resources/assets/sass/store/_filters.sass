@@ -38,6 +38,10 @@
 
 
 // Triggers outsite filters to open in mobile
+.trigger-column
+	.trigger-btn
+		display: none
+
 .trigger-filter-mobile
 	padding: 15px 30px 0
 	display: none
@@ -69,10 +73,12 @@
 		display: none
 		padding: 15px
 		height: auto
-		.trigger-mobile-inner
+		.trigger-column
 			display: flex
 			flex-wrap: nowrap
 			display: inline
+			.trigger-btn
+				display: block
 			select
 				width: 80%
 				float: left

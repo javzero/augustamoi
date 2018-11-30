@@ -12,7 +12,7 @@
 
 <div id="SearchFilters" class="row search-filters">
     {{-- Order --}}
-    <div class="column trigger-mobile-inner">
+    <div class="column trigger-column">
         <select class="form-control item" name="order" onchange="location = this.value;">
             <option value="Orden" selected disabled>ORDENAR POR</option>
             <option value="{{ route('store', ['precio' => 'menor']) }}">Menor precio</option>
@@ -20,7 +20,9 @@
             <option value="{{ route('store', ['filtrar' => 'descuentos']) }}">Con Descuento</option>
             <option value="{{ route('store', ['filtrar' => 'populares']) }}">Populares</option>
         </select> 
-        <a onclick="openFilters()"><i class="fas fa-sliders-h"></i></a>
+        <div class="trigger-btn">
+            <a onclick="openFilters()"><i class="fas fa-sliders-h"></i></a>
+        </div>
     </div>
 
     {{-- Tags --}}
