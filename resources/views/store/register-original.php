@@ -1,15 +1,23 @@
 @extends('store.partials.main')
 
+
 @section('content')
 <div class="container padding-bottom-3x">
-
+    <div id="ResellerCTA" class="row centered-form text-center">
+        <div class="login-box inner" style="padding-bottom: 30px">
+            <a class="cursor-pointer top-right-element" onclick="closeElement('#ResellerCTA');">X</a>
+            <h3>Querés vender al por mayor?</h3>
+            {{-- RESELLER BOX REQUIRED Edisplay: none;--}}            
+            <a href="{{ route('customer.register-reseller') }}"  class="btn btn-primary btn-block">Registrarme como mayorísta</a>
+        </div>
+    </div>
 	<div class="row centered-form">
         <form class="login-box form-simple inner" method="POST" action="{{ route('customer.register') }}">
             {{--  Check if reseller --}}
             <input id="IsResellerCheckbox" type="checkbox" name="isreseller" class="Hidden">
             {{ csrf_field() }}
             <div class="NormaClientTitle">
-                <h3 class="text-center">Registro de Usuario</h3>
+                <h3 class="text-center">Registro de Usuario Minorísta</h3>
             </div>
             <div class="ResellerTitle text-center" style="display: none">
                 <a class="top-right-element cursor-pointer" onClick="closeResellerRegistration();">Volver</a>
@@ -39,6 +47,28 @@
                 </div> 
             </div>
             <div class="row">
+                {{-- Name --}}
+                <div class="col-sm-6 form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+                    <label for="reg-fn">Nombre</label>
+                    <input type="text" name="name" class="form-control round" placeholder="Nombre de Usuario" value="{{ old('username') }}" required>
+                    @if ($errors->has('username'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('username') }}</strong>
+                        </span>
+                    @endif
+                </div> 	
+                {{-- Surname --}}
+                <div class="col-sm-6 form-group{{ $errors->has('name') ? ' has-error' : '' }} ">
+                    <label for="reg-fn">Apellido</label>
+                    <input type="text" name="surname" class="form-control round" placeholder="Ingrese su nombre" value="{{ old('name') }}" required>
+                    @if ($errors->has('name'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('name') }}</strong>
+                        </span>
+                    @endif
+                </div>
+            </div>
+            <div class="row">
                 {{-- Password --}}
                 <div class="col-sm-6 form-group{{ $errors->has('password') ? ' has-error' : '' }} position-relative has-icon-left">
                     <label for="reg-fn">Contraseña</label>
@@ -62,15 +92,17 @@
             </div>
             <input type="hidden" value="null" name="cuit">
             <input type="hidden" value="null" name="dni">
-            <input type="hidden" value="3" name="group">
+            <input type="hidden" value="2" name="group">
             {{-- Submit --}}
             <button type="submit" class="btn btn-primary btn-block"><i class="icon-unlock"></i> Registrarse</button>
             <div class="bottom-text">Ya tiene cuenta? | <a href="{{ route('customer.login') }}">Ingresar</a></div>
         </form>
     </div>
 </div>
+
 @endsection
-{{--     
+    
 @section('scripts')
     @include('store.components.bladejs')
-@endsection --}}
+@endsection
+

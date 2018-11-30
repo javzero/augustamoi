@@ -289,14 +289,15 @@ class StoreController extends Controller
             return response()->json(['response' => 'error', 'message' => 'La página solicitada no existe o ha expirado']);
             // return redirect()->route('store')->with('message', 'La página solicitada no existe o ha expirado');
         }
-
         // Check minimun quantity - reseller
-        if(auth()->guard('customer')->user()->group == '3' && $request->action == 'continue' ) {
-            if($activeCart['goalQuantity'] > 0)
+        if(auth()->guard('customer')->user()->group == '3' && $request->action == 'continue') {
+
+            if($activeCart['minQuantityNeeded'])
                 return response()->json(['response' => 'error', 'message' => 'Debe incluír al menos '. $this->settings->reseller_min.' prendas']);
+            if($activeCart['minMoneyNeeded'])
+                return response()->json(['response' => 'error', 'message' => 'El mínimo de compra es $'. $this->settings->reseller_money_min. '.']);
             // return redirect()->back()->with('error', 'low-quantity');
         }
- 
         return response()->json(['response' => 'success', 'message' => "Go to checkout, bye !"]);
     }
     

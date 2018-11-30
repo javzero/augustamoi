@@ -72,6 +72,11 @@ Devuelve un array con dos valores
 $data['subtotal']
 $data['total']
 
+## Compra mínima.
+Se puede setear para que la compra mínima sea por prendas o por valor.
+
+En StoreController@checkoutSetItems se maneja esto
+y en CartTrait@activeCart() está la validación
 
 ## Metodos
 

@@ -13,39 +13,48 @@
             <hr class="softhr">
             <div class="row">
                 <div class="container-fluid">
-                    {!! Form::open(['route' => 'updateSettings', 'method' => 'POST', 'class' => 'settings-form']) !!}	
-                        {{ csrf_field() }}
-                        <div class="form-group">
-                            <label for="">Mayorísta compra mínima</label>
-                            <input class="form-control" type="text" name="reseller_min" value="{{ $settings->reseller_min }}" placeholder="Cantidad de prendas">
+                    <div class="col-md-3">
+                        <div class="card">
+                            <div class="card-block">
+                                {!! Form::open(['route' => 'updateSettings', 'method' => 'POST']) !!}	
+                                    {{ csrf_field() }}
+                                    <div class="form-group">
+                                        <label>Cantidad de prendas</label>
+                                        <input class="form-control" type="text" name="reseller_min" value="{{ $settings->reseller_min }}" placeholder="Ingrese mínimo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Monto mínimo ($)</label>
+                                        <input class="form-control" type="text" name="reseller_money_min" value="{{ $settings->reseller_money_min }}" placeholder="Ingrese mínimo">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">E-mail primario</label>
+                                        <input class="form-control" type="text" name="email" value="{{ $settings->email }}">
+                                    </div>
+                                    <input class="btnSm btnBlue" type="submit" value="Actualizar">
+                                {!! Form::close() !!}
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="">E-mail primario</label>
-                            <input class="form-control" type="text" name="email" value="{{ $settings->email }}">
-                        </div>
-                        <input class="btnSm btnBlue" type="submit" value="Actualizar">
-                    {!! Form::close() !!}
-                </div>
-            </div>
-            <div class="row">
-                <div class="container-fluid">
-                    <h2>Estadísticas</h2>
-                    <div class="card">
-                        <div class="card-block">
-                            {!! Form::open(['route' => 'updateSettings', 'method' => 'POST', 'class' => '']) !!}	
-                                {{ csrf_field() }}
-                                <label>
-                                    <a data-toggle="modal" data-target="#GaHelpModal">
-                                        <i class="far fa-question-circle"></i>
-                                    </a>
-                                    Código de Google Analytics
-                                </label>
-                                <textarea class="form-control" name="google_analytics" style="margin-bottom: 5px; min-height: 200px">{{ $settings->google_analytics }}</textarea>
-                                <input class="btnSm btnBlue" type="submit" value="Actualizar">
-                            {!! Form::close() !!}
+                    </div>
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-block">
+                                {!! Form::open(['route' => 'updateSettings', 'method' => 'POST', 'class' => '']) !!}	
+                                    {{ csrf_field() }}
+                                    <label>
+                                        <a data-toggle="modal" data-target="#GaHelpModal">
+                                            <i class="far fa-question-circle"></i>
+                                        </a>
+                                        Código de Google Analytics
+                                    </label>
+                                    <textarea class="form-control" name="google_analytics" style="margin-bottom: 5px; min-height: 200px">{{ $settings->google_analytics }}</textarea>
+                                    <input class="btnSm btnBlue" type="submit" value="Actualizar">
+                                {!! Form::close() !!}
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+                  
             </div>
             {{-- <div class="settings-options table-responsive">
                 <table id="TableList" class="table">

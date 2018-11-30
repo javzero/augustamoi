@@ -19,7 +19,30 @@
 				<h3>Carro de Compras | Checkout</h3> 
 				{{-- <p>Pedido N: #{{ $activeCart['rawdata']->id }}</p> --}}
 				@if(Auth::guard('customer')->user()->group == '3')
-				<div class="warning"><span>Compra mínima: <b>{{ $settings->reseller_min }} unidades</b></span></div>
+				<div class="warning">
+						@if($settings->reseller_min > 0 || $settings->reseller_money_min > 0)
+							<span>Compra mínima:
+							
+							{{-- Minimum quantity --}}
+							@if($settings->reseller_min > 0)
+							<b>{{ $settings->reseller_min }} unidades</b>
+							@endif
+							
+							@if($settings->reseller_min > 0 && $settings->reseller_money_min > 0)
+							o
+							@endif
+
+							@if($settings->reseller_money_min > 0)
+							{{-- Minimum money GIVE ME DA MANAAAY --}}
+							<b>$ {{ $settings->reseller_money_min }}</b>
+							@endif
+							
+							</span>
+						@endif
+				</div>
+					{{-- @if($settings->reseller_money_min > 0)
+						<div class="warning"></div>
+					@endif --}}
 				@endif
 				<div class="table-responsive shopping-cart">
 					{{-- CART PRODUCTS LIST --}}

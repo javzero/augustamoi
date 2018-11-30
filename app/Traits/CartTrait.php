@@ -66,6 +66,7 @@ trait CartTrait {
         $shipping_price = 0;
         $activeCart = null;
         $minQuantity = $this->settings->reseller_min;
+        $minMoney = $this->settings->reseller_money_min;
 
         if(auth()->guard('customer')->check())
         {
@@ -80,6 +81,16 @@ trait CartTrait {
                 {
                     $totalItems += $item->quantity;
                 }
+                
+                $minQuantityNeeded = false;
+                $minMoneyNeeded = false;
+
+                
+                if($this->settings->reseller_min > 0 && $totalItems < $this->settings->reseller_min)
+                    $minQuantityNeeded = true;
+                if($this->settings->reseller_money_min > 0 && $cartTotal < $this->settings->reseller_money_min)
+                    $minMoneyNeeded = true;
+
                 $goalQuantity = $minQuantity - $totalItems;
 
                 $activeCart = array
@@ -95,7 +106,9 @@ trait CartTrait {
                         "cartSubTotal" => $cartSubTotal,
                         "cartTotal" => $cartTotal,
                         'totalItems' => $totalItems,
-                        'goalQuantity' => $goalQuantity
+                        'goalQuantity' => $goalQuantity,
+                        'minQuantityNeeded' => $minQuantityNeeded,
+                        'minMoneyNeeded' => $minMoneyNeeded
                     );
             }
         } 

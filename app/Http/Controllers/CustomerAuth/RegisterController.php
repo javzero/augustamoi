@@ -23,7 +23,7 @@ class RegisterController extends Controller
     | validation and creation. By default this controller uses a trait to
     | provide this functionality without requiring any additional code.
     |
-    */
+     */
 
     use RegistersUsers;
 
@@ -72,25 +72,35 @@ class RegisterController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
-        
+
     protected function create(array $data)
     {
         $status = '1'; // Active
         $group = '2'; // Min 
-        if($data['group'] == '3'){            
+        if ($data['group'] == '3') {
             $group = '3'; // Reseller
-        } 
-        
+        }
+
         $cuit = null;
         $dni = null;
         $phone = null;
         $geoProvId = null;
         $geoLocId = null;
-        if(isset($data['cuit']))       { $cuit = $data['cuit']; }
-        if(isset($data['dni']))       { $dni = $data['dni']; }
-        if(isset($data['phone']))      { $phone = $data['phone']; }
-        if(isset($data['geoprov_id'])) { $geoProvId = $data['geoprov_id']; }
-        if(isset($data['geoloc_id']))  { $geoLocId = $data['geoloc_id']; }
+        if (isset($data['cuit'])) {
+            $cuit = $data['cuit'];
+        }
+        if (isset($data['dni'])) {
+            $dni = $data['dni'];
+        }
+        if (isset($data['phone'])) {
+            $phone = $data['phone'];
+        }
+        if (isset($data['geoprov_id'])) {
+            $geoProvId = $data['geoprov_id'];
+        }
+        if (isset($data['geoloc_id'])) {
+            $geoLocId = $data['geoloc_id'];
+        }
 
         return Customer::create([
             'name' => $data['name'],
@@ -108,73 +118,63 @@ class RegisterController extends Controller
         ]);
     }
 
-    protected function guard(){
+    protected function guard()
+    {
         return auth()->guard('customer');
     }
 
-    public function showRegistrationForm(){
-        $geoprovs = GeoProv::pluck('name','id');
-        
-        return view('store.register')
-            ->with('geoprovs',$geoprovs);
+    public function showRegistrationForm()
+    {
+        // $geoprovs = GeoProv::pluck('name','id');
+        return view('store.register');
+            // ->with('geoprovs',$geoprovs);
     }
 
-    public function showRegistrationFormReseller(){
-        $geoprovs = GeoProv::pluck('name','id');
-        
+    public function showRegistrationFormReseller()
+    {
+        $geoprovs = GeoProv::pluck('name', 'id');
+
         return view('store.register-reseller')
-        ->with('geoprovs',$geoprovs);
+            ->with('geoprovs', $geoprovs);
     }
-
 
     public function register(Request $request)
     {
+        dd($request->all());
+        // // Custom Horrible Validations
+        // if ($request->group != '2' && $request->group != '3')
+        //     return back()->withErrors('No se ha seleccionado un tipo de usuario');
 
-        // Custom Horrible Validations
-        if($request->group != '2' && $request->group != '3')
-        {
-            return back()->withErrors('No se ha seleccionado un tipo de usuario');
-        }
+        // if ($request->group == '3') {
+        //     if ($request->CuitOrDni == 'Cuit')
+        //         if (strlen($request->cuit) != 11)
+        //         return redirect()->back()->withErrors('El CUIT debe tener 11 números');
 
-        if($request->group == '3')
-        {
-            if($request->CuitOrDni == 'Cuit')
-            {
-                if(strlen($request->cuit) != 11)
-                {
-                    return redirect()->back()->withErrors('El CUIT debe tener 11 números');
-                }
-            }
+        //     if ($request->CuitOrDni == 'Dni')
+        //         if (strlen($request->dni) != 8)
+        //         return redirect()->back()->withErrors('El DNI debe tener 8 números');
 
-            if($request->CuitOrDni == 'Dni')
-            {
-                if(strlen($request->dni) != 8)
-                {
-                    return redirect()->back()->withErrors('El DNI debe tener 8 números');
-                }
-            }
+        // }
 
-        }
+        // $this->validator($request->all())->validate();
 
-        $this->validator($request->all())->validate();
+        // event(new Registered($user = $this->create($request->all())));
 
-        event(new Registered($user = $this->create($request->all())));
+        // $this->guard()->login($user);
+        // try {
+        //     if ($user->group == '3') {
+        //         $subject = 'Solicitud de cliente mayorísta';
+        //         $message = 'Un usuario ha solicitado ser cliente mayorísta';
+        //     } else {
+        //         $subject = 'Nuevo usuario registrado';
+        //         $message = 'Nuevo usuario registrado';
+        //     }
+        //     Mail::to(APP_EMAIL_1)->send(new SendMail($subject, 'SimpleMail', $message));
+        // } catch (\Exception $e) {
+        //     //
+        // }
 
-        $this->guard()->login($user);
-        try{
-            if($user->group == '3'){
-                $subject = 'Solicitud de cliente mayorísta';
-                $message = 'Un usuario ha solicitado ser cliente mayorísta';
-            } else {
-                $subject = 'Nuevo usuario registrado';
-                $message = 'Nuevo usuario registrado';
-            }
-            Mail::to(APP_EMAIL_1)->send(new SendMail($subject, 'SimpleMail', $message));
-        } catch (\Exception $e) {
-            //
-        }
-
-        return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath());
+        // return $this->registered($request, $user)
+        //     ? : redirect($this->redirectPath());
     }
 }

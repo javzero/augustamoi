@@ -49,7 +49,7 @@
 			
 			{{-- Site Content --}}
 			<div class="content"> @yield('content') </div>
-				
+		</div>	
 			<!-- Site Footer-->
 			<footer class="site-footer">
 				<div class="container">
@@ -65,7 +65,7 @@
 					<a href="https://wa.me/5491167618867" target="_blank"><i class="fab fa-whatsapp"></i></a>
 				</div>
 			</div>
-			
+		
 			{{-- Back To Top Button --}}
 			<a class="scroll-to-top-btn" href="#"> <i class="icon-arrow-up"></i> </a>
 
@@ -85,7 +85,7 @@
 					checkoutSidebar('show');
 				</script>
 			@endif
-		</div>
+		
 	</body>
 </html>
 
