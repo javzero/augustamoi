@@ -2,12 +2,11 @@
 
 @section('content')
 <div class="container padding-bottom-3x">
-
 	<div class="row centered-form">
-        <form class="login-box form-simple inner" method="POST" action="{{ route('customer.register') }}">
-            {{--  Check if reseller --}}
-            <input id="IsResellerCheckbox" type="checkbox" name="isreseller" class="Hidden">
+        <form class="login-box form-simple inner" method="POST" action="{{ route('customer.process-register') }}">
             {{ csrf_field() }}
+            <input id="IsResellerCheckbox" type="checkbox" name="isreseller" class="Hidden">
+            {{--  Check if reseller --}}
             <div class="NormaClientTitle">
                 <h3 class="text-center">Registro de Usuario</h3>
             </div>
@@ -20,7 +19,7 @@
                 {{-- Username --}}
                 <div class="col-sm-6 form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                     <label for="reg-fn">Nombre de Usuario (Apodo)</label>
-                    <input id="username" type="text" name="username" class="form-control round" placeholder="Ingrese su nombre de usuario" value="{{ old('name') }}" required>
+                    <input id="username" type="text" name="username" class="form-control round" placeholder="Ingrese su nombre de usuario" value="{{ old('username') }}" required>
                     @if ($errors->has('username'))
                         <span class="help-block">
                             <strong>{{ $errors->first('username') }}</strong>
@@ -38,6 +37,28 @@
                     @endif
                 </div> 
             </div>
+            <div class="row">
+                    {{-- Name --}}
+                    <div class="col-sm-6 form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+                        <label>Nombre</label>
+                        <input  type="text" name="name" class="form-control round" placeholder="Ingrese su nombre" value="{{ old('name') }}" required>
+                        @if ($errors->has('name'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('username') }}</strong>
+                            </span>
+                        @endif
+                    </div> 	
+                    {{-- Surname --}}
+                    <div class="col-sm-6 form-group{{ $errors->has('surname') ? ' has-error' : '' }}">
+                        <label for="reg-fn">Apellido</label>
+                        <input type="text" name="surname" class="form-control round" placeholder="Ingrese su email" value="{{ old('surname') }}" required>
+                        @if ($errors->has('surname'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('surname') }}</strong>
+                            </span>
+                        @endif
+                    </div> 
+                </div>
             <div class="row">
                 {{-- Password --}}
                 <div class="col-sm-6 form-group{{ $errors->has('password') ? ' has-error' : '' }} position-relative has-icon-left">

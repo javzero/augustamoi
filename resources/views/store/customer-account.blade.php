@@ -8,10 +8,10 @@
     @endif --}}
     <div class="container padding-bottom-3x mb-2 marg-top-25">
         <div class="row ">
-            <div class="col-lg-4">
+            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
                 @include('store.partials.profile-aside')
             </div>
-            <div class="col-lg-8 white-container">
+            <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8">
                 <h2>Datos de contacto y entrega</h2>
                 <div class="padding-top-2x mt-2 hidden-lg-up"></div>
                 @if(app('request')->input('from') == 'checkout')

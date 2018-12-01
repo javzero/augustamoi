@@ -70,6 +70,13 @@ class RegisterController extends Controller
             'username' => 'required|string|max:20|unique:customers',
             'email' => 'required|string|email|max:255|unique:customers',
             'password' => 'required|string|min:6|confirmed',
+        ], [
+            'username.required' => 'Debe ingresar un nombre de usuario',
+            'email.required' => 'Debe ingresar un email',
+            'email.email' => 'La dirección de email parece inválida',
+            'email.unique' => 'Ya hay un usuario registrado con el mismo email',
+            'password.required' => 'Debe ingresar una contraseña',
+            'password.confirmed' => 'Las contraseñas no coinciden'
         ]);
     }
 
@@ -81,38 +88,39 @@ class RegisterController extends Controller
             $group = '3'; // Reseller
         }
 
-        $cuit = null;
-        $dni = null;
-        $phone = null;
-        $geoProvId = null;
-        $geoLocId = null;
-        if (isset($data['cuit'])) {
-            $cuit = $data['cuit'];
-        }
-        if (isset($data['dni'])) {
-            $dni = $data['dni'];
-        }
-        if (isset($data['phone'])) {
-            $phone = $data['phone'];
-        }
-        if (isset($data['geoprov_id'])) {
-            $geoProvId = $data['geoprov_id'];
-        }
-        if (isset($data['geoloc_id'])) {
-            $geoLocId = $data['geoloc_id'];
-        }
+        // $cuit = null;
+        // $dni = null;
+        // $phone = null;
+        // $geoProvId = null;
+        // $geoLocId = null;
+
+        // if (isset($data['cuit'])) {
+        //     $cuit = $data['cuit'];
+        // }
+        // if (isset($data['dni'])) {
+        //     $dni = $data['dni'];
+        // }
+        // if (isset($data['phone'])) {
+        //     $phone = $data['phone'];
+        // }
+        // if (isset($data['geoprov_id'])) {
+        //     $geoProvId = $data['geoprov_id'];
+        // }
+        // if (isset($data['geoloc_id'])) {
+        //     $geoLocId = $data['geoloc_id'];
+        // }
 
         return Customer::create([
             'name' => $data['name'],
             'surname' => $data['surname'],
             'username' => $data['username'],
             'email' => $data['email'],
-            'phone' => $phone,
+            // 'phone' => $phone,
             'status' => $status,
-            'geoprov_id' => $geoProvId,
-            'geoloc_id' => $geoLocId,
-            'cuit' => $cuit,
-            'dni' => $dni,
+            // 'geoprov_id' => $geoProvId,
+            // 'geoloc_id' => $geoLocId,
+            // 'cuit' => $cuit,
+            // 'dni' => $dni,
             'password' => bcrypt($data['password']),
             'group' => $group
         ]);
@@ -140,41 +148,41 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        dd($request->all());
-        // // Custom Horrible Validations
-        // if ($request->group != '2' && $request->group != '3')
-        //     return back()->withErrors('No se ha seleccionado un tipo de usuario');
+        // Custom Horrible Validations
+        if ($request->group != '2' && $request->group != '3')
+            return back()->withErrors('No se ha seleccionado un tipo de usuario');
 
-        // if ($request->group == '3') {
-        //     if ($request->CuitOrDni == 'Cuit')
-        //         if (strlen($request->cuit) != 11)
-        //         return redirect()->back()->withErrors('El CUIT debe tener 11 números');
+        if ($request->group == '3') {
+            if ($request->CuitOrDni == 'Cuit')
+                if (strlen($request->cuit) != 11)
+                return redirect()->back()->withErrors('El CUIT debe tener 11 números');
 
-        //     if ($request->CuitOrDni == 'Dni')
-        //         if (strlen($request->dni) != 8)
-        //         return redirect()->back()->withErrors('El DNI debe tener 8 números');
+            if ($request->CuitOrDni == 'Dni')
+                if (strlen($request->dni) != 8)
+                return redirect()->back()->withErrors('El DNI debe tener 8 números');
 
-        // }
+        }
 
-        // $this->validator($request->all())->validate();
+        $this->validator($request->all())->validate();
 
-        // event(new Registered($user = $this->create($request->all())));
+        event(new Registered($user = $this->create($request->all())));
 
-        // $this->guard()->login($user);
-        // try {
-        //     if ($user->group == '3') {
-        //         $subject = 'Solicitud de cliente mayorísta';
-        //         $message = 'Un usuario ha solicitado ser cliente mayorísta';
-        //     } else {
-        //         $subject = 'Nuevo usuario registrado';
-        //         $message = 'Nuevo usuario registrado';
-        //     }
-        //     Mail::to(APP_EMAIL_1)->send(new SendMail($subject, 'SimpleMail', $message));
-        // } catch (\Exception $e) {
-        //     //
-        // }
+        $this->guard()->login($user);
 
-        // return $this->registered($request, $user)
-        //     ? : redirect($this->redirectPath());
+        try {
+            if ($user->group == '3') {
+                $subject = 'Nuevo usuario registrado';
+                $message = 'Un usuario se ha registrado en la tienda';
+            } else {
+                $subject = 'Nuevo usuario registrado';
+                $message = 'Un usuario se ha registrado en la tienda';
+            }
+            Mail::to(APP_EMAIL_1)->send(new SendMail($subject, 'SimpleMail', $message));
+        } catch (\Exception $e) {
+            //
+        }
+
+        return $this->registered($request, $user)
+            ? : redirect($this->redirectPath());
     }
 }

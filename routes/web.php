@@ -18,7 +18,8 @@ Route::group(['prefix'=> 'tienda', 'middleware' => 'active-customer'], function(
     // Route::get('registro', function(){ return view('store.register-select'); });
     Route::get('registro', ['as' => 'customer.register', 'uses' => 'CustomerAuth\RegisterController@showRegistrationForm']);
     // Route::get('register-reseller', ['as' => 'customer.register-reseller', 'uses' => 'CustomerAuth\RegisterController@showRegistrationFormReseller']);
-    Route::post('register', ['uses' => 'CustomerAuth\RegisterController@register']);
+    Route::post('register', ['as' => 'customer.process-register','uses' => 'CustomerAuth\RegisterController@register']);
+    // Route::post('register', function(){ dd("Test"); });
     // Store Password Reset Routes
     Route::get('password/reset', ['as' => 'customer.password.reset', 'uses' => 'CustomerAuth\ForgotPasswordController@showLinkRequestForm']);
     Route::post('password/email', ['as' => 'customer.password.email', 'uses' => 'CustomerAuth\ForgotPasswordController@sendResetLinkEmail']);
