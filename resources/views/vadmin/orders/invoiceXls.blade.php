@@ -3,8 +3,9 @@
 @section('content')
     <table>
     <tr>
-        <th></th>
+        <th>Código</th>
         <th>Artículo</th>
+        <th>Marca</th>
         <th>Talle - Color - Tela</th>
         <th>P.U.</th>
         <th>Cantidad</th>
@@ -13,8 +14,9 @@
     </tr>
     @foreach($order['rawdata']->items as $item)
     <tr>
-        <td></td>
-        <td><a href="">{{ $item->article->name }} (#{{ $item->article->code }})</a></td>
+        <td>{{ $item->article->code }}</td>
+        <td><a href="">{{ $item->article->name }}</a></td>
+        <td>{{ $item->article->brand->name }}</td>
         <td>{{ $item->size }} | {{ $item->color }} | {{ $item->textile }}</td>
         <td>$ {{ $item->final_price }}</td>
         <td>{{ $item->quantity }}</td>

@@ -56,6 +56,10 @@ class CatalogArticle extends Model
     	return $this->belongsToMany('App\CatalogBrand');
     }
 
+    public function brand(){
+    	return $this->belongsTo('App\CatalogBrand');
+    }
+
     public function featuredImageName(){
         
         $featuredImage = $this->images()->where('featured', true)->first();
