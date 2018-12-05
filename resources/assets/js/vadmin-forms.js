@@ -319,8 +319,8 @@ $('#Multi_Images').fileuploader({
                       '<li class="fileuploader-thumbnails-input"><div class="fileuploader-thumbnails-input-inner">+</div></li>' +
                   '</ul>' +
               '</div>',
-        item: '<li class="fileuploader-item">' +
-                   '<div class="fileuploader-item-inner">' +
+        item: '<li class="fileuploader-item">' + 
+                   '<div class="fileuploader-item-inner" onclick="featureOnClick();">' +
                        '<div class="thumbnail-holder">${image}</div>' +
                        '<div class="actions-holder">' +
                               '<a class="fileuploader-action fileuploader-action-remove" title="${captions.remove}"><i class="remove"></i></a>' +
@@ -415,6 +415,9 @@ $('#Multi_Images').fileuploader({
     */
 });
 
+window.featureOnClick = function(){
+    alert();
+}
 
 $('.Display-Input-Modificable').click(function(){
     $(this).removeClass('display-input-disabled'); 
