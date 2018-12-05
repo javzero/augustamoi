@@ -141,3 +141,48 @@ Comando para generar CRUDS desde consola
 <blockquote>php artisan crud:generate Catalog1 --fields='name#string' --view-path=vadmin/catalog1 --controller-namespace=Catalog --route-group=vadmin</blockquote>
 
 
+# Laravel comandos y soluciones
+Borrar log
+php artisane log:clear
+
+### Crear schedules
+Crear comando en laravel
+> php artisand command:create NombreDeComando
+Este archivo se va a crear en app/Console/Commands
+- En el método handle() ingresar lo que necesitemos hacer
+
+En app/Console/Kernel.php
+se activa la tarea y se le da un tiempo
+
+
+
+
+Crear tarea en servidor
+
+Primero testear con
+------------
+$ sudo crontab -u www-data -e
+Add this entry:
+* * * * * date >> /tmp/date.out
+Now examine the output with:
+$ tail -f /tmp/date.out
+----------------
+
+Luego comenzar con
+sudo crontab -u www-data -e
+* * * * * /Documentos/WebDev/Incubator/augustamoi/artisan schedule:run >> /dev/null 2>&1
+
+Ver la tarea
+crontab -l
+
+Restartear cron
+sudo service cron reload
+
+Para empezar a correr la tarea
+> php artisan schedule:run
+
+----
+Cron log
+grep cron /var/log/syslog
+Cron restart
+service cron restart

@@ -121,8 +121,6 @@
                         {{-- <tr>
                             <td style="white-space:nowrap">XS / Rojo</td>
                             <td class="width-100"><input class="form-control" type="text" name="variant[]" value="10"></td>
-                            <td class="width-100"><input class="form-control" type="text" name="variant[]" value="100"></td>
-                            <td class="width-100"><input class="form-control" type="text" name="variant[]" value="10"></td>
                             <td><i class="fa fa-trash"></i></td>
                         </tr> --}}
                     </tbody>

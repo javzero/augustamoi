@@ -130,6 +130,8 @@ window.makeVariants = function()
     let colors = [];
     let sizes = [];
 
+    
+
     $.each(variantSize, function(){
         if($(this).is(':checked'))
         {   
@@ -150,7 +152,7 @@ window.makeVariants = function()
         }
     });
        
-    var combinations = [];
+    let combinations = [];
 
     $.each(colors, function(index, color){
         $.each(sizes,  function(index, size){
@@ -163,6 +165,9 @@ window.makeVariants = function()
             combinations.push(item);
         });
     });
+
+    console.log(combinations);
+    
     let existingCombinations = checkVariants();
 
     $.each(combinations, function(index, value)
