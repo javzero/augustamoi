@@ -248,10 +248,16 @@
             url: route,
             type: 'POST',
             data: data,
+            dataType: 'JSON',
             success: function(data){
                 console.log(data);
+                $('#Error').html(data.responseText);
                 if(data.response == true){
                     location.reload();
+                } 
+                else if(data.response == false)
+                {
+                    alert_error('Mmm...', data.message);
                 } else {
                     $('#Error').html(data.responseText);
                 }

@@ -123,7 +123,6 @@
 										<div class="small-badge-with-data">
 											{{ $variant->combination }} <div class="inner"><span class="inner-data">{{ $variant->stock }}</span></div>
 										</div>
-										{{-- <span class="tag tag-pill btnBlue"> ({{ $variant->stock }})</span> --}}
 									@endforeach
 								</td>
 								{{-- STATUS --}}
@@ -155,7 +154,7 @@
 				<a href="{{ route('catalogo.index', ['orden' => 'ASC', 'results' => '50']) }}">50</a>
 				<a href="{{ route('catalogo.index', ['orden' => 'ASC', 'results' => '100']) }}">100</a>
 			</div>
-			{!! $articles->appends(request()->query())->render()!!}
+			{!! $articles->appends(request()->query())->render() !!}
 		</div>
 		<div id="Error"></div>
 	</div>

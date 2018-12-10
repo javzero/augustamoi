@@ -324,13 +324,8 @@
 			<ul class="menu-content">
 				<li class="is-shown {{ Menu::activeMenu('active-carts') }}">
 					<a href="{{ route('orders.create') }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item">
-						<i class="icon-list"></i> 
+						<i class="icon-plus"></i> 
 						Cargar Pedido
-					</a>
-				</li>
-				<li class="is-shown {{ Menu::activeMenu('orders') }}">
-					<a href="{{ route('orders.index', ['status' => 'All']) }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-list"></i> 
-						Ver Todos
 					</a>
 				</li>
 				<li class="is-shown {{ Menu::activeMenu('orders') }}">
@@ -339,6 +334,21 @@
 						@if($newOrders > 0)
 							<span class="green">&bull;</span>
 						@endif
+					</a>
+				</li>
+				<li class="is-shown {{ Menu::activeMenu('orders') }}">
+					<a href="{{ route('orders.index', ['status' => 'All']) }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-list"></i> 
+						Ver Todos
+					</a>
+				</li>
+				<li class="is-shown {{ Menu::activeMenu('orders') }}">
+					<a href="{{ route('orders.index', ['status' => 'Finished']) }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-list"></i> 
+						Finalizados
+					</a>
+				</li>
+				<li class="is-shown {{ Menu::activeMenu('orders') }}">
+					<a href="{{ route('orders.index', ['status' => 'Canceled']) }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-list"></i> 
+						Cancelados
 					</a>
 				</li>
 				<li class="is-shown {{ Menu::activeMenu('active-carts') }}">

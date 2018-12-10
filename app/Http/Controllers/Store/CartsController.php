@@ -9,6 +9,7 @@ use App\Customer;
 use App\Shipping;
 use App\Payment;
 use App\Traits\CartTrait;
+use Log;
 
 class CartsController extends Controller
 {
@@ -78,14 +79,36 @@ class CartsController extends Controller
     public function updateStatus(Request $request)
     {
         $cart = Cart::findOrFail($request->id);
-        try {
+        $oldStatus = $cart->status;
+
+        if($oldStatus == 'Canceled')
+        {
+            return response()->json([
+                'response' => false,
+                'message' => 'Estás tratando de revivir una órden cancelada. Esta función aún no ha sido diseñada.'
+            ]); 
+        }
+
+        if($request->status == "Canceled")
+        {
+            foreach($cart->items as $item)
+            {
+                $this->updateVariantStock($item->variant->id, $item->quantity);
+            }
+        }
+        
+        try 
+        {
             $cart->status = $request->status;
             $cart->save();
             return response()->json([
                 'response' => true,
                 'newstatus' => $cart->status
             ]); 
-        }  catch (\Exception $e) {
+        }  
+
+        catch (\Exception $e) 
+        {
             return response()->json([
                 'response'   => false,
                 'error'    => 'Error: '.$e->getMessage()
@@ -133,8 +156,12 @@ class CartsController extends Controller
         $cart = Cart::find($request->itemid);
         try
         {
-            foreach($cart->items as $item){
-                $this->updateCartItemStock($item->article->id, $item->quantity);
+            if($cart->status != 'Canceled')
+            {
+                foreach($cart->items as $item)
+                {
+                    $this->updateVariantStock($item->variant->id, $item->quantity);
+                }
             }
             $cart->delete();
         }
@@ -154,8 +181,12 @@ class CartsController extends Controller
         {
             foreach ($ids as $id) {
                 $cart = Cart::find($id);
-                foreach($cart->items as $item){
-                    $this->updateCartItemStock($item->article->id, $item->quantity);
+                // If order has been canceled dont return stock (Its been returned before)
+                if($cart->status != 'Canceled')
+                {
+                    foreach($cart->items as $item){
+                        $this->updateVariantStock($item->variant->id, $item->quantity);
+                    }
                 }
                 $cart->delete();
             }
@@ -171,6 +202,4 @@ class CartsController extends Controller
             ]);    
         } 
     }
-
-
 }

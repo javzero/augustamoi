@@ -81,47 +81,47 @@
 			</div>
 		</div>
 		<!-- BEGIN VENDOR JS-->
-		<script src="{{ asset('vadmin-ui/app-assets/js/core/libraries/jquery.min.js') }}" type="text/javascript"></script>
-		<script src="{{ asset('vadmin-ui/app-assets/js/core/libraries/jquery-ui.min.js') }}" type="text/javascript"></script>
-		<script src="{{ asset('vadmin-ui/app-assets/vendors/js/ui/tether.min.js') }}" type="text/javascript"></script>
-		<script src="{{ asset('vadmin-ui/app-assets/js/core/libraries/bootstrap.min.js') }}" type="text/javascript"></script>
-		<script src="{{ asset('vadmin-ui/app-assets/vendors/js/ui/perfect-scrollbar.jquery.min.js') }}" type="text/javascript"></script>
-		<script src="{{ asset('vadmin-ui/app-assets/vendors/js/ui/unison.min.js') }}" type="text/javascript"></script>
-		<script src="{{ asset('vadmin-ui/app-assets/vendors/js/ui/blockUI.min.js') }}" type="text/javascript"></script>
-		<script src="{{ asset('vadmin-ui/app-assets/vendors/js/ui/jquery.matchHeight-min.js') }}" type="text/javascript"></script>
-		{{-- <script src="{{ asset('vadmin-ui/app-assets/vendors/js/ui/screenfull.min.js') }}" type="text/javascript"></script> --}}
-		<script src="{{ asset('vadmin-ui/app-assets/vendors/js/extensions/pace.min.js') }}" type="text/javascript"></script>
-		<script src="{{ asset('vadmin-ui/app-assets/js/core/app-menu.js') }}" type="text/javascript"></script>
-		<script src="{{ asset('vadmin-ui/app-assets/js/core/app.js') }}" type="text/javascript"></script>
-		<script src="{{ asset('plugins/sweetalert/sweetalert2.min.js') }}" type="text/javascript"></script>
-		<script src="{{ asset('js/vadmin-ui.js') }}" type="text/javascript"></script>
-		<script src="{{ asset('js/vadmin-functions.js') }}" type="text/javascript"></script>
-		@include('vadmin.components.appjs')
-		@yield('scripts')
-		<script>
-			
-			let count = 0;
-			setInterval(function(){
-				count++;
-				let dots = new Array(count % 10).join('.');
-				document.getElementById('LoadingText').innerHTML = "." + dots;
-			}, 1000);
-			
-			// Check If Img Is Broken and replace with default img 
-			// Add ".CheckImg" ass Class in any Img to add this function
-			// $('.CheckImg').on('error', function(){
-			// 	var defaultImg = "{{ asset('images/users/default.jpg') }}"
-			// 	$(this).attr('src', defaultImg);
-			// });
-
-			$('.BtnLoader').click(function(){
-				let loadertext = $(this).data('loadertext');
-				let svg  = "<img src='{{ asset('images/gral/loader-sm.svg') }}'>";
-				$(this).html(svg + ' ' + loadertext);
-			});
-			
-			let allowEnterOnForms = false;	
-		</script>
-		@yield('custom_js')
 	</body>
+	<script src="{{ asset('vadmin-ui/app-assets/js/core/libraries/jquery.min.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('vadmin-ui/app-assets/js/core/libraries/jquery-ui.min.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('vadmin-ui/app-assets/vendors/js/ui/tether.min.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('vadmin-ui/app-assets/js/core/libraries/bootstrap.min.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('vadmin-ui/app-assets/vendors/js/ui/perfect-scrollbar.jquery.min.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('vadmin-ui/app-assets/vendors/js/ui/unison.min.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('vadmin-ui/app-assets/vendors/js/ui/blockUI.min.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('vadmin-ui/app-assets/vendors/js/ui/jquery.matchHeight-min.js') }}" type="text/javascript"></script>
+	{{-- <script src="{{ asset('vadmin-ui/app-assets/vendors/js/ui/screenfull.min.js') }}" type="text/javascript"></script> --}}
+	<script src="{{ asset('vadmin-ui/app-assets/vendors/js/extensions/pace.min.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('vadmin-ui/app-assets/js/core/app-menu.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('vadmin-ui/app-assets/js/core/app.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('plugins/sweetalert/sweetalert2.min.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('js/vadmin-ui.js') }}" type="text/javascript"></script>
+	<script src="{{ asset('js/vadmin-functions.js') }}" type="text/javascript"></script>
+	@include('vadmin.components.appjs')
+	@yield('scripts')
+	<script>
+		
+		let count = 0;
+		setInterval(function(){
+			count++;
+			let dots = new Array(count % 10).join('.');
+			document.getElementById('LoadingText').innerHTML = "." + dots;
+		}, 1000);
+		
+		// Check If Img Is Broken and replace with default img 
+		// Add ".CheckImg" ass Class in any Img to add this function
+		// $('.CheckImg').on('error', function(){
+		// 	var defaultImg = "{{ asset('images/users/default.jpg') }}"
+		// 	$(this).attr('src', defaultImg);
+		// });
+
+		$('.BtnLoader').click(function(){
+			let loadertext = $(this).data('loadertext');
+			let svg  = "<img src='{{ asset('images/gral/loader-sm.svg') }}'>";
+			$(this).html(svg + ' ' + loadertext);
+		});
+		
+		let allowEnterOnForms = false;	
+	</script>
+	@yield('custom_js')
 </html>

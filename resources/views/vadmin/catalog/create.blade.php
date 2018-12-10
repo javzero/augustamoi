@@ -3,11 +3,10 @@
 
 @section('styles')
 	{!! Html::style('plugins/texteditor/trumbowyg.min.css') !!}
+	{!! Html::style('plugins/jqueryFileUploader/fileuploader.css') !!}
 	{!! Html::style('plugins/jqueryFileUploader/jquery.fileuploader.css') !!}
 	{!! Html::style('plugins/jqueryFileUploader/jquery.fileuploader-thumbnailtheme.css') !!}
-	
-	{{-- {!! Html::style('plugins/jqueryfiler/themes/jquery.filer-dragdropbox-theme.css') !!} --}}
-	{!! Html::style('plugins/jqueryfiler/jquery.filer.css') !!}
+	{!! Html::style('plugins/jqueryfiler/themes/jquery.filer-dragdropbox-theme.css') !!}
 	{!! Html::style('plugins/chosen/chosen.min.css') !!}
 	{!! Html::style('plugins/colorpicker/spectrum.css') !!}
 @endsection
@@ -31,7 +30,15 @@
 
 @section('content')
 	<div class="inner-wrapper">
-		{!! Form::open(['id' => 'StoreArticleForm', 'route' => 'catalogo.store', 'method' => 'POST', 'files' => true, 'class' => 'row big-form', 'data-parsley-validate' => '']) !!}	
+		{!! Form::open([
+				'id' => 'StoreArticleForm', 
+				'method' => 'POST', 
+				'route' => 'catalogo.store', 
+				'enctype' => 'multipart/form-data',
+				'files' => true, 
+				'class' => 'row big-form', 
+				'data-parsley-validate' => ''
+			]) !!}	
 			@include('vadmin.catalog.form')
 			<div class="form-actions right">
 				<a href="{{ route('catalogo.index')}}">
@@ -50,7 +57,6 @@
 
 @section('scripts')
 	<script type="text/javascript" src="{{ asset('plugins/texteditor/trumbowyg.min.js')}} "></script>
-	{{-- <script type="text/javascript" src="{{ asset('plugins/jqueryfiler/jquery.filer.min.js')}} "></script> --}}
 	<script type="text/javascript" src="{{ asset('plugins/chosen/chosen.jquery.min.js') }}" ></script>
 	<script type="text/javascript" src="{{ asset('plugins/validation/parsley.min.js') }}" ></script>
 	<script type="text/javascript" src="{{ asset('plugins/validation/es/parsley-es.min.js') }}" ></script>

@@ -143,7 +143,8 @@ Comando para generar CRUDS desde consola
 
 # Laravel comandos y soluciones
 Borrar log
-php artisane log:clear
+sudo truncate -s 0 /storage/logs/laravel.log
+sudo truncate -s 0 laravel.log
 
 ### Crear schedules
 Crear comando en laravel

@@ -130,48 +130,73 @@
     </div> {{-- COL IZQ --}}
 
     <div class="col-xs-12 col-md-12 col-lg-6">
-            <div class="col-md-12">
-                    @include('vadmin.components.addimgsform')
+        <div class="col-md-12">
+            <div class="row form-group">
+                <div class="col-md-12">
+                    <h2>Carga de imágenes</h2>
+                    <span style="font-size: 12px">Formatos soportados: jpeg, jpg, png, gif | Peso máximo por imágen: 2mb | Peso máximo total: 5mb</span>
+                    {{--  Images Input  --}}
+                    {{-- {!! Form::file('images[]', array('multiple'=>true, 'id' => 'ImagesUploader')) !!} --}}
+                    <input id="ImagesUploader" type="file" name="files[]" multiple="multiple">
+                    {{-- @if(isset($article) && count($article->images) > 0 )
+                        @foreach($article->images as $image)
+                        <li class="fileuploader-item file-has-popup file-type-image file-ext-jpg">
+                            <div class="columns"><div class="column-thumbnail">
+                                <div class="fileuploader-item-image">
+                                    <canvas width="36" height="50"></canvas></div>
+                                    <span class="fileuploader-action-popup"></span>
+                                </div><div class="column-title">
+                                    <div title="44-0.jpg">44-0.jpg</div>
+                                    <span>37.4 KB</span></div><div class="column-actions">
+                                        <a class="fileuploader-action fileuploader-action-sort" title="Sort">
+                                            <i></i></a><a class="fileuploader-action fileuploader-action-remove" title="Remove">
+                                                <i></i></a></div></div><div class="progress-bar2">
+                                                    <span></span></div></li>
+                        @endforeach
+                    @endif --}}
+                    <div class="ErrorImage"></div>
                 </div>
-                    @if(isset($inheritData) && count($inheritData->images) > 0)
-                        {{-- <div class="col-md-12 actual-images horizontal-list">
-                            <h3>Imágenes</h3>
-                            <ul>
-                                @foreach($inheritData->images->sortByDesc('featured') as $image)
-                                <li id="Img{{ $image->id }}" class="{{ $image->featured ? 'is-featured' : '' }}">	
-                                    <img class="CheckImg" src="{{ asset('webimages/catalogo/'.$image->name) }}">
-                                    <div class="overlayItemCenter">
-                                        <a><i class="Delete-Product-Img icon-ios-trash-outline delete-img" data-imgid="{{ $image->id }}"></i></a>
-                                        @if(!$image->featured)
-                                            <a href="{{ url('vadmin/article/'.$inheritData->id.'/images/setFeatured/'.$image->id) }}"><i class="icon-star"></i></a>
-                                        @endif
-                                    </div>
-                                </li>
-                                @endforeach
-                            </ul>
-                        <br>
-                        </div> --}}
-                    @else
-                        @if(isset($article) && count($article->images) > 0 )
-                            <div class="col-md-12 actual-images horizontal-list">
-                                <h2>Imágenes Publicadas</h2>
-                                <ul>
-                                    @foreach($article->images->sortByDesc('featured') as $image)
-                                    <li id="Img{{ $image->id }}" class="{{ $image->featured ? 'is-featured' : '' }}">	
-                                        <img class="CheckImg" src="{{ asset('webimages/catalogo/'.$image->name) }}">
-                                        <div class="overlayItemCenter">
-                                            <a><i class="Delete-Product-Img icon-ios-trash-outline delete-img" data-imgid="{{ $image->id }}"></i></a>
-                                            @if(!$image->featured)
-                                                <a href="{{ url('vadmin/article/'.$article->id.'/images/setFeatured/'.$image->id) }}"><i class="icon-star"></i></a>
-                                            @endif
-                                        </div>
-                                    </li>
-                                    @endforeach
-                                </ul>
-                            <br>
+            </div>
+        </div>
+            @if(isset($inheritData) && count($inheritData->images) > 0)
+                {{-- <div class="col-md-12 actual-images horizontal-list">
+                    <h3>Imágenes</h3>
+                    <ul>
+                        @foreach($inheritData->images->sortByDesc('featured') as $image)
+                        <li id="Img{{ $image->id }}" class="{{ $image->featured ? 'is-featured' : '' }}">	
+                            <img class="CheckImg" src="{{ asset('webimages/catalogo/'.$image->name) }}">
+                            <div class="overlayItemCenter">
+                                <a><i class="Delete-Product-Img icon-ios-trash-outline delete-img" data-imgid="{{ $image->id }}"></i></a>
+                                @if(!$image->featured)
+                                    <a href="{{ url('vadmin/article/'.$inheritData->id.'/images/setFeatured/'.$image->id) }}"><i class="icon-star"></i></a>
+                                @endif
                             </div>
-                        @endif
-                    @endif
+                        </li>
+                        @endforeach
+                    </ul>
+                <br>
+                </div> --}}
+            @else
+                @if(isset($article) && count($article->images) > 0 )
+                    <div class="col-md-12 actual-images horizontal-list">
+                        <h2>Imágenes Publicadas</h2>
+                        <ul>
+                            @foreach($article->images->sortByDesc('featured') as $image)
+                            <li id="Img{{ $image->id }}" class="{{ $image->featured ? 'is-featured' : '' }}">	
+                                <img class="CheckImg" src="{{ asset('webimages/catalogo/'.$image->name) }}">
+                                <div class="overlayItemCenter">
+                                    <a><i class="Delete-Product-Img icon-ios-trash-outline delete-img" data-imgid="{{ $image->id }}"></i></a>
+                                    @if(!$image->featured)
+                                        <a href="{{ url('vadmin/article/'.$article->id.'/images/setFeatured/'.$image->id) }}"><i class="icon-star"></i></a>
+                                    @endif
+                                </div>
+                            </li>
+                            @endforeach
+                        </ul>
+                    <br>
+                    </div>
+                @endif 
+            @endif 
                 
     </div> {{-- COL DER --}}
 </div> {{--  Main Row --}}

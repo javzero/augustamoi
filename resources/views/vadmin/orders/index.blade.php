@@ -38,15 +38,14 @@
 @section('content')
 	<div class="list-wrapper">
 		{{-- Search --}}
-		{{-- Test --}}
-		<div id="TestBox" class="col-xs-12 test-box Hidden">
-		</div>
 		<div class="row">
 			{{-- Active Orders Message --}}
 			@if(app('request')->input('show') == 'Active')
 			<h1>Pedidos en proceso</h1>
-			<p>Estos son los pedidos que se están realizando los usuarios en este momento. <br>
-			Aún no han sido confirmados.</p>
+			<p>
+				Estos son los pedidos que se están realizando los usuarios en este momento. <br>
+				Aún no han sido confirmados.
+			</p>	
 			@endif
 			{{-- List --}}
 			@component('vadmin.components.list')
@@ -85,29 +84,29 @@
 								</td>
 								<td class="w-200">
 									<div class="input-group"> 
-										<span class="input-group-btn">
+										{{-- <span class="input-group-btn">
 											<span class="btn btnSquare grey-back">
 												@switch($item->status)
-												@case('Active')
+													@case('Active')
 														<i class="icon-download"></i>
 														@break
-														@case('Process')
+													@case('Process')
 														<i class="icon-cog"></i>
 														@break
 													@case('Approved')
-													<i class="icon-forward2"></i>
+														<i class="icon-forward2"></i>
 														@break
 													@case('Canceled')
 														<i class="icon-cancel-circle"></i>
 														@break
-														@case('Finished')
+													@case('Finished')
 														<i class="icon-checkmark2"></i>
 														@break
 													@default
 														<i class="icon-close"></i>
 												@endswitch
 											</span>
-										</span>
+										</span> --}}
 										{!! Form::select('group', 
 										[ 'Active' => 'Activo', 'Process' => 'Esperando Acción', 'Approved' => 'Aprobado', 'Canceled' => 'Cancelado', 'Finished' => 'Finalizado'], 
 										$item->status, ['class' => 'form-control custom-select minWidth150', 'onChange' => 'updateCartStatus(this, this.dataset.id)', 'data-id' => $item->id]) !!}
@@ -141,11 +140,10 @@
 						@endforeach
 					@endif
 				@endslot
-			@endcomponent
-			
+				@endcomponent
+			</div>
 			{{--  Pagination  --}}
-			{{-- {!! $items->render() !!} --}}
-		</div>
+		{{-- {!! $items->render() !!} --}}
 		<div id="Error"></div>	
 	</div>
 @endsection

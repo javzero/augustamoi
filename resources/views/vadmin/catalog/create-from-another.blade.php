@@ -1,14 +1,13 @@
 @extends('vadmin.partials.main')
-@section('title', 'VADmin | Editar Item')
+@section('title', 'VADmin | Publicar similar')
 
 @section('styles')
 	{!! Html::style('plugins/texteditor/trumbowyg.min.css') !!}
+	{!! Html::style('plugins/jqueryFileUploader/fileuploader.css') !!}
 	{!! Html::style('plugins/jqueryFileUploader/jquery.fileuploader.css') !!}
 	{!! Html::style('plugins/jqueryFileUploader/jquery.fileuploader-thumbnailtheme.css') !!}
-	{{-- {!! Html::style('plugins/jqueryfiler/themes/jquery.filer-dragdropbox-theme.css') !!} --}}
-	{!! Html::style('plugins/jqueryfiler/jquery.filer.css') !!}
-	{!! Html::style('plugins/chosen/chosen.min.css') !!}
-	{!! Html::style('plugins/colorpicker/spectrum.css') !!}
+	{!! Html::style('plugins/jqueryfiler/themes/jquery.filer-dragdropbox-theme.css') !!}
+	{!! Html::style('plugins/chosen/chosen.min.css') !!}	
 @endsection
 
 @section('header')
@@ -48,10 +47,6 @@
                     <i class="icon-check2"></i> Guardar
                 </button>
             </div>
-			{{-- <div class="row centered">
-				{!! Form::submit('Guardar', ['class' => 'btn btnGreen']) !!}
-            </div> --}}
-            
 		{!! Form::close() !!}
 		<div id="Error"></div>
 	</div>  
@@ -59,7 +54,6 @@
 
 @section('scripts')
 	<script type="text/javascript" src="{{ asset('plugins/texteditor/trumbowyg.min.js')}} "></script>
-	{{-- <script type="text/javascript" src="{{ asset('plugins/jqueryfiler/jquery.filer.min.js')}} "></script> --}}
 	<script type="text/javascript" src="{{ asset('plugins/chosen/chosen.jquery.min.js') }}" ></script>
 	<script type="text/javascript" src="{{ asset('plugins/validation/parsley.min.js') }}" ></script>
 	<script type="text/javascript" src="{{ asset('plugins/validation/es/parsley-es.min.js') }}" ></script>
