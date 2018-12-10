@@ -15,39 +15,48 @@
 		<div class="row">
             <div class="deco-title">
                 <span>
-                    <div class="deco deco-left"><img src="{{ asset('images/gral/icons/icon-deco-left.png') }}" alt="Deco"></div>
-                    Cómo comprar
-                    <div class="deco deco-right"><img src="{{ asset('images/gral/icons/icon-deco-right.png') }}" alt="Deco"></div>
+                    {{-- <div class="deco deco-left"><img src="{{ asset('images/gral/icons/icon-deco-left.png') }}" alt="Deco"></div> --}}
+                    Cómo comprar <i class="fas fa-question"></i>
+                    {{-- <div class="deco deco-right"><img src="{{ asset('images/gral/icons/icon-deco-right.png') }}" alt="Deco"></div> --}}
                 </span>
             </div>
         </div>
         <div class="row text-center">
-            <div class="col-sm-12 col-md-6 col-lg-4 item">
-                <img src="{{ asset('images/gral/icons/compra1.png') }} " alt="Compras">
-                <p>Elegí el producto que deseás comprar y selecciona la cantidad de unidades.</p>
+            <div class="col-sm-12 item">
+                {{-- <img src="{{ asset('images/gral/icons/compra1.png') }} " alt="Compras"> --}}
+                
+                <p style="font-size: 1.5rem">La venta es solo mayorista <br> con un mínimo por pedido de <b class="main-color">$5000.</b></p>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4 item">
-                <img src="{{ asset('images/gral/icons/compra2.png') }} " alt="Compras">
-                <p>Hacé clic en el botón de "Agregar al carrito".  Podés seguir agregando otros productos haciendo click en “Volver a la tienda”. O podés finalizar tu compra haciendo click en el icono del carrito.</p>
+                <i class="fas fa-user"></i>
+                <p>Para ver talles y colores de cada modelo así como para comprar debes <b>crear tu usuario e ingresar</b> al sistema.</p>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4 item">
-                <img src="{{ asset('images/gral/icons/compra3.png') }} " alt="Compras">
-                <p>Ahora estás en la pantalla de ckeckout. Aquí podrás revisar tu compra. Luego tenés que completar los datos de envío y de pago.</p>
+                <i class="far fa-clock"></i>
+                <p>Los carros abiertos permanecen por <b>48 hs</b> y luego se dan de baja. No demores más de este tiempo para confirmar tu pedido o te quedarás sin stock.</p>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4 item">
-                <img src="{{ asset('images/gral/icons/compra4.png') }} " alt="Compras">
-                <p>Luego elegís el medio de pago que prefieras: puede ser efectivo, transferencia bancaria a alguna de las cuentas que manejamos (Galicia, Nación o Francés) o con tarjetas de crédito y débito a través de Mercadopago (operar por Mercadopago tiene un recargo del 5% que es la comisión que nos cobran por el servicio). </p>
+                <i class="fas fa-truck"></i>
+                <p>Las opciones de pago y envío las podrás elegir antes de finalizar tu pedido. Hay varias opciones para que puedas realizar la compra a tu medida!</p>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4 item">
-                <img src="{{ asset('images/gral/icons/compra5.png') }} " alt="Compras">
-                <p>Podés elegir envío a terminal por encomienda o envío a una sucursal de OCA. Si residís en Capital, también ofrecemos el envío por mensajería a tu domicilio. Además, podés retirar por nuestro showroom ubicado en el barrio de Balvanera.</p>
+                {{-- <img src="{{ asset('images/gral/icons/compra4.png') }} " alt="Compras"> --}}
+                <i class="fas fa-dollar-sign"></i>
+                <p>Una vez que hayas confirmado tu pedido chequeamos stock y dentro de las 48 hs te contactamos para decirte si está todo ok o si algo no está en stock. <br>
+                    <span class="italic">No hagas el pago hasta ese momento!</span> </p>
             </div>
             <div class="col-sm-12 col-md-6 col-lg-4 item">
-                <img src="{{ asset('images/gral/icons/compra6.png') }} " alt="Compras">
-                <p> Finalmente, tenés que completar los datos personales que sean requeridos y hacer clic en "Finalizar Compra" (si sos cliente mayorista, el mínimo de artículos requeridos para que tu compra sea aprobada es de 12 unidades surtidas).</p>
+                {{-- <img src="{{ asset('images/gral/icons/compra5.png') }} " alt="Compras"> --}}
+                <i class="fas fa-paper-plane"></i>
+                <p>Luego del pago procedemos a armar tu pedido y el envío es dentro de las 48 hs siguientes.</p>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-4 item">
+                {{-- <img src="{{ asset('images/gral/icons/compra6.png') }} " alt="Compras"> --}}
+                <i class="far fa-calendar-alt"></i>
+                <p>Los días de despacho son lunes y viernes por lo cual haremos tu envío lo más cercano a esas opciones. </p>
             </div>
         </div>
-        <div class="row-centered lone-item">
+        {{-- <div class="row-centered lone-item">
             <div class="col-md-8 item">
                 <div class="text-center">
                     <img src="{{ asset('images/gral/icons/compra7.png') }} " alt="Compras"><br>
@@ -56,7 +65,7 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div> --}}
 	</div>
 @endsection
 

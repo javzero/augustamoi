@@ -159,9 +159,11 @@
 			width: 60px
 
 .info-container
-	@include box-shadow()
-	background-color: #fff
+	background-color: #ffffff
+	border: 1px solid #ccc
+	border-top: 4px solid #ccc
 	padding: 20px 100px
+	margin-top: 50px
 	.centered-text
 		text-align: center
 		p
@@ -185,6 +187,9 @@
 				right: -25px
 	.item
 		margin-bottom: 15px
+		i
+			font-size: 2rem
+			color: $main-color
 	.lone-item
 		@include flex-center()
 			

@@ -96,6 +96,18 @@
 		img
 			max-height: 100%
 
+.left-nav-items
+	position: absolute
+	left: 0
+	top: 0
+	height: 100%
+	z-index: 6
+	li
+		height: 30px
+		height: 100%
+		@include flex-center
+		a
+			padding: 20px
 
 .navbar-sticky	
 	.toolbar 
@@ -197,6 +209,7 @@
 	.under-nav-container
 		text-align: center
 		display: block
+		margin-bottom: 10px
 		.text-links
 			margin-right: 10px
 			a
