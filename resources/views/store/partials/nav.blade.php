@@ -1,22 +1,17 @@
 <!-- Navbar-->
 <!-- Remove ".navbar-sticky" class to make navigation bar scrollable with the page.-->
 <header class="navbar navbar-sticky">
-	<!-- Search-->
-	{{-- <form class="site-search" method="get">
-		<input type="text" name="site_search" placeholder="Type to search...">
-		<div class="search-tools"><span class="clear-search">Clear</span><span class="close-search"><i class="icon-cross"></i></span></div>
-	</form> --}}
+	<ul class="nav navbar-nav left-nav-items">
+		<li><a href="{{ url('como-comprar') }}"><i class="far fa-question-circle"></i> Cómo comprar?</a></li>
+	</ul>
 	<div class="site-branding">
-		{{-- <div class="inner"> --}}
-			<!-- Site Logo-->
-			<a href="{{ url('/') }}">
-				<img src="{{ asset('webimages/web/app-logo.png') }}" alt="Augustamoi">
-			</a>
-		{{-- </div> --}}
+		<!-- Site Logo-->
+		<a href="{{ url('/') }}">
+			<img src="{{ asset('webimages/web/app-logo.png') }}" alt="Augustamoi">
+		</a>
 	</div>
 	<!-- Main Navigation-->
 	@include('store.partials.userbar')
-
 </header>
 <div class="under-nav-container">
 	@if(!Auth::guard('customer')->check())
@@ -26,10 +21,10 @@
 	</div>
 	@endif
 	{{-- <div class="text-links"> --}}
-		{{-- @if(Auth::guard('customer')->check() && Auth::guard('customer')->user()->group == '3' )
-		<a href="{{ url('politica-de-exclusividad') }}">Política de Exclusividad</a>
-		<a href="{{ url('condiciones-de-compra') }}">Condiciones de Compra</a>
-		@endif --}}
-		{{-- <a href="{{ url('como-comprar') }}">Como comprar</a>  --}}
+		{{-- {{-- @if(Auth::guard('customer')->check() && Auth::guard('customer')->user()->group == '3' ) --}}
+		{{-- <a href="{{ url('politica-de-exclusividad') }}">Política de Exclusividad</a> --}}
+		{{-- <a href="{{ url('condiciones-de-compra') }}">Condiciones de Compra</a> --}}
+		{{-- @endif --}}
+		
 	{{-- </div> --}}
 </div>
