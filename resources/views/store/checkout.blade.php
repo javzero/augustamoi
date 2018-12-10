@@ -1,5 +1,13 @@
 @extends('store.partials.main')
 
+@section('styles')
+	<style>
+			.floating-bottom-cta {  
+				bottom: 70px
+			}
+	</style>
+@endsection
+
 @section('content')
 	<input id="CartId" class="form-control" type="hidden" name="cart_id" value="{{ $activeCart['rawdata']->id }}">
 	{{--------- Checkout Error Messages ----------}}
@@ -82,25 +90,25 @@
 								@if(Auth::guard('customer')->user()->group == '3')
 									@php($articlePrice = $item->article->reseller_price)
 									@if($item->article->reseller_discount > 0)
-										<td class="text-lg">
+										<td class="text-lg dont-break">
 											@php($articlePrice = calcArticlePrice($item->article->reseller_price, $item->article->reseller_discount))
 											{{-- <del class="text-muted">$ {{ $item->article->reseller_price + 0 }} </del><br> --}}
 											$ {{ $articlePrice + 0 }}
 										</td>
 									@else
-										<td class="text-lg">$ {{ $articlePrice + 0 }}</td>
+										<td class="text-lg dont-break">$ {{ $articlePrice + 0 }}</td>
 									@endif
 								@else
 									{{-- Estandar Item Prices --}}
 									@if($item->article->discount > 0)
 										<td>
 											@php($articlePrice = calcArticlePrice($item->article->price, $item->article->discount))
-											<del class="text-muted">$ {{ $item->article->price + 0 }}</del><br>
+											<del class="text-muted dont-break">$ {{ $item->article->price + 0 }}</del><br>
 											$ {{ $articlePrice }}
 										</td>
 									@else
 										@php($articlePrice = $item->article->price)
-										<td class="text-lg">${{ $articlePrice + 0 }}</td>
+										<td class="text-lg dont-break">${{ $articlePrice + 0 }}</td>
 									@endif
 								@endif
 								{{-- Add Quantity to Cart Item --}}
@@ -136,7 +144,7 @@
 						</tbody>
 					</table>
 				</div>
-					<div class="text-right">
+					<div class="text-right hide-768">
 						<button type="button" class="UpdateDataBtn btn main-btn">Actualizar <i class="fas fa-sync-alt"></i></button>
 						<button type="button" class="SubmitDataBtn btn main-btn">Continuar <i class="fa fa-arrow-right"></i></button>
 					</div>
@@ -145,6 +153,9 @@
 		</div> {{-- / Row --}}
 	</div> {{-- / Container --}}
 	<div id="Error"></div>
+	<button type="button" class="SubmitDataBtn btn btn-block btn-bottom mobile-finish-button main-btn">
+		Continuar <i class="fas fa-arrow-right"></i>
+	</button>
 @endsection
 
 @section('scripts')

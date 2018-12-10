@@ -1,5 +1,20 @@
 @extends('store.partials.main')
 
+@section('styles')
+	<style>
+		@media (max-width: 768px) {
+			.finish-checkout-btn {  
+				display: none
+			}
+		}
+
+		.floating-bottom-cta {  
+			bottom: 70px
+		}
+	</style>
+@endsection
+
+
 @section('content')
 	<input id="CartId" class="form-control" type="hidden" name="cart_id" value="{{ $activeCart['rawdata']->id }}">
 	{{--------- Checkout Error Messages ----------}}
@@ -88,7 +103,7 @@
 				{!! Form::close() !!} 
 				<br>
 			{{-- Proccess Checkout --}}
-			{!! Form::open(['route' => 'store.processCheckout', 'method' => 'POST', 'class' => 'loader-on-submit']) !!}	
+			{!! Form::open(['id' => 'CheckoutForm', 'route' => 'store.processCheckout', 'method' => 'POST', 'class' => 'loader-on-submit']) !!}	
 				<div class="row small-form">
 					<div class="col-md-12">
 						<div class="sub-title"><i class="far fa-address-card"></i> Datos de entrega</div>
@@ -226,6 +241,12 @@
 @section('scripts')
     @include('store.components.bladejs')
     <script>
+		// Submit Checkout from mobile
+		function submitCheckoutForm()
+		{
+			$('#CheckoutForm').submit();
+		}
+		
 		// Check for locality
 		$(document).ready(function(){
 			var actualGeoProv = "{{ Auth::guard('customer')->user()->geoprov_id }}";

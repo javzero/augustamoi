@@ -447,188 +447,50 @@ class ArticlesController extends Controller
         
     }
 
-    public function update(Request $request, $id)
-    {   
+    // public function update(Request $request, $id)
+    // {   
         	
-        // initialize the FileUploader
-        $FileUploader = new FileUploader('files', array(
-            // Options will go here
-        ));
+    //     // initialize the FileUploader
+    //     $FileUploader = new FileUploader('files', array(
+    //         // Options will go here
+    //     ));
         
-        // call to upload the files
-        $upload = $FileUploader->upload();
+    //     // call to upload the files
+    //     $upload = $FileUploader->upload();
         
-        if($upload['isSuccess']) {
-            // get the uploaded files
-            $files = $upload['files'];
-        } else {
-            // get the warnings
-            $warnings = $upload['warnings'];
-        }
-        dd($files);
+    //     if($upload['isSuccess']) {
+    //         // get the uploaded files
+    //         $files = $upload['files'];
+    //     } else {
+    //         // get the warnings
+    //         $warnings = $upload['warnings'];
+    //     }
+    //     dd($files);
 
    
 
-        $article = CatalogArticle::find($request->article_id);
-        $article->fill($request->all());
-
-        if ($request->slug) {
-            $checkSlug = $this->checkSlug($request->slug);
-        }
-        
-        $images = $request->file('images');
-        $thumbnail = $request->file('thumbnail');
-        $imgPath = public_path("webimages/catalogo/");
-        $thumbPath = public_path("webimages/catalogo/thumbs/");
-        $extension = '.jpg';
-
-        $thumbWidth = 240; $thumbHeight = 360; $imgWidth = 500; $imgHeight = 700;
-
-        if ($article->save()) 
-        {
-            // SAVE VARIANTS (Combinations)
-            try 
-            {   
-                foreach ($request->variants as $newVariant => $data)
-                {
-                    $existingVariant = CatalogVariant::where('article_id', $article->id)->where('combination', $newVariant)->first();
-                    
-                    if($existingVariant)
-                    {
-                        $existingVariant->stock = $data['stock'];
-                        $existingVariant->save();   
-                    }
-                    else
-                    {
-                        $item = new CatalogVariant();
-                        $item->article_id = $article->id;
-                        $item->combination = $newVariant;
-                        $item->color_id = $data['color'];
-                        $item->size_id = $data['size'];
-                        $item->stock = $data['stock'];
-                        $item->save();   
-                    }    
-                }
-            } 
-            catch (\Exception $e) 
-            {
-                return redirect()->route('catalogo.index')->with('message', 'Error al crear la variante: ' . $e->getMessage());
-            }
-
-            // Sync Relations
-            $article->size()->sync($request->size);
-            $article->tags()->sync($request->tags);
-
-            if (!$article->images->isEmpty()) 
-            {
-                $number = $article->images->last()->name;
-                $number = explode('-', $number);
-                $number = explode('.', $number[1]);
-                $number = ($number[0] + '1');
-            } 
-            else 
-            {
-                $number = '0';
-            }
-
-            // Save Images
-            if ($images) 
-            {
-                try 
-                {
-                    // initialize the FileUploader
-                    $FileUploader = new FileUploader('images', array(
-                        // Options will go here
-                    ));
-                    
-                    // call to upload the files
-                    $upload = $FileUploader->upload();
-                    
-                    if($upload['isSuccess']) {
-                        // get the uploaded files
-                        $files = $upload['images'];
-                    } else {
-                        // get the warnings
-                        $warnings = $upload['warnings'];
-                    }
-
-                    dd($files);
-
-                    foreach ($files as $phisic_image) 
-                    {
-                        $filename = $article->id . '-' . $number;    
-
-                        $image = new CatalogImage();
-                        if ($number == '0') {
-                            $image->featured = 1;
-                        }
-                        $image->name = $filename . $extension;
-                        $image->article()->associate($article);
-
-                        //$thumb = \Image::make($phisic_image);
-                        //$thumb->encode('jpg', 80)->fit($thumbWidth, $thumbHeight)->save($thumbPath . $filename . $extension);
-                        //$article->thumb = $article->id.'-thumb'.$extension;
-                        $image->thumb = $filename . $extension;
-                        $image->save();
-                        $number++;
-                    }
-                } 
-                catch (\Exception $e) 
-                {
-                    // $article->delete();
-                    return redirect()->route('catalogo.index')->with('message', 'Error al crear la imágen: ' . $e->getMessage());
-                }
-            }
-        }
-        return redirect()->route('catalogo.index')->with('message', 'Se ha editado el item con éxito');
-    }
-
-
-    // public function update(Request $request, $id)
-    // {
-
     //     $article = CatalogArticle::find($request->article_id);
-
     //     $article->fill($request->all());
 
     //     if ($request->slug) {
     //         $checkSlug = $this->checkSlug($request->slug);
     //     }
-
-    //     $article->slug = $checkSlug;
-
+        
     //     $images = $request->file('images');
     //     $thumbnail = $request->file('thumbnail');
     //     $imgPath = public_path("webimages/catalogo/");
     //     $thumbPath = public_path("webimages/catalogo/thumbs/");
     //     $extension = '.jpg';
 
-    //     // Creates directory if no exist
-    //     if (!file_exists($imgPath)) {
-    //         $oldmask = umask(0);
-    //         mkdir($imgPath, 0777);
-    //         umask($oldmask);
-    //     }
-    //     if (!file_exists($thumbPath)) {
-    //         $oldmask = umask(0);
-    //         mkdir($thumbPath, 0777);
-    //         umask($oldmask);
-    //     }
+    //     $thumbWidth = 240; $thumbHeight = 360; $imgWidth = 500; $imgHeight = 700;
 
-    //     $thumbWidth = 240;
-    //     $thumbHeight = 360;
-    //     $imgWidth = 500;
-    //     $imgHeight = 700;
-   
     //     if ($article->save()) 
     //     {
-    //         // Save Variants
-    //         // dd($request->variants);
+    //         // SAVE VARIANTS (Combinations)
     //         try 
     //         {   
     //             foreach ($request->variants as $newVariant => $data)
     //             {
-    //                 // echo $newVariant.'<br>';
     //                 $existingVariant = CatalogVariant::where('article_id', $article->id)->where('combination', $newVariant)->first();
                     
     //                 if($existingVariant)
@@ -650,11 +512,8 @@ class ArticlesController extends Controller
     //         } 
     //         catch (\Exception $e) 
     //         {
-    //             // $article->delete();
     //             return redirect()->route('catalogo.index')->with('message', 'Error al crear la variante: ' . $e->getMessage());
     //         }
-    //         // dd("Nuevas: ". $n. " | Existentes: ". $e);
-    //         // die();
 
     //         // Sync Relations
     //         $article->size()->sync($request->size);
@@ -675,14 +534,29 @@ class ArticlesController extends Controller
     //         // Save Images
     //         if ($images) 
     //         {
-    //             // dd($images);
     //             try 
     //             {
-    //                 foreach ($images as $phisic_image) 
+    //                 // initialize the FileUploader
+    //                 $FileUploader = new FileUploader('images', array(
+    //                     // Options will go here
+    //                 ));
+                    
+    //                 // call to upload the files
+    //                 $upload = $FileUploader->upload();
+                    
+    //                 if($upload['isSuccess']) {
+    //                     // get the uploaded files
+    //                     $files = $upload['images'];
+    //                 } else {
+    //                     // get the warnings
+    //                     $warnings = $upload['warnings'];
+    //                 }
+
+    //                 dd($files);
+
+    //                 foreach ($files as $phisic_image) 
     //                 {
-    //                     $filename = $article->id . '-' . $number;
-    //                     $img = \Image::make($phisic_image);
-    //                     $img->encode('jpg', 80)->fit($imgWidth, $imgHeight)->save($imgPath . $filename . $extension);
+    //                     $filename = $article->id . '-' . $number;    
 
     //                     $image = new CatalogImage();
     //                     if ($number == '0') {
@@ -691,8 +565,8 @@ class ArticlesController extends Controller
     //                     $image->name = $filename . $extension;
     //                     $image->article()->associate($article);
 
-    //                     $thumb = \Image::make($phisic_image);
-    //                     $thumb->encode('jpg', 80)->fit($thumbWidth, $thumbHeight)->save($thumbPath . $filename . $extension);
+    //                     //$thumb = \Image::make($phisic_image);
+    //                     //$thumb->encode('jpg', 80)->fit($thumbWidth, $thumbHeight)->save($thumbPath . $filename . $extension);
     //                     //$article->thumb = $article->id.'-thumb'.$extension;
     //                     $image->thumb = $filename . $extension;
     //                     $image->save();
@@ -708,6 +582,132 @@ class ArticlesController extends Controller
     //     }
     //     return redirect()->route('catalogo.index')->with('message', 'Se ha editado el item con éxito');
     // }
+
+
+    public function update(Request $request, $id)
+    {
+
+        $article = CatalogArticle::find($request->article_id);
+
+        $article->fill($request->all());
+
+        if ($request->slug) {
+            $checkSlug = $this->checkSlug($request->slug);
+        }
+
+        $article->slug = $checkSlug;
+
+        $images = $request->file('images');
+        $thumbnail = $request->file('thumbnail');
+        $imgPath = public_path("webimages/catalogo/");
+        $thumbPath = public_path("webimages/catalogo/thumbs/");
+        $extension = '.jpg';
+
+        // Creates directory if no exist
+        if (!file_exists($imgPath)) {
+            $oldmask = umask(0);
+            mkdir($imgPath, 0777);
+            umask($oldmask);
+        }
+        if (!file_exists($thumbPath)) {
+            $oldmask = umask(0);
+            mkdir($thumbPath, 0777);
+            umask($oldmask);
+        }
+
+        $thumbWidth = 240;
+        $thumbHeight = 360;
+        $imgWidth = 500;
+        $imgHeight = 700;
+   
+        if ($article->save()) 
+        {
+            // Save Variants
+            // dd($request->variants);
+            try 
+            {   
+                foreach ($request->variants as $newVariant => $data)
+                {
+                    // echo $newVariant.'<br>';
+                    $existingVariant = CatalogVariant::where('article_id', $article->id)->where('combination', $newVariant)->first();
+                    
+                    if($existingVariant)
+                    {
+                        $existingVariant->stock = $data['stock'];
+                        $existingVariant->save();   
+                    }
+                    else
+                    {
+                        $item = new CatalogVariant();
+                        $item->article_id = $article->id;
+                        $item->combination = $newVariant;
+                        $item->color_id = $data['color'];
+                        $item->size_id = $data['size'];
+                        $item->stock = $data['stock'];
+                        $item->save();   
+                    }    
+                }
+            } 
+            catch (\Exception $e) 
+            {
+                // $article->delete();
+                return redirect()->route('catalogo.index')->with('message', 'Error al crear la variante: ' . $e->getMessage());
+            }
+            // dd("Nuevas: ". $n. " | Existentes: ". $e);
+            // die();
+
+            // Sync Relations
+            $article->size()->sync($request->size);
+            $article->tags()->sync($request->tags);
+
+            if (!$article->images->isEmpty()) 
+            {
+                $number = $article->images->last()->name;
+                $number = explode('-', $number);
+                $number = explode('.', $number[1]);
+                $number = ($number[0] + '1');
+            } 
+            else 
+            {
+                $number = '0';
+            }
+
+            // Save Images
+            if ($images) 
+            {
+                // dd($images);
+                try 
+                {
+                    foreach ($images as $phisic_image) 
+                    {
+                        $filename = $article->id . '-' . $number;
+                        $img = \Image::make($phisic_image);
+                        $img->encode('jpg', 80)->fit($imgWidth, $imgHeight)->save($imgPath . $filename . $extension);
+
+                        $image = new CatalogImage();
+                        if ($number == '0') {
+                            $image->featured = 1;
+                        }
+                        $image->name = $filename . $extension;
+                        $image->article()->associate($article);
+
+                        $thumb = \Image::make($phisic_image);
+                        $thumb->encode('jpg', 80)->fit($thumbWidth, $thumbHeight)->save($thumbPath . $filename . $extension);
+                        //$article->thumb = $article->id.'-thumb'.$extension;
+                        $image->thumb = $filename . $extension;
+                        $image->save();
+                        $number++;
+                    }
+                } 
+                catch (\Exception $e) 
+                {
+                    // $article->delete();
+                    return redirect()->route('catalogo.index')->with('message', 'Error al crear la imágen: ' . $e->getMessage());
+                }
+            }
+        }
+        return redirect()->route('catalogo.index')->with('message', 'Se ha editado el item con éxito');
+    }
 
     public function updateFields(Request $request)
     {

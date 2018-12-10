@@ -33,8 +33,11 @@
             <td class="text-lg text-medium txtR dont-break"><span class="total">Total $ <b>{{ number_format($activeCart['cartTotal'], 2) }}</b></span></td>
         </tr>
         </table>
-        <div class="text-right">
+        <div class="text-right finish-checkout-btn">
             <button class="btn btn-main margin-right-none" type="submit"><i class="fas fa-check"></i> Finalizar Compra</button>
         </div>
+        <button type="submit" class="btn btn-block btn-bottom mobile-finish-button main-btn">
+            <i class="fas fa-check"></i> Finalizar Compra
+        </button>
     </section>
 </aside>
