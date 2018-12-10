@@ -62,12 +62,14 @@
                             <td>{{ $cart['rawdata']->shipping->name }}</td>
                             <td>$ {{ $cart['shippingCost'] }}</td>
                         </tr>
+			@if($cart['rawdata']->payment) != null)
                         <tr>
                             <td></td><td></td>
                             <td>Forma de pago <span class="dont-break" style="white-space: nowrap">(% {{ $cart['paymentPercent'] }})</span></td>
                             <td>{{ $cart['rawdata']->payment->name }}</td>
                             <td>$ {{ calcPercent($cart['subTotal'], $cart['paymentPercent']) }}</td>
                         </tr>
+			@endif
                         <tr>
                             <td></td><td></td><td></td>
                             <td>TOTAL</td>

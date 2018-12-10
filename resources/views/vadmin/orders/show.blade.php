@@ -118,7 +118,7 @@
                         <td><b>x {{ $itemSum }} Artículos</b></td>
                         <td></td><td></td><td></td><td></td>
                     </tr>
-                {{-- FIXED PRICES | ORDER READY --}}
+	            {{-- FIXED PRICES | ORDER READY --}}
                     <tr style="border-top: 10px solid #f9f9f9">
                         <td></td><td></td><td></td>
                         <td><b>SUBTOTAL</b></td>
@@ -132,17 +132,18 @@
                     </tr>
                     @endif
                     <tr>
-                        <td></td><td></td><td></td>
-                        @if($order['rawdata']->shipping_id != null)
+			<td></td><td></td><td></td>
+                        @if($order['rawdata']->shipping_id && $order['rawdata']->shipping)
                         <td><b>Envío:</b> {{ $order['rawdata']->shipping->name }}</td>
                         <td>$ {{ $order['shippingCost'] }}</td>
                         @else
                         <td>Envío no seleccionado</td>
                         <td>-</td>
                         @endif
+
                     </tr>
                         <td></td><td></td><td></td>
-                        @if($order['rawdata']->payment_method_id != null)
+                        @if($order['rawdata']->payment_method_id && $order['rawdata']->payment)
                         <td><b>Forma de Pago:</b> {{ $order['rawdata']->payment->name }} (%{{$order['rawdata']->payment_percent}})</td>
                         <td>$ {{ $order['paymentCost'] }}</td>
                         @else

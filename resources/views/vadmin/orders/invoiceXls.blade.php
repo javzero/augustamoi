@@ -53,9 +53,15 @@
     <tr>
         <td></td><td></td><td></td><td></td>
         @if($order['rawdata']->payment_method_id != null)
+	@if($order['rawdata']->payment) != null)
         <td></td>
         <td><b>Método de pago:</b> {{ $order['rawdata']->payment->name }} (% {{ $order['paymentPercent'] }})</td>
         <td>${{ $order['paymentCost'] }}</td>
+	@else
+	<td></td>
+        <td>Método de pago discontinuado</td>
+        <td>-</td>
+	@endif
         @else
         <td></td>
         <td>Método de pago no seleccionado</td>
