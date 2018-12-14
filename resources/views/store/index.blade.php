@@ -1,7 +1,7 @@
 @extends('store.partials.main')
 
 @section('header-image')
-	<img src="{{ asset('webimages/web/top-banner.jpg')}}" alt="Augustamoi Banner">		
+	<img src="{{ asset('images/web/home-banner.jpg')}}" alt="Augustamoi Banner">		
 	{{-- <div class="index-header">	
 	</div> --}}
 @endsection
