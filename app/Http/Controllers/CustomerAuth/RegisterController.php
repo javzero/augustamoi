@@ -69,6 +69,7 @@ class RegisterController extends Controller
             'surname' => 'required|string|max:255',
             'username' => 'required|string|max:20|unique:customers',
             'email' => 'required|string|email|max:255|unique:customers',
+            'phone' => 'required|string|min:4',
             'password' => 'required|string|min:6|confirmed',
         ], [
             'username.required' => 'Debe ingresar un nombre de usuario',
@@ -76,7 +77,9 @@ class RegisterController extends Controller
             'email.email' => 'La dirección de email parece inválida',
             'email.unique' => 'Ya hay un usuario registrado con el mismo email',
             'password.required' => 'Debe ingresar una contraseña',
-            'password.confirmed' => 'Las contraseñas no coinciden'
+            'password.confirmed' => 'Las contraseñas no coinciden',
+            'phone.required' => 'Debe ingresar un teléfono',
+            'phone.min' => 'El teléfono no parece correcto'
         ]);
     }
 
@@ -109,13 +112,12 @@ class RegisterController extends Controller
         // if (isset($data['geoloc_id'])) {
         //     $geoLocId = $data['geoloc_id'];
         // }
-
         return Customer::create([
             'name' => $data['name'],
             'surname' => $data['surname'],
             'username' => $data['username'],
             'email' => $data['email'],
-            // 'phone' => $phone,
+            'phone' => $data['phone'],
             'status' => $status,
             // 'geoprov_id' => $geoProvId,
             // 'geoloc_id' => $geoLocId,

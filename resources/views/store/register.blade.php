@@ -38,27 +38,40 @@
                 </div> 
             </div>
             <div class="row">
-                    {{-- Name --}}
-                    <div class="col-sm-6 form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                        <label>Nombre</label>
-                        <input  type="text" name="name" class="form-control round" placeholder="Ingrese su nombre" value="{{ old('name') }}" required>
-                        @if ($errors->has('name'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('username') }}</strong>
-                            </span>
-                        @endif
-                    </div> 	
-                    {{-- Surname --}}
-                    <div class="col-sm-6 form-group{{ $errors->has('surname') ? ' has-error' : '' }}">
-                        <label for="reg-fn">Apellido</label>
-                        <input type="text" name="surname" class="form-control round" placeholder="Ingrese su email" value="{{ old('surname') }}" required>
-                        @if ($errors->has('surname'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('surname') }}</strong>
-                            </span>
-                        @endif
-                    </div> 
-                </div>
+                {{-- Name --}}
+                <div class="col-sm-6 form-group{{ $errors->has('username') ? ' has-error' : '' }}">
+                    <label>Nombre</label>
+                    <input  type="text" name="name" class="form-control round" placeholder="Ingrese su nombre" value="{{ old('name') }}" required>
+                    @if ($errors->has('name'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('username') }}</strong>
+                        </span>
+                    @endif
+                </div> 	
+                {{-- Surname --}}
+                <div class="col-sm-6 form-group{{ $errors->has('surname') ? ' has-error' : '' }}">
+                    <label for="reg-fn">Apellido</label>
+                    <input type="text" name="surname" class="form-control round" placeholder="Ingrese su email" value="{{ old('surname') }}" required>
+                    @if ($errors->has('surname'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('surname') }}</strong>
+                        </span>
+                    @endif
+                </div> 
+            </div>
+            <div class="row">
+                {{-- Name --}}
+                <div class="col-sm-12 form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
+                    <label>Teléfono</label>
+                    <input  type="text" name="phone" class="form-control round" placeholder="Ingrese su número telefónico" value="{{ old('phone') }}" required>
+                    @if ($errors->has('name'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('phone') }}</strong>
+                        </span>
+                    @endif
+                </div> 	
+            </div>
+
             <div class="row">
                 {{-- Password --}}
                 <div class="col-sm-6 form-group{{ $errors->has('password') ? ' has-error' : '' }} position-relative has-icon-left">
