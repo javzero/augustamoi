@@ -29,9 +29,13 @@
                             <div class="image">
                                 <img id="Avatar" src="{{ asset('webimages/customers/'.$customer->avatar ) }}" class="Image-Container" alt="">
                             </div>
-                            
                         </div>
                     </div>
+                    
+                    {{-- EDIT BUTTON --}}
+                    {{-- <a href="{{ url('vadmin/customers/'. $customer->id .'/edit') }}" class="btn btnMain"><i class="icon-pencil2"></i> Editar</a> --}}
+
+
                     {{-- <div class="ActionContainer Hidden">
                         <hr class="softhr">
                         {!! Form::open(['url' => 'vadmin/updateCustomerAvatar', 'method' => 'POST', 'class' => 'UpdateAvatarForm Hidden', 'files' => true]) !!}
