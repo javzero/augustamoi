@@ -24,17 +24,26 @@
                 {!! Form::label('group', 'Grupo') !!}
                 {!! Form::select('group', [2 => 'Minorísta', 3 => 'Mayorísta'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion']) !!}
             </div>
-        </div>
-        <div class="col-lg-4 col-md-12">
             <div class="form-group">
-                {!! Form::label('password', 'Contraseña') !!}
-                {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Ingrese la contraseña', 'required' => '']) !!}
-            </div>
-
-            <div class="form-group">
-                {!! Form::label('password_confirmation', 'Confirme la contraseña') !!}
-                {!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Confirme la contraseña', 'required' => '']) !!}
+                {{-- Group: 1 Member - 2 Client - 3 ClientBig --}}
+                {!! Form::label('group', 'Grupo') !!}
+                {!! Form::select('group', [2 => 'Minorísta', 3 => 'Mayorísta'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion']) !!}
             </div>
         </div>
-    </div>
-</div>
+        <div class="col-lg-4 col-md-6">
+            <div class="form-group">
+                {!! Form::label('phone', 'Teléfono') !!}
+                {!! Form::text('phone', null, ['class' => 'form-control', 'placeholder' => 'Escriba un teléfono']) !!}
+            </div>
+            <div class="form-group">
+                {{-- Group: 1 Member - 2 Client - 3 ClientBig --}}
+                {!! Form::label('phone2', 'Teléfono 2') !!}
+                {!! Form::text('phone2', null, ['class' => 'form-control', 'placeholder' => 'Escriba un teléfono']) !!}
+            </div>
+            <div class="form-group">
+                {{-- Group: 1 Member - 2 Client - 3 ClientBig --}}
+                {!! Form::label('phone2', 'Teléfono 2') !!}
+                {!! Form::text('phone2', null, ['class' => 'form-control', 'placeholder' => 'Escriba un teléfono']) !!}
+            </div>
+            
+        </div>

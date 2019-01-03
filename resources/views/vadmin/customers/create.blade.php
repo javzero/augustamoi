@@ -22,6 +22,21 @@
 			<form class="form" method="POST" action="{{ route('customers.store') }}">
 				{{ csrf_field() }}
 				@include('vadmin.customers.form')
+				
+				{{-- Password field only appears on create --}}
+				<div class="col-lg-4 col-md-12">
+					<div class="form-group">
+						{!! Form::label('password', 'Contraseña') !!}
+						{!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Ingrese la contraseña', 'required' => '']) !!}
+					</div>
+		
+					<div class="form-group">
+						{!! Form::label('password_confirmation', 'Confirme la contraseña') !!}
+						{!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => 'Confirme la contraseña', 'required' => '']) !!}
+					</div>
+				</div>
+				</div></div>{{-- Closing divs of include (In edit there is no password editing) --}}
+
 				<div class="form-actions right">
 					<a href="{{ route('customers.index')}}">
 						<button type="button" class="btn btnRed">
