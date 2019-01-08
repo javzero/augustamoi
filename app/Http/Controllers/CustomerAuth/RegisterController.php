@@ -172,16 +172,12 @@ class RegisterController extends Controller
         $this->guard()->login($user);
 
         try {
-            if ($user->group == '3') {
-                $subject = 'Nuevo usuario registrado';
-                $message = 'Un usuario se ha registrado en la tienda';
-            } else {
-                $subject = 'Nuevo usuario registrado';
-                $message = 'Un usuario se ha registrado en la tienda';
-            }
+            $subject = 'Nuevo usuario registrado';
+            $message = 'Un usuario se ha registrado en la tienda';
+            
             Mail::to(APP_EMAIL_1)->send(new SendMail($subject, 'SimpleMail', $message));
         } catch (\Exception $e) {
-            //
+            dd($e->getMessage());
         }
 
         return $this->registered($request, $user)
