@@ -176,7 +176,7 @@ class RegisterController extends Controller
             $message = 'Un usuario se ha registrado en la tienda';
             Mail::to(APP_EMAIL_1)->send(new SendMail($subject, 'SimpleMail', $message));
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
         }
 
         return $this->registered($request, $user)
