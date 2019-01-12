@@ -39,20 +39,24 @@
                         @php($articlePrice = '0')
                         @if(Auth::guard('customer')->user()->group == '3')
                             @php($articlePrice = $item->article->reseller_price)
-                            @if($item->article->reseller_discount > 0)
+
+                            $ {{ showPrice($articlePrice, $item->article->reseller_discount) }}
+
+                            {{-- @if($item->article->reseller_discount > 0)
                                 @php($articlePrice = calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount))
-                                {{-- <del class="text-muted small">$ {{ $item->article->reseller_price }}</del> --}}
+                                <del class="text-muted small">$ {{ $item->article->reseller_price }}</del>
                             @endif
-                            $ {{ $articlePrice }}
+                            $ {{ $articlePrice }} --}}
                         @else
+                            $ {{ showPrice($articlePrice, $item->article->discount) }}
                             {{-- Estandar Item Prices --}}
-                            @if($item->article->discount > 0)
+                            {{-- @if($item->article->discount > 0)
                                     @php($articlePrice = calcValuePercentNeg($item->article->price, $item->article->discount))
                                     <del class="text-muted small">$ {{ $item->article->price }}</del>
                             @else
                                 @php($articlePrice = $item->article->price)
                             @endif
-                            $ {{ $articlePrice }}
+                            $ {{ $articlePrice }} --}}
                         @endif
                         </div>
                         {{-- <div class=""> Stock: {{ $item->article->stock }} </div> --}}

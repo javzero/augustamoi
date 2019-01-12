@@ -88,8 +88,12 @@
 								{{-- Reseller Item Prices --}}
 								@php($articlePrice = '0')
 								@if(Auth::guard('customer')->user()->group == '3')
-									@php($articlePrice = $item->article->reseller_price)
-									@if($item->article->reseller_discount > 0)
+								<td class="text-lg dont-break">
+									$ {{ $articlePrice = showPrice($item->article->reseller_price, $item->article->reseller_discount) }}
+								</td>
+								
+								{{-- @php($articlePrice = $item->article->reseller_price) --}}
+									{{-- @if($item->article->reseller_discount > 0)
 										<td class="text-lg dont-break">
 											@php($articlePrice = calcArticlePrice($item->article->reseller_price, $item->article->reseller_discount))
 											<del class="text-muted">$ {{ $item->article->reseller_price + 0 }} </del><br>
@@ -97,10 +101,13 @@
 										</td>
 									@else
 										<td class="text-lg dont-break">$ {{ $articlePrice + 0 }}</td>
-									@endif
+									@endif --}}
 								@else
+									<td>
+										$ {{ $articlePrice = showPrice($item->article->price, $item->article->discount) }}
+									</td>
 									{{-- Estandar Item Prices --}}
-									@if($item->article->discount > 0)
+									{{-- @if($item->article->discount > 0)
 										<td>
 											@php($articlePrice = calcArticlePrice($item->article->price, $item->article->discount))
 											<del class="text-muted dont-break">$ {{ $item->article->price + 0 }}</del><br>
@@ -109,7 +116,7 @@
 									@else
 										@php($articlePrice = $item->article->price)
 										<td class="text-lg dont-break">${{ $articlePrice + 0 }}</td>
-									@endif
+									@endif --}}
 								@endif
 								{{-- Add Quantity to Cart Item --}}
 								<td>
