@@ -16,11 +16,11 @@
 				<div class="card-header">
 					<h4 class="card-title"><i class="icon-android-hand"></i> Bienvenid@ {{ Auth::user()->name }}</h4>
 				</div>
-				<div class="card-body collapse in">
+				{{-- <div class="card-body collapse in">
 					<div class="card-block">
 						<div class="card-text">
-							{{-- <h1><i style="color: red" class="fa fa-exclamation-circle"></i> Mensaje del desarrollador</h1> --}}
-							{{-- <hr class="softhr"> --}}
+							<h1><i style="color: red" class="fa fa-exclamation-circle"></i> Mensaje del desarrollador</h1>
+							<hr class="softhr">
 							<p>
 								<span style="color: blue; font-size: 2rem"><i class="fas fa-fire"></i> Actualización!</span>
 								<hr class="softhr">
@@ -35,7 +35,7 @@
 							</p>
 						</div>
 					</div>
-				</div>
+				</div> --}}
 			</section>
 			<div class="row">
 				<div class="col-xl-6 col-md-6 col-sm-12">
