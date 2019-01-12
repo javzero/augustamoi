@@ -27,7 +27,7 @@
 				<h3>Carro de Compras | Checkout</h3> 
 				{{-- <p>Pedido N: #{{ $activeCart['rawdata']->id }}</p> --}}
 				@if(Auth::guard('customer')->user()->group == '3')
-				<div class="warning">
+					<div class="warning">
 						@if($settings->reseller_min > 0 || $settings->reseller_money_min > 0)
 							<span>Compra mínima:
 							
@@ -47,7 +47,7 @@
 							
 							</span>
 						@endif
-				</div>
+					</div>
 					{{-- @if($settings->reseller_money_min > 0)
 						<div class="warning"></div>
 					@endif --}}
@@ -92,7 +92,7 @@
 									@if($item->article->reseller_discount > 0)
 										<td class="text-lg dont-break">
 											@php($articlePrice = calcArticlePrice($item->article->reseller_price, $item->article->reseller_discount))
-											{{-- <del class="text-muted">$ {{ $item->article->reseller_price + 0 }} </del><br> --}}
+											<del class="text-muted">$ {{ $item->article->reseller_price + 0 }} </del><br>
 											$ {{ $articlePrice + 0 }}
 										</td>
 									@else
