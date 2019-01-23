@@ -244,6 +244,11 @@ class StoreController extends Controller
 
     public function checkVariantStock(Request $request)
     {
+        if($request->color_id == null)
+            return response()->json(['response' => false, 'message' => 'Seleccione un color']);
+        if($request->size_id == null)
+            return response()->json(['response' => false, 'message' => 'Seleccione un talle']);
+
         $variant = null;
         
         if($request->color_id != null && $request->size_id != null && $request->article_id)
