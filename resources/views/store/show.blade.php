@@ -16,11 +16,11 @@
 				{{--  Article Name  --}}
 				<h2 class="text-normal">{{ $article->name }}</h2>
 			</div>
-			<a href="{{ url('tienda') }}">
+			<a href="{{ url('tienda') }}" class="top-action">
 				<button  class="btn btn-main-sm">
 					<i class="icon-arrow-left"></i>&nbsp;Volver a la tienda
 				</button>
-				</a>
+			</a>
 			<div class="row product-gallery">
 				<div class="col-xs-12 col-sm-3 col-md-3 pad0">
 					<ul class="product-thumbnails">
@@ -86,52 +86,86 @@
 			@endif
 			{{-- Article Description --}}
 			<p>{{ strip_tags($article->description) }}</p>
-			<div class="item"><div class="title">Tela: {{ $article->textile }}</div> <br></div>
+			<div class="item"><div class="title">Tela: <b>{{ $article->textile }}</b></div> <br></div>
 			@if(Auth::guard('customer')->check())
 			<div class="row">
 				<div class="col-sm-12 descriptions">
 					{!! Form::open(['id' => 'AddToCartForm', 'class' => 'form-group price', 'onchange' => 'checkVariantStock()', 
 					'data-route' => (url('tienda/checkVariantStock')) ]) !!}
-					<input type="hidden" name="article_id" value="{{ $article->id }}">
-					<div class="row">
-						<div class="col-xs-4 col-sm-4 col-md-4">
-							<div class="form-group">
-								<select name="color_id" class="form-control" placeholder="Color" required>
-									<option value="" selected disabled>Color</option>
-									@foreach($colors as $id => $name)
-										<option value="{{ $id }}">{{ $name }}</option>
-									@endforeach
-								</select>
+						<input type="hidden" name="article_id" value="{{ $article->id }}">
+						<div class="row">
+							{{-- AUGUSTA --}}
+							{{-- <div class="col-xs-4 col-sm-4 col-md-4">
+								<div class="form-group">
+									<select name="color_id" class="form-control" placeholder="Color" required>
+										<option value="" selected disabled>Color</option>
+										@foreach($colors as $id => $name)
+											<option value="{{ $id }}">{{ $name }}</option>
+										@endforeach
+									</select>
+								</div>
 							</div>
-						</div>
-						<div class="col-xs-4 col-sm-4 col-md-4">
-							<div class="form-group">
-								<select name="size_id" class="form-control" placeholder="Talle" required>
-										<option selected disabled>Talle</option>
+							<div class="col-xs-4 col-sm-4 col-md-4">
+								<div class="form-group">
+									<select name="size_id" class="form-control" placeholder="Talle" required>
+											<option selected disabled>Talle</option>
+										@foreach($sizes as $id => $name)
+											<option value="{{ $id }}">{{ $name }}</option>
+										@endforeach
+									</select>
+								</div>
+							</div> --}}
+							{{-- <div class="col-xs-4 col-sm-4 col-md-4">
+								<div class="form-group">
+									{!! Form::number('quantity', null, ['id' => 'MaxQuantity', 'class' => 'form-control', 'min' => '0', 'required' => '', 'placeholder' => 'Cantidad']) !!}
+								</div>
+							</div> --}}
+							{{-- SIZES --}}
+							<div class="col-md-12 form-row">
+								<label class="margin-left-0 pad0" for="">Talles: </label>
+								<br>
+								<div class="btn-group-toggle" data-toggle="buttons">
 									@foreach($sizes as $id => $name)
-										<option value="{{ $id }}">{{ $name }}</option>
+										<label class="btn button-radio-hidden">
+											<input onclick="checkVariantStock()" name="size_id" value="{{ $id }}" type="radio" autocomplete="off"> {{ $name }}
+										</label>
 									@endforeach
-								</select>
+								</div>
+							</div>
+							{{-- COLORS --}}
+							<div class="col-md-12 form-row">
+								<label class="pad0 marg0" for="">Colores:</label>
+								<br>
+								<div class="btn-group-toggle" data-toggle="buttons">
+									@foreach($colors as $id => $name)
+										<label class="btn button-radio-hidden">
+											<input onclick="checkVariantStock()" name="color_id" value="{{ $id }}" 
+											type="radio" autocomplete="off"> {{ $name }}
+										</label>
+									@endforeach
+								</div>
 							</div>
 						</div>
-						<div class="col-xs-4 col-sm-4 col-md-4">
-							<div class="form-group">
-								{!! Form::number('quantity', null, ['id' => 'MaxQuantity', 'class' => 'form-control', 'min' => '0', 'required' => '', 'placeholder' => 'Cantidad']) !!}
+						<div class="row">
+							{{-- Display Remaining Stock --}}
+							<div class="AvailableStock col-md-12"></div>
+						</div>
+						<br>
+						<div class="row">
+							<div class="col-md-12">
+								<div class="input-with-btn">
+									<input id="MaxQuantity" class="form-control input-field short-input" name="quantity" type="number" 
+									min="1" max="{{ $article->stock }}" value="1" placeholder="1" required>
+									<input type="submit" id="AddToCartFormBtn" class="btn input-btn"" value="Agregar al carro" disabled>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="row">
-						{{-- Display Remaining Stock --}}
-						<div class="AvailableStock col-md-12"></div>
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<input type="submit" id="AddToCartFormBtn" class="btn main-btn" value="Agregar al carro" disabled>
-						</div>
-					</div>
 					{!! Form::close() !!}
 				</div>
 			</div>
+			@else
+			<div class="item"><div class="title">Talles: <b>@foreach($colors as $name) {{ $name }} @if(!$loop->last) | @endif @endforeach</b></div> <br></div>
+			<div class="item"><div class="title">Colores: <b>@foreach($sizes as $name) {{ $name }} @if(!$loop->last) | @endif @endforeach</b></div> <br></div>
 			@endif
 			
 		</div>
