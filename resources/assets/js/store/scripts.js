@@ -173,10 +173,11 @@ window.sumDivs = function (origins, target) {
 // Check product variant stock
 // -------------------------------------------
 window.checkVariantStock = function() {
+    
     let form = $('#AddToCartForm');
     let data = form.serialize();
     let allowSubmit = false;
-
+    let submitButton =  $('#AddToCartFormBtn');
     $.ajax({
         url: form.data('route'),
         method: 'GET',
@@ -184,17 +185,19 @@ window.checkVariantStock = function() {
         async: false,
         data: data,
         success: function (data) {
+            console.log(data);
             if(data.response == true)
             {
                 if(data.message == '0')
                     {
                         $('.AvailableStock').html("No hay stock disponible");
-                        $('#AddToCartFormBtn').prop('disabled', true);
+                        submitButton.prop('disabled', true);
                     }
                     else
                     {
+                        console.log(data);
                         $('.AvailableStock').html("Stock disponible: " + data.message);
-                        $('#AddToCartFormBtn').prop('disabled', false);
+                        submitButton.prop('disabled', false);
                         allowSubmit = true;
                         console.log("Entro en SUCCESS");
                     }
@@ -205,13 +208,14 @@ window.checkVariantStock = function() {
                 // console.log(data);
                 // $('#Error').html(data.responseText);
                 $('.AvailableStock').html(data.message);
-                $('#AddToCartFormBtn').prop('disabled', false);
+                submitButton.prop('disabled', true);
             }
         },
         error: function (data) {
             $('#Error').html(data.responseText);
             // location.reload();
             allowSubmit = false;
+            submitButton.prop('disabled', true);
             console.log(data);
             console.log("Entro en error 2");
         }
@@ -484,7 +488,6 @@ window.removeArticleFromFavs = function (route, favid, action) {
     });
 }
 
-
 window.removeAllArticlesFromFavs = function (route, customerid, action) {
     $.ajax({
         url: route,
@@ -533,7 +536,6 @@ window.openResellerRegistration = function()
     $('.ResellerTitle').show(0);
 }
 
-
 window.closeResellerRegistration = function()
 {
     $('#IsResellerCheckbox').prop('checked', false);
@@ -550,7 +552,6 @@ $(document).ready(function(){
         getGeoLocs(prov_id);
     });
 });
-
 
 /*
 |--------------------------------------------------------------------------
@@ -575,7 +576,6 @@ window.getParam = function(parameterName) {
         });
     return result;
 }
-
 
 window.getParams = function(url) {
     var params = {};

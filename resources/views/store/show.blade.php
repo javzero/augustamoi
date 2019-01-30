@@ -148,7 +148,7 @@
 						</div>
 						<div class="row">
 							{{-- Display Remaining Stock --}}
-							<div class="AvailableStock col-md-12"></div>
+							<span class="AvailableStock" style="background-color: #f9f9f9; margin: 15px 0 0 15px; padding: 0 10px">Seleccione un talle y un color</span>
 						</div>
 						<br>
 						<div class="row">
