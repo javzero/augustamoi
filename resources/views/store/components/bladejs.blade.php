@@ -180,4 +180,26 @@
         });
         
     }
+
+    function checkIfHasProvSelected(provs, locs)
+    {
+        console.log("CHeck");
+        let selected_provs = $(provs + ' option:selected');
+        let selected_locs = $(locs + ' option');
+        let selected_prov = $(".GeoProvSelect option:selected");
+
+        // Check if there is provs selectes
+        if(selected_provs.length != 0)
+            // If there is selected provs check if has options (locs)
+            if(selected_prov.index() != 0)
+                if(selected_locs.length == 0)
+                    getGeoLocs(selected_prov.index());
+
+    }
+    
+    $('.GeoProvSelect, .GeoLocsSelect').on('focus click', function(){
+        checkIfHasProvSelected('.GeoProvSelect', '.GeoLocsSelect');
+    });
+
+    checkIfHasProvSelected('.GeoProvSelect', '.GeoLocsSelect');
 </script>

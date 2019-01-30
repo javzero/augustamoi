@@ -83,7 +83,6 @@
 						<b>Stock:</b> {{ $article->stock }} <br>
 						Stock mínimo: {{ $article->stockmin}}
 					</div>
-					
 				</div>
 				<hr class="softhr">
 				<div class="row">
@@ -107,7 +106,6 @@
 					</div>
 				</div>
 				<hr class="softhr">
-				
 				<b>Url - Dirección web amigable (Slug):</b> <span class="badge">{!! $article->slug !!}</span>
 				<hr class="softhr">
 				<a href="{{ url('vadmin/catalogo/'.$article->id.'/edit') }}" class="btn btnGreen"><i class="icon-pencil2"></i> Editar Artículo</a> 
