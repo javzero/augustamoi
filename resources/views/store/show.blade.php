@@ -146,9 +146,16 @@
 								</div>
 							</div>
 						</div>
+						@if($article->status != 1)
+						<div class="row">
+							<span class="action-info-container">
+								Este artículo no está disponible al momento
+							</span>
+						</div>
+						@else
 						<div class="row">
 							{{-- Display Remaining Stock --}}
-							<span class="AvailableStock" style="background-color: #f9f9f9; margin: 15px 0 0 15px; padding: 0 10px">Seleccione un talle y un color</span>
+							<span class="AvailableStock action-info-container">Seleccione un talle y un color</span>
 						</div>
 						<br>
 						<div class="row">
@@ -160,6 +167,7 @@
 								</div>
 							</div>
 						</div>
+						@endif
 					{!! Form::close() !!}
 				</div>
 			</div>
