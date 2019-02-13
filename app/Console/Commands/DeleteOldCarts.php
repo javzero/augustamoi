@@ -55,10 +55,8 @@ class DeleteOldCarts extends Command
         $ids = [];
         foreach($oldCarts as $oldCart)
         {
-            // Log::info("Carro de compras " . $oldCart->id . " (".$oldCart->created_at.") eliminado");
             array_push($ids, $oldCart->id);
         }
-        
-        $this->manageOldCarts($ids, 'delete');
+        $this->manageOldCarts($ids, 'cancel');
     }
 }

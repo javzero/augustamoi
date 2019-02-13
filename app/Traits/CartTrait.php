@@ -174,6 +174,7 @@ trait CartTrait {
         } 
         catch(\Exception $e)
         {
+            Log::info($e->getMessage());
             return $e->getMessage();
         }
         return $newStock;
@@ -268,6 +269,7 @@ trait CartTrait {
             $count = '0';
             foreach ($ids as $id) {
                 $cart = Cart::find($id);
+                Log::info("Cancelando carro n°" . $cart->id);
                 if($action == 'delete')
                 {
                     foreach($cart->items as $item)
@@ -282,11 +284,18 @@ trait CartTrait {
                 else if($action == 'cancel')
                 {
                     $cart->status = "Canceled";
-                    foreach($cart->items as $item){
-                        $this->updateVariantStock($item->variant->id, $item->quantity);
+                    try {
+                        foreach($cart->items as $item)
+                        {
+                            if($item->variant != null)
+                                $this->updateVariantStock($item->variant->id, $item->quantity);
+                        }
+                    } catch (\Exception $e) {
+                        Log::info("Error: " . $e->getMessage());
                     }
                     $cart->save();
                     Log::info("Carro n°".$id." cancelado");
+                    Log::info("-------------------");
                     $count++;
                 }
             }
