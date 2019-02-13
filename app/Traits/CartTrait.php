@@ -162,6 +162,9 @@ trait CartTrait {
     // ----------------------------------------------------------
     public function updateVariantStock($variantId, $quantity)
     {
+        if($variantId == null || $variantId == '')
+            return;
+
         try
         {
             $variant = CatalogVariant::where('id', $variantId)->first();
@@ -254,6 +257,7 @@ trait CartTrait {
     
     public function manageOldCarts($ids, $action)
     {
+        Log::info("Cantidad: " . count($ids). " | Acción: " . $action);
         $response = ' ';
         
         try 
@@ -266,9 +270,11 @@ trait CartTrait {
                 $cart = Cart::find($id);
                 if($action == 'delete')
                 {
-                    foreach($cart->items as $item){
+                    foreach($cart->items as $item)
+                    {
                         $this->updateVariantStock($item->variant->id, $item->quantity);
                     }
+                    
                     $cart->delete();
                     Log::info("Carro n°".$id." eliminado");
                     $count++;

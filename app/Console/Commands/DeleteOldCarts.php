@@ -48,7 +48,7 @@ class DeleteOldCarts extends Command
         $oldCarts = Cart::where('status','ACTIVE')->where('created_at', '<=', $time)->get();
         
         Log::info("-----------------------------------");
-        Log::info("Eliminando carros de compra con más de " . $maxTime . "hs");
+        Log::info("Manejando carros de compra con más de " . $maxTime . "hs");
         Log::info("Fecha límite: " . $time);
         Log::info("-----------------------------------");
         
