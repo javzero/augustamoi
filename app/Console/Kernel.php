@@ -4,7 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use App\Console\Commands\DeleteInactiveCarts;
+use App\Console\Commands\DeleteOldCarts;
 
 class Kernel extends ConsoleKernel
 {
@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        DeleteInactiveCarts::class
+        DeleteOldCarts::class
     ];
 
     /**
@@ -28,7 +28,9 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         // $schedule->command('carts:purge')->everyMinute();
-        $schedule->command('carts:purge')->cron('* * * * *');
+        // $schedule->command('carts:purge')->cron('* * * * *');
+        // $schedule->command('delete:oldcarts')->daily();
+        $schedule->command('delete:oldcarts')->everyMinute();
     }
 
     /**

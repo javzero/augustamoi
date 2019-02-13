@@ -2,7 +2,7 @@
 
 Auth::routes();
 
-
+Route::get('testDelete', ['as' => 'testDelete', 'uses' => 'Store\CartsController@testDelete']);
 /*
 |--------------------------------------------------------------------------
 | STORE LOGIN / REGISTER :: ROUTES
