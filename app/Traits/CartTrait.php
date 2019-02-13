@@ -6,6 +6,7 @@ use App\CatalogArticle;
 use App\CatalogVariant;
 use App\CatalogFav;
 use App\Settings;
+use Log;
 
 trait CartTrait {
     
@@ -249,4 +250,47 @@ trait CartTrait {
         }   
         return array("articleFavs" => $articleFavs, "favs" => $favs);
     }
+
+    
+    public function manageOldCarts($ids, $action)
+    {
+        $response = ' ';
+        
+        try 
+        {
+            if($ids == [])
+                $response = 'No hay carros para manejar';
+                
+            $count = '0';
+            foreach ($ids as $id) {
+                $cart = Cart::find($id);
+                if($action == 'delete')
+                {
+                    foreach($cart->items as $item){
+                        $this->updateVariantStock($item->variant->id, $item->quantity);
+                    }
+                    $cart->delete();
+                    Log::info("Carro n°".$id." eliminado");
+                    $count++;
+                }
+                else if($action == 'cancel')
+                {
+                    $cart->status = "Canceled";
+                    foreach($cart->items as $item){
+                        $this->updateVariantStock($item->variant->id, $item->quantity);
+                    }
+                    $cart->save();
+                    Log::info("Carro n°".$id." cancelado");
+                    $count++;
+                }
+            }
+            $response = $count . " carros manejados";
+        }  
+        catch (\Exception $e)
+        {
+            $response = "Error: " . $e->getMessage();
+        } 
+        return $response;
+    }
+
 }

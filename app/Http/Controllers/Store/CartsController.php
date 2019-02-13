@@ -10,6 +10,8 @@ use App\Shipping;
 use App\Payment;
 use App\Traits\CartTrait;
 use Log;
+// Eliminar carbon despues de testear
+use Carbon\Carbon;
 
 class CartsController extends Controller
 {
@@ -202,4 +204,22 @@ class CartsController extends Controller
             ]);    
         } 
     }
+
+    public function testDelete()
+    {
+        $maxTime = 24;
+        $time = Carbon::now()->subHour($maxTime);
+
+        $oldCarts = Cart::where('status','ACTIVE')->where('created_at', '<=', $time)->get();
+        
+        $ids = [];
+        foreach($oldCarts as $oldCart)
+        {
+            // Log::info("Carro de compras " . $oldCart->id . " (".$oldCart->created_at.") eliminado");
+            array_push($ids, $oldCart->id);
+        }
+        
+        $this->manageOldCarts($ids, 'cancel');
+    }
+
 }
