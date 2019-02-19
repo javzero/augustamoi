@@ -191,6 +191,12 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
     // -- SUPPORT --
     Route::get('docs', function(){ return view('vadmin.support.docs'); });
     Route::get('help', function(){ return view('vadmin.support.help'); });
+    
+    // -- TESTS --
+    Route::get('tests', ['as' => 'vadmin.tests', 'uses' => 'VadminTestsController@tests']);
+    Route::post('testMailSending', ['as' => 'vadmin.testMailSending', 'uses' => 'VadminTestsController@testMailSending']);
+    Route::post('testImageUpload', ['as' => 'vadmin.testImageUpload', 'uses' => 'VadminTestsController@testImageUpload']);
+    
 });
 
 
