@@ -14,8 +14,8 @@
 		@slot('actions')
 			{{-- Actions --}}
 			<div class="list-actions">
-				<a href="{{ route('orders.create') }}" class="btn btnBlue">Cargar Pedido</a>
-				<button id="SearchFiltersBtn" class="btn btnBlue"><i class="icon-ios-search-strong"></i></button>
+				<a href="{{ route('orders.create') }}" class="btn btnMain">Cargar Pedido</a>
+				<button id="SearchFiltersBtn" class="btn btnMain"><i class="icon-ios-search-strong"></i></button>
 				{{-- Delete --}}
 				{{--  THIS VALUE MUST BE THE NAME OF THE SECTION CONTROLLER  --}}
 				<input id="ModelName" type="hidden" value="carts">

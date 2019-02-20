@@ -126,7 +126,7 @@
 								<br>
 								<div class="btn-group-toggle" data-toggle="buttons">
 									@foreach($sizes as $id => $name)
-										<label class="btn button-radio-hidden">
+										<label class="SizesSelector btn button-radio-hidden">
 											<input onclick="checkVariantStock()" name="size_id" value="{{ $id }}" type="radio" autocomplete="off"> {{ $name }}
 										</label>
 									@endforeach
@@ -138,7 +138,7 @@
 								<br>
 								<div class="btn-group-toggle" data-toggle="buttons">
 									@foreach($colors as $id => $name)
-										<label class="btn button-radio-hidden">
+										<label class="ColorsSelector btn button-radio-hidden">
 											<input onclick="checkVariantStock()" name="color_id" value="{{ $id }}" 
 											type="radio" autocomplete="off"> {{ $name }}
 										</label>
@@ -220,4 +220,14 @@
 
 @section('scripts')
 	@include('store.components.bladejs')
+
+	<script>
+		let sizes = $('.SizesSelector');
+		let colors = $('.ColorsSelector');
+
+		if(sizes.length == 1)
+			sizes.click();
+		if(colors.length == 1)
+			colors.click();
+	</script>
 @endsection

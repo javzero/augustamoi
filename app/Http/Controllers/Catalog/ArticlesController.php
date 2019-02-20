@@ -37,6 +37,10 @@ class ArticlesController extends Controller
         $category = $request->get('category');
         $order = $request->get('orden');
         $rowName = 'stock';
+        $status = $request->get('status');
+        if($status == null)
+            $status = 1;
+
         if ($request->orden_af) {
             $order = $request->orden_af;
             $rowName = "name";
@@ -61,22 +65,39 @@ class ArticlesController extends Controller
             $rowName = 'id';
             $order = 'DESC';
         }
-
-        if ($order == 'limitados') {
-            $articles = CatalogArticle::whereRaw('catalog_articles.stock < catalog_articles.stockmin')->paginate($pagination);
-        } else {
-            // ---------- Queries ------------    
+        
+        if($status == 0)
+        {
+            // Inactive Items
             if (isset($code)) {
-                $articles = CatalogArticle::where('code', 'LIKE', "%" . $code . "%")->paginate($pagination);
+                $articles = CatalogArticle::where('code', 'LIKE', "%" . $code . "%")->inactive()->paginate($pagination);
             } elseif (isset($name)) {
-                $articles = CatalogArticle::searchName($name)->orderBy($rowName, $order)->paginate($pagination);
+                $articles = CatalogArticle::searchName($name)->inactive()->orderBy($rowName, $order)->paginate($pagination);
             } elseif (isset($category)) {
-                $articles = CatalogArticle::where('category_id', $category)->orderBy($rowName, $order)->paginate($pagination);
+                $articles = CatalogArticle::where('category_id', $category)->inactive()->orderBy($rowName, $order)->paginate($pagination);
             } else {
-                $articles = CatalogArticle::orderBy($rowName, $order)->paginate($pagination);
+                $articles = CatalogArticle::orderBy($rowName, $order)->inactive()->paginate($pagination);
             }
-
         }
+        else
+        {
+            // Active Items
+            if ($order == 'limitados') {
+                $articles = CatalogArticle::whereRaw('catalog_articles.stock < catalog_articles.stockmin')->paginate($pagination);
+            } else {
+                // ---------- Queries ------------    
+                if (isset($code)) {
+                    $articles = CatalogArticle::where('code', 'LIKE', "%" . $code . "%")->active()->paginate($pagination);
+                } elseif (isset($name)) {
+                    $articles = CatalogArticle::searchName($name)->orderBy($rowName, $order)->active()->paginate($pagination);
+                } elseif (isset($category)) {
+                    $articles = CatalogArticle::where('category_id', $category)->active()->orderBy($rowName, $order)->paginate($pagination);
+                } else {
+                    $articles = CatalogArticle::orderBy($rowName, $order)->active()->paginate($pagination);
+                }
+            }
+        }
+
         $categories = CatalogCategory::orderBy('id', 'ASC')->pluck('name', 'id');
         
         // ---------- Redirect -------------
@@ -780,6 +801,28 @@ class ArticlesController extends Controller
             ]);
 
         } catch (\Exception $e) {
+            return response()->json([
+                "response" => "error",
+                "message" => $e
+            ]);
+        }
+    }
+
+    public function updateVariantStock(Request $request)
+    {
+        try 
+        {
+            $variant = CatalogVariant::findOrFail($request->id);
+            $variant->stock = $request->value;
+            $variant->save();
+
+            return response()->json([
+                "response" => "success",
+                "action" => $request->action
+            ]);
+        } 
+        catch (\Exception $e) 
+        {
             return response()->json([
                 "response" => "error",
                 "message" => $e

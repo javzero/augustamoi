@@ -29,19 +29,23 @@
                     <tbody>
                         @php $itemSum = 0 @endphp
                         @foreach($order->items->sortBy('article_name') as $item)
-                        @php $itemSum += $item->quantity; @endphp
-                        <tr class="content">
-                            {{-- <td>#{{ $item->article->code }}</td> --}}
-                            <td>x {{ $item->quantity }}</td>
-                            <td>{{ $item->article->name }} (#{{ $item->article->code }})</td>
-                            <td>
-                                {{ $item->size }} @if($item->size != '') | @endif
-                                {{ $item->color }} @if($item->color != '') | @endif
-                                {{ $item->textile }} @if($item->textile != '') @endif
-                            </td>
-                            <td>$ {{ $item->final_price }}</td>
-                            <td>$ {{ number_format($item->final_price * $item->quantity, 2) }}</td>
-                        </tr>
+                            @if($item->article != null)
+                                @php $itemSum += $item->quantity; @endphp
+                                <tr class="content">
+                                    {{-- <td>#{{ $item->article->code }}</td> --}}
+                                    <td>x {{ $item->quantity }}</td>
+                                    <td>{{ $item->article->name }} (#{{ $item->article->code }})</td>
+                                    <td>
+                                        {{ $item->size }} @if($item->size != '') | @endif
+                                        {{ $item->color }} @if($item->color != '') | @endif
+                                        {{ $item->textile }} @if($item->textile != '') @endif
+                                    </td>
+                                    <td>$ {{ $item->final_price }}</td>
+                                    <td>$ {{ number_format($item->final_price * $item->quantity, 2) }}</td>
+                                </tr>
+                            @else
+                                
+                            @endif
                         @endforeach
                         <tr class="bottom-data">
                             <td>x {{ $itemSum }} Artículos</td>

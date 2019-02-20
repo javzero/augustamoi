@@ -25,12 +25,15 @@ trait CartTrait {
         
         if($cart == null || $cart == '')
             return false;
-
-        // Sum Prices (Fixed)
-        foreach($cart->items as $item)
+            // Sum Prices (Fixed)
+        foreach($cart->items as $key => $item)
         {
+            // if($item->article != null && $item->article->status == 1)
             $cartSubTotal += $item->final_price * $item->quantity;
+            // else
+            //     unset($cart->items[$key]);
         }
+
         $cartSubTotal = number_format($cartSubTotal, 2);
         $discount = calcPercent($cartSubTotal, $cart->order_discount);
         // Fixed Costs
@@ -78,15 +81,19 @@ trait CartTrait {
                 $orderDiscount = calcPercent($cartSubTotal, $cart->order_discount);
                 $cartTotal = $cartSubTotal + calcPercent($cartSubTotal, $cart->payment_percent) + $cart->shipping_price - $orderDiscount;
                 $totalItems = '0';
-                foreach($cart->items as $item)
+
+                // Count items and unset if item was eliminated
+                foreach($cart->items as $key => $item)
                 {
-                    $totalItems += $item->quantity;
+                    if($item->article != null && $item->article->status == 1)
+                        $totalItems += $item->quantity;
+                    else
+                        unset($cart->items[$key]);
                 }
                 
                 $minQuantityNeeded = false;
                 $minMoneyNeeded = false;
 
-                
                 if($this->settings->reseller_min > 0 && $totalItems < $this->settings->reseller_min)
                     $minQuantityNeeded = true;
                 if($this->settings->reseller_money_min > 0 && $cartTotal < $this->settings->reseller_money_min)
@@ -95,22 +102,21 @@ trait CartTrait {
                 $goalQuantity = $minQuantity - $totalItems;
 
                 $activeCart = array
-                    (
-                        "rawdata" => $cart,
-                        "totalItems" => $cart->items->count(),
-                        "paymentPercent" => $cart->payment_percent,
-                        "paymentId" =>$cart->payment_method_id,
-                        "shippingPrice" => $cart->shipping_price,
-                        "shippingId" => $cart->shipping_id,
-                        "orderDiscount" => $cart->order_discount,
-                        "orderDiscountValue" => $orderDiscount,
-                        "cartSubTotal" => $cartSubTotal,
-                        "cartTotal" => $cartTotal,
-                        'totalItems' => $totalItems,
-                        'goalQuantity' => $goalQuantity,
-                        'minQuantityNeeded' => $minQuantityNeeded,
-                        'minMoneyNeeded' => $minMoneyNeeded
-                    );
+                (
+                    "rawdata" => $cart,
+                    "paymentPercent" => $cart->payment_percent,
+                    "paymentId" =>$cart->payment_method_id,
+                    "shippingPrice" => $cart->shipping_price,
+                    "shippingId" => $cart->shipping_id,
+                    "orderDiscount" => $cart->order_discount,
+                    "orderDiscountValue" => $orderDiscount,
+                    "cartSubTotal" => $cartSubTotal,
+                    "cartTotal" => $cartTotal,
+                    'totalItems' => $totalItems,
+                    'goalQuantity' => $goalQuantity,
+                    'minQuantityNeeded' => $minQuantityNeeded,
+                    'minMoneyNeeded' => $minMoneyNeeded
+                );
             }
         } 
         return $activeCart;
@@ -123,21 +129,37 @@ trait CartTrait {
         $result = '0';
         if($group == '3')
         {
-            foreach($items as $item) {
-                if($item->article->reseller_discount > '0'){
-                    $result += calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount) * $item->quantity;
-                } else {
-                    $result += $item->article->reseller_price * $item->quantity;
+            foreach($items as $item) 
+            {
+                if($item->article != null)
+                {
+                    if($item->article->reseller_discount > '0')
+                    {
+                        $result += calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount) * $item->quantity;
+                    } 
+                    else 
+                    {
+                        $result += $item->article->reseller_price * $item->quantity;
+                    }
+                    $result += 0;
                 }
             }
         } 
         else 
         {
-            foreach($items as $item) {
-                if($item->article->discount > '0'){
-                    $result += calcValuePercentNeg($item->article->price, $item->article->discount) * $item->quantity;
-                } else {
-                    $result += $item->article->price * $item->quantity;
+            foreach($items as $item) 
+            {
+                if($item->article != null)
+                {
+                    if($item->article->discount > '0')
+                    {
+                        $result += calcValuePercentNeg($item->article->price, $item->article->discount) * $item->quantity;
+                    } 
+                    else 
+                    {
+                        $result += $item->article->price * $item->quantity;
+                    }
+                    $result += 0;
                 }
             }
         }

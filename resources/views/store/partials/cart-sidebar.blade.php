@@ -19,58 +19,60 @@
                 </div>
             </div>
             @foreach($activeCart['rawdata']->items as $item)
-                <div id="Item{{ $item->id }}" class="row item">
-                    <img src="{{ asset($item->article->featuredImageName()) }}" alt="Product">
-                    <div class="details-1">
-                        <a href="{{ url('tienda/articulo/'.$item->article->id) }}">
-                        @if(strlen($item->article->name) > 50)
-                            {{ substr($item->article->name, 0, 50) }}...
-                        @else
-                            {{ $item->article->name }}
-                        @endif
-                        </a>
-                    </div>
-                    <div class="col-xs-12">
-                        {{ $item->color }} / {{ $item->size }} 
-                    </div>
-                    <div class="details-2">
-                        <div class="column-1 price">
-                            {{-- PRICE --}}
-                        @php($articlePrice = '0')
-                        @if(Auth::guard('customer')->user()->group == '3')
-                            @php($articlePrice = $item->article->reseller_price)
-
-                            $ {{ showPrice($articlePrice, $item->article->reseller_discount) }}
-
-                            {{-- @if($item->article->reseller_discount > 0)
-                                @php($articlePrice = calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount))
-                                <del class="text-muted small">$ {{ $item->article->reseller_price }}</del>
-                            @endif
-                            $ {{ $articlePrice }} --}}
-                        @else
-                            $ {{ showPrice($articlePrice, $item->article->discount) }}
-                            {{-- Estandar Item Prices --}}
-                            {{-- @if($item->article->discount > 0)
-                                    @php($articlePrice = calcValuePercentNeg($item->article->price, $item->article->discount))
-                                    <del class="text-muted small">$ {{ $item->article->price }}</del>
+                @if($item->article != null)
+                    <div id="Item{{ $item->id }}" class="row item">
+                        <img src="{{ asset($item->article->featuredImageName()) }}" alt="Product">
+                        <div class="details-1">
+                            <a href="{{ url('tienda/articulo/'.$item->article->id) }}">
+                            @if(strlen($item->article->name) > 50)
+                                {{ substr($item->article->name, 0, 50) }}...
                             @else
-                                @php($articlePrice = $item->article->price)
+                                {{ $item->article->name }}
                             @endif
-                            $ {{ $articlePrice }} --}}
-                        @endif
+                            </a>
                         </div>
-                        {{-- <div class=""> Stock: {{ $item->article->stock }} </div> --}}
-                    </div>
-                    <div class="input-with-btn quantity">
-                        {{-- Send this data to JSON via js with .Item-Data class --}}
-                        <input class="Item-Data small-input under-element" name="data" type="number"  
-                        min="1" max="{{ $item->quantity + $item->article->stock }}" value="{{ $item->quantity }}" required="" 
-                        data-price="{{$articlePrice}}" data-id="{{ $item->id }}" data-variant="{{ $item->variant_id }}" data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $item->article->stock }}">
-                    </div>
-                    <div class="delete-item">
-                        <a onclick="removeFromCart('{{ route('store.removeFromCart') }}', {{$item->id}}, {{ $item->variant_id }}, {{ $item->quantity }}, '#Item'+{{ $item->id }}, 'reload');"><i class="far fa-trash-alt"></i></a>
-                    </div>
-                </div>{{-- / .item --}}
+                        <div class="col-xs-12">
+                            {{ $item->color }} / {{ $item->size }} 
+                        </div>
+                        <div class="details-2">
+                            <div class="column-1 price">
+                                {{-- PRICE --}}
+                            @php($articlePrice = '0')
+                            @if(Auth::guard('customer')->user()->group == '3')
+                                @php($articlePrice = $item->article->reseller_price)
+
+                                $ {{ showPrice($articlePrice, $item->article->reseller_discount) }}
+
+                                {{-- @if($item->article->reseller_discount > 0)
+                                    @php($articlePrice = calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount))
+                                    <del class="text-muted small">$ {{ $item->article->reseller_price }}</del>
+                                @endif
+                                $ {{ $articlePrice }} --}}
+                            @else
+                                $ {{ showPrice($articlePrice, $item->article->discount) }}
+                                {{-- Estandar Item Prices --}}
+                                {{-- @if($item->article->discount > 0)
+                                        @php($articlePrice = calcValuePercentNeg($item->article->price, $item->article->discount))
+                                        <del class="text-muted small">$ {{ $item->article->price }}</del>
+                                @else
+                                    @php($articlePrice = $item->article->price)
+                                @endif
+                                $ {{ $articlePrice }} --}}
+                            @endif
+                            </div>
+                            {{-- <div class=""> Stock: {{ $item->article->stock }} </div> --}}
+                        </div>
+                        <div class="input-with-btn quantity">
+                            {{-- Send this data to JSON via js with .Item-Data class --}}
+                            <input class="Item-Data small-input under-element" name="data" type="number"  
+                            min="1" max="{{ $item->quantity + $item->article->stock }}" value="{{ $item->quantity }}" required="" 
+                            data-price="{{$articlePrice}}" data-id="{{ $item->id }}" data-variant="{{ $item->variant_id }}" data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $item->article->stock }}">
+                        </div>
+                        <div class="delete-item">
+                            <a onclick="removeFromCart('{{ route('store.removeFromCart') }}', {{$item->id}}, {{ $item->variant_id }}, {{ $item->quantity }}, '#Item'+{{ $item->id }}, 'reload');"><i class="far fa-trash-alt"></i></a>
+                        </div>
+                    </div>{{-- / .item --}}
+                @endif
             @endforeach
         <div class="update-btn">
             <button class="UpdateDataBtn block-btn-hollow"><i class="fas fa-sync"></i> Calcular nuevos totales</button>

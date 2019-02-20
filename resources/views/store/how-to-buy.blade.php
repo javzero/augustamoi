@@ -53,7 +53,7 @@
             <div class="col-sm-12 col-md-6 col-lg-4 item">
                 {{-- <img src="{{ asset('images/gral/icons/compra6.png') }} " alt="Compras"> --}}
                 <i class="far fa-calendar-alt"></i>
-                <p>Los días de despacho son lunes y viernes por lo cual haremos tu envío lo más cercano a esas opciones. </p>
+                <p>Los días de despacho son Martes y Viernes por lo cual haremos tu envío lo más cercano a esas opciones. </p>
             </div>
         </div>
         {{-- <div class="row-centered lone-item">

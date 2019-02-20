@@ -64,9 +64,9 @@
         
         <div class="col-xs-12 variants">
             <div class="variants-selectors">
-                {!! Form::label('description', 'Variantes') !!}
-                <div class="colors">
-                    <span class="sub-title">Colores: </span>
+                {!! Form::label('description', 'Variantes') !!} 
+                <div class="inner">
+                    <div class="sub-title">COLORES: </div>
                     @foreach($colors as $color)
                     <label class="items checkbox-inline">
                         <input class="VariantColor" type="checkbox" name="color" 
@@ -74,8 +74,8 @@
                     </label>
                     @endforeach
                 </div>
-                <div class="colors">
-                    <span class="sub-title">Talles: </span>
+                <div class="inner">
+                    <div class="sub-title">TALLES: </div>
                     @foreach($sizes as $size)
                     <label class="items checkbox-inline">
                         <input class="VariantSize" type="checkbox" name="size" 

@@ -155,24 +155,32 @@
 		<li class="nav-item has-sub {{ Menu::activeMenu('catalogo') }}"><a href="#"><i class="icon-clipboard"></i>
 			<span data-i18n="nav.menu_levels.main" class="menu-title">Catálogo</span></a>
 			<ul class="menu-content" style="">
-				{{-- Article List --}}
-				<li class="@if(app('request')->input('redirect') != 'stock')
-					{{ Menu::activeMenu('catalogo') }}
-					@endif">
-					<a href="{{ route('catalogo.index') }}" class="menu-item">
-					<i class="icon-list"></i> Listado</a></li>
-				{{-- Article Stock --}}
-				{{-- <li class="@if(app('request')->input('redirect') == 'stock') active @endif">
-					<a href="{{ route('catalogo.index', ['redirect' => 'stock']) }}" class="menu-item">
-						<i class="fas fa-box-open"></i> Stock
-					</a>
-				</li> --}}
 				{{-- New Article --}}
 				<li class="{{ Menu::activeMenu('catalogo.create') }}">
 					<a href="{{ route('catalogo.create') }}" class="menu-item">
 						<i class="icon-plus-round"></i> Nuevo Artículo
 					</a>
 				</li>
+				{{-- Article List --}}
+				<li class="@if(app('request')->input('redirect') != 'stock')
+					{{ Menu::activeMenu('catalogo') }}
+					@endif">
+					<a href="{{ route('catalogo.index', ['status' => '1']) }}" class="menu-item">
+					<i class="icon-list"></i> Listado</a>
+				</li>
+				{{-- Article List Paused--}}
+				<li class="@if(app('request')->input('redirect') != 'stock')
+					{{ Menu::activeMenu('catalogo') }}
+					@endif">
+					<a href="{{ route('catalogo.index', ['status' => '0']) }}" class="menu-item">
+					<i class="icon-list"></i> Pausados</a>
+				</li>
+				{{-- Article Stock --}}
+				{{-- <li class="@if(app('request')->input('redirect') == 'stock') active @endif">
+					<a href="{{ route('catalogo.index', ['redirect' => 'stock']) }}" class="menu-item">
+						<i class="fas fa-box-open"></i> Stock
+					</a>
+				</li> --}}
 				{{-- Sizes --}}
 				<li class="has-sub is-shown {{ Menu::activeMenu('cat_sizes') }}">
 					<a href="#" data-i18n="nav.menu_levels.second_level_child.main" class="menu-item">
@@ -337,13 +345,8 @@
 					</a>
 				</li>
 				<li class="is-shown {{ Menu::activeMenu('orders') }}">
-					<a href="{{ route('orders.index', ['status' => 'All']) }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-list"></i> 
-						Ver Todos
-					</a>
-				</li>
-				<li class="is-shown {{ Menu::activeMenu('orders') }}">
-					<a href="{{ route('orders.index', ['status' => 'Finished']) }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-list"></i> 
-						Finalizados
+						<a href="{{ route('orders.index', ['status' => 'Finished']) }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-list"></i> 
+							Finalizados
 					</a>
 				</li>
 				<li class="is-shown {{ Menu::activeMenu('orders') }}">
@@ -356,8 +359,13 @@
 						<i class="icon-list"></i> 
 						Comprando
 						@if($activeOrders > 0)
-							<span class="blue">&bull;</span>
+						<span class="blue">&bull;</span>
 						@endif
+					</a>
+				</li>
+				<li class="is-shown {{ Menu::activeMenu('orders') }}">
+					<a href="{{ route('orders.index', ['status' => 'All']) }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item"><i class="icon-list"></i> 
+						Ver Todos
 					</a>
 				</li>
 			</ul>
@@ -392,11 +400,11 @@
 		</li>
 		@endif
 		{{-- MESSAGES --}}
-		<li class="{{ Menu::activeMenu('mensajes_recibidos') }}"><a href="{{ url('vadmin/mensajes_recibidos/*') }}" class="menu-item"><i class="icon-envelop"></i> Mensajes 
+		{{-- <li class="{{ Menu::activeMenu('mensajes_recibidos') }}"><a href="{{ url('vadmin/mensajes_recibidos/*') }}" class="menu-item"><i class="icon-envelop"></i> Mensajes 
 			@if($newMessages->count() > 0) 
 				<span class="tag tag-primary tag-pill float-xs-right mr-2"><span class="MessagesAmmount">{{ $newMessages->count() }}</span></span>
 			@endif
-		</a></li>
+		</a></li> --}}
 		{{-- SETTINGS --}}
 		<li class="{{ Menu::activeMenu('configuracion') }}"><a href="{{ route('vadmin.settings') }}" class="menu-item">
 			<i class="fas fa-sliders-h"></i> Configuracion 

@@ -71,7 +71,7 @@
 
     function updateItem(route, id, field, value, type, action)
     {
-        console.log(type);
+        // console.log(type);
         if(value == '' || value == undefined || value == null) {
             alert_error("", "Falta llenar el campo");
             return;
@@ -91,7 +91,8 @@
             dataType: 'JSON',
             data: data,
             beforeSend: function(){
-                fullLoader("show");
+                if(action != 'update')
+                    fullLoader("show");
             },
             success: function(data){
                 console.log(data);
@@ -107,7 +108,7 @@
             },
             error: function(data){
                console.log(data);
-               // $('#Error').html(data.responseText);
+               $('#Error').html(data.responseText);
             },
             complete: function(){
                fullLoader("hide");

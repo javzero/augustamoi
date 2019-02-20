@@ -341,14 +341,24 @@ class StoreController extends Controller
             return back()->with('error', 'missing-shipping');
         
         // Set fixed prices on checkout confirmation
-        foreach($cart->items as $item){
+        foreach($cart->items as $key => $item){
             $order = CartItem::find($item->id);
-            if(auth()->guard('customer')->user()->group == '3'){
-                $order->final_price = calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount);
-            } else {
-                $order->final_price = calcValuePercentNeg($item->article->price, $item->article->discount);
-            }   
-            $order->save();    
+            if($item->article != null && $item->article->status == 1)
+            {
+                if(auth()->guard('customer')->user()->group == '3'){
+                    $order->final_price = calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount);
+                } else {
+                    $order->final_price = calcValuePercentNeg($item->article->price, $item->article->discount);
+                }   
+                $order->save();
+            }
+            else 
+            {
+                // If article was deleted while purchase was ocurring unset from array
+                unset($cart->items[$key]);
+                // Delete CartItem
+                $order->delete();
+            }
         }
 
         $cart->status = 'Process';

@@ -13,16 +13,18 @@
         <th>Total</th>
     </tr>
     @foreach($order['rawdata']->items as $item)
-    <tr>
-        <td>{{ $item->article->code }}</td>
-        <td><a href="">{{ $item->article->name }}</a></td>
-        <td>{{ $item->article->brand->name }}</td>
-        <td>{{ $item->size }} | {{ $item->color }} | {{ $item->textile }}</td>
-        <td>$ {{ $item->final_price }}</td>
-        <td>{{ $item->quantity }}</td>
-        <td></td>
-        <td >$ {{ number_format($item->quantity * $item->final_price,2) }}</td>
-    </tr>
+    @if($item->article != null)
+        <tr>
+            <td>{{ $item->article->code }}</td>
+            <td><a href="">{{ $item->article->name }}</a></td>
+            <td>{{ $item->article->brand->name }}</td>
+            <td>{{ $item->size }} | {{ $item->color }} | {{ $item->textile }}</td>
+            <td>$ {{ $item->final_price }}</td>
+            <td>{{ $item->quantity }}</td>
+            <td></td>
+            <td >$ {{ number_format($item->quantity * $item->final_price,2) }}</td>
+        </tr>
+    @endif
     @endforeach
     <tr style="border-top: 10px solid #f9f9f9">
         <td></td><td></td><td></td><td></td>
@@ -53,19 +55,19 @@
     <tr>
         <td></td><td></td><td></td><td></td>
         @if($order['rawdata']->payment_method_id != null)
-	@if($order['rawdata']->payment) != null)
-        <td></td>
-        <td><b>Método de pago:</b> {{ $order['rawdata']->payment->name }} (% {{ $order['paymentPercent'] }})</td>
-        <td>${{ $order['paymentCost'] }}</td>
-	@else
-	<td></td>
-        <td>Método de pago discontinuado</td>
-        <td>-</td>
-	@endif
+            @if($order['rawdata']->payment != null)
+                <td></td>
+                <td><b>Método de pago:</b> {{ $order['rawdata']->payment->name }} (% {{ $order['paymentPercent'] }})</td>
+                <td>${{ $order['paymentCost'] }}</td>
+            @else
+                <td></td>
+                <td>Método de pago discontinuado</td>
+                <td>-</td>
+            @endif
         @else
-        <td></td>
-        <td>Método de pago no seleccionado</td>
-        <td>-</td>
+            <td></td>
+            <td>Método de pago no seleccionado</td>
+            <td>-</td>
         @endif
     </tr>
     <tr>

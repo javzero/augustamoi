@@ -11,13 +11,13 @@
 		@slot('actions')
 			{{-- Actions --}}
 			<div class="list-actions">
-				<a href="{{ route('catalogo.create') }}" class="btn btnBlue"><i class="icon-plus-round"></i>  Nuevo artículo</a>
-				<button id="SearchFiltersBtn" class="btn btnBlue"><i class="icon-ios-search-strong"></i></button>
+				<a href="{{ route('catalogo.create') }}" class="btn btnMain"><i class="icon-plus-round"></i>  Nuevo artículo</a>
+				<button id="SearchFiltersBtn" class="btn btnMain"><i class="icon-ios-search-strong"></i></button>
 				{{-- Edit --}}
-				<button class="EditBtn btn btnGreen Hidden"><i class="icon-pencil2"></i> Editar</button>
+				<button class="EditBtn btn btnMain Hidden"><i class="icon-pencil2"></i> Editar</button>
 				<input id="EditId" type="hidden">
 				{{-- Add Similar --}}
-				<button class="CreateFromAnotherBtn btn btnBlue Hidden"><i class="icon-pencil2"></i> Publicar Similar</button>
+				<button class="CreateFromAnotherBtn btn btnMain Hidden"><i class="icon-pencil2"></i> Publicar Similar</button>
 				<input id="CreateFromAnotherId" type="hidden">
 				{{-- Delete --}}
 				{{-- THIS VALUE MUST BE THE NAME OF THE SECTION CONTROLLER --}}
@@ -81,7 +81,12 @@
 					@endif --}}
 				@endslot
 
-				@slot('title', 'Listado de artículos de la tienda')
+				@slot('title')
+					Listado de artículos de la tienda
+					@if(request()->status == '0' && request()->status != null)
+					<p>(Pausados)</p>
+					@endif
+				@endslot
 				@slot('tableTitles')
 					@if(!$articles->count() == '0')
 						<th class="w-50"></th>
@@ -113,7 +118,7 @@
 								</td>
 								{{-- NAME --}}
 								<td>
-									<input class="editable-input" onfocus="event.target.select()" type="text" value="{{ $item->name }}" min="0">
+									<input class="editable-input" onfocus="event.target.select()" type="text" value="{{ $item->name }}">
 									<div class="editable-input-data" data-id="{{ $item->id }}" 
 										data-route="update_catalog_field" data-field="name" data-type="string" data-action="reload" data-value="">
 									</div>
@@ -121,7 +126,14 @@
 								<td style="white-space: normal">
 									@foreach($item->variants as $variant)
 										<div class="small-badge-with-data">
-											{{ $variant->combination }} <div class="inner"><span class="inner-data">{{ $variant->stock }}</span></div>
+											<div class="detail-data"><p>{{ $variant->combination }}</p></div>
+											<div class="value-data">
+												<input class="editable-input" onfocus="event.target.select()" 
+												type="number" value="{{ $variant->stock }}" min="0">
+												<div class="editable-input-data" data-id="{{ $variant->id }}" 
+													data-route="update_variant_stock" data-field="stock" data-type="int" data-action="update" data-value="">
+												</div>
+											</div>
 										</div>
 									@endforeach
 								</td>

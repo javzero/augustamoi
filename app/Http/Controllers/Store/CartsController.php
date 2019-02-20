@@ -187,7 +187,9 @@ class CartsController extends Controller
                 if($cart->status != 'Canceled')
                 {
                     foreach($cart->items as $item){
-                        $this->updateVariantStock($item->variant->id, $item->quantity);
+                        // Check if original article exists
+                        if($item->article != null)
+                            $this->updateVariantStock($item->variant->id, $item->quantity);
                     }
                 }
                 $cart->delete();
@@ -198,6 +200,7 @@ class CartsController extends Controller
         }  
         catch (\Exception $e)
         {
+            dd($e);
             return response()->json([
                 'success'   => false,
                 'error'    => 'Error: '.$e->getMessage()

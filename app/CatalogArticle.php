@@ -77,6 +77,10 @@ class CatalogArticle extends Model
         return $query->where('status', '1');
     }
 
+    public function scopeInActive($query){
+        return $query->where('status', '0');
+    }
+
     public function scopeSearch($query, $term, $categories, $tags)
     {  
         return $query

@@ -67,51 +67,59 @@
                 @php $itemSum = 0 @endphp
                 {{-- @foreach($order->items->sortBy('name') as $item) --}}
                 @foreach($order['rawdata']->items->sortBy('article_name') as $item)
-                @php $itemSum += $item->quantity; @endphp
-                <tr>
-                    <td>x {{ $item->quantity }}</td>
-                    {{-- <td class="w-50">
-                        <label class="custom-control custom-checkbox list-checkbox">
-                            <input type="checkbox" class="List-Checkbox custom-control-input row-checkbox" data-id="{{ $item->id }}">
-                            <span class="custom-control-indicator"></span>
-                            <span class="custom-control-description"></span>
-                        </label>
-                    </td> --}}
-                    <td><a href="">{{ $item->article->name }} (#{{ $item->article->code }})</a></td>
-                    {{-- Sizr | Color | Textile --}}
-                    <td>
-                        {{ $item->color }} @if($item->color != '') | @endif 
-                        {{$item->size}} |
-                        {{ $item->textile }}
-                    </td>
-                    {{-- Unit Price --}}
-                    @if($order['rawdata']->status != 'Active')
-                    {{-- FIXED PRICES | ORDER READY --}}
-                        <td>$ {{ $item->final_price }}</td>
-                        <td >$ {{ number_format($item->quantity * $item->final_price,2) }}</td>
-                    @else
-                    {{-- DYNAMIC PRICES | ACTIVE CART --}}
-                    <td>
-                        @if($order['rawdata']->customer->group == '3')
-                            {{-- Reseller Prices --}}
-                            @if($item->article->discount > 0)
-                                $ {{ $price = calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount) + 0 }}
-                            @else
-                                $ {{ $price = $item->article->reseller_price + 0 }}
-                            @endif
+                    @php $itemSum += $item->quantity; @endphp
+                    <tr>
+                        <td>x {{ $item->quantity }}</td>
+                        {{-- <td class="w-50">
+                            <label class="custom-control custom-checkbox list-checkbox">
+                                <input type="checkbox" class="List-Checkbox custom-control-input row-checkbox" data-id="{{ $item->id }}">
+                                <span class="custom-control-indicator"></span>
+                                <span class="custom-control-description"></span>
+                            </label>
+                        </td> --}}
+                        <td><a style="color: #967adc">{{ $item->article_name }}
+                            @if($item->article != null) (#{{ $item->article->code }}) 
+                            @else 
+                            (Discontinuado)
+                            @endif </a></td>
+                        {{-- Sizr | Color | Textile --}}
+                        <td>
+                            {{ $item->color }} @if($item->color != '') | @endif 
+                            {{$item->size}} |
+                            {{ $item->textile }}
+                        </td>
+                        {{-- Unit Price --}}
+                        @if($order['rawdata']->status != 'Active')
+                        {{-- FIXED PRICES | ORDER READY --}}
+                            <td>$ {{ $item->final_price }}</td>
+                            <td >$ {{ number_format($item->quantity * $item->final_price,2) }}</td>
                         @else
-                            {{-- Standard Prices --}}
-                            @if($item->article->discount > 0)
-                                $ {{ $price = calcValuePercentNeg($item->article->price, $item->article->discount) + 0 }}
+                        {{-- DYNAMIC PRICES | ACTIVE CART --}}
+                        <td>
+                            @if($item->article != null)
+                                @if($order['rawdata']->customer->group == '3')
+                                    {{-- Reseller Prices --}}
+                                    @if($item->article->discount > 0)
+                                        $ {{ $price = calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount) + 0 }}
+                                    @else
+                                        $ {{ $price = $item->article->reseller_price + 0 }}
+                                    @endif
+                                @else
+                                    {{-- Standard Prices --}}
+                                    @if($item->article->discount > 0)
+                                        $ {{ $price = calcValuePercentNeg($item->article->price, $item->article->discount) + 0 }}
+                                    @else
+                                        $ {{ $price = $item->article->price + 0 }}
+                                    @endif
+                                @endif
+                            </td>
+                            <td >$ {{ $item->quantity * $price + 0 }}</td>
                             @else
-                                $ {{ $price = $item->article->price + 0 }}
+                                -</td>
+                                <td>-</td>
                             @endif
                         @endif
-                    </td>
-                    <td >$ {{ $item->quantity * $price + 0 }}</td>
-                    @endif
-
-                </tr>
+                    </tr>
                 @endforeach
                 @if($order['rawdata']->status != 'Active')
                     <tr style="border-top: 10px solid #f9f9f9">
