@@ -155,7 +155,7 @@
 						@else
 						<div class="row">
 							{{-- Display Remaining Stock --}}
-							<span class="AvailableStock action-info-container">Seleccione un talle y un color</span>
+							<span class="AvailableStock action-info-container"></span>
 						</div>
 						<br>
 						<div class="row">
