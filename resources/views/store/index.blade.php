@@ -9,6 +9,7 @@
 @section('content')
 
 	@include('store.partials.filterbar')
+	{{-- {{ dd($activeCart['rawdata']->items[0]) }} --}}
 	<div id="main" class="main-container container-fluid padding-bottom-3x mb-1">
 		<div class="row">
 			{{-- col-xs-12 col-lg-9 col-sm-8 col-md-8 --}}

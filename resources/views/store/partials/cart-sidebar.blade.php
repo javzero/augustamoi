@@ -19,6 +19,7 @@
                 </div>
             </div>
             @foreach($activeCart['rawdata']->items as $item)
+                
                 @if($item->article != null)
                     <div id="Item{{ $item->id }}" class="row item">
                         <img src="{{ asset($item->article->featuredImageName()) }}" alt="Product">
@@ -65,7 +66,7 @@
                         <div class="input-with-btn quantity">
                             {{-- Send this data to JSON via js with .Item-Data class --}}
                             <input class="Item-Data small-input under-element" name="data" type="number"  
-                            min="1" max="{{ $item->quantity + $item->article->stock }}" value="{{ $item->quantity }}" required="" 
+                            min="1" max="{{ $item->quantity + $item->variant->stock }}" value="{{ $item->quantity }}" required="" 
                             data-price="{{$articlePrice}}" data-id="{{ $item->id }}" data-variant="{{ $item->variant_id }}" data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $item->article->stock }}">
                         </div>
                         <div class="delete-item">

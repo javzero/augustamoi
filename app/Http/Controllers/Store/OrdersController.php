@@ -45,7 +45,6 @@ class OrdersController extends Controller
             }
             
         } else {
-            dd($request->init_date);
             $items = Cart::orderBy('created_at', 'DESC')->where('status', '=','Process')->paginate($pagination);
         }
 

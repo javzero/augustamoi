@@ -49,15 +49,15 @@
 @section('content')
 	
 	<div class="list-wrapper">
+		
 		<div class="row">
 			{{-- Active Orders Message --}}
 			@if(app('request')->input('status') == 'Active')
-			<h1>Pedidos en proceso</h1>
-			<p>
-				Estos son los pedidos que están realizando los usuarios en este momento. Aún no han sido confirmados.
-			</p>	
+				<h1>Pedidos en proceso</h1>
+				<p>
+					Estos son los pedidos que están realizando los usuarios en este momento. Aún no han sido confirmados.
+				</p>	
 			@endif
-			
 			{{-- List --}}
 			@component('vadmin.components.list')
 				@slot('actions', '')
