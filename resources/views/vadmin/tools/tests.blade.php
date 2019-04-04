@@ -52,17 +52,13 @@
                 </div>
             </div>
             <hr class="softhr">
-            <h2>Image manipulation</h2>
+            <h2>Mercadopago API Integration</h2>
             <div class="row">
                 <div class="col-md-6">
-                    {!! Form::open(['route' => 'vadmin.testImageUpload', 'method' => 'POST', 'files' => true, 'class' => 'settings-form']) !!}	
+                    {!! Form::open(['route' => 'vadmin.testMP', 'method' => 'POST', 'class' => 'settings-form']) !!}	
                         {{ csrf_field() }}
-                        <label for="">Feature, edit and upload image</label>
-                        <div class="form-group">
-                            {!! Form::file('images[]', array('multiple'=>true, 'class' => 'ImagesUploader')) !!}
-                        </div>
-                    
-                        <input class="btnSm btnBlue" type="submit" value="Enviar">
+                        <label for="">Test</label>
+                        <input class="btnSm btnMain" type="submit" value="Enviar">
                     {!! Form::close() !!}
                 </div>
             </div>

@@ -27,20 +27,26 @@ class OrdersController extends Controller
 
     public function index(Request $request)
     {          
+        $pagination = 20;
         if($request->id != null)
         {
-            $items = Cart::searchId($request->id)->orderBy('id', 'ASC')->paginate(15); 
+            $items = Cart::searchId($request->id)->orderBy('id', 'ASC')->paginate($pagination); 
         } 
         else if($request->status != null)
         {
-            if($request->status == 'All')
+            if($request->init_date != '' && $request->expire_date != '')
             {
-                $items = Cart::orderBy('created_at', 'DESC')->where('status', '!=','Active')->get();
-            } else {
-                $items = Cart::searchStatus($request->status)->orderBy('created_at', 'DESC')->get();
+                $items = Cart::orderBy('created_at', 'DESC')->where('status', '=', $request->status)
+                ->whereBetween('created_at', [$request->init_date, $request->expire_date])->paginate($pagination);
+            } 
+            else 
+            {
+                $items = Cart::searchStatus($request->status)->orderBy('created_at', 'DESC')->paginate($pagination);
             }
+            
         } else {
-            $items = Cart::orderBy('created_at', 'DESC')->where('status', '=','Process')->get();
+            dd($request->init_date);
+            $items = Cart::orderBy('created_at', 'DESC')->where('status', '=','Process')->paginate($pagination);
         }
 
         return view('vadmin.orders.index')->with('items', $items);    

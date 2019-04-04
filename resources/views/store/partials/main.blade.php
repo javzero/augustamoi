@@ -12,11 +12,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<!-- Favicon and Apple Icons-->
 		{{--  <link rel="icon" type="image/x-icon" href="favicon.ico">  --}}
-		<link rel="icon" type="image/png" href="{{ asset('store-ui/images/favicon.png') }}">
-		<link rel="apple-touch-icon" href="{{ asset('store-ui/images/favicon.png') }}">
-		<link rel="apple-touch-icon" sizes="152x152" href="{{ asset('store-ui/images/favicon.png') }}">
-		<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('store-ui/images/favicon.png') }}">
-		<link rel="apple-touch-icon" sizes="167x167" href="{{ asset('store-ui/images/favicon.png') }}">
+		<link rel="icon" type="image/png" href="{{ asset('images/web/favicon.png') }}">
+		<link rel="apple-touch-icon" href="{{ asset('images/web/favicon.png') }}">
+		<link rel="apple-touch-icon" sizes="152x152" href="{{ asset('images/web/favicon.png') }}">
+		<link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/web/favicon.png') }}">
+		<link rel="apple-touch-icon" sizes="167x167" href="{{ asset('images/web/favicon.png') }}">
 		<!-- Vendor Styles including: Bootstrap, Font Icons, Plugins, etc.-->
 		<link rel="stylesheet" media="screen" href="{{ asset('store-ui/css/vendor.min.css') }}">
 		<link rel="stylesheet" media="screen" href="{{ asset('store-ui/css/iziToast.min.css') }}">

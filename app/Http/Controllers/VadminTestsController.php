@@ -12,6 +12,8 @@ use App\Settings;
 use App\Mail\SendSupportMail;
 use App\Mail\SendMail;
 use Mail;
+use Carbon\Carbon;
+use MP;
 
 
 class VadminTestsController extends Controller
@@ -64,6 +66,45 @@ class VadminTestsController extends Controller
         
         echo json_encode($url);
 
+    }
+
+    public function TestMp()
+    {
+        $preference_data = [
+            "external_reference" => '99',
+            "items" => [
+                [
+                    'id' => 'Id del articulo',
+                    'title' => 'Titulo del articulo',
+                    'description' => 'Descripcion del articulo',
+                    'picture_url' => 'Imagen del articulo',
+                    'quantity' => 1,
+                    'currency_id' => "ARS",
+                    'unit_price' => 1
+                ]
+            ],
+            "payer" => [
+                'name' => 'John',
+                'surname' => 'Snow',
+                'email' => 'snow@bastard.com.ar',
+                'date_created' => Carbon::now()
+            ],
+            'back_urls' => [
+                'success' => url('vadmin/mp-success'),
+                'pending' => url('vadmin/mp-pending'),
+                'failure' => url('vadmin/mp-failure')
+            ],
+            "auto_return" => "approved"
+        ];
+    
+        $preference = MP::post("/checkout/preferences", $preference_data);
+        // return dd($preference);
+        if(env('MP_APP_RODUCTION'))
+            $initPoint = $preference['response']['init_point'];
+        else
+            $initPoint = $preference['response']['sandbox_init_point'];
+        // dd($initPoint);
+        return redirect($initPoint);
     }
     
 

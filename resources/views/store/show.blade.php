@@ -163,7 +163,7 @@
 								<div class="input-with-btn">
 									<input id="MaxQuantity" class="form-control input-field short-input" name="quantity" type="number" 
 									min="1" max="{{ $article->stock }}" value="1" placeholder="1" required>
-									<input type="submit" id="AddToCartFormBtn" class="btn input-btn"" value="Agregar al carro" disabled>
+									<input type="submit" id="AddToCartFormBtn" class="btn input-btn"" value="Sumar a tu pedido" disabled>
 								</div>
 							</div>
 						</div>
@@ -172,8 +172,8 @@
 				</div>
 			</div>
 			@else
-			<div class="item"><div class="title">Talles: <b>@foreach($colors as $name) {{ $name }} @if(!$loop->last) | @endif @endforeach</b></div> <br></div>
-			<div class="item"><div class="title">Colores: <b>@foreach($sizes as $name) {{ $name }} @if(!$loop->last) | @endif @endforeach</b></div> <br></div>
+			<div class="item"><div class="title">Colores: <b>@foreach($colors as $name) {{ $name }} @if(!$loop->last) | @endif @endforeach</b></div> <br></div>
+			<div class="item"><div class="title">Talles: <b>@foreach($sizes as $name) {{ $name }} @if(!$loop->last) | @endif @endforeach</b></div> <br></div>
 			@endif
 			
 		</div>

@@ -6,7 +6,7 @@
                 <div class="input-group">
                     {!! Form::number('id', null, ['class' => 'form-control', 'aria-describedby' => 'search']) !!}
                     <div class="input-group-append">
-                        <button type="submit" id="SearchFiltersBtn" class="btnSm btnGreen appendBtn"><i class="icon-search"></i></button>
+                        <button type="submit" id="SearchFiltersBtn" class="btnSm btnMain appendBtn"><i class="icon-search"></i></button>
                     </div>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                 <div class="input-group">
                     {!! Form::text('customer', null, ['class' => 'form-control', 'aria-describedby' => 'search']) !!}
                     <div class="input-group-append">
-                        <button type="submit" id="SearchFiltersBtn" class="btnSm btnGreen appendBtn"><i class="icon-search"></i></button>
+                        <button type="submit" id="SearchFiltersBtn" class="btnSm btnMain appendBtn"><i class="icon-search"></i></button>
                     </div>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                         ['Process' => 'Esperando Acción', 'Approved' => 'Aprobado', 'Canceled' => 'Cancelado', 'Finished' => 'Finalizado', 'Active' => 'Activos', 'All' => 'Todos'], 
                         ['class' => 'form-control', 'aria-describedby' => 'search']) !!}
                     <div class="input-group-append">
-                        <button type="submit" id="SearchFiltersBtn" class="btnSm btnGreen appendBtn"><i class="icon-search"></i></button>
+                        <button type="submit" id="SearchFiltersBtn" class="btnSm btnMain appendBtn"><i class="icon-search"></i></button>
                     </div>
                 </div>
             </div>

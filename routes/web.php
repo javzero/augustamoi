@@ -145,6 +145,13 @@ Route::group(['prefix'=> 'tienda', 'middleware' => 'active-customer'], function(
     Route::post('addArticleToFavs', ['as' => 'customer.addArticleToFavs', 'uses' => 'Store\StoreController@addArticleToFavs']);
     Route::post('removeArticleFromFavs', ['as' => 'customer.removeArticleFromFavs', 'uses' => 'Store\StoreController@removeArticleFromFavs']);
     Route::post('removeAllArticlesFromFavs', ['as' => 'customer.removeAllArticlesFromFavs', 'uses' => 'Store\StoreController@removeAllArticlesFromFavs']);
+
+    // MercadoPago API
+    Route::get('mp-success', ['as' => 'tienda.mp-success', 'uses' => 'MercadoPagoController@MPSuccess']);
+    Route::get('mp-pending', ['as' => 'tienda.mp-pending', 'uses' => 'MercadoPagoController@MPPending']);
+    Route::get('mp-failure', ['as' => 'tienda.mp-failure', 'uses' => 'MercadoPagoController@MPFailure']);
+    // Route::post('mp-pending/{params}', ['as' => 'web', 'uses' => 'VadminTestsController@MPPending']);
+
 });
 
 
@@ -196,6 +203,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
     Route::get('tests', ['as' => 'vadmin.tests', 'uses' => 'VadminTestsController@tests']);
     Route::post('testMailSending', ['as' => 'vadmin.testMailSending', 'uses' => 'VadminTestsController@testMailSending']);
     Route::post('testImageUpload', ['as' => 'vadmin.testImageUpload', 'uses' => 'VadminTestsController@testImageUpload']);
+    Route::post('testMP', ['as' => 'vadmin.testMP', 'uses' => 'VadminTestsController@TestMp']);
     
 });
 

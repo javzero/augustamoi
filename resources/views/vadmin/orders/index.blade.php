@@ -23,9 +23,20 @@
 				<input id="RowsToDeletion" type="hidden" name="rowstodeletion[]" value="">
 				{{-- If Search --}}
 				@if(isset($_GET['id']) || isset($_GET['status']) || isset($_GET['customer'] ))
-					<a href="{{ route('orders.index', ['status' => 'Process']) }}"><button type="button" class="btn btnGrey">Nuevos</button></a>
-					<a href="{{ route('orders.index', ['status' => 'All']) }}"><button type="button" class="btn btnGrey">Todos</button></a>
+					{{-- <a href="{{ route('orders.index', ['status' => 'Process']) }}"><button type="button" class="btn btnGrey">Nuevos</button></a> --}}
+					{{-- <a href="{{ route('orders.index', ['status' => 'All']) }}"><button type="button" class="btn btnGrey">Todos</button></a> --}}
 				@endif
+			</div>
+			<div class="filter-date">
+				{!! Form::open(['method' => 'GET', 'route' => 'orders.index', 'class' => 'form-group inner']) !!} 
+					{!! Form::date('init_date', null, ['class' => 'form-control']) !!}
+					{!! Form::date('expire_date', null, ['class' => 'form-control']) !!}
+					@if(app('request')->input('status'))
+						<input type="hidden" name="status" value="{{ app('request')->input('status') }}">
+					@else
+					@endif
+					<button type="submit" class="btn btnMain">Filtrar</button>
+				{!! Form::close() !!}
 			</div>
 		@endslot
 		@slot('searcher')
@@ -36,17 +47,17 @@
 
 {{-- CONTENT --}}
 @section('content')
+	
 	<div class="list-wrapper">
-		{{-- Search --}}
 		<div class="row">
 			{{-- Active Orders Message --}}
-			@if(app('request')->input('show') == 'Active')
+			@if(app('request')->input('status') == 'Active')
 			<h1>Pedidos en proceso</h1>
 			<p>
-				Estos son los pedidos que se están realizando los usuarios en este momento. <br>
-				Aún no han sido confirmados.
+				Estos son los pedidos que están realizando los usuarios en este momento. Aún no han sido confirmados.
 			</p>	
 			@endif
+			
 			{{-- List --}}
 			@component('vadmin.components.list')
 				@slot('actions', '')
@@ -85,32 +96,11 @@
 								</td>
 								<td class="w-200">
 									<div class="input-group"> 
-										{{-- <span class="input-group-btn">
-											<span class="btn btnSquare grey-back">
-												@switch($item->status)
-													@case('Active')
-														<i class="icon-download"></i>
-														@break
-													@case('Process')
-														<i class="icon-cog"></i>
-														@break
-													@case('Approved')
-														<i class="icon-forward2"></i>
-														@break
-													@case('Canceled')
-														<i class="icon-cancel-circle"></i>
-														@break
-													@case('Finished')
-														<i class="icon-checkmark2"></i>
-														@break
-													@default
-														<i class="icon-close"></i>
-												@endswitch
-											</span>
-										</span> --}}
 										{!! Form::select('group', 
-										[ 'Active' => 'Activo', 'Process' => 'Esperando Acción', 'Approved' => 'Aprobado', 'Canceled' => 'Cancelado', 'Finished' => 'Finalizado'], 
-										$item->status, ['class' => 'form-control custom-select minWidth150', 'onChange' => 'updateCartStatus(this, this.dataset.id)', 'data-id' => $item->id]) !!}
+										[ 'Active' => 'Activo', 'Process' => 'Nuevo Recibido', 'Approved' => 'En Producción', 
+										'Finished' => 'Finalizado', 'Canceled' => 'Cancelado'], 
+										$item->status, ['class' => 'form-control custom-select minWidth150', 
+										'onChange' => 'updateCartStatus(this, this.dataset.id)', 'data-id' => $item->id]) !!}
 									</div>
 								</td>
 								@php
@@ -154,9 +144,9 @@
 				@endslot
 				@endcomponent
 			</div>
-			{{--  Pagination  --}}
-		{{-- {!! $items->render() !!} --}}
-		<div id="Error"></div>	
+		{{--  Pagination  --}}
+		{!! $items->appends(request()->query())->render()!!}
+		{{-- <div id="Error"></div>	 --}}
 	</div>
 @endsection
 

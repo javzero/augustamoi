@@ -3,37 +3,91 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use MP;
+use App\Cart;
 
 class MercadoPagoController extends Controller
 {
-    public function getCreatePreference()
+
+    public function MPSuccess(Request $request)
     {
-        $preferenceData = [
-            'items' => [
-                [
-                    'id' => 12,
-                    'category_id' => 'phones',
-                    'title' => 'iPhone 6',
-                    'description' => 'iPhone 6 de 64gb nuevo',
-                    'picture_url' => 'http://d243u7pon29hni.cloudfront.net/images/products/iphone-6-dorado-128-gb-red-4g-8-mpx-1256254%20(1)_m.png',
-                    'quantity' => 1,
-                    'currency_id' => 'ARS',
-                    'unit_price' => 14999
-                ]
-            ],
-        ];
+        try
+        {
+            if(count($request->all()))
+            {
+                $order = Cart::findOrFail($request->external_reference);
+                $this->SavePaymentData($order, $request->all(), "success");
+                return view('store.checkout-success')->with('cart', $order);
+            }
+            else
+                dd("No hay datos en mp-success");
 
-        $preference = MP::create_preference($preferenceData);
-
-        // return dd($preference);
-        $initPoint = $preference['response']['init_point'];
-        // return dd($preference['response']['init_point']);
-        return view('store.checkout-mp')
-            ->with('initPoint', $initPoint);
+        } catch (\Exception $e) {
+            return back()->with('error', 'Ha ocurrido un error '. $e->getMessage());
+        }    
     }
 
-    public function test(){
-        dd('test ok');
+    public function MPPending(Request $request)
+    {
+        if(count($request->all()))
+        {
+            $order = Cart::findOrFail($request->external_reference);
+            $this->SavePaymentData($order, $request->all(), "pending");
+            return view('store.checkout-success')->with('cart', $order);
+        }
+        else
+            dd("Pago pendiente");
     }
+
+    public function MPFailure(Request $request)
+    {
+        if(count($request->all()))
+        {
+            return view('store.checkout-failure');
+        }
+        else
+        {
+            return view('store.checkout-failure');
+        }
+    }
+    
+    public function SavePaymentData($cart, $request, $status)
+    {
+        try
+        {
+        
+            if($status == "success")
+                $cart->payment_status = "1";
+            elseif($status == "pending")
+                $cart->payment_status = "2";
+                
+            $cart->mp_preference_id = $request['preference_id'];
+            $cart->mp_collection_id = $request['collection_id'];
+            $cart->mp_payment_type = $request['payment_type'];
+            $cart->mp_merchant_order_id = $request['merchant_order_id'];
+            $cart->status = 'Process';
+            $cart->save();
+            return $cart;
+            // Notify customer
+            // try
+            // {
+            //     // Notify Bussiness
+            //     Mail::to(APP_EMAIL_1)->send(new SendMail('Compra Recibida', 'Checkout', $cart));
+            //     // Notify Customer
+            //     $customerEmail = auth()->guard('customer')->user()->email;
+            //     //$customerEmail = 'javzero1@gmail.com';
+            //     Mail::to($customerEmail)->send(new SendMail('Bruna Indumentaria - Compra recibida !', 'CustomerCheckout', ''));
+            // } catch (\Exception $e) {
+            //     // If there is some error sending mail, do nothing, continue with proccess.
+            //     //dd($e->getMessage());
+            // }
+
+            return view('store.checkout-success')->with('cart', $cart);
+
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            // return back()->with('error', 'Ha ocurrido un error '. $e->getMessage());
+        }  
+    }
+
+
 }
