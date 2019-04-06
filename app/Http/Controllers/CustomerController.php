@@ -207,12 +207,15 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         $customer = Customer::findOrFail($id);
-        dd("3");
+        
+        // 'password' => 'required|min:6|confirmed'
+        // 'password.required' => 'Debe ingresar una contraseña',
+        // 'password.confirmed' => 'Las contraseñas no coinciden'
+
         $this->validate($request,[
             'name' => 'required|max:255',
             'username' => 'required|max:20|unique:customers,username,'.$customer->id,
             'email' => 'required|email|max:255|unique:customers,email,'.$customer->id,
-            'password' => 'required|min:6|confirmed'
         ],[
             'name.required' => 'Debe ingresar un nombre',
             'username.required' => 'Debe ingresar un nombre de usuario',
@@ -220,13 +223,12 @@ class CustomerController extends Controller
             'email.required' => 'Debe ingresar un email',
             'email.unique' => 'El email ya existe',
             'password.min' => 'El password debe tener al menos :min caracteres',
-            'password.required' => 'Debe ingresar una contraseña',
-            'password.confirmed' => 'Las contraseñas no coinciden'
         ]);
 
         $customer->fill($request->all());
 
-        $customer->password = bcrypt($request->password);
+        // $customer->password = bcrypt($request->password);
+        
         if($request->file('avatar') != null){
             $avatar   = $request->file('avatar');
             $filename = $customer->username.'.jpg';
@@ -234,9 +236,9 @@ class CustomerController extends Controller
             $customer->avatar = $filename;
         }
 
-        $Customer->save();
+        $customer->save();
 
-        return redirect('vadmin/customers')->with('Message', 'Usuario '. $Customer->name .'editado correctamente');
+        return redirect('vadmin/customers')->with('Message', 'Usuario '. $customer->name .'editado correctamente');
     }
 
     // ---------- Update Avatar --------------- //

@@ -1,6 +1,7 @@
 <div class="form-body">
     <div class="row">
         <div class="col-lg-4 col-md-6">
+            <input type="hidden" name="group" value="3">
             <div class="form-group">
                 {!! Form::label('username', 'Nombre de Usuario') !!}
                 {!! Form::text('username', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el nombre del usuario', 'required' => '']) !!}
@@ -17,14 +18,18 @@
                 {!! Form::label('email', 'E-mail') !!}
                 {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el e-mail', 'required' => '']) !!}
             </div>
-            <div class="form-group">
+            {{-- <div class="form-group">
                 <label>Tipo de Negocio</label>
                 {!! Form::select('business_type', ['Local' => 'Local', 'ShowRoom' => 'ShowRoom', 'Revendedora' => 'Revendedora'], 
                 null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opción']) !!}
-            </div>
+            </div> --}}
             <div class="form-group">
                 <label>CUIT</label>
                 {!! Form::number('cuit', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el CUIT']) !!}
+            </div>
+            <div class="form-group">
+                <label>WhatsApp</label>
+                {!! Form::text('phone', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el WhatsApp', 'required' => '']) !!}
             </div>
         </div>
         <div class="col-lg-4 col-md-6">
@@ -33,11 +38,6 @@
                 {{-- {!! Form::label('group', 'Grupo') !!}
                 {!! Form::select('group', [2 => 'Minorísta', 3 => 'Mayorísta'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion']) !!}
             </div> --}}
-            <input type="hidden" name="group" value="3">
-            <div class="form-group">
-                <label>WhatsApp</label>
-                {!! Form::text('phone', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el WhatsApp', 'required' => '']) !!}
-            </div>
             <div class="form-group">
                 <label>Teléfono</label>
                 {!! Form::text('phone2', null, ['class' => 'form-control', 'placeholder' => 'Ingrese el teléfono']) !!}
