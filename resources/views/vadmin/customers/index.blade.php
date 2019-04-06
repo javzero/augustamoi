@@ -12,22 +12,17 @@
 		@slot('actions')
 			{{-- Actions --}}
 			<div class="list-actions">
-				<a href="{{ route('customers.create') }}" class="btn btnBlue"><i class="icon-plus-round"></i>  Nuevo Cliente</a>
-				<button id="SearchFiltersBtn" class="btn btnGreen"><i class="icon-ios-search-strong"></i></button>
+				<a href="{{ route('customers.create') }}" class="btn btnMain"><i class="icon-plus-round"></i>  Nuevo Cliente</a>
+				<button id="SearchFiltersBtn" class="btn btnMain"><i class="icon-ios-search-strong"></i></button>
 				@if(Auth::guard('user')->user()->role <= 2)
 				{{-- Edit --}}
-				{{-- <button class="EditBtn btn btnGreen Hidden"><i class="icon-pencil2"></i> Editar</button>
-				<input id="EditId" type="hidden"> --}}
+				<button class="EditBtn btn btnGreen Hidden"><i class="icon-pencil2"></i> Editar</button>
+				<input id="EditId" type="hidden">
 				{{-- Delete --}}
 				{{--  THIS VALUE MUST BE THE NAME OF THE SECTION CONTROLLER  --}}
 				<input id="ModelName" type="hidden" value="customers">
 				<button class="DeleteBtn btn btnRed Hidden"><i class="icon-bin2"></i> Eliminar</button>
 				<input id="RowsToDeletion" type="hidden" name="rowstodeletion[]" value="">
-				@endif
-				{{-- If Search --}}
-				@if(isset($_GET['name']) || isset($_GET['group']))
-					<a href="{{ url('vadmin/customers') }}"><button type="button" class="btn btnGrey">Mostrar Todos</button></a>
-					{{--  <div class="results">{{ $items->total() }} resultados de búsqueda: </div>  --}}
 				@endif
 			</div>
 		@endslot
@@ -71,9 +66,13 @@
 				@slot('title', 'Clientes')
 				@slot('tableTitles')
 					@if(!$items->isEmpty())
-						@if(Auth::guard('user')->user()->role <= 2)
-						<th class="w-50"></th>
-						@endif
+						<th>
+							<label class="custom-control custom-checkbox list-checkbox">
+								<input type="checkbox" class="Select-All-To-Delete custom-control-input row-checkbox">
+								<span class="custom-control-indicator"></span>
+								<span class="custom-control-description"></span>
+							</label>
+						</th>
 						<th>Nombre (Usuario)</th>
 						<th>Email</th>
 						<th>Registro</th>

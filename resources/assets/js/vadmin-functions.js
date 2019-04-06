@@ -10,34 +10,92 @@ $.ajaxSetup({
 |--------------------------------------------------------------------------
 */
 
-// Set List Action Buttons
-$(document).on("click", ".List-Checkbox", function(e){
-    e.stopPropagation();
-	var selectedRows = [];
-    $(".List-Checkbox:checked").each(function() {          
-        selectedRows.push($(this).attr('data-id'));
-		$('#RowsToDeletion').val(selectedRows);
-    });
-       
-    if(selectedRows.length == 1){
-		$('#EditId, #CreateFromAnotherId').val(selectedRows);
-    } else if(selectedRows.length < 1){
-		$('#EditId, #CreateFromAnotherId').val('');
-    } else if(selectedRows.length > 1){
-        $('#EditId, #CreateFromAnotherId').val('');
-    } else {
-        $('#EditId, #CreateFromAnotherId').val('');
-    }
 
-    showButtons(this);
+// Select checkbox to deletion
+$(document).on("click", ".List-Checkbox", function(e)
+{
+	e.stopPropagation();
+	CheckToDeletion("single", $(this));
+});
 
-	var checkbox = $(this).prop('checked');
-	if(checkbox){
-		$(this).parent().parent().parent().addClass('row-selected');
+// Select All present checkboxes to deletion
+$('.Select-All-To-Delete').on("click", function() {
+	
+	if ($(this).prop('checked')) {
+		$('.List-Checkbox').prop('checked', true);
+		if($('.List-Checkbox').length >= 1)
+		{
+			CheckToDeletion("all")
+			$('.DeleteBtn').removeClass('Hidden');
+		}
+
+		$('tbody tr').addClass('row-selected');
 	} else {
-		$(this).parent().parent().parent().removeClass('row-selected');
+		$('.List-Checkbox').prop('checked', false);
+		$('.DeleteBtn').addClass('Hidden');
+		$('tbody tr').removeClass('row-selected');
 	}
 });
+
+function CheckToDeletion(type, row)
+{
+	var selectedRows = [];
+	$(".List-Checkbox:checked").each(function() {          
+		selectedRows.push($(this).attr('data-id'));
+		$('#RowsToDeletion').val(selectedRows);
+	});
+	
+	if(selectedRows.length == 1){
+		$('#EditId, #CreateFromAnotherId').val(selectedRows);
+	} else if(selectedRows.length < 1){
+		$('#EditId, #CreateFromAnotherId').val('');
+	} else if(selectedRows.length > 1){
+		$('#EditId, #CreateFromAnotherId').val('');
+	} else {
+		$('#EditId, #CreateFromAnotherId').val('');
+	}
+
+	showButtons(this);
+	if(type == 'single' && row != undefined)
+	{
+		var checkbox = row.prop('checked');
+		if(checkbox){
+			row.parent().parent().parent().addClass('row-selected');
+		} else {
+			row.parent().parent().parent().removeClass('row-selected');
+		}
+	}
+}
+
+// Original lines
+// Set List Action Buttons
+// $(document).on("click", ".List-Checkbox", function(e){
+//     e.stopPropagation();
+// 	var selectedRows = [];
+//     $(".List-Checkbox:checked").each(function() {          
+//         selectedRows.push($(this).attr('data-id'));
+// 		$('#RowsToDeletion').val(selectedRows);
+//     });
+       
+//     if(selectedRows.length == 1){
+// 		$('#EditId, #CreateFromAnotherId').val(selectedRows);
+//     } else if(selectedRows.length < 1){
+// 		$('#EditId, #CreateFromAnotherId').val('');
+//     } else if(selectedRows.length > 1){
+//         $('#EditId, #CreateFromAnotherId').val('');
+//     } else {
+//         $('#EditId, #CreateFromAnotherId').val('');
+//     }
+
+//     showButtons(this);
+
+// 	var checkbox = $(this).prop('checked');
+// 	if(checkbox){
+// 		$(this).parent().parent().parent().addClass('row-selected');
+// 	} else {
+// 		$(this).parent().parent().parent().removeClass('row-selected');
+// 	}
+// });
 
 
 function showButtons(trigger) {

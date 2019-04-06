@@ -11,8 +11,8 @@
 		@slot('actions')
 			{{-- Actions --}}
 			<div class="list-actions">
-				<a href="{{ route('users.create') }}" class="btn btnBlue"><i class="icon-plus-round"></i>  Nuevo Usuario</a>
-				<button id="SearchFiltersBtn" class="btn btnGreen"><i class="icon-ios-search-strong"></i></button>
+				<a href="{{ route('users.create') }}" class="btn btnMain"><i class="icon-plus-round"></i>  Nuevo Usuario</a>
+				<button id="SearchFiltersBtn" class="btn btnMain"><i class="icon-ios-search-strong"></i></button>
 				@if(Auth::guard('user')->user()->role <= 2)
 				{{-- Edit --}}
 				<button class="EditBtn btn btnGreen Hidden"><i class="icon-pencil2"></i> Editar</button>
@@ -22,11 +22,6 @@
 				<input id="ModelName" type="hidden" value="users">
 				<button class="DeleteBtn btn btnRed Hidden"><i class="icon-bin2"></i> Eliminar</button>
 				<input id="RowsToDeletion" type="hidden" name="rowstodeletion[]" value="">
-				@endif
-				{{-- If Search --}}
-				@if(isset($_GET['name']) || isset($_GET['group']) || isset($_GET['role']))
-					<a href="{{ url('vadmin/users') }}"><button type="button" class="btn btnGrey">Mostrar Todos</button></a>
-					{{--  <div class="results">{{ $items->total() }} resultados de búsqueda: </div>  --}}
 				@endif
 			</div>
 		@endslot

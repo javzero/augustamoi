@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Customer;
+use App\GeoProv;
 use Auth;
 use Image;
-use File;
 use PDF;
 use Excel;
 use Cookie;
@@ -156,7 +156,10 @@ class CustomerController extends Controller
 
     public function create()
     {
-        return view('vadmin.customers.create');
+        $geoprovs = GeoProv::pluck('name','id');
+
+        return view('vadmin.customers.create')
+            ->with('geoprovs',$geoprovs);
     }
 
     public function store(Request $request)
@@ -193,38 +196,42 @@ class CustomerController extends Controller
     */
     public function edit($id)
     {
-        $Customer = Customer::findOrFail($id);
-        return view('vadmin.customers.edit', compact('Customer'));
+        $geoprovs = GeoProv::pluck('name','id');
+        $customer = Customer::findOrFail($id);
+
+        return view('vadmin.customers.edit', compact('customer'))
+            ->with('geoprovs',$geoprovs)
+            ->with('customer',$customer);
     }
 
     public function update(Request $request, $id)
     {
-        $Customer = Customer::findOrFail($id);
+        $customer = Customer::findOrFail($id);
+        dd("3");
         $this->validate($request,[
             'name' => 'required|max:255',
-            'Customername' => 'required|max:20|unique:customers,Customername,'.$Customer->id,
-            'email' => 'required|email|max:255|unique:customers,email,'.$Customer->id,
-            'password' => 'required|min:6|confirmed',
-            
+            'username' => 'required|max:20|unique:customers,username,'.$customer->id,
+            'email' => 'required|email|max:255|unique:customers,email,'.$customer->id,
+            'password' => 'required|min:6|confirmed'
         ],[
             'name.required' => 'Debe ingresar un nombre',
-            'Customername.required' => 'Debe ingresar un nombre de usuario',
-            'Customername.unique' => 'El nombre de usuario ya está siendo utilizado',
+            'username.required' => 'Debe ingresar un nombre de usuario',
+            'username.unique' => 'El nombre de usuario ya está siendo utilizado',
             'email.required' => 'Debe ingresar un email',
             'email.unique' => 'El email ya existe',
             'password.min' => 'El password debe tener al menos :min caracteres',
             'password.required' => 'Debe ingresar una contraseña',
-            'password.confirmed' => 'Las contraseñas no coinciden',
+            'password.confirmed' => 'Las contraseñas no coinciden'
         ]);
 
-        $Customer->fill($request->all());
+        $customer->fill($request->all());
 
-        $Customer->password = bcrypt($request->password);
+        $customer->password = bcrypt($request->password);
         if($request->file('avatar') != null){
             $avatar   = $request->file('avatar');
-            $filename = $Customer->Customername.'.jpg';
+            $filename = $customer->username.'.jpg';
             Image::make($avatar)->encode('jpg', 80)->fit(300, 300)->save(public_path('images/customers/'.$filename));
-            $Customer->avatar = $filename;
+            $customer->avatar = $filename;
         }
 
         $Customer->save();
