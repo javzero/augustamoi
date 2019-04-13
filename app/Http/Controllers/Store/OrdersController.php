@@ -12,6 +12,7 @@ use App\User;
 use App\Cart;
 use App\CartItem;
 use App\CatalogArticle;
+use App\CatalogBrand;
 use PDF;
 use Excel;
 
@@ -135,6 +136,64 @@ class OrdersController extends Controller
                 compact('order'));
             });
         })->export('csv');         
+    }
+
+    public function exportOrderToProd()
+    {
+        // Get all orders ready to production
+        $rawOrders = $this->getOrdersToProduction();
+
+        // Sort orders by brand
+        $orders = sort_by_value($rawOrders, 'brand');
+        $orders = sort_by_value($rawOrders, 'article_name');
+        
+        // Export to csv
+        $filename = 'Ordenes-Para-Produccion';
+        Excel::create($filename, function($excel) use($orders){
+            $excel->sheet('Listado', function($sheet) use($orders) { 
+                $sheet->getDefaultStyle()->getFont()->setName('Arial');
+                $sheet->getDefaultStyle()->getFont()->setSize(12);
+                $sheet->getColumnDimension()->setAutoSize(true);
+                $sheet->getRowDimension(2)->setRowHeight(20);
+                $sheet->loadView('vadmin.orders.invoiceOrdersToProd', 
+                compact('orders'));
+            });
+        })->export('csv');
+    }
+
+    public function getOrdersToProduction()
+    {
+        $orders = Cart::where('status', 'Process')->get();
+
+        $collected = [];
+
+        foreach($orders as $order)
+        {
+            foreach($order->items as $item)
+            {
+                if(array_key_exists($item->article_id, $collected))
+                {
+                    $collected[$item->article_id]['quantity'] = $collected[$item->article_id]['quantity'] + $item->quantity;
+                }
+                else
+                {
+                    $collected[$item->article_id] = [
+                        'article_code' => $item->article->code,
+                        'article_name' => $item->article_name,
+                        'talle' => $item->size,
+                        'color' => $item->color,
+                        'tela' => $item->textile,
+                        'quantity' => $item->quantity,
+                        'price' => $item->final_price,
+                        'brand' => $item->article->brand->name
+                    ];                
+                }
+            }
+        }
+        // From Helpers
+        sort_array_of_array($collected, 'article_name');
+        // dd($collected);
+        return $collected;
     }
 
     /*

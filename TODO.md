@@ -9,17 +9,9 @@
 - Compra inicial $5000
 - Se aguanta por 30 días.
 
-# Bruna
 
-Vadmin
-
-Cuando toco actualizar ítem me lleva al principio de la página 1, debería quedar donde ternimé de actualizar, sino tengo que volver a buscar donde estaba
-
-Cuando cargo más fotos en una publicación, para cambiar la destacada, tengo que tocar actualizar cambios, volver a entrar a la publicación y recién ahí elegir cual quiero destacar. Ahorraría mucho tiempo poder elegir la destacada ni bien se cargan las nuevas fotos.
 
 # Implementar
-- Empujar mensajes a clientes con carros activos inactivos con más de 3 días.
-- Borrar carros con más de 15 días.
 - Que los productos se puedan destacar y se ordenen por fecha
 - Que desde vadmin se pueda hacer pedido nuevo y que ese pedido no tenga límite de prendas.
 - Carro de compra desde vadmin que soporte un detalle (columna) como por ejemplo nombre del cliente al que pertenece

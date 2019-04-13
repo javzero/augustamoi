@@ -1,8 +1,48 @@
 <?php
-    
-//////////////////////////////////////////////
-//         Numbers, Calcs. & Converts       //
-//////////////////////////////////////////////
+
+/*
+|--------------------------------------------------------------------------
+| ARRAYS
+|--------------------------------------------------------------------------
+*/
+
+// Sort a multidimensional array
+// -----------------------------
+//
+// Use:
+// sort_array_of_array($array_name, 'column_name');
+//
+// -----------------------------
+
+function sort_array_of_array(&$array, $subfield)
+{
+    $sortarray = array();
+    foreach ($array as $key => $row)
+    {
+        $sortarray[$key] = $row[$subfield];
+    }
+
+    array_multisort($sortarray, SORT_ASC, $array);
+}
+
+function sort_by_value($array,$key) {
+    //Loop through and get the values of our specified key
+    foreach($array as $k=>$v) {
+        $b[] = strtolower($v[$key]);
+    } 
+    asort($b);
+    foreach($b as $k=>$v) {
+        $c[] = $array[$k];
+    }
+    return $c;
+}
+
+  
+/*
+|--------------------------------------------------------------------------
+| CONVERSIONS & CALCS.
+|--------------------------------------------------------------------------
+*/
 
 function showPrice($articlePrice, $articleDiscount)
 {

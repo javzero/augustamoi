@@ -60,6 +60,7 @@
                 <th>Cantidad</th>
                 <th>Artículo</th>
                 <th>Talle - Color - Tela</th>
+                <th>Marca</th>
                 <th>P.U.</th>
                 <th>Total</th>
             @endslot
@@ -85,9 +86,10 @@
                         {{-- Sizr | Color | Textile --}}
                         <td>
                             {{ $item->color }} @if($item->color != '') | @endif 
-                            {{$item->size}} |
+                            {{ $item->size}} |
                             {{ $item->textile }}
                         </td>
+                        <td>{{ $item->article->brand->name }}</td>
                         {{-- Unit Price --}}
                         @if($order['rawdata']->status != 'Active')
                         {{-- FIXED PRICES | ORDER READY --}}

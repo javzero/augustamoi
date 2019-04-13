@@ -16,16 +16,13 @@
 			<div class="list-actions">
 				<a href="{{ route('orders.create') }}" class="btn btnMain">Cargar Pedido</a>
 				<button id="SearchFiltersBtn" class="btn btnMain"><i class="icon-ios-search-strong"></i></button>
+				
 				{{-- Delete --}}
 				{{--  THIS VALUE MUST BE THE NAME OF THE SECTION CONTROLLER  --}}
 				<input id="ModelName" type="hidden" value="carts">
 				<button class="DeleteBtn btn btnRed Hidden"><i class="icon-bin2"></i> Eliminar</button>
 				<input id="RowsToDeletion" type="hidden" name="rowstodeletion[]" value="">
-				{{-- If Search --}}
-				@if(isset($_GET['id']) || isset($_GET['status']) || isset($_GET['customer'] ))
-					{{-- <a href="{{ route('orders.index', ['status' => 'Process']) }}"><button type="button" class="btn btnGrey">Nuevos</button></a> --}}
-					{{-- <a href="{{ route('orders.index', ['status' => 'All']) }}"><button type="button" class="btn btnGrey">Todos</button></a> --}}
-				@endif
+			
 			</div>
 			<div class="filter-date">
 				{!! Form::open(['method' => 'GET', 'route' => 'orders.index', 'class' => 'form-group inner']) !!} 
@@ -60,7 +57,11 @@
 			@endif
 			{{-- List --}}
 			@component('vadmin.components.list')
-				@slot('actions', '')
+				@slot('actions')
+				<a href="{{ url('vadmin/exportOrderToProd') }}" data-toggle="tooltip" title="Exportar .XLS" target="_blank">
+					<span class="icon-container green"> <i class="fas fa-file-excel"></i></span> Exportar Para Producción 
+				</a>
+				@endslot
 				@slot('title', 'Pedidos')
 					@if($items->count() == '0')
 						@slot('tableTitles')
@@ -68,7 +69,13 @@
 						@slot('tableContent', '')
 					@else
 					@slot('tableTitles')
-						<th class="w-50"></th>
+						<th>
+							<label class="custom-control custom-checkbox list-checkbox">
+								<input type="checkbox" class="Select-All-To-Delete custom-control-input row-checkbox">
+								<span class="custom-control-indicator"></span>
+								<span class="custom-control-description"></span>
+							</label>
+						</th>
 						<th>N°</th>
 						<th>Cliente</th>
 						<th>Estado</th>
