@@ -145,7 +145,6 @@ class OrdersController extends Controller
 
         // Sort orders by brand
         $orders = sort_by_value($rawOrders, 'brand');
-        $orders = sort_by_value($rawOrders, 'article_name');
         
         // Export to csv
         $filename = 'Ordenes-Para-Produccion';

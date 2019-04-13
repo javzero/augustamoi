@@ -75,11 +75,12 @@
 						<div class="card-body">
 							<div class="card-block fast-access">
 								<h4 class="card-title"><i class="fas fa-paper-plane"></i> Accesos rápidos</h4>
-								<a href="{{ route('catalogo.index') }}" class="btn btnMain"><i class="fas fa-list"></i> Artículos</a>
-								<a href="{{ route('catalogo.create') }}" class="btn btnMain"><i class="fas fa-plus"></i> Nuevo Artículo</a>
-								<a href="{{ route('catalogo.index', ['redirect' => 'stock']) }}" class="btn btnMain"><i class="fas fa-box-open"></i> Stock</a>
-								<a href="{{ route('orders.index', ['status' => 'Process']) }}" class="btn btnMain"><i class="fas fa-smile-beam"></i> Pedidos Nuevos</a>
-								<a href="{{ route('coupons.create') }}" class="btn btnMain"><i class="fas fa-divide"></i> Crear Cupón</a>
+								<a href="{{ route('catalogo.index') }}" class="btn btnMain"><i class="fas fa-list"></i> Artículos</a><br>
+								<a href="{{ route('catalogo.create') }}" class="btn btnMain"><i class="fas fa-plus"></i> Nuevo Artículo</a><br>
+								<a href="{{ route('coupons.create') }}" class="btn btnMain"><i class="fas fa-divide"></i> Crear Cupón</a><br>
+								{{-- <a href="{{ route('catalogo.index', ['redirect' => 'stock']) }}" class="btn btnMain"><i class="fas fa-box-open"></i> Stock</a><br> --}}
+								<a href="{{ route('orders.index', ['status' => 'Process']) }}" class="btn btnMain"><i class="fas fa-smile-beam"></i> Pedidos Nuevos</a><br>
+								<a href="{{ url('vadmin/exportOrderToProd') }}" class="btn btnMain"><i class="fas fa-file-export"></i> Exportar pedidos para producción</a><br>
 							</div>
 						</div>
 					</div>
