@@ -142,10 +142,32 @@ class OrdersController extends Controller
     {
         // Get all orders ready to production
         $rawOrders = $this->getOrdersToProduction();
-
-        // Sort orders by brand
-        $orders = sort_by_value($rawOrders, 'brand');
         
+        
+        function orderMultiDimensionalArray ($toOrderArray, $field, $inverse = false) {  
+            $position = array();  
+            $newRow = array();  
+            foreach ($toOrderArray as $key => $row) {  
+                    $position[$key]  = $row[$field];  
+                    $newRow[$key] = $row;  
+            }  
+            if ($inverse) {  
+                arsort($position);  
+            }  
+            else {  
+                asort($position);  
+            }  
+            $returnArray = array();  
+            foreach ($position as $key => $pos) {       
+                $returnArray[] = $newRow[$key];  
+            }  
+            return $returnArray;  
+        }  
+    
+        $orders = orderMultiDimensionalArray($rawOrders, 'article_code');
+        // Sort orders by brand
+        //$orders = sort_by_value($rawOrders, 'brand');
+        //$orders = $rawOrders;
         // Export to csv
         $filename = 'Ordenes-Para-Produccion';
         Excel::create($filename, function($excel) use($orders){
@@ -157,26 +179,27 @@ class OrdersController extends Controller
                 $sheet->loadView('vadmin.orders.invoiceOrdersToProd', 
                 compact('orders'));
             });
-        })->export('csv');
+        })->export('xls');
     }
 
     public function getOrdersToProduction()
     {
         $orders = Cart::where('status', 'Process')->get();
-
         $collected = [];
-
+        
         foreach($orders as $order)
         {
+
             foreach($order->items as $item)
             {
-                if(array_key_exists($item->article_id, $collected))
+                $key = $item->article->code."|".$item->color."|".$item->size;
+                if(array_key_exists($key, $collected))
                 {
-                    $collected[$item->article_id]['quantity'] = $collected[$item->article_id]['quantity'] + $item->quantity;
+                    $collected[$key]['quantity'] = $collected[$key]['quantity'] + $item->quantity;
                 }
                 else
                 {
-                    $collected[$item->article_id] = [
+                    $collected[$key] = [
                         'article_code' => $item->article->code,
                         'article_name' => $item->article_name,
                         'talle' => $item->size,
@@ -185,10 +208,11 @@ class OrdersController extends Controller
                         'quantity' => $item->quantity,
                         'price' => $item->final_price,
                         'brand' => $item->article->brand->name
-                    ];                
+                    ]; 
                 }
             }
         }
+        
         // From Helpers
         sort_array_of_array($collected, 'article_name');
         // dd($collected);

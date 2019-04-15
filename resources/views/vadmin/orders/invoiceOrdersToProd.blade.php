@@ -9,7 +9,10 @@
             <th>Color</th>
             <th>Tela</th>
             <th>Cantidad</th>
+            <th>P.U.</th>
+            <th>P.T.</th>
             <th>Marca</th>
+
         </tr>
         @foreach($orders as $order)
             <tr>
@@ -19,6 +22,8 @@
                 <td>{{ $order['color'] }}</td>
                 <td>{{ $order['tela'] }}</td>
                 <td>{{ $order['quantity'] }} </td>
+                <td>{{ $order['price'] }}</td> 
+                <td>{{ $order['price'] * $order['quantity'] }}</td> 
                 <td>{{ $order['brand'] }} </td>
             </tr>
         @endforeach

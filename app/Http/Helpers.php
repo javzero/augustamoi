@@ -25,9 +25,9 @@ function sort_array_of_array(&$array, $subfield)
     array_multisort($sortarray, SORT_ASC, $array);
 }
 
-function sort_by_value($array,$key) {
+function sort_by_value($array, $key) {
     //Loop through and get the values of our specified key
-    foreach($array as $k=>$v) {
+    foreach($array as $k => $v) {
         $b[] = strtolower($v[$key]);
     } 
     asort($b);
