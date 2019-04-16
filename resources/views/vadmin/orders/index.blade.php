@@ -160,5 +160,8 @@
 {{-- SCRIPT INCLUDES --}}
 @section('scripts')
 	@include('vadmin.components.bladejs')
+	<script>
+		allowEnterOnForms = true;
+	</script>
 @endsection
 

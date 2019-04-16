@@ -24,10 +24,6 @@
 				<input id="ModelName" type="hidden" value="catalogo">
 				<button class="DeleteBtn btn btnRed Hidden"><i class="icon-bin2"></i> Eliminar</button>
 				<input id="RowsToDeletion" type="hidden" name="rowstodeletion[]" value="">
-				{{-- If Search --}}
-				@if(isset($_GET['code']) || isset($_GET['title']) || isset($_GET['category']) || isset($_GET['orden']))
-				<a href="{{ url('vadmin/catalogo') }}"><button type="button" class="btn btnGrey">Mostrar Todos</button></a>
-				@endif
 			</div>
 		@endslot
 		@slot('searcher')

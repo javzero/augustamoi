@@ -28,28 +28,36 @@ class OrdersController extends Controller
 
     public function index(Request $request)
     {          
+        //dd($request->all());
+        $status = "Process";
+        if($request->status)
+            $status = $request->status;
+
         $pagination = 20;
+        
         if($request->id != null)
         {
-            $items = Cart::searchId($request->id)->orderBy('id', 'ASC')->paginate($pagination); 
-        } 
-        else if($request->status != null)
-        {
-            if($request->init_date != '' && $request->expire_date != '')
-            {
-                $items = Cart::orderBy('created_at', 'DESC')->where('status', '=', $request->status)
-                ->whereBetween('created_at', [$request->init_date, $request->expire_date])->paginate($pagination);
-            } 
-            else 
-            {
-                $items = Cart::searchStatus($request->status)->orderBy('created_at', 'DESC')->paginate($pagination);
-            }
-            
-        } else {
-            $items = Cart::orderBy('created_at', 'DESC')->where('status', '=','Process')->paginate($pagination);
+            $items = Cart::searchId($request->id)->where('status', $status)->orderBy('id', 'ASC')->paginate($pagination); 
         }
-
+        else if($request->init_date != '' && $request->expire_date != '')
+        {
+            $items = Cart::where('status', '=', $status)
+                ->whereBetween('created_at', [$request->init_date, $request->expire_date])
+                ->orderBy('created_at', 'DESC')
+                ->paginate($pagination);
+        }
+        else if ($request->customer)
+        {
+            //$items = Cart::orderBy('created_at', 'DESC')->where('status', $status)->paginate($pagination);
+            $items = Cart::search($request->customer)->where('status', '=', $status)->paginate($pagination);
+        }
+        else
+        {
+            $items = Cart::orderBy('created_at', 'DESC')->where('status', $status)->paginate($pagination);
+        }
+        
         return view('vadmin.orders.index')->with('items', $items);    
+
     }
 
     /*
