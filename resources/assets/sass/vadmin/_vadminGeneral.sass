@@ -6,7 +6,7 @@ html
 @media (max-width: 768px)
 	html
 		overflow-x: hidden 
-    
+		
 body
 	height: 100%
 	overflow-x: hidden
@@ -24,44 +24,44 @@ a
 		text-decoration: none
 		color: #383838
 p
-  	font-size: 1rem 
-  	font-family: $fv
-  	font-weight: $fvw1
+	font-size: 1rem 
+	font-family: $fv
+	font-weight: $fvw1
 h1
- 	 font-size: 1.8rem
-  	font-weight: $fvw2
+	font-size: 1.8rem
+	font-weight: $fvw2
 h2
- 	 font-size: 1.1rem
-  	font-weight: $fvw3
+	font-size: 1.1rem
+	font-weight: $fvw3
 hr
-  	border-top: 1px solid $dark2
+	border-top: 1px solid $dark2
 
 .brd
-  	border: 1px solid red
-.txtL
-  	text-align: left
-.txtR
-  	text-align: right
+		border: 1px solid red
+.txtL,.text-left
+	text-align: left !important
+.txtR,.text-right
+	text-align: right !important
 .txtC
  	 text-align: center
 .pad0
-  	padding: 0
-
+		padding: 0
+ 
 @media (max-width: 765px)
-  	.pad0765
-    	padding: 0
+	.pad0765
+		padding: 0
 .mar0
-  	margin: 0
+	margin: 0
 .margTop0
-  margin-top: 0 !important
+	margin-top: 0 !important
 .padTop0
-  	padding-top: 0 !important
+	padding-top: 0 !important
 .mb
-  	margin-bottom: 10px 
+	margin-bottom: 10px 
 .short-input
-  	max-width: 100px
+	max-width: 100px
 .w-20
-  	width: 20px
+	width: 20px
 .w-50
 	width: 50px
 .width-100
@@ -71,20 +71,19 @@ hr
 .mw-70
 	max-width: 50px
 .mw-80
-  	max-width: 80px
+	max-width: 80px
 .mw-90
-  	max-width: 90px
+	max-width: 90px
 .mw-100
-  	max-width: 100px
+	max-width: 100px
 .mw-150
-  	max-width: 150px
+	max-width: 150px
 .w-200
-  	width: 
-	  width: 200px
+	width: 200px
 .mw300
 	max-width: 300px	  
 .mw450
-  	max-width: 450px
+	max-width: 450px
 .minWidth150
 	min-width: 150px
 
@@ -92,10 +91,10 @@ hr
 	overflow: hidden
 	white-space: nowrap
 	text-overflow: ellipsis
-  
+	
 @media (max-width: 765px)
-  	.hide765
-    	display: none
+	.hide765
+		display: none
 
 @media (max-width: 900px)
 	.hideMobile900
@@ -118,7 +117,7 @@ hr
 input[type=number]
 	-moz-appearance: textfield
 select
-    -moz-appearance: none
+	-moz-appearance: none
 
 /////////// FLEXBOX ////////////
 .flexCentVert

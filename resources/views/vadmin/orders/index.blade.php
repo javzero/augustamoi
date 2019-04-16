@@ -66,9 +66,13 @@
 			{{-- List --}}
 			@component('vadmin.components.list')
 				@slot('actions')
-				<a href="{{ url('vadmin/exportOrderToProd') }}" data-toggle="tooltip" title="Exportar .XLS" target="_blank">
-					<span class="icon-container green"> <i class="fas fa-file-excel"></i></span> Exportar Para Producción 
+				Producción:
+				<a href="{{ url('vadmin/exportOrderToProd') }}" data-toggle="tooltip" title="Exportar en .XLS" target="_blank">
+					 <span class="icon-container green"> <i class="fas fa-file-excel"></i></span> XLS
 				</a>
+				<a href="{{ url('vadmin/showOrderToProd') }}" data-toggle="tooltip" title="Ver pedidos para producción">
+					<span class="fa fa-eye"> </span> VER
+			   	</a>
 				@endslot
 				@slot('title', 'Pedidos')
 					@if($items->count() == '0')

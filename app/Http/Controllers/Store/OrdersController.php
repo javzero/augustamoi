@@ -146,36 +146,21 @@ class OrdersController extends Controller
         })->export('csv');         
     }
 
+    public function showOrderToProd()
+    {
+        // Get all orders ready to production
+        $rawOrders = $this->getOrdersToProduction();
+        $orders = orderMultiDimensionalArray($rawOrders, 'article_code');
+        return view('vadmin.orders.showOrdersToProduction')
+            ->with('orders', $orders);
+    }
+
     public function exportOrderToProd()
     {
         // Get all orders ready to production
         $rawOrders = $this->getOrdersToProduction();
-        
-        
-        function orderMultiDimensionalArray ($toOrderArray, $field, $inverse = false) {  
-            $position = array();  
-            $newRow = array();  
-            foreach ($toOrderArray as $key => $row) {  
-                    $position[$key]  = $row[$field];  
-                    $newRow[$key] = $row;  
-            }  
-            if ($inverse) {  
-                arsort($position);  
-            }  
-            else {  
-                asort($position);  
-            }  
-            $returnArray = array();  
-            foreach ($position as $key => $pos) {       
-                $returnArray[] = $newRow[$key];  
-            }  
-            return $returnArray;  
-        }  
-    
         $orders = orderMultiDimensionalArray($rawOrders, 'article_code');
-        // Sort orders by brand
-        //$orders = sort_by_value($rawOrders, 'brand');
-        //$orders = $rawOrders;
+        
         // Export to csv
         $filename = 'Ordenes-Para-Produccion';
         Excel::create($filename, function($excel) use($orders){
@@ -210,12 +195,12 @@ class OrdersController extends Controller
                     $collected[$key] = [
                         'article_code' => $item->article->code,
                         'article_name' => $item->article_name,
+                        'brand' => $item->article->brand->name,
                         'talle' => $item->size,
                         'color' => $item->color,
                         'tela' => $item->textile,
                         'quantity' => $item->quantity,
-                        'price' => $item->final_price,
-                        'brand' => $item->article->brand->name
+                        'price' => $item->final_price
                     ]; 
                 }
             }
