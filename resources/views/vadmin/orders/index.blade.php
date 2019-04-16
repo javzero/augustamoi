@@ -22,7 +22,15 @@
 				<input id="ModelName" type="hidden" value="carts">
 				<button class="DeleteBtn btn btnRed Hidden"><i class="icon-bin2"></i> Eliminar</button>
 				<input id="RowsToDeletion" type="hidden" name="rowstodeletion[]" value="">
-			
+				{{-- If Search --}}
+				@if(isset($_GET['customer']) || isset($_GET['id']))
+					@if(request()->status)
+						<a href="{{ route('orders.index', ['status' => request()->status]) }}">
+					@else
+						<a href="{{ url('vadmin/orders') }}">
+					@endif
+					<button type="button" class="btn btnMain">Mostrar Todos</button></a>
+				@endif
 			</div>
 			<div class="filter-date">
 				{!! Form::open(['method' => 'GET', 'route' => 'orders.index', 'class' => 'form-group inner']) !!} 
