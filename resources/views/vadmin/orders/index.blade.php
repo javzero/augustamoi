@@ -71,7 +71,7 @@
 					 <span class="icon-container green"> <i class="fas fa-file-excel"></i></span> XLS
 				</a>
 				<a href="{{ url('vadmin/showOrderToProd') }}" data-toggle="tooltip" title="Ver pedidos para producción">
-					<span class="fa fa-eye"> </span> VER
+					<span class="icon-container green"><i class="fa fa-eye"></i></span> VER
 			   	</a>
 				@endslot
 				@slot('title', 'Pedidos')

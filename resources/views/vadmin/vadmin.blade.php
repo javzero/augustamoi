@@ -80,6 +80,7 @@
 								<a href="{{ route('coupons.create') }}" class="btn btnMain"><i class="fas fa-divide"></i> Crear Cupón</a><br>
 								{{-- <a href="{{ route('catalogo.index', ['redirect' => 'stock']) }}" class="btn btnMain"><i class="fas fa-box-open"></i> Stock</a><br> --}}
 								<a href="{{ route('orders.index', ['status' => 'Process']) }}" class="btn btnMain"><i class="fas fa-smile-beam"></i> Pedidos Nuevos</a><br>
+								<a href="{{ url('vadmin/showOrderToProd') }}" class="btn btnMain"><i class="fa fa-eye"></i> Ver pedidos para producción</a><br>   
 								<a href="{{ url('vadmin/exportOrderToProd') }}" class="btn btnMain"><i class="fas fa-file-export"></i> Exportar pedidos para producción</a><br>
 							</div>
 						</div>
