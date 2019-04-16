@@ -83,7 +83,7 @@
                             @else 
                             (Discontinuado)
                             @endif </a></td>
-                        {{-- Sizr | Color | Textile --}}
+                        {{-- Size | Color | Textile --}}
                         <td>
                             {{ $item->color }} @if($item->color != '') | @endif 
                             {{ $item->size}} |
@@ -94,7 +94,7 @@
                         @if($order['rawdata']->status != 'Active')
                         {{-- FIXED PRICES | ORDER READY --}}
                             <td>$ {{ $item->final_price }}</td>
-                            <td >$ {{ number_format($item->quantity * $item->final_price,2) }}</td>
+                            <td>$ {{ number_format($item->quantity * $item->final_price, 2) }}</td>
                         @else
                         {{-- DYNAMIC PRICES | ACTIVE CART --}}
                         <td>
@@ -126,43 +126,43 @@
                 @if($order['rawdata']->status != 'Active')
                     <tr style="border-top: 10px solid #f9f9f9">
                         <td><b>x {{ $itemSum }} Artículos</b></td>
-                        <td></td><td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td><td></td>
                     </tr>
-	            {{-- FIXED PRICES | ORDER READY --}}
+	                {{-- FIXED PRICES | ORDER READY --}}
                     <tr style="border-top: 10px solid #f9f9f9">
-                        <td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td>
                         <td><b>SUBTOTAL</b></td>
                         <td><b>$ {{ $order['subTotal'] }}</b></td>
                     </tr>
                     @if($order['orderDiscount'] != '0')
-                    <tr>
-                        <td></td><td></td><td></td>
-                        <td><b>Descuento: </b> <span class="dont-break">% {{ $order['orderDiscount'] }}</span></td>
-                        <td>$ - {{ $order['discountValue'] }}</td>
-                    </tr>
+                        <tr>
+                            <td></td><td></td><td></td>
+                            <td><b>Descuento: </b> <span class="dont-break">% {{ $order['orderDiscount'] }}</span></td>
+                            <td>$ - {{ $order['discountValue'] }}</td>
+                        </tr>
                     @endif
                     <tr>
-			<td></td><td></td><td></td>
+			            <td></td><td></td><td></td><td></td>
                         @if($order['rawdata']->shipping_id && $order['rawdata']->shipping)
-                        <td><b>Envío:</b> {{ $order['rawdata']->shipping->name }}</td>
-                        <td>$ {{ $order['shippingCost'] }}</td>
+                            <td><b>Envío:</b> {{ $order['rawdata']->shipping->name }}</td>
+                            <td>$ {{ $order['shippingCost'] }}</td>
                         @else
-                        <td>Envío no seleccionado</td>
-                        <td>-</td>
-                        @endif
-
-                    </tr>
-                        <td></td><td></td><td></td>
-                        @if($order['rawdata']->payment_method_id && $order['rawdata']->payment)
-                        <td><b>Forma de Pago:</b> {{ $order['rawdata']->payment->name }} (%{{$order['rawdata']->payment_percent}})</td>
-                        <td>$ {{ $order['paymentCost'] }}</td>
-                        @else
-                        <td>Forma de pago no seleccionada</td>
-                        <td>-</td>
+                            <td>Envío no seleccionado</td>
+                            <td>-</td>
                         @endif
                     </tr>
                     <tr>
-                        <td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td>
+                        @if($order['rawdata']->payment_method_id && $order['rawdata']->payment)
+                            <td><b>Forma de Pago:</b> {{ $order['rawdata']->payment->name }} (%{{$order['rawdata']->payment_percent}})</td>
+                            <td>$ {{ $order['paymentCost'] }}</td>
+                        @else
+                            <td>Forma de pago no seleccionada</td>
+                            <td>-</td>
+                        @endif
+                    </tr>
+                    <tr>
+                        <td></td><td></td><td></td><td></td>
                         <td><b>TOTAL</b></td>
                         <td><b>$ {{ $order['total'] }}</b></td>
                     </tr>
@@ -170,7 +170,7 @@
                 {{-- DYNAMIC PRICES | ACTIVE CART --}}
                     {{-- Subtotal --}}
                     <tr>
-                        <td></td><td></td><td></td>
+                        <td></td><td></td><td></td><td></td>
                         <td>SubTotal: </td>
                         <td>-</td>
                     </tr>
