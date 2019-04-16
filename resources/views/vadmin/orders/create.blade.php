@@ -62,11 +62,11 @@
                                         </div>
                                         <div class="col-md-3 form-group">
                                             {!! Form::label('shipping_id', 'Envío') !!}
-                                            {!! Form::select('shipping_id', $shippings, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion']) !!}
+                                            {!! Form::select('shipping_id', $shippings, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!}
                                         </div>
                                         <div class="col-md-3 form-group">
                                             {!! Form::label('payment_method_id', 'Forma de Pago') !!}
-                                            {!! Form::select('payment_method_id', $payment_methods, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion']) !!}
+                                            {!! Form::select('payment_method_id', $payment_methods, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!}
                                         </div>
                                         <div class="col-md-3 form-group">
                                             {!! Form::label('seller', 'Vendedor') !!}
@@ -80,6 +80,7 @@
                                             <tr>
                                                 <th class="w-50">Cód.</th>
                                                 <th>Nombre</th>
+                                                <th>Variante</th>
                                                 <th>Stock</th>
                                                 <th>Precio</th>
                                                 <th>Cantidad</th>
@@ -134,36 +135,47 @@
 
     // Store Id to prevent duplicated items
     let saveIds = [];
-    function buildItemRow(id, code, name, stock, price)
+    let savedVariants = [];
+
+    function buildItemRow(id, code, name, variant, variantId, color, size, textile, stock, price)
     {   
-        console.log(saveIds);
+        console.log(name);
         $('#TableList').removeClass('Hidden');
         $('.Empty-Table').addClass('Hidden');
         $('.Articles-List').removeClass('Hidden');
         
         // Prevent duplicated items
-        if ($.inArray(id, saveIds) !== -1)
+        if ($.inArray(id, saveIds) !== -1 && $.inArray(variant, savedVariants) !== -1)
         {
-            alert_error("", "El producto ya está agregado");
+            alert_error("", "El producto/variante ya está agregado");
+            return;
         }
-        else
-        {
-            let row ="<tr id='OrderItem-"+ id +"'>" +
-                    "<td>#"+ code +"</td>" + 
-                    "<td>"+ name +"</td>" +
-                    "<td>"+ stock +"</td>" +
-                    "<td>$"+ price +
-                    "<input name=item["+ id +"][final_price] value="+ price +" type='hidden' />" +
-                    "</td>" + 
-                    "<td>" +
-                    "<input name=item["+ id +"][quantity] value='1' style='padding-left: 10px; max-width: 50px' type='number' />" +
-                    "<input name=item["+ id +"][id] value='"+ id +"' type='hidden' />" +
-                    "</td>" +
-                    "<td><i onclick='removeRow("+ id +");' class='cursor-pointer fa fa-trash'</td>" +
-                    "</tr>";
-            saveIds.push(id);
-            $('#Articles-List-Rows').append(row);
-        }
+
+        let name2 = name;
+        let row ="<tr id='OrderItem-"+ id +"'>" +
+                "<td>#"+ code +"</td>" + 
+                "<td>"+ name2 +"</td>" +
+                "<td>"+ variant +"</td>" +
+                "<td>"+ stock +"</td>" +
+                "<td>$"+ price + "</td>" +
+                "<input name=item["+ variantId +"][variant_id] value="+ variantId +" type='hidden' />" +
+                "<input name=item["+ variantId +"][name] value='"+ name2 +"' type='hidden' />" +
+                "<input name=item["+ variantId +"][combination] value="+ variant +" type='hidden' />" +
+                "<input name=item["+ variantId +"][color] value="+ color +" type='hidden' />" +
+                "<input name=item["+ variantId +"][size] value="+ size +" type='hidden' />" +
+                "<input name=item["+ variantId +"][textile] value="+ textile +" type='hidden' />" +
+                "<input name=item["+ variantId +"][final_price] value="+ price +" type='hidden' />" +
+                "</td>" + 
+                "<td>" +
+                "<input name=item["+ variantId +"][quantity] value='1' style='padding-left: 10px; max-width: 50px' type='number' />" +
+                "<input name=item["+ variantId +"][id] value='"+ id +"' type='hidden' />" +
+                "</td>" +
+                "<td><i onclick='removeRow("+ id +");' class='cursor-pointer fa fa-trash'</td>" +
+                "</tr>";
+
+        saveIds.push(id);
+        savedVariants.push(variant);
+        $('#Articles-List-Rows').append(row);
     }
 
 
@@ -226,21 +238,27 @@
                 }
             },
             select: function(event, ui) {
-                buildItemRow(ui.item.id, ui.item.code, ui.item.name, ui.item.stock, ui.item.price);
+                console.log("En search");
+                console.log(ui.item);
+                // id, code, name, variant, variantId, color, size,  stock, price
+                buildItemRow(ui.item.id, ui.item.code, ui.item.name, ui.item.variant, ui.item.variant_id, ui.item.variant_color, ui.item.variant_size,
+                ui.item.textile, ui.item.stock, ui.item.price);
             }
-        }).data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+        }).data( "ui-autocomplete" )._renderItem = function(ul, item) {
+
             if(item.name === 0)
             {
                 return $("<li onclick='event.stopPropagation();'></li>").append("<div class='label'>Sin resultados</div>").appendTo(ul);
             }
             else
             {
-                let inner_html = '<div class="label">#' + item.code + ' '+ item.name +'</div>';
+                let inner_html = '<div class="label">#' + item.code + ' '+ item.name +' | ' + item.variant + '</div>';
                 // Multiline
                 //let inner_html = '<div class="label">#' + item.code + ' '+ item.name +'<br><div>'+ item.name +'</div></b></div>';
                 return $( "<li></li>" ).data( "item.autocomplete", item).append(inner_html).appendTo(ul);
 
             }
+            
         };
     });
 

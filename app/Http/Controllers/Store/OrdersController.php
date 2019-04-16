@@ -248,6 +248,8 @@ class OrdersController extends Controller
     public function store(Request $request)
     {   
         // dd($request->all());
+        if($request->payment_method_id == null || $request->shipping_id == null)
+            return back()->with('message', 'Debe ingresar método de pago y envío');
 
         // Store Cart
         $cart = new Cart();
@@ -271,21 +273,36 @@ class OrdersController extends Controller
         
         foreach($request->item as $item)
         {
+            // $cartItem = new CartItem();
+            // $cartItem->cart_id = $cart_id;
+            // $cartItem->article_id = $item['id'];
+            // $cartItem->quantity = $item['quantity'];
+            // $cartItem->final_price = $item['final_price'];
+            // $article = CatalogArticle::where('id', $item['id'])->first();
+            // $cartItem->article_name = $article->name;
+            // $cartItem->color = $article->color;
+            
             $cartItem = new CartItem();
             $cartItem->cart_id = $cart_id;
+            $cartItem->article_name = $item['name'];
             $cartItem->article_id = $item['id'];
+            $cartItem->variant_id = $item['variant_id'];
             $cartItem->quantity = $item['quantity'];
+            $cartItem->combination = $item['combination'];
+            $cartItem->color = $item['color'];
+            $cartItem->size = $item['size'];
+            $cartItem->textile = $item['textile'];
             $cartItem->final_price = $item['final_price'];
-            $article = CatalogArticle::where('id', $item['id'])->first();
 
-            $cartItem->article_name = $article->name;
-            $cartItem->color = $article->color;
-
-            $cartItem->save();    
+            // $article = CatalogArticle::where('id', $item['id'])->first();
+            // $cartItem->article_name = $article->name;
+            // dd($cartItem);
+            $cartItem->save();   
+            $this->updateVariantStock($item['variant_id'], -$item['quantity']); 
         }
 
         
-        return redirect()->route('orders.index', ['status' => 'All'])->with('message','Pedido cargado exitosamente');
+        return redirect()->route('orders.index', ['status' => 'Approved'])->with('message','Pedido cargado exitosamente');
     }
 
     /*

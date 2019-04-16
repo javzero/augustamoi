@@ -65,54 +65,62 @@ class AutocompleteController extends Controller
         $customerGroup = $customer->group;
         
         $articles = CatalogArticle::where('name', 'LIKE', "%{$request['request']['term']}%")
-        ->orWhere('code', 'LIKE', "%{$request['request']['term']}%")
-        ->limit(15)
-        ->get();
-
+            ->orWhere('code', 'LIKE', "%{$request['request']['term']}%")
+            ->active()
+            ->limit(15)
+            ->get();
         
+        $items = [];
+
         if(!$articles->isEmpty())
         {
             foreach($articles as $article)
             {
-                $new_row['id'] = $article->id;        
-                $new_row['name'] = $article->name;
-                $new_row['code'] = $article->code;
-                $new_row['stock'] = $article->stock;
-                
-                if($customerGroup == '3')
+                if($article->variants)
                 {
-                    if($article->reseller_discount > 0)
+                    foreach($article->variants as $variant)
                     {
-                        $new_row['price'] = calcValuePercentNeg($article->reseller_price, $article->reseller_discount);
-                    }
-                    else
-                    {
-                        $new_row['price'] = $article->reseller_price;
-                    }
-                }
-                else
-                {
-                    if($article->reseller_discount > 0)
-                    {
-                        $new_row['price'] = calcValuePercentNeg($article->price, $article->discount);
-                    }
-                    else
-                    {
-                        $new_row['price'] = $article->price;
-                    }
-                }
+                        if($customerGroup == '3')
+                        {
+                            if($article->reseller_discount > 0)
+                            {
+                                $price = calcValuePercentNeg($article->reseller_price, $article->reseller_discount);
+                            }
+                            else
+                            {
+                                $price = $article->reseller_price;
+                            }
+                        }
+                        else
+                        {
+                            if($article->reseller_discount > 0)
+                            {
+                                $price = calcValuePercentNeg($article->price, $article->discount);
+                            }
+                            else
+                            {
+                                $price = $article->price;
+                            }
+                        }
+                        // $new_row['price'] = 0;
 
-                
-                $row_set[] = $new_row; //build an array
+                        $items[$variant->combination] = [
+                            'id' => $article->id,
+                            'name' => $article->name,
+                            'code' => $article->code,
+                            'variant' => $variant->combination,
+                            'variant_id' => $variant->id,
+                            'variant_color' => $variant->color->name,
+                            'variant_size' => $variant->size->name,
+                            'textile' => $article->textile,
+                            'stock' => $variant->stock,
+                            'price' => $price
+                        ];
+                    }   
+                }
             }
         }
-        else
-        {
-            $new_row['name'] = 0;
-            $row_set[] = $new_row;
-        }
-
-        echo json_encode($row_set); 
+        echo json_encode($items); 
 
     }
 
