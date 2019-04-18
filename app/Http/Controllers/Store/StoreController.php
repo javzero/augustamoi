@@ -47,7 +47,6 @@ class StoreController extends Controller
 
     public function index(Request $request)
     {   
-        
         $pagination = $this->getSetPaginationCookie($request->get('results'));
         $order = 'DESC';
         $orderBy = 'id';
@@ -74,7 +73,6 @@ class StoreController extends Controller
             // }
         }
 
-        
         if(isset($request->buscar))
         {   
             $tags = CatalogTag::with(['articles' => function($query) { $query->where('status', '=', '1'); }])->get();
@@ -89,7 +87,8 @@ class StoreController extends Controller
             } 
             else if($request->filtrar == 'descuentos')
             {
-                $articles = CatalogArticle::orderBy('discount', 'DESC')->active()->paginate($pagination);
+                // $articles = CatalogArticle::orderBy('reseller_discount', 'DESC')->active()->paginate($pagination);
+                $articles = CatalogArticle::where('reseller_discount', '>', '0')->active()->paginate($pagination);
             }
         }
         else if(isset($request->categoria))

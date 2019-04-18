@@ -16,6 +16,26 @@ $('.dont-submit-on-enter, .dson').keypress(function (e) {
     if (e.which == 13) e.preventDefault();
 });
 
+// Store Filters
+// -------------------------------------------
+
+window.collapseFilter = function(elem) {
+    const filter = elem.siblings('ul');
+    if(filter.hasClass('collapsed'))
+    {
+        filter.removeClass('collapsed');
+        filter.show(100);
+        elem.html('-');
+    }
+    else
+    {
+        filter.addClass('collapsed');
+        filter.hide(100);
+        elem.html('+');
+    }
+}
+
+
 // Modify cart item quantity 
 // -------------------------------------------
 $('.InputBtnQ').on('change keyup', function () {
