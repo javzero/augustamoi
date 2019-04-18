@@ -27,7 +27,7 @@
         <div class="sub-title">CATEGORÍAS</div>
         <ul>
             @foreach($categories as $category)
-                @if($category->articles->count() > '0')
+                @if($category->activeArticles->count() > '0')
                     <li><a onchange="location = this.value;" href="{{ route('store', 'categoria=').$category->id }}"> {{ $category->name }} </a></li>
                 @endif
             @endforeach
@@ -40,7 +40,7 @@
         <div class="sub-title">ETIQUETAS</div>
         <ul>
             @foreach($tags as $tag)
-                @if($tag->articles->count() > '0')
+                @if($tag->activeArticles->count() > '0')
                     <span class="badge"><a href="{{ route('store.search.tag', $tag->name) }}"> {{ $tag->name }}</a></span>
                 @endif
             @endforeach

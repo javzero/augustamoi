@@ -14,6 +14,12 @@ class CatalogTag extends Model
 		return $this->belongsToMany('App\CatalogArticle');
 	}
 
+	public function activeArticles()
+    {
+        return $this->belongsToMany('App\CatalogArticle')->active();
+    }
+
+
 	public function scopeSearch($query, $name)
 	{
 		return $query->where('name', 'LIKE', "%$name%");
