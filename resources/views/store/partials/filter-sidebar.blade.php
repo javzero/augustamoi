@@ -21,14 +21,15 @@
             <li><a href="{{ route('store', ['filtrar' => 'populares']) }}"><i class="fas fa-fire"></i> Populares</a></li>
         </ul>
     </div>
-
-
+    
     <div class="filter-item">
         <a class="collapse-icon" onclick="collapseFilter($(this))">-</a>
         <div class="sub-title">CATEGORÍAS</div>
         <ul>
             @foreach($categories as $category)
-                <li><a onchange="location = this.value;" href="{{ route('store', 'categoria=').$category->id }}"> {{ $category->name }} </a></li>
+                @if($category->articles->count() > '0')
+                    <li><a onchange="location = this.value;" href="{{ route('store', 'categoria=').$category->id }}"> {{ $category->name }} </a></li>
+                @endif
             @endforeach
         </ul>
     </div>
@@ -39,7 +40,9 @@
         <div class="sub-title">ETIQUETAS</div>
         <ul>
             @foreach($tags as $tag)
-                <span class="badge"><a href="{{ route('store.search.tag', $tag->name) }}"> {{ $tag->name }}</a></span>
+                @if($tag->articles->count() > '0')
+                    <span class="badge"><a href="{{ route('store.search.tag', $tag->name) }}"> {{ $tag->name }}</a></span>
+                @endif
             @endforeach
         </ul>
     </div>
