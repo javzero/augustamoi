@@ -5,15 +5,15 @@ namespace App\Http\Controllers\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
+// use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\View;
 use App\CatalogArticle;
 use App\CatalogVariant;
 use App\CatalogSize;
 use App\CatalogCategory;
 use App\CatalogColor;
 use App\CatalogCoupon;
-use App\CatalogImage;
+// use App\CatalogImage;
 use App\CatalogTag;
 use App\CatalogFav;
 use App\Customer;
@@ -49,28 +49,15 @@ class StoreController extends Controller
     {   
         $pagination = $this->getSetPaginationCookie($request->get('results'));
         $order = 'DESC';
-        $orderBy = 'id';
-        $order2 = 'ASC';
-        $orderBy2 = 'discount';
+        $orderBy = 'created_at';
         
         if($request->precio)
         {
-            $orderBy = 'price';
+            $orderBy = 'reseller_price';
             if($request->precio == 'menor')
-            {
                 $order = 'ASC';
-                $order2 = 'ASC';
-            }
-            
-            // IF RESELLER
-            // if(auth()->guard('customer')->check())
-            // {
-            //     if(auth()->guard('customer')->user()->group == '3')
-            //     {
-            //         $orderBy = 'reseller_price';
-            //         $orderBy2 = 'reseller_discount';
-            //     }
-            // }
+            else
+                $order = 'DESC';
         }
 
         if(isset($request->buscar))
@@ -110,7 +97,14 @@ class StoreController extends Controller
         }
         else 
         {
-            $articles = CatalogArticle::orderByRaw('RAND()')->active()->paginate($pagination);
+            if($request->precio)
+            {
+                $articles = CatalogArticle::orderBy($orderBy, $order)->active()->paginate($pagination);
+            } 
+            else
+            {
+                $articles = CatalogArticle::orderByRaw('RAND()')->active()->paginate($pagination);
+            }
         }      
         
         return view('store.index')->with('articles', $articles);
