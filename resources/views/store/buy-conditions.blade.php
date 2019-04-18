@@ -46,7 +46,7 @@
                 Si optás por operar con una empresa que no esté ubicada en retiro, tendremos que adicionar el costo de envío hasta la sucursal de la empresa, dicho costo es de $200. </p>
                 
                 <h4>¿Qué pasa si me llegan productos con fallas?</h4>
-                <p>En el caso de que llegue un producto con fallas, deberá ser informado dentro de la semana de recibido el pedido con foto de la falla por mail a info@brunaindumentaria.com.ar. Si el artículo está en stock lo repondremos haciéndonos cargo del costo de envío o podemos arreglar para enviártelo con tu próxima compra. Si el artículo está agotado te devolvemos el valor del producto.</p>
+                <p>En el caso de que llegue un producto con fallas, deberá ser informado dentro de la semana de recibido el pedido con foto de la falla por mail a venta@augustamoi.com.ar. Si el artículo está en stock lo repondremos haciéndonos cargo del costo de envío o podemos arreglar para enviártelo con tu próxima compra. Si el artículo está agotado te devolvemos el valor del producto.</p>
                 
                 <h4>¿Puedo realizar cambios?</h4>
                 <p>Sólo aceptamos cambios o devoluciones por fallas en el producto.</p> 
