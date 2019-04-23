@@ -76,7 +76,9 @@
 							<span class="price-text">&nbsp; ${{ calcValuePercentNeg($article->reseller_price, $article->reseller_discount) }}</span>
 						</div>
 					@else
-						<span class="price-text">$ {{ $article->reseller_price }}</span>
+						<div class="product-price">
+							<span class="price-text">$ {{ $article->reseller_price }}</span>
+						</div>
 					@endif
 					{{-- Title Desktop --}}
 					<div class="product-title product-title-desktop">
