@@ -203,6 +203,7 @@ class StoreController extends Controller
         // Get only used colors and sizes
         $variants = $article->variants;
         $colorsId = []; $sizesId = [];
+
         foreach($variants as $variant) 
         { 
             $colorsId[] = $variant->color_id;
@@ -229,7 +230,7 @@ class StoreController extends Controller
 
         return view('store.show')
             ->with('article', $article)
-            ->with('sizes', $atribute1)
+            ->with('articleSizes', $atribute1)
             ->with('colors', $colors)
             ->with('isFav', $isFav)
             ->with('user', $user);

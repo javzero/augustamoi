@@ -5,19 +5,19 @@
             <div class="top row">
                 <div class="col-md-12 title">
                     <i class="fas fa-shopping-cart"></i> Carro de Compras
-                    <hr>
                 </div>
-                <div class="items">
-                    <div class="text values"> 
+                <div class="top-actions">
+                    {{-- <div class="text values"> 
                         Prendas: <b><span class="TotalCartItemsSidebar count">@if($activeCart['totalItems'] == 0) 0 @else {{ $activeCart['totalItems'] }} @endif </b>
                         <br>
-                        Total: <b>$<span>{{ $activeCart['cartTotal'] }}</span></b></div>
-                    <div class="button">
-                        {{-- <button class="SubmitDataBtn main-btn-sm" type="button">Continuar <i class="fa fa-arrow-right"></i></button> --}}
-                        <a href="{{ route('store.checkout')}}" class="main-btn-sm">Continuar <i class="fa fa-arrow-right"></i></a>
-                    </div>
+                        Total: <b>$<span>{{ $activeCart['cartTotal'] }}</span></b>
+                    </div> --}}
+                </div>
+                <div class="col-md-12 text-right">
+                    <a class="cart-continue" href="{{ route('store.checkout')}}">CONTINUAR</a>
                 </div>
             </div>
+            <div class="items">
             @foreach($activeCart['rawdata']->items as $item)
                 
                 @if($item->article != null)
@@ -55,11 +55,15 @@
                              data-toggle="tooltip" data-placement="top" title="Stock máximo {{ $item->quantity + $item->variant->stock }}">
                         </div>
                         <div class="delete-item">
-                            <a onclick="removeFromCart('{{ route('store.removeFromCart') }}', {{$item->id}}, {{ $item->variant_id }}, {{ $item->quantity }}, '#Item'+{{ $item->id }}, 'reload');"><i class="far fa-trash-alt"></i></a>
+                            <a onclick="removeFromCart('{{ route('store.removeFromCart') }}', {{$item->id}}, {{ $item->variant_id }}, {{ $item->quantity }}, '#Item'+{{ $item->id }}, 'reload');">
+                                X
+                            </a>
                         </div>
                     </div>{{-- / .item --}}
+                    <div class="item-divisor"></div>
                 @endif
             @endforeach
+        </div>
         <div class="update-btn">
             <button class="UpdateDataBtn block-btn-hollow"><i class="fas fa-sync"></i> Calcular nuevos totales</button>
         </div>
@@ -73,8 +77,7 @@
             </div>
         </div>
         <div class="text-right">
-            {{-- <button type="button" class="SubmitDataBtn main-btn-sm">Continuar <i class="fa fa-arrow-right"></i></button> --}}
-            <a href="{{ route('store.checkout')}}" class="main-btn-sm">Continuar <i class="fa fa-arrow-right"></i></a>
+            <a href="{{ route('store.checkout')}}" class="cart-continue">CONTINUAR</a>
         </div>
     @else
         <div class="empty-cart">

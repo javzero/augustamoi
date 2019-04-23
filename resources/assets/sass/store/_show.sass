@@ -1,0 +1,122 @@
+
+.product-gallery
+	padding: 0
+	border: 0
+	.product-carousel .owl-stage-outer .owl-stage .owl-item img
+		width: 100% 
+
+.product-gallery .gallery-item 
+	z-index: 50
+	position: absolute
+	top: 8px
+	right: 9px
+	margin-bottom: 0
+	background: #fff
+	border-radius: 50%
+	
+.product-show
+	.product-title
+	.product-title-mobile
+		display: none
+		margin-bottom: 20px
+	.sub-text, a
+		color: #5d5d5d
+		font-size: 0.8rem
+		font-weight: 300
+	h2
+		font-family: $font1
+		font-weight: 500
+		margin-bottom: 0
+		text-transform: uppercase
+	.products-details
+		padding: 0 40px 40px 5px
+		position: relative
+		min-height: 430px
+		.product-price
+			margin-bottom: 25px 
+			.price-text
+				font-size: 1.2rem
+				font-weight: 500
+			.text-muted
+				font-size: 1.2rem
+				font-weight: 300
+				text-decoration: line-through 
+		.product-description
+			font-size: .8rem
+			max-width: 360px
+		.product-divider
+			height: 2px
+			border-bottom: 1px solid black
+			max-width: 250px
+			margin-bottom: 10px
+			margin-top: 10px
+		.fav-container
+			position: absolute
+			right: 33px
+			top: 0px
+			font-size: 1.5rem
+			i
+				color: $red
+		// .back-btn
+		// 	position: absolute
+		// 	bottom: -30px
+		// 	right: 12px
+		// 	font-size: 1rem
+		// 	color: #000
+		h2
+			padding-top: 0
+		form
+			label
+				margin: 0
+				font-weight: 300
+			.form-row
+				margin-bottom: 10px
+		.action-info-container
+			// background-color: #f9f9f9
+			margin: 15px 0 0 15px
+			padding: 0
+	.back-btn
+		padding-left: 10px
+		margin-bottom: 10px
+	.descriptions
+		font-size: 1.1rem
+		.item
+			white-space: nowrap
+			.title
+				float: left
+				min-width: 60px
+				font-weight: 300
+				color: #606975
+				font-family: $font2
+
+.product-show-image-modal
+	padding: 0
+	.modal-content
+		border: 0
+		background-color: transparent
+		.modal-body
+			padding: 0
+			position: relative
+			.close-modal-x
+				position: absolute
+				top: 10px
+				right: 15px
+				font-size: 1.5rem
+				font-weight: 300
+				&:hover
+					cursor: pointer
+
+@media (max-width: 768px)
+	.product-show
+		.product-title-mobile
+			display: block
+		.product-title-desktop
+			display: none
+		.product-image,.product-details
+			padding: 0
+		
+
+@media (max-width: 1190px)
+	.product-show .products-details
+		.fav-container
+			right: 20px

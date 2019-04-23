@@ -8,21 +8,25 @@
 	height: 100%
 	top: 0
 	right: 0
-	padding: 15px
+	padding: 0
 	@include transition(0.2s)
 	z-index: 9999
+	border-left: 1px solid #e1e7ec
+	.cart-continue
+		font-size: 1rem
 	.inner
 		padding: 25px 15px
+		padding-top: 0
 		.top
 			margin-bottom: 20px
 			@include flex-center
 			.title
-				font-size: 1.2rem
-				margin-bottom: 10px	
+				padding: 8px 15px 8px
+				margin-bottom: 5px
 				i
 					font-size: 1rem
 					margin-right: 6px
-			.items
+			.top-actions
 				display: flex
 				width: 100%
 				text-align: right
@@ -32,12 +36,9 @@
 					font-weight: 300
 					text-align: left
 					width: 50%
-				.button
-					float: right
-					width: 50%
-					padding-top: 10px
-					.main-btn-sm
-						padding: 9px 10px
+				.right-button
+					width: 100%
+					text-align: right
 		.total-price-bottom
 			text-align: right
 			padding: 15px 0
@@ -55,13 +56,13 @@
 		.close
 			position: absolute
 			right: 20px
-			top: 15px
+			top: 5px
 			z-index: 998
+			color: #ccc
 		.item
 			padding: 0 65px 0 75px
 			position: relative
 			min-height: 75px
-			margin-bottom: 10px
 			img
 				position: absolute
 				left: 15px
@@ -80,7 +81,7 @@
 					font-size: 1rem
 			.delete-item
 				position: absolute
-				right: 6px
+				right: 9px
 				top: 6px
 				height: 25px
 				padding: 10px
@@ -94,13 +95,20 @@
 			.quantity
 				position: absolute
 				bottom: 5px
-				right: 10px
+				right: 15px
 				.small-input
 					border: 1px solid #ccc
 					padding: 2px
 					padding-left: 10px
+		.item-divisor
+			border-bottom: 1px solid $grey
+			height: 5px
+			width: 100%
+			margin-bottom: 15px
 		.update-btn
-			margin-bottom: 10px	
+			margin-bottom: 10px
+			.block-btn-hollow
+				line-height: 20px
 		.checkout-cart-error
 			text-align: center
 			margin-top: 15px

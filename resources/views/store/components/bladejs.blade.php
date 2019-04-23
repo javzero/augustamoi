@@ -48,6 +48,7 @@
         e.preventDefault();
         let data = $(this).serialize();
         const route = "{{ route('store.addToCartLive') }}";
+        
         if(checkVariantStock())
         {
             addToCart(route, data);
@@ -183,7 +184,6 @@
 
     function checkIfHasProvSelected(provs, locs)
     {
-        console.log("CHeck");
         let selected_provs = $(provs + ' option:selected');
         let selected_locs = $(locs + ' option');
         let selected_prov = $(".GeoProvSelect option:selected");

@@ -74,9 +74,9 @@
 
 			{{-- JavaScript (jQuery) libraries, vendor and custom scripts --}}
 			<script src="{{ asset('store-ui/js/vendor.min.js') }}"></script>
-			<script src="{{ asset('store-ui/js/iziToast.min.js') }}"></script>
 			<script src="{{ asset('store-ui/js/scripts.min.js') }}"></script>
-			<script src="{{ asset('plugins/jquery/jquery-3.3.1.min.js') }}"></script>
+			<script src="{{ asset('plugins/jquery/jquery-3.4.0.min.js') }}"></script>
+			<script src="{{ asset('store-ui/js/iziToast.min.js') }}"></script>
 			<script src="{{ asset('js/scripts.js') }}"></script>
 			@include('store.partials.scripts')
 			@yield('scripts')
@@ -85,7 +85,6 @@
 					checkoutSidebar('show');
 				</script>
 			@endif
-		
 	</body>
 </html>
 

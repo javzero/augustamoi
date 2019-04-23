@@ -4549,670 +4549,667 @@ kbd
 	height: 18px
 	background-color: $main-color
 
-.owl-carousel 
-	display: none
-	position: relative
-	width: 100%
-	z-index: 1
-	.owl-stage 
-		position: relative
-
-	.owl-stage::after 
-		display: block
-		height: 0
-		clear: both
-		line-height: 0
-		content: '.'
-		visibility: hidden
-
-	.owl-stage-outer 
-		position: relative
-		//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-		transform: translate3d(0, 0, 0)
-		overflow: hidden
-
-	.owl-wrapper 
-		//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-		transform: translate3d(0, 0, 0)
-		//If you use compass, instead of the line below you could use + backface-visibility($visibility)
-		backface-visibility: hidden
-
-	.owl-item 
-		//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-		transform: translate3d(0, 0, 0)
-		//If you use compass, instead of the line below you could use + backface-visibility($visibility)
-		backface-visibility: hidden
-		position: relative
-		min-height: 1px
-		float: left
-		//If you use compass, instead of the line below you could use + backface-visibility($visibility)
-		backface-visibility: hidden
-		.owl-lazy 
-			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-			transition: opacity 400ms ease
-			opacity: 0
-
-		.from-top 
-			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-			transition: all .45s .3s ease-in-out
-			opacity: 0
-			//If you use compass, instead of the line below you could use + backface-visibility($visibility)
-			backface-visibility: hidden
-			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-			transform: translateY(-45px)
-
-		.from-bottom 
-			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-			transition: all .45s .3s ease-in-out
-			opacity: 0
-			//If you use compass, instead of the line below you could use + backface-visibility($visibility)
-			backface-visibility: hidden
-			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-			transform: translateY(45px)
-
-		.from-left 
-			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-			transition: all .45s .3s ease-in-out
-			opacity: 0
-			//If you use compass, instead of the line below you could use + backface-visibility($visibility)
-			backface-visibility: hidden
-			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-			transform: translateX(-45px)
-
-		.from-right 
-			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-			transition: all .45s .3s ease-in-out
-			opacity: 0
-			//If you use compass, instead of the line below you could use + backface-visibility($visibility)
-			backface-visibility: hidden
-			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-			transform: translateX(45px)
-
-		.scale-up 
-			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-			transition: all .45s .3s ease-in-out
-			opacity: 0
-			//If you use compass, instead of the line below you could use + backface-visibility($visibility)
-			backface-visibility: hidden
-			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-			transform: scale(0.8)
-
-		.scale-down 
-			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-			transition: all .45s .3s ease-in-out
-			opacity: 0
-			//If you use compass, instead of the line below you could use + backface-visibility($visibility)
-			backface-visibility: hidden
-			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-			transform: scale(1.2)
-
-		.delay-1 
-			//If you use compass, instead of the line below you could use + transition-delay($delay-1, $delay-2, $delay-3, $delay-4, $delay-5, $delay-6, $delay-7, $delay-8, $delay-9, $delay-10)
-			transition-delay: .5s
-
-		.delay-2 
-			//If you use compass, instead of the line below you could use + transition-delay($delay-1, $delay-2, $delay-3, $delay-4, $delay-5, $delay-6, $delay-7, $delay-8, $delay-9, $delay-10)
-			transition-delay: .7s
-
-		.delay-3 
-			//If you use compass, instead of the line below you could use + transition-delay($delay-1, $delay-2, $delay-3, $delay-4, $delay-5, $delay-6, $delay-7, $delay-8, $delay-9, $delay-10)
-			transition-delay: .9s
-
-		.delay-4 
-			//If you use compass, instead of the line below you could use + transition-delay($delay-1, $delay-2, $delay-3, $delay-4, $delay-5, $delay-6, $delay-7, $delay-8, $delay-9, $delay-10)
-			transition-delay: 1.1s
-
-		&.active 
-			.from-top 
-				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-				transform: translateY(0)
-				opacity: 1
-
-			.from-bottom 
-				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-				transform: translateY(0)
-				opacity: 1
-
-			.from-left 
-				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-				transform: translateX(0)
-				opacity: 1
-
-			.from-right 
-				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-				transform: translateX(0)
-				opacity: 1
-
-			.scale-up 
-				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-				transform: scale(1)
-				opacity: 1
-
-			.scale-down 
-				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-				transform: scale(1)
-				opacity: 1
-
-
-		> img 
-			display: block
-			width: 100%
-			&.owl-lazy 
-				//If you use compass, instead of the line below you could use + transform-style($style)
-				transform-style: preserve-3d
-
-
-
-	.owl-nav 
-		&.disabled 
-			display: none
-
-		.owl-prev 
-			cursor: pointer
-			cursor: hand
-			//If you use compass, instead of the line below you could use + user-select($select)
-			user-select: none
-
-		.owl-next 
-			cursor: pointer
-			cursor: hand
-			//If you use compass, instead of the line below you could use + user-select($select)
-			user-select: none
-
-
-	.owl-dots 
-		display: block
-		width: 100%
-		margin-top: 18px
-		text-align: center
-		&.disabled 
-			display: none
-
-		.owl-dot 
-			display: inline-block
-			width: 6px
-			height: 6px
-			margin: 0 6px
-			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-			transition: opacity .25s
-			//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
-			border-radius: 50%
-			background-color: $color_shuttle_gray_approx
-			opacity: .3
-			&.active 
-				opacity: .9
-
-
-
-	.owl-dot 
-		cursor: pointer
-		cursor: hand
-		//If you use compass, instead of the line below you could use + user-select($select)
-		user-select: none
-
-	&.owl-loaded 
-		display: block
-
-	&.owl-loading 
-		display: block
-		opacity: 0
-
-	&.owl-hidden 
-		opacity: 0
-
-	&.owl-grab 
-		cursor: move
-		cursor: grab
-
-	&.owl-rtl 
-		direction: rtl
-		.owl-item 
-			float: right
-
-
-	.animated 
-		animation-duration: 1000ms
-		animation-fill-mode: both
-
-	.owl-animated-in 
-		z-index: 0
-
-	.owl-animated-out 
-		z-index: 1
-
-	.fadeOut 
-		animation-name: fadeOut
-
-	.owl-prev 
-		display: block
-		position: absolute
-		top: 50%
-		width: 44px
-		height: 44px
-		margin-top: -42px
-		//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-		transition: opacity .3s
-		border: 1px solid $color_mystic_approx
-		//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
-		border-radius: 50%
-		background-color: $white
-		color: $color_bright_gray_approx
-		line-height: 40px
-		text-align: center
-		opacity: .7
-		left: 20px
-		&:hover 
-			opacity: 1
-
-
-	.owl-next 
-		display: block
-		position: absolute
-		top: 50%
-		width: 44px
-		height: 44px
-		margin-top: -42px
-		//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-		transition: opacity .3s
-		border: 1px solid $color_mystic_approx
-		//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
-		border-radius: 50%
-		background-color: $white
-		color: $color_bright_gray_approx
-		line-height: 40px
-		text-align: center
-		opacity: .7
-		right: 20px
-		&:hover 
-			opacity: 1
-
-
-	.owl-prev::before 
-		font-family: $font_4
-		font-size: 19px
-		content: '\f115'
-		content: '\e094'
-
-	.owl-next::before 
-		font-family: $font_4
-		font-size: 19px
-		content: '\f115'
-		content: '\e095'
-
-	&.large-controls 
-		.owl-prev 
-			width: 54px
-			height: 54px
-			margin-top: -47px
-			line-height: 50px
-			left: 30px
-
-		.owl-next 
-			width: 54px
-			height: 54px
-			margin-top: -47px
-			line-height: 50px
-			right: 30px
-
-
-	&.dots-inside 
-		.owl-dots 
-			position: absolute
-			bottom: 0
-			margin: 0
-			padding-bottom: 24px
-			.owl-dot 
-				background-color: $white
-				opacity: .5
-				&.active 
-					opacity: 1
-
-
-
-		.owl-prev 
-			margin-top: -22px
-
-		.owl-next 
-			margin-top: -22px
-
-		&.large-controls 
-			.owl-prev 
-				margin-top: -27px
-
-			.owl-next 
-				margin-top: -27px
-
-
-
-	.widget 
-		margin-bottom: 0
-		&.widget-featured-posts > .entry 
-			margin-bottom: 0
-
-
-	.gallery-item 
-		margin-bottom: 0
-
-	&.owl-refresh .owl-item 
-		visibility: hidden
-
-	&.owl-drag .owl-item 
-		//If you use compass, instead of the line below you could use + user-select($select)
-		user-select: none
-
-
-@keyframes fadeOut 
-	0% 
-		opacity: 1
-
-	100% 
-		opacity: 0
-
-
-.owl-height 
-	//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-	transition: height 500ms ease-in-out
-
-.hero-slider 
-	width: 100%
-	min-height: 580px
-	background-position: center
-	background-color: $color_wild_sand_approx
-	background-repeat: no-repeat
-	background-size: cover
-	overflow: hidden
-	> .owl-carousel 
-		min-height: 580px
-		.owl-prev 
-			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-			transition: all .35s ease-in-out
-			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-			transform: translateX(-150px)
-
-		.owl-next 
-			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-			transition: all .35s ease-in-out
-			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-			transform: translateX(150px)
-
-		&:hover 
-			.owl-prev 
-				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-				transform: translateX(0)
-
-			.owl-next 
-				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-				transform: translateX(0)
-
-
-		&.dots-inside .owl-dots 
-			display: inline-block
-			left: 50%
-			width: auto
-			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-			transform: translateX(-50%)
-			padding: 10px 22px 14px
-			//If you use compass, instead of the line below you could use + border-top-left-radius($radius)
-			border-top-left-radius: 7px
-			//If you use compass, instead of the line below you could use + border-top-right-radius($radius)
-			border-top-right-radius: 7px
-			background-color: $color_shuttle_gray_approx
-
-
-
-@media(max-width: 991px) 
-	.hero-slider > .owl-carousel 
-		.owl-prev 
-			display: none
-
-		.owl-next 
-			display: none
-
-
-
-@media(max-width: 1100px) 
-	.hero-slider 
-		min-height: 430px
-		> .owl-carousel 
-			min-height: 430px
-
-
-
-.gallery-item 
-	margin-bottom: 30px
-	> a 
-		display: block
-		position: relative
-		width: 100%
-		//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
-		border-radius: 7px
-		overflow: hidden
-		> img 
-			display: block
-			width: 100%
-
-		// &:hover::before 
-		// 	opacity: .45
-
-		// &:hover::after 
-		// 	//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-		// 	transform: translateY(0)
-		// 	opacity: 1
-
-
-	> a::before 
-		display: block
-		position: absolute
-		top: 0
-		left: 0
-		width: 100%
-		height: 100%
-		background-color: $black
-		content: ''
-		opacity: 0
-		z-index: 1
-		//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-		transition: opacity .3s
-
-	> a::after 
-		display: block
-		position: absolute
-		top: 50%
-		left: 0
-		width: 100%
-		margin-top: -19px
-		//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-		transform: translateY(15px)
-		//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-		transition: all .35s
-		color: $white
-		font-family: $font_4
-		font-size: 26px
-		text-align: center
-		content: '\e036'
-		opacity: 0
-		z-index: 5
-
-	> a[data-type='video']::after 
-		left: 50%
-		width: 46px
-		height: 46px
-		margin-top: -22px
-		margin-left: -22px
-		padding-left: 5px
-		//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-		transform: none
-		//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
-		border-radius: 50%
-		background-color: $white
-		color: $color_shuttle_gray_approx
-		font-size: 27px
-		line-height: 42px
-		//If you use compass, instead of the line below you could use + box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-		box-shadow: 0 4px 15px 0 $black_25
-		content: '\e052'
-		opacity: 1
-
-	.caption 
-		display: none
-
-
-.pswp__zoom-wrap 
-	text-align: center
-
-.pswp__zoom-wrap::before 
-	content: ''
-	display: inline-block
-	height: 100%
-	vertical-align: middle
-
-.wrapper 
-	line-height: 0
-	width: 100%
-	max-width: 900px
-	position: relative
-	display: inline-block
-	vertical-align: middle
-	margin: 0 auto
-	text-align: left
-	z-index: 1045
-
-.video-wrapper 
-	position: relative
-	padding-bottom: 56.25%
-	padding-top: 25px
-	height: 0
-	width: 100%
-	iframe 
-		position: absolute
-		top: 0
-		left: 0
-		width: 100%
-		height: 100%
-
-
-video 
-	width: 100% !important
-	height: auto !important
-
-.pswp__caption__center 
-	padding: 20px 10px
-	font-size: 14px
-	font-weight: 500
-	text-align: center
-
-.countdown 
-	display: inline-block
-	.item 
-		display: block
-		margin: 7px
-		float: left
-		text-align: center
-		.days 
-			width: 48px
-			height: 48px
-			margin-bottom: 5px
-			border: 1px solid $color_mystic_approx
-			//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
-			border-radius: 7px
-			font-size: 22px
-			line-height: 46px
-
-		.hours 
-			width: 48px
-			height: 48px
-			margin-bottom: 5px
-			border: 1px solid $color_mystic_approx
-			//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
-			border-radius: 7px
-			font-size: 22px
-			line-height: 46px
-
-		.minutes 
-			width: 48px
-			height: 48px
-			margin-bottom: 5px
-			border: 1px solid $color_mystic_approx
-			//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
-			border-radius: 7px
-			font-size: 22px
-			line-height: 46px
-
-		.seconds 
-			width: 48px
-			height: 48px
-			margin-bottom: 5px
-			border: 1px solid $color_mystic_approx
-			//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
-			border-radius: 7px
-			font-size: 22px
-			line-height: 46px
-
-		.days_ref 
-			font-size: 12px
-			text-transform: uppercase
-
-		.hours_ref 
-			font-size: 12px
-			text-transform: uppercase
-
-		.minutes_ref 
-			font-size: 12px
-			text-transform: uppercase
-
-		.seconds_ref 
-			font-size: 12px
-			text-transform: uppercase
-
-
-	&.countdown-inverse .item 
-		.days 
-			border-color: $white_12
-			color: $white
-
-		.hours 
-			border-color: $white_12
-			color: $white
-
-		.minutes 
-			border-color: $white_12
-			color: $white
-
-		.seconds 
-			border-color: $white_12
-			color: $white
-
-		.days_ref 
-			color: $white_80
-
-		.hours_ref 
-			color: $white_80
-
-		.minutes_ref 
-			color: $white_80
-
-		.seconds_ref 
-			color: $white_80
-
-
-
-.countdown::after 
-	display: block
-	clear: both
-	content: ''
-
-.sidebar 
-	width: 100%
-	max-width: 400px
-
-.widget-title 
-	margin-bottom: 20px
-	padding-bottom: 12px
-	border-bottom: 1px solid $color_mystic_approx
-	color: $color_gull_gray_approx
-	font-size: 14px
-	font-weight: 500
-	text-transform: uppercase
+// .owl-carousel 
+// 	position: relative
+// 	.owl-stage 
+// 		position: relative
+
+// 	// .owl-stage::after 
+// 	// 	display: block
+// 	// 	height: 0
+// 	// 	clear: both
+// 	// 	line-height: 0
+// 	// 	content: '.'
+// 	// 	visibility: hidden
+
+// 	.owl-stage-outer 
+// 		position: relative
+// 		//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 		transform: translate3d(0, 0, 0)
+// 		overflow: hidden
+
+// 	.owl-wrapper 
+// 		//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 		transform: translate3d(0, 0, 0)
+// 		//If you use compass, instead of the line below you could use + backface-visibility($visibility)
+// 		backface-visibility: hidden
+
+// 	.owl-item 
+// 		//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 		transform: translate3d(0, 0, 0)
+// 		//If you use compass, instead of the line below you could use + backface-visibility($visibility)
+// 		backface-visibility: hidden
+// 		position: relative
+// 		min-height: 1px
+// 		float: left
+// 		//If you use compass, instead of the line below you could use + backface-visibility($visibility)
+// 		backface-visibility: hidden
+// 		.owl-lazy 
+// 			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 			transition: opacity 400ms ease
+// 			opacity: 0
+
+// 		.from-top 
+// 			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 			transition: all .45s .3s ease-in-out
+// 			opacity: 0
+// 			//If you use compass, instead of the line below you could use + backface-visibility($visibility)
+// 			backface-visibility: hidden
+// 			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 			transform: translateY(-45px)
+
+// 		.from-bottom 
+// 			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 			transition: all .45s .3s ease-in-out
+// 			opacity: 0
+// 			//If you use compass, instead of the line below you could use + backface-visibility($visibility)
+// 			backface-visibility: hidden
+// 			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 			transform: translateY(45px)
+
+// 		.from-left 
+// 			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 			transition: all .45s .3s ease-in-out
+// 			opacity: 0
+// 			//If you use compass, instead of the line below you could use + backface-visibility($visibility)
+// 			backface-visibility: hidden
+// 			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 			transform: translateX(-45px)
+
+// 		.from-right 
+// 			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 			transition: all .45s .3s ease-in-out
+// 			opacity: 0
+// 			//If you use compass, instead of the line below you could use + backface-visibility($visibility)
+// 			backface-visibility: hidden
+// 			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 			transform: translateX(45px)
+
+// 		.scale-up 
+// 			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 			transition: all .45s .3s ease-in-out
+// 			opacity: 0
+// 			//If you use compass, instead of the line below you could use + backface-visibility($visibility)
+// 			backface-visibility: hidden
+// 			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 			transform: scale(0.8)
+
+// 		.scale-down 
+// 			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 			transition: all .45s .3s ease-in-out
+// 			opacity: 0
+// 			//If you use compass, instead of the line below you could use + backface-visibility($visibility)
+// 			backface-visibility: hidden
+// 			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 			transform: scale(1.2)
+
+// 		.delay-1 
+// 			//If you use compass, instead of the line below you could use + transition-delay($delay-1, $delay-2, $delay-3, $delay-4, $delay-5, $delay-6, $delay-7, $delay-8, $delay-9, $delay-10)
+// 			transition-delay: .5s
+
+// 		.delay-2 
+// 			//If you use compass, instead of the line below you could use + transition-delay($delay-1, $delay-2, $delay-3, $delay-4, $delay-5, $delay-6, $delay-7, $delay-8, $delay-9, $delay-10)
+// 			transition-delay: .7s
+
+// 		.delay-3 
+// 			//If you use compass, instead of the line below you could use + transition-delay($delay-1, $delay-2, $delay-3, $delay-4, $delay-5, $delay-6, $delay-7, $delay-8, $delay-9, $delay-10)
+// 			transition-delay: .9s
+
+// 		.delay-4 
+// 			//If you use compass, instead of the line below you could use + transition-delay($delay-1, $delay-2, $delay-3, $delay-4, $delay-5, $delay-6, $delay-7, $delay-8, $delay-9, $delay-10)
+// 			transition-delay: 1.1s
+
+// 		&.active 
+// 			.from-top 
+// 				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 				transform: translateY(0)
+// 				opacity: 1
+
+// 			.from-bottom 
+// 				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 				transform: translateY(0)
+// 				opacity: 1
+
+// 			.from-left 
+// 				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 				transform: translateX(0)
+// 				opacity: 1
+
+// 			.from-right 
+// 				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 				transform: translateX(0)
+// 				opacity: 1
+
+// 			.scale-up 
+// 				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 				transform: scale(1)
+// 				opacity: 1
+
+// 			.scale-down 
+// 				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 				transform: scale(1)
+// 				opacity: 1
+
+
+// 		> img 
+// 			display: block
+// 			width: 100%
+// 			&.owl-lazy 
+// 				//If you use compass, instead of the line below you could use + transform-style($style)
+// 				transform-style: preserve-3d
+
+
+
+// 	.owl-nav 
+// 		&.disabled 
+// 			display: none
+
+// 		.owl-prev 
+// 			cursor: pointer
+// 			cursor: hand
+// 			//If you use compass, instead of the line below you could use + user-select($select)
+// 			user-select: none
+
+// 		.owl-next 
+// 			cursor: pointer
+// 			cursor: hand
+// 			//If you use compass, instead of the line below you could use + user-select($select)
+// 			user-select: none
+
+
+// 	.owl-dots 
+// 		display: block
+// 		width: 100%
+// 		margin-top: 18px
+// 		text-align: center
+// 		&.disabled 
+// 			display: none
+
+// 		.owl-dot 
+// 			display: inline-block
+// 			width: 6px
+// 			height: 6px
+// 			margin: 0 6px
+// 			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 			transition: opacity .25s
+// 			//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
+// 			border-radius: 50%
+// 			background-color: $color_shuttle_gray_approx
+// 			opacity: .3
+// 			&.active 
+// 				opacity: .9
+
+
+
+// 	.owl-dot 
+// 		cursor: pointer
+// 		cursor: hand
+// 		//If you use compass, instead of the line below you could use + user-select($select)
+// 		user-select: none
+
+// 	&.owl-loaded 
+// 		display: block
+
+// 	&.owl-loading 
+// 		display: block
+// 		opacity: 0
+
+// 	&.owl-hidden 
+// 		opacity: 0
+
+// 	&.owl-grab 
+// 		cursor: move
+// 		cursor: grab
+
+// 	&.owl-rtl 
+// 		direction: rtl
+// 		.owl-item 
+// 			float: right
+
+
+// 	.animated 
+// 		animation-duration: 1000ms
+// 		animation-fill-mode: both
+
+// 	.owl-animated-in 
+// 		z-index: 0
+
+// 	.owl-animated-out 
+// 		z-index: 1
+
+// 	.fadeOut 
+// 		animation-name: fadeOut
+
+// 	.owl-prev 
+// 		display: block
+// 		position: absolute
+// 		top: 50%
+// 		width: 44px
+// 		height: 44px
+// 		margin-top: -42px
+// 		//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 		transition: opacity .3s
+// 		border: 1px solid $color_mystic_approx
+// 		//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
+// 		border-radius: 50%
+// 		background-color: $white
+// 		color: $color_bright_gray_approx
+// 		line-height: 40px
+// 		text-align: center
+// 		opacity: .7
+// 		left: 20px
+// 		&:hover 
+// 			opacity: 1
+
+
+// 	.owl-next 
+// 		display: block
+// 		position: absolute
+// 		top: 50%
+// 		width: 44px
+// 		height: 44px
+// 		margin-top: -42px
+// 		//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 		transition: opacity .3s
+// 		border: 1px solid $color_mystic_approx
+// 		//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
+// 		border-radius: 50%
+// 		background-color: $white
+// 		color: $color_bright_gray_approx
+// 		line-height: 40px
+// 		text-align: center
+// 		opacity: .7
+// 		right: 20px
+// 		&:hover 
+// 			opacity: 1
+
+
+// 	.owl-prev::before 
+// 		font-family: $font_4
+// 		font-size: 25px
+// 		content: '\f115'
+// 		content: '\e094'
+
+// 	.owl-next::before 
+// 		font-family: $font_4
+// 		font-size: 25px
+// 		content: '\f115'
+// 		content: '\e095'
+
+// 	&.large-controls 
+// 		.owl-prev 
+// 			width: 54px
+// 			height: 54px
+// 			margin-top: -47px
+// 			line-height: 50px
+// 			left: 30px
+
+// 		.owl-next 
+// 			width: 54px
+// 			height: 54px
+// 			margin-top: -47px
+// 			line-height: 50px
+// 			right: 30px
+
+
+// 	&.dots-inside 
+// 		.owl-dots 
+// 			position: absolute
+// 			bottom: 0
+// 			margin: 0
+// 			padding-bottom: 24px
+// 			.owl-dot 
+// 				background-color: $white
+// 				opacity: .5
+// 				&.active 
+// 					opacity: 1
+
+
+
+// 		.owl-prev 
+// 			margin-top: -22px
+
+// 		.owl-next 
+// 			margin-top: -22px
+
+// 		&.large-controls 
+// 			.owl-prev 
+// 				margin-top: -27px
+
+// 			.owl-next 
+// 				margin-top: -27px
+
+
+
+// 	.widget 
+// 		margin-bottom: 0
+// 		&.widget-featured-posts > .entry 
+// 			margin-bottom: 0
+
+
+// 	.gallery-item 
+// 		margin-bottom: 0
+
+// 	&.owl-refresh .owl-item 
+// 		visibility: hidden
+
+// 	&.owl-drag .owl-item 
+// 		//If you use compass, instead of the line below you could use + user-select($select)
+// 		user-select: none
+
+
+// @keyframes fadeOut 
+// 	0% 
+// 		opacity: 1
+
+// 	100% 
+// 		opacity: 0
+
+
+// .owl-height 
+// 	//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 	transition: height 500ms ease-in-out
+
+// .hero-slider 
+// 	width: 100%
+// 	min-height: 580px
+// 	background-position: center
+// 	background-color: $color_wild_sand_approx
+// 	background-repeat: no-repeat
+// 	background-size: cover
+// 	overflow: hidden
+// 	> .owl-carousel 
+// 		min-height: 580px
+// 		.owl-prev 
+// 			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 			transition: all .35s ease-in-out
+// 			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 			transform: translateX(-150px)
+
+// 		.owl-next 
+// 			//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 			transition: all .35s ease-in-out
+// 			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 			transform: translateX(150px)
+
+// 		&:hover 
+// 			.owl-prev 
+// 				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 				transform: translateX(0)
+
+// 			.owl-next 
+// 				//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 				transform: translateX(0)
+
+
+// 		&.dots-inside .owl-dots 
+// 			display: inline-block
+// 			left: 50%
+// 			width: auto
+// 			//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 			transform: translateX(-50%)
+// 			padding: 10px 22px 14px
+// 			//If you use compass, instead of the line below you could use + border-top-left-radius($radius)
+// 			border-top-left-radius: 7px
+// 			//If you use compass, instead of the line below you could use + border-top-right-radius($radius)
+// 			border-top-right-radius: 7px
+// 			background-color: $color_shuttle_gray_approx
+
+
+
+// @media(max-width: 991px) 
+// 	.hero-slider > .owl-carousel 
+// 		.owl-prev 
+// 			display: none
+
+// 		.owl-next 
+// 			display: none
+
+
+
+// @media(max-width: 1100px) 
+// 	.hero-slider 
+// 		min-height: 430px
+// 		> .owl-carousel 
+// 			min-height: 430px
+
+
+
+// .gallery-item 
+// 	margin-bottom: 30px
+// 	> a 
+// 		display: block
+// 		position: relative
+// 		width: 100%
+// 		//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
+// 		border-radius: 7px
+// 		overflow: hidden
+// 		> img 
+// 			display: block
+// 			width: 100%
+
+// 		// &:hover::before 
+// 		// 	opacity: .45
+
+// 		// &:hover::after 
+// 		// 	//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 		// 	transform: translateY(0)
+// 		// 	opacity: 1
+
+
+// 	> a::before 
+// 		display: block
+// 		position: absolute
+// 		top: 0
+// 		left: 0
+// 		width: 100%
+// 		height: 100%
+// 		background-color: $black
+// 		content: ''
+// 		opacity: 0
+// 		z-index: 1
+// 		//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 		transition: opacity .3s
+
+// 	> a::after 
+// 		display: block
+// 		position: absolute
+// 		top: 50%
+// 		left: 0
+// 		width: 100%
+// 		margin-top: -19px
+// 		//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 		transform: translateY(15px)
+// 		//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 		transition: all .35s
+// 		color: $white
+// 		font-family: $font_4
+// 		font-size: 26px
+// 		text-align: center
+// 		content: '\e036'
+// 		opacity: 0
+// 		z-index: 5
+
+// 	> a[data-type='video']::after 
+// 		left: 50%
+// 		width: 46px
+// 		height: 46px
+// 		margin-top: -22px
+// 		margin-left: -22px
+// 		padding-left: 5px
+// 		//If you use compass, instead of the line below you could use + transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+// 		transform: none
+// 		//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
+// 		border-radius: 50%
+// 		background-color: $white
+// 		color: $color_shuttle_gray_approx
+// 		font-size: 27px
+// 		line-height: 42px
+// 		//If you use compass, instead of the line below you could use + box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+// 		box-shadow: 0 4px 15px 0 $black_25
+// 		content: '\e052'
+// 		opacity: 1
+
+// 	.caption 
+// 		display: none
+
+
+// .pswp__zoom-wrap 
+// 	text-align: center
+
+// .pswp__zoom-wrap::before 
+// 	content: ''
+// 	display: inline-block
+// 	height: 100%
+// 	vertical-align: middle
+
+// .wrapper 
+// 	line-height: 0
+// 	width: 100%
+// 	max-width: 900px
+// 	position: relative
+// 	display: inline-block
+// 	vertical-align: middle
+// 	margin: 0 auto
+// 	text-align: left
+// 	z-index: 1045
+
+// .video-wrapper 
+// 	position: relative
+// 	padding-bottom: 56.25%
+// 	padding-top: 25px
+// 	height: 0
+// 	width: 100%
+// 	iframe 
+// 		position: absolute
+// 		top: 0
+// 		left: 0
+// 		width: 100%
+// 		height: 100%
+
+
+// video 
+// 	width: 100% !important
+// 	height: auto !important
+
+// .pswp__caption__center 
+// 	padding: 20px 10px
+// 	font-size: 14px
+// 	font-weight: 500
+// 	text-align: center
+
+// .countdown 
+// 	display: inline-block
+// 	.item 
+// 		display: block
+// 		margin: 7px
+// 		float: left
+// 		text-align: center
+// 		.days 
+// 			width: 48px
+// 			height: 48px
+// 			margin-bottom: 5px
+// 			border: 1px solid $color_mystic_approx
+// 			//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
+// 			border-radius: 7px
+// 			font-size: 22px
+// 			line-height: 46px
+
+// 		.hours 
+// 			width: 48px
+// 			height: 48px
+// 			margin-bottom: 5px
+// 			border: 1px solid $color_mystic_approx
+// 			//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
+// 			border-radius: 7px
+// 			font-size: 22px
+// 			line-height: 46px
+
+// 		.minutes 
+// 			width: 48px
+// 			height: 48px
+// 			margin-bottom: 5px
+// 			border: 1px solid $color_mystic_approx
+// 			//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
+// 			border-radius: 7px
+// 			font-size: 22px
+// 			line-height: 46px
+
+// 		.seconds 
+// 			width: 48px
+// 			height: 48px
+// 			margin-bottom: 5px
+// 			border: 1px solid $color_mystic_approx
+// 			//If you use compass, instead of the line below you could use + border-radius($radius, $vertical-radius)
+// 			border-radius: 7px
+// 			font-size: 22px
+// 			line-height: 46px
+
+// 		.days_ref 
+// 			font-size: 12px
+// 			text-transform: uppercase
+
+// 		.hours_ref 
+// 			font-size: 12px
+// 			text-transform: uppercase
+
+// 		.minutes_ref 
+// 			font-size: 12px
+// 			text-transform: uppercase
+
+// 		.seconds_ref 
+// 			font-size: 12px
+// 			text-transform: uppercase
+
+
+// 	&.countdown-inverse .item 
+// 		.days 
+// 			border-color: $white_12
+// 			color: $white
+
+// 		.hours 
+// 			border-color: $white_12
+// 			color: $white
+
+// 		.minutes 
+// 			border-color: $white_12
+// 			color: $white
+
+// 		.seconds 
+// 			border-color: $white_12
+// 			color: $white
+
+// 		.days_ref 
+// 			color: $white_80
+
+// 		.hours_ref 
+// 			color: $white_80
+
+// 		.minutes_ref 
+// 			color: $white_80
+
+// 		.seconds_ref 
+// 			color: $white_80
+
+
+
+// .countdown::after 
+// 	display: block
+// 	clear: both
+// 	content: ''
+
+// .sidebar 
+// 	width: 100%
+// 	max-width: 400px
+
+// .widget-title 
+// 	margin-bottom: 20px
+// 	padding-bottom: 12px
+// 	border-bottom: 1px solid $color_mystic_approx
+// 	color: $color_gull_gray_approx
+// 	font-size: 14px
+// 	font-weight: 500
+// 	text-transform: uppercase
 
 .widget 
 	margin-bottom: 38px
@@ -7602,6 +7599,43 @@ button:focus
 		border-radius: 0
 
 
+
+// OWL CAROUSEL
+
+// Show article section
+
+.owl-nav
+	font-size: 3.5rem !important
+	font-weight: 300 !important	
+
+.owl-theme .owl-nav [class*=owl-]:hover
+	background-color: transparent !important
+	color: #ccc
+	font-size: 4rem
+
+.owl-prev
+	width: 15px
+	height: 100px
+	position: absolute
+	top: 40%
+	margin-left: -20px
+	display: block !important
+	border: 0
+	color: #fff !important
+
+.owl-next
+	width: 15px	
+	height: 100px
+	position: absolute
+	top: 40%
+	right: 3px
+	display: block !important
+	border: 0
+	color: #fff !important
+
+// .owl-prev i, .owl-next i
+// 	transform: scale(1,6); color: #ccc
+
 // .widget-categories ul 
 // 	margin: 0
 // 	padding: 0
@@ -7865,17 +7899,17 @@ button:focus
 
 
 
-.noUi-stacking .noUi-handle 
-	z-index: 10
+// .noUi-stacking .noUi-handle 
+// 	z-index: 10
 
-.noUi-state-tap .noUi-origin 
-	//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
-	transition: left .3s, top .3s
+// .noUi-state-tap .noUi-origin 
+// 	//If you use compass, instead of the line below you could use + transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
+// 	transition: left .3s, top .3s
 
-.noUi-state-drag * 
-	cursor: inherit !important
+// .noUi-state-drag * 
+// 	cursor: inherit !important
 
-.noUi-vertical .noUi-draggable 
+// .noUi-vertical .noUi-draggable 
 	cursor: n-resize
 
 .sp-buttons .btn 
