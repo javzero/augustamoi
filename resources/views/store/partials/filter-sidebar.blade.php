@@ -24,6 +24,16 @@
     
     <div class="filter-item">
         <a class="collapse-icon" onclick="collapseFilter($(this))">-</a>
+        <div class="sub-title">MARCAS</div>
+        <ul class="filter-content">
+            @foreach($brands as $brand)
+                <li><a href="{{ route('store', 'marca=').$brand->id }}">{{ $brand->name }}</li>
+            @endforeach
+        </ul>
+    </div>
+
+    <div class="filter-item">
+        <a class="collapse-icon" onclick="collapseFilter($(this))">-</a>
         <div class="sub-title">CATEGORÍAS</div>
         <ul>
             @foreach($categories as $category)
