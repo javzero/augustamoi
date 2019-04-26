@@ -22,7 +22,7 @@
         </ul>
     </div>
     
-    <div class="filter-item">
+    {{-- <div class="filter-item">
         <a class="collapse-icon" onclick="collapseFilter($(this))">-</a>
         <div class="sub-title">MARCAS</div>
         <ul class="filter-content">
@@ -30,7 +30,7 @@
                 <li><a href="{{ route('store', 'marca=').$brand->id }}">{{ $brand->name }}</li>
             @endforeach
         </ul>
-    </div>
+    </div> --}}
 
     <div class="filter-item">
         <a class="collapse-icon" onclick="collapseFilter($(this))">-</a>
