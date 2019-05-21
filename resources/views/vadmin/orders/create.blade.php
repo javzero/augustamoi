@@ -207,7 +207,7 @@
                     "<input name=item["+ variantId +"][id] value='"+ id +"' type='hidden' />" +
                 "</td>" +
                 "<td>$<input class='SubTotalItemPrice only-display-input' disabled name='subTotalItemPrice' value="+ price +"></td>" +
-                "<td><i onclick='removeRow("+ id +");' class='cursor-pointer fa fa-trash'</td>" +
+                "<td><i onclick='removeRow("+ variantId +");' class='cursor-pointer fa fa-trash'</td>" +
                 "</tr>";
 
         savedVariants.push(variantId);
@@ -244,9 +244,14 @@
     function calcPaymentMethodCost(value)
     {
         let subTotal = $('#Order-SubTotal').html();
+
+        // Display calcs
+        console.log("Calculando costo de envio....");
+        console.log("Subtotal: " + subTotal);
+        console.log("Porcentaje por envio: " + value);
         let paymentCost = Number(subTotal) * Number(value) / 100;
-        console.log("Subtotal is : " + subTotal);
-        console.log("patmentcost is: " + paymentCost);
+        console.log("Total de envío: " + paymentCost);
+        console.info("----------------------------------------");
 
         $('#OrderPaymentCost').html(paymentCost);
     }
@@ -269,12 +274,6 @@
             subTotal += values[i] << 0;
         }
         
-        let shippingCost = $('#OrderShippingCost').html();
-        let paymentCost = $('#OrderPaymentCost').html();
-
-
-        let total = Number(subTotal) + Number(shippingCost) + Number(paymentCost);
-        
         $('#Order-Total-Container').removeClass('Hidden');
         
         // Display Subtotal
@@ -282,25 +281,29 @@
         
         calcPaymentMethodCost(paymentMethodValue);
 
+        let shippingCost = $('#OrderShippingCost').html();
+        let paymentCost = $('#OrderPaymentCost').html();
+        let total = Number(subTotal) + Number(shippingCost) + Number(paymentCost);
         //Display Total
         $('#Order-Total').html(total);
     }
 
     // REMOVE EXISTING ITEM
-    function removeRow(id)
+    function removeRow(variantId)
     {
         // Remove Row
-        $("#OrderItem-"+ id).remove();
+        // $("#OrderItem-"+ id).remove();
         // // Remove Item From Array
         // saveIds = $.grep(saveIds, function(value) {
         //     return value != id;
         // });
 
-        $("#OrderItem-"+ id).remove();
+        $("#OrderItem-"+ variantId).remove();
 
         savedVariants = $.grep(savedVariants, function(value) {
             return value != variantId;
         });
+        calcAndShowTotals();
     }
 
     function resetForm()
