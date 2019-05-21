@@ -220,13 +220,18 @@ class OrdersController extends Controller
 
     public function create(Request $request)
     {
+        
         $shippings = Shipping::orderBy('name', 'ASC')->pluck('name', 'id');
+        $shippingData = Shipping::orderBy('name', 'ASC')->get();
+        $paymentData = Payment::orderBy('name', 'ASC')->get();
         $payment_methods = Payment::orderBy('name', 'ASC')->pluck('name', 'id');
         $sellers = User::pluck('name', 'id');
 
         return view('vadmin.orders.create')
             ->with('sellers', $sellers)
             ->with('shippings', $shippings)
+            ->with('shippingData', $shippingData)
+            ->with('paymentData', $paymentData)
             ->with('payment_methods', $payment_methods);
     }
     

@@ -52,7 +52,6 @@
                                 </div> 
                                 <br>
                                 <div id="FormContent" class="Hidden">
-
                                     <div class="row greyed-row-form">
                                         <div class="col-md-3 form-group">
                                             <label for="">Buscar un producto</label>
@@ -60,13 +59,26 @@
                                                 <input id="SearchArticles" type="text" autocomplete="off" class="form-control" placeholder="Ingrese Nombre o Código">
                                             </div>
                                         </div>
+                                        {{-- {{ dd($shippingData) }} --}}
                                         <div class="col-md-3 form-group">
                                             {!! Form::label('shipping_id', 'Envío') !!}
-                                            {!! Form::select('shipping_id', $shippings, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!}
+                                                <select name="shipping_id" class="form-control ShippingSelected" required="" id="shipping_id" name="shipping_id">
+                                                    <option selected="selected" value="">Seleccione una opcion</option>
+                                                    @foreach($shippingData as $shipping)
+                                                        <option value="{{ $shipping->id }}" price="{{ $shipping->price }}">{{ $shipping->name }} @if($shipping->price != 0) (${{ $shipping->price }}) @endif</option>
+                                                    @endforeach
+                                                </select>
+                                                {{-- {!! Form::select('shipping_id', $shippings, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!} --}}
                                         </div>
                                         <div class="col-md-3 form-group">
                                             {!! Form::label('payment_method_id', 'Forma de Pago') !!}
-                                            {!! Form::select('payment_method_id', $payment_methods, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!}
+                                            <select name="payment_method_id" class="form-control PaymentSelected" required="" id="shipping_id" name="shipping_id">
+                                                <option selected="selected" value="">Seleccione una opcion</option>
+                                                @foreach($paymentData as $payment)
+                                                    <option value="{{ $payment->id }}" price="{{ $payment->percent }}">{{ $payment->name }} @if($payment->percent != 0) (%{{ $payment->percent }}) @endif</option>
+                                                @endforeach
+                                            </select>
+                                            {{-- {!! Form::select('payment_method_id', $payment_methods, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!} --}}
                                         </div>
                                         <div class="col-md-3 form-group">
                                             {!! Form::label('seller', 'Vendedor') !!}
@@ -84,23 +96,47 @@
                                                 <th>Stock</th>
                                                 <th>Precio</th>
                                                 <th>Cantidad</th>
+                                                <th>Subtotales</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody id="Articles-List-Rows">
                                         </tbody>
                                     </table>
+                                    <div class="row">
+                                        <div id="Order-Total-Container" class="Hidden right-item right-data">
+                                                
+                                            <span class="text-small-thin">SubTotal: $</span>  
+                                            <span class="text-data">
+                                                <span id="Order-SubTotal"> </span>
+                                            </span> <br>
+
+                                            <span class="text-small-thin" style="font-size: 1rem">Costo de envío: $</span> 
+                                            <span class="text-data" style="font-size: 1rem" id="OrderShippingCost">0</span> <br>
+                                            
+                                            <span class="text-small-thin" style="font-size: 1rem"> Recargo por forma de pago: $</span> 
+                                            <input type="hidden" name="paymentMethodCost" value="0" id="PaymentMethodPercentInput">      
+                                            <span class="text-data" style="font-size: 1rem" id="OrderPaymentCost">0</span> <br>
+
+                                            <div style="border: 1px solid #d8d8d8; padding: 15px; margin-top: 10px;">
+                                                <span class="text-small-thin">Total: $</span>  
+                                                <span class="text-data">
+                                                    <span id="Order-Total"> </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="Empty-Table">
                                         No se han ingresado artículos
                                     </div>
                                     <div class="form-actions right">
                                         <a href="{{ route('orders.index')}}">
-                                                <button type="button" class="btn btnRed">
+                                            <button type="button" class="btn btnRed">
                                                 <i class="icon-cross2"></i> Cancelar
                                             </button>
                                         </a>
                                         <button type="submit" class="btn btnGreen">
-                                            <i class="icon-check2"></i> Guardar
+                                            <i class="icon-check2"></i> Crear Pedido
                                         </button>
                                     </div>
                                 </div>
@@ -134,58 +170,136 @@
     } 
 
     // Store Id to prevent duplicated items
-    let saveIds = [];
     let savedVariants = [];
 
     function buildItemRow(id, code, name, variant, variantId, color, size, textile, stock, price)
     {   
-        console.log(name);
+        // console.log(name);
         $('#TableList').removeClass('Hidden');
         $('.Empty-Table').addClass('Hidden');
         $('.Articles-List').removeClass('Hidden');
         
         // Prevent duplicated items
-        if ($.inArray(id, saveIds) !== -1 && $.inArray(variant, savedVariants) !== -1)
+        // if ($.inArray(id, saveIds) !== -1 && $.inArray(variant, savedVariants) !== -1)
+        if($.inArray(variantId, savedVariants) !== -1)
         {
             alert_error("", "El producto/variante ya está agregado");
             return;
         }
 
         let name2 = name;
-        let row ="<tr id='OrderItem-"+ id +"'>" +
+        let row ="<tr id='OrderItem-"+ variantId +"'>" +
                 "<td>#"+ code +"</td>" + 
                 "<td>"+ name2 +"</td>" +
                 "<td>"+ variant +"</td>" +
                 "<td>"+ stock +"</td>" +
                 "<td>$"+ price + "</td>" +
-                "<input name=item["+ variantId +"][variant_id] value="+ variantId +" type='hidden' />" +
-                "<input name=item["+ variantId +"][name] value='"+ name2 +"' type='hidden' />" +
-                "<input name=item["+ variantId +"][combination] value="+ variant +" type='hidden' />" +
-                "<input name=item["+ variantId +"][color] value="+ color +" type='hidden' />" +
-                "<input name=item["+ variantId +"][size] value="+ size +" type='hidden' />" +
-                "<input name=item["+ variantId +"][textile] value="+ textile +" type='hidden' />" +
-                "<input name=item["+ variantId +"][final_price] value="+ price +" type='hidden' />" +
+                    "<input name=item["+ variantId +"][variant_id] value="+ variantId +" type='hidden' />" +
+                    "<input name=item["+ variantId +"][name] value='"+ name2 +"' type='hidden' />" +
+                    "<input name=item["+ variantId +"][combination] value="+ variant +" type='hidden' />" +
+                    "<input name=item["+ variantId +"][color] value="+ color +" type='hidden' />" +
+                    "<input name=item["+ variantId +"][size] value="+ size +" type='hidden' />" +
+                    "<input name=item["+ variantId +"][textile] value="+ textile +" type='hidden' />" +
+                    "<input class='Row-Price-Item' name=item["+ variantId +"][final_price] value="+ price +" type='hidden' />" +
                 "</td>" + 
                 "<td>" +
-                "<input name=item["+ variantId +"][quantity] value='1' style='padding-left: 10px; max-width: 50px' type='number' />" +
-                "<input name=item["+ variantId +"][id] value='"+ id +"' type='hidden' />" +
+                    "<input class='ItemQuantityInput' data-rowid='OrderItem-"+ variantId +"'  data-price="+ price +" name=item["+ variantId +"][quantity] value='1' style='padding-left: 10px; max-width: 50px' type='number' />" +
+                    "<input name=item["+ variantId +"][id] value='"+ id +"' type='hidden' />" +
                 "</td>" +
+                "<td>$<input class='SubTotalItemPrice only-display-input' disabled name='subTotalItemPrice' value="+ price +"></td>" +
                 "<td><i onclick='removeRow("+ id +");' class='cursor-pointer fa fa-trash'</td>" +
                 "</tr>";
 
-        saveIds.push(id);
-        savedVariants.push(variant);
+        savedVariants.push(variantId);
         $('#Articles-List-Rows').append(row);
+        calcAndShowTotals();
     }
 
+    // CALC NEW SUBTOTAL PRICE IF USER CHANGE QUANTITY
+    $(document).on('change keyup keydown', '.ItemQuantityInput', function(e) {  
+        let quantity = $(this).val();
+        let price = $(this).data('price');
+        let rowid = $(this).data('rowid');
+        let total = Number(quantity) * Number(price);
 
+        $('#'+ rowid + ' > td > .SubTotalItemPrice').val(total);
+        calcAndShowTotals();
+    });
+
+    // SET SHIPPING PRICE AS SUBTOTAL
+    $(document).on('change', '.ShippingSelected', function() {
+        // let shippingPrice = $(this).data('price');
+        let price = $('option:selected', this).attr('price');
+        $('#OrderShippingCost').html(price);
+        calcAndShowTotals();
+    });
+    
+    $(document).on('change', '.PaymentSelected', function() {
+        // let shippingPrice = $(this).data('price');
+        let value = $('option:selected', this).attr('price');
+        $('#PaymentMethodPercentInput').val(value);
+        calcPaymentMethodCost(value);
+    });
+
+    function calcPaymentMethodCost(value)
+    {
+        let subTotal = $('#Order-SubTotal').html();
+        let paymentCost = Number(subTotal) * Number(value) / 100;
+        console.log("Subtotal is : " + subTotal);
+        console.log("patmentcost is: " + paymentCost);
+
+        $('#OrderPaymentCost').html(paymentCost);
+    }
+
+    
+    // DISPLAY ORDER TOTAL
+    function calcAndShowTotals()
+    {
+        let values = [];
+        $('.SubTotalItemPrice').each(function(){
+            // If multiple data needed
+            // values.push({ name: this.name, price: this.value }); 
+            values.push(this.value); 
+        });
+
+        let paymentMethodValue = $('#PaymentMethodPercentInput').val();
+
+        let subTotal = 0;
+        for (var i = 0; i < values.length; i++) {
+            subTotal += values[i] << 0;
+        }
+        
+        let shippingCost = $('#OrderShippingCost').html();
+        let paymentCost = $('#OrderPaymentCost').html();
+
+
+        let total = Number(subTotal) + Number(shippingCost) + Number(paymentCost);
+        
+        $('#Order-Total-Container').removeClass('Hidden');
+        
+        // Display Subtotal
+        $('#Order-SubTotal').html(subTotal);
+        
+        calcPaymentMethodCost(paymentMethodValue);
+
+        //Display Total
+        $('#Order-Total').html(total);
+    }
+
+    // REMOVE EXISTING ITEM
     function removeRow(id)
     {
         // Remove Row
         $("#OrderItem-"+ id).remove();
-        // Remove Item From Array
-        saveIds = $.grep(saveIds, function(value) {
-            return value != id;
+        // // Remove Item From Array
+        // saveIds = $.grep(saveIds, function(value) {
+        //     return value != id;
+        // });
+
+        $("#OrderItem-"+ id).remove();
+
+        savedVariants = $.grep(savedVariants, function(value) {
+            return value != variantId;
         });
     }
 
@@ -238,8 +352,8 @@
                 }
             },
             select: function(event, ui) {
-                console.log("En search");
-                console.log(ui.item);
+                // console.log("En search");
+                // console.log(ui.item);
                 // id, code, name, variant, variantId, color, size,  stock, price
                 buildItemRow(ui.item.id, ui.item.code, ui.item.name, ui.item.variant, ui.item.variant_id, ui.item.variant_color, ui.item.variant_size,
                 ui.item.textile, ui.item.stock, ui.item.price);
