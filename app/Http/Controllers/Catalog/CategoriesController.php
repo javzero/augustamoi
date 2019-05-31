@@ -73,6 +73,7 @@ class CategoriesController extends Controller
 
     public function update(Request $request, $id)
     {
+        dd($request->all());
         $category = CatalogCategory::find($id);
 
         $this->validate($request,[
@@ -81,7 +82,7 @@ class CategoriesController extends Controller
             'name.required' => 'Debe ingresar un nombre a la categoría',
             'name.unique'   => 'La categoría ya existe'
         ]);
-        
+
         $category->fill($request->all());
         $category->save();
 

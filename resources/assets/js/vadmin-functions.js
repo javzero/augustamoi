@@ -240,6 +240,32 @@ deleteAndReload = function(id, route, bigtext, smalltext) {
 
 }
 
+
+// Remove product from cart
+// -------------------------------------------
+window.removeFromCart = function (route, cartItemId, action, element) {
+    $.ajax({
+        url: route,
+        method: 'POST',
+		dataType: 'JSON',
+        data: { cartItemId: cartItemId, action: action },
+        success: function (data) {
+			console.log(data);
+            if (data.response == 'success') {
+				element.remove();
+            } else {
+				console.log("ERROR");
+			}  
+        },
+        error: function (data) {
+            $('#Error').html(data.responseText);
+            console.log("Error en removeFromCart()");
+            console.log(data);
+            // If an error pops when destroying an item, reload and prevent bad magic
+            // location.reload();
+		}
+    });	
+}
 /*
 |--------------------------------------------------------------------------
 | ALERTS

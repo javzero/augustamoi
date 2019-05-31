@@ -174,6 +174,9 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
     Route::post('updateAvatar', 'UserController@updateAvatar');
     Route::post('updateCustomerAvatar', 'CustomerController@updateCustomerAvatar');
     
+    // Orders
+    Route::post('removeFromOrder', ['as' => 'vadmin.removeFromOrder', 'uses' => 'Store\OrdersController@destroy']);
+
     // Route::post('actualizar-avatar', ['as' => 'vadmin.updateCustomerAvatar', 'uses' => 'CustomerController@updateCustomerAvatar']);
     // Exports
     Route::get('exportViewPdf/{view}/{params}/{model}/{filename}', ['as' => 'vadmin.exportViewPdf', 'uses' => 'invoiceController@exportViewPdf']);
@@ -321,6 +324,7 @@ Route::prefix('vadmin')->middleware('admin')->group(function () {
     Route::post('destroy_shippings', 'Catalog\ShippingsController@destroy');
     Route::post('destroy_payments', 'Catalog\PaymentsController@destroy');
     Route::post('destroy_carts', 'Store\CartsController@destroy');
+    Route::post('destroy_orders', 'Store\CartsController@destroy');
     Route::post('destroy_cartitem', 'Store\CartsController@destroy');
 });
 

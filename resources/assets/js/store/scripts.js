@@ -260,7 +260,6 @@ window.addToCart = function (route, data) {
     });
 }
 
- 
 
 // Remove product from cart
 // -------------------------------------------

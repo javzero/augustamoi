@@ -10,6 +10,7 @@
         var id    = $('#EditId').val();
         var model = $('#ModelName').val();
         var route = "{{ url('vadmin') }}/"+model+"/"+id+"/edit";
+        // console.log(route);
         location.replace(route);
     });
 
