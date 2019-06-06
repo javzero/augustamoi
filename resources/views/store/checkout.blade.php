@@ -151,7 +151,12 @@
 						</tbody>
 					</table>
 				</div>
+					<div style="text-align: right"  class="row">
+					</div>
 					<div class="text-right hide-768">
+						<p><b>No olvides chequear bien tu pedido antes de continuar.</b> <br>
+						 Una vez que lo cierres no podremos modificar ni agregar productos
+						</p>
 						<button type="button" class="UpdateDataBtn btn main-btn">Actualizar <i class="fas fa-sync-alt"></i></button>
 						<button type="button" class="SubmitDataBtn btn main-btn">Continuar <i class="fa fa-arrow-right"></i></button>
 					</div>
