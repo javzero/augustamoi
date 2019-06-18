@@ -15,10 +15,13 @@
         <a class="collapse-icon" onclick="collapseFilter($(this))">-</a>
         <div class="sub-title">ORDENAR POR</div>
         <ul class="filter-content">
-            <li><a href="{{ route('store', ['precio' => 'menor']) }}"><i class="fas fa-sort-amount-down"></i> Menor precio</a></li>
-            <li><a href="{{ route('store', ['precio' => 'mayor']) }}"><i class="fas fa-sort-amount-up"></i> Mayor precio</a></li>
+            <li><a href="{{ route('store', ['precio' => 'menor', http_build_query(removeParam($_GET, 'precio'))]) }}"><i class="fas fa-sort-amount-down"></i> Menor precio</a></li>
+            <li><a href="{{ route('store', ['precio' => 'mayor', http_build_query(removeParam($_GET, 'precio'))]) }}"><i class="fas fa-sort-amount-up"></i> Mayor precio</a></li>
             <li><a href="{{ route('store', ['filtrar' => 'descuentos']) }}"><i class="fas fa-percentage"></i> Con Descuento</a></li>
-            <li><a href="{{ route('store', ['filtrar' => 'populares']) }}"><i class="fas fa-fire"></i> Populares</a></li>
+            <li><a href="{{ route('store', ['filtrar' => 'populares']) }}"><i class="fas fa-heart"></i> Populares</a></li>
+            <li><a href="{{ route('store', ['filtrar' => 'nuevos']) }}"><i class="fas fa-fire"></i> Nuevos Ingresos</a></li> 
+            {{-- {{-- <li><a href="{{ route('store.search.tag', 'Edición Limitada') }}">Edición Limitada</a></li> -- }} --}}
+
         </ul>
     </div>
     

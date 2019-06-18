@@ -156,7 +156,7 @@
 							@endslot
 							@slot('tableContent')
 								<tr>
-									<td class="w-200">No se han encontrado items</td>
+									<td class="w-200">No se han encontrado artículos</td>
 								</tr>
 							@endslot
 						@endif

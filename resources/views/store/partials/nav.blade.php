@@ -15,11 +15,15 @@
 </header>
 <div class="under-nav-container">
 	@if(!Auth::guard('customer')->check())
-	<div class="login-register-btn-mobile">
-		<a href="{{ route('customer.login') }}"><button class="btn btn-primary btn-main-sm-hollow">Ingresar</button></a>
-		<a href="{{ url('tienda/registro') }}"><button class="btn btn-primary btn-main-sm">Registrarse</button></a>
-	</div>
+		<div class="login-register-btn-mobile">
+			<a href="{{ route('customer.login') }}"><button class="btn btn-primary btn-main-sm-hollow">Ingresar</button></a>
+			<a href="{{ url('tienda/registro') }}"><button class="btn btn-primary btn-main-sm">Registrarse</button></a>
+		</div>
 	@endif
+	<ul class="under-nave-items">
+		<li><a href="{{ url('como-comprar') }}"><i class="far fa-question-circle"></i> Cómo comprar?</a></li>
+	</ul>
+	
 	{{-- <div class="text-links"> --}}
 		{{-- {{-- @if(Auth::guard('customer')->check() && Auth::guard('customer')->user()->group == '3' ) --}}
 		{{-- <a href="{{ url('politica-de-exclusividad') }}">Política de Exclusividad</a> --}}

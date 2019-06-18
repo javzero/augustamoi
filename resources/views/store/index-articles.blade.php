@@ -1,3 +1,4 @@
+
 <div class="row articles-container">
     @if($articles->count() == '0')
     <div class="no-articles">
@@ -16,6 +17,15 @@
                 @endif
                 {{-- =============== Image ================ --}}
                 <div class="image">
+                    
+                    @php($difference = now()->diff($article->created_at)->days) {{-- Check if article has less than 10 days.--}}
+                    @if($difference < 10)
+                        <div class="overlay-ribbon bottom-right-ribbon">
+                            <div class="triangle"></div>
+                            <div class="text">NUEVO! </div>
+                        </div>
+                    @endif
+                   
                     <img src="{{ asset($article->featuredImageName()) }}" alt="Producto del Catálogo">
                     @if(Auth::guard('customer')->check())
                     {{--  Check if product is in favs  --}}

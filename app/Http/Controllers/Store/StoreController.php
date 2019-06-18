@@ -33,7 +33,6 @@ use PDF;
 
 class StoreController extends Controller
 {
-
     use CartTrait;
     
     protected $settings;
@@ -70,12 +69,21 @@ class StoreController extends Controller
         {
             if($request->filtrar == 'populares')
             {  
-                $articles = CatalogArticle::has('hasFavs')->paginate($pagination);
+                $articles = CatalogArticle::has('hasFavs')->orderBy($orderBy, $order)->paginate($pagination);
             } 
+            else if($request->filtrar == 'nuevos')
+            {
+                $articles = CatalogArticle::where('created_at', '>', Carbon::now()->subDays(10))->active()->orderBy($orderBy, $order)->paginate($pagination);
+                if($articles->count() < 1)
+                {
+                    $articles = CatalogArticle::orderBy('created_at', 'DESC')->active()->orderBy($orderBy, $order)->paginate($pagination);
+                }
+
+            }
             else if($request->filtrar == 'descuentos')
             {
                 // $articles = CatalogArticle::orderBy('reseller_discount', 'DESC')->active()->paginate($pagination);
-                $articles = CatalogArticle::where('reseller_discount', '>', '0')->active()->paginate($pagination);
+                $articles = CatalogArticle::where('reseller_discount', '>', '0')->active()->orderBy($orderBy, $order)->paginate($pagination);
             }
         }
         else if(isset($request->categoria))
