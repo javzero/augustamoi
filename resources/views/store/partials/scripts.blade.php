@@ -89,8 +89,4 @@
         $('#ConfirmChange').removeClass('Hidden');
     });
     
-    $('.CheckImg').on('error', function(){
-        var defaultImg = "{{ asset('images/users/default.jpg') }}"
-        $(this).attr('src', defaultImg);
-    });		
 </script>

@@ -165,8 +165,8 @@
 			{{--  Pagination  --}}
 			<div class="inline-links">
 				<b>Resultados por página:</b>
-				<a href="{{ route('catalogo.index', ['orden' => 'ASC', 'results' => '50']) }}">50</a>
-				<a href="{{ route('catalogo.index', ['orden' => 'ASC', 'results' => '100']) }}">100</a>
+				<a href="{{ route('catalogo.index', ['orden' => 'ASC', 'results' => '50', http_build_query($_GET)]) }}">50</a>
+				<a href="{{ route('catalogo.index', ['orden' => 'ASC', 'results' => '100', http_build_query($_GET)]) }}">100</a>
 			</div>
 			{!! $articles->appends(request()->query())->render() !!}
 		</div>

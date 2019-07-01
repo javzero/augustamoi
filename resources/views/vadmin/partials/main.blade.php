@@ -107,13 +107,6 @@
 			document.getElementById('LoadingText').innerHTML = "." + dots;
 		}, 1000);
 		
-		// Check If Img Is Broken and replace with default img 
-		// Add ".CheckImg" ass Class in any Img to add this function
-		// $('.CheckImg').on('error', function(){
-		// 	var defaultImg = "{{ asset('images/users/default.jpg') }}"
-		// 	$(this).attr('src', defaultImg);
-		// });
-
 		$('.BtnLoader').click(function(){
 			let loadertext = $(this).data('loadertext');
 			let svg  = "<img src='{{ asset('images/gral/loader-sm.svg') }}'>";
