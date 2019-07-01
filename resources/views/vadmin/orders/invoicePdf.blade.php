@@ -14,9 +14,10 @@
                     <b>Nombre y Apellido:</b> {{ $order->customer->name }} {{ $order->customer->surname }}
                     <b>Usuario:</b> {{ $order->customer->username }} <br>
                     <b>Dirección: </b> @if($order->customer->address){{ $order->customer->address }} @endif
-                     | @if($order->customer->geoprov->name) {{ $order->customer->geoprov->name }} 
+                     | @if($order->customer->geoprov)
+                        {{ $order->customer->geoprov->name }} 
                      | @endif
-                    @if($order->customer->geoloc->name)
+                    @if($order->customer->geoloc)
                         {{ $order->customer->geoloc->name }} <br>
                     @endif
                     <b>Teléfonos: </b> {{ $order->customer->phone }} @if($order->customer->phone2) | {{ $order->customer->phone2 }} @endif<br>
