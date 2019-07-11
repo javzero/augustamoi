@@ -6,7 +6,6 @@
     </div>
     @endif
     @foreach($articles as $article)
-        {{ $article->created_at }}
         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 article">
             <div class="inner">
                 {{-- =========== Discount Badge =========== --}}
