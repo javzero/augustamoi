@@ -7,8 +7,13 @@
     @endslot
 
 #<center>Hemos recibido tu compra</center>
-###<center> Nos pondremos en contacto a la brevedad</center>
 
+###<center> Tu pedido tiene un tiempo de elaboración de entre <b>4 y 7 días corridos</b> desde este momento. <br>
+    Te contactaremos para que realices el pago y coordinar juntos detalles del despacho. <br> 
+    Cualquier duda te dejamos nuestro <b> WhatsApp 1133212292</b>
+</center>
+
+###<center> Nos pondremos en contacto a la brevedad
 #<center> Muchas gracias !</center>
 
     @slot('subcopy')
