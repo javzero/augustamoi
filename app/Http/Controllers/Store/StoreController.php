@@ -63,7 +63,7 @@ class StoreController extends Controller
         {   
             $tags = CatalogTag::with(['articles' => function($query) { $query->where('status', '=', '1'); }])->get();
             $categories = CatalogCategory::with(['articles' => function($query) { $query->where('status','=', '1'); }])->get();
-            $articles = CatalogArticle::search($request->buscar, $categories, $tags)->active()->paginate($pagination);
+            $articles = CatalogArticle::search($request->buscar, $categories, $tags)->orderBy('created_at', 'ASC')->active()->paginate($pagination);
         } 
         else if(isset($request->filtrar))
         {
