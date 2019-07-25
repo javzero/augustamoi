@@ -411,6 +411,10 @@
 				<span class="tag tag-primary tag-pill float-xs-right mr-2"><span class="MessagesAmmount">{{ $newMessages->count() }}</span></span>
 			@endif
 		</a></li> --}}
+		{{-- STATISTICS --}}
+		{{-- <li class="{{ Menu::activeMenu('estadisticas') }}"><a href="{{ route('vadmin.stats') }}" class="menu-item">
+			<i class="fas fa-sliders-h"></i> Estadísticas 
+		</a></li> --}}
 		{{-- SETTINGS --}}
 		<li class="{{ Menu::activeMenu('configuracion') }}"><a href="{{ route('vadmin.settings') }}" class="menu-item">
 			<i class="fas fa-sliders-h"></i> Configuracion 

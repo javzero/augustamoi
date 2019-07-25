@@ -219,9 +219,9 @@ class VadminController extends Controller
 
         try {  
             
-            Mail::to(APP_EMAIL_1)->send(new SendMail($subject, $content));
+            //Mail::to(APP_EMAIL_1)->send(new SendMail($subject, $content));
+            //return redirect('vadmin')->with('message','Mail Enviado');
 
-            return redirect('vadmin')->with('message','Mail Enviado');
         } catch (\Exception $e) {
             dd($e);
             return back()->with('error', 'Ha ocurrido un error '. $e);
