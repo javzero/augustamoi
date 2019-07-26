@@ -43,20 +43,33 @@ class StatsController extends Controller
     public function totalSales()
     {
         $carts = Cart::where('status', 'Finished')->get();
-
-
-        $totalAmount = [];
-        $totalItems = [];
         $data = [];
+        $message = [];
         foreach ($carts as $cart) {
-            foreach($cart->items as $item)
+            foreach ($cart->items as $item)
             {
+                $m = 'CartId: '.$cart->id.': Quantity '. $item->quantity . ' - '.
+                 'Amount: ' . ($item->final_price * $item->quantity);
+                
+                if(!isset($message[$cart->id]))
+                {
+                    $message[$cart->id]['items'] = $item->quantity;
+                    $message[$cart->id]['amount'] = ($item->final_price * $item->quantity);
+                    $message[$cart->id]['date'] = $cart->created_at->toDateString();
+                }
+                else
+                {
+                    $message[$cart->id]['items'] += $item->quantity;
+                    $message[$cart->id]['amount'] += ($item->final_price * $item->quantity);
+                    $message[$cart->id]['date'] = $cart->created_at->toDateString();
+                }
+
                 $itemDate = $cart->created_at->format('m').'/'.$cart->created_at->format('y');
                 
                 if(!isset($data[$itemDate]))
                 {
-                    $data[$itemDate]['amount'] = 0;
-                    $data[$itemDate]['items'] = 0;
+                    $data[$itemDate]['amount'] = ($item->final_price * $item->quantity);
+                    $data[$itemDate]['items'] = $item->quantity;
                 }
                 else   
                 {
@@ -74,8 +87,13 @@ class StatsController extends Controller
            
             }
         }
-        dd($data);
+        $all = [];
+        $all['1'] = $message;
+        $all['2'] = $data;
+        dd($all);
 
+        dd($message);
+        dd($data);
 
         // return array(['amount' => $totalAmount, 'items' => $totalItems]);
     }
