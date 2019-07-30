@@ -138,9 +138,10 @@
                                         </thead>
                                         <tbody id="Articles-List-Rows">
                                             @if($existingOrder)
-                                                @foreach($existingOrder->items as $item)
+                                                @foreach($existingOrder->items->sortBy('article_name') as $item)
+                                                    @if($item->variant)
                                                     <tr id="OrderItem-{{ $item->variant->id }}">
-                                                        <td>#{{ $item->article->code }}</td>
+                                                        <td>#{{ $item->article->code }} | Variant {{ $item->variant->id }}</td>
                                                         <td>{{ $item->article->name }}</td>
                                                         <td>{{ $item->combination }}</td>
                                                         <td>{{ $item->article->stock }}</td>
@@ -166,6 +167,11 @@
                                                         {{-- Delete Item --}}
                                                         <td><i onclick="removeExistingItem({{ $item->id }}, {{ $item->variant->id}}, 'noreload');" class="cursor-pointer fa fa-trash"></td>
                                                     </tr>
+                                                    @else
+                                                    <tr>
+                                                        <td>Variante Discontinuada</td>
+                                                    </tr>
+                                                    @endif
                                                 @endforeach
                                             @endif
 

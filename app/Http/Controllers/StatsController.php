@@ -48,37 +48,57 @@ class StatsController extends Controller
         foreach ($carts as $cart) {
             foreach ($cart->items as $item)
             {
-                $m = 'CartId: '.$cart->id.': Quantity '. $item->quantity . ' - '.
-                 'Amount: ' . ($item->final_price * $item->quantity);
+                // $m = 'CartId: '.$cart->id.': Quantity '. $item->quantity . ' - '.
+                //  'Amount: ' . ($item->final_price * $item->quantity);
+                 
+                $itemBrand = $item->article->brand->name;
+                if(!$itemBrand)
+                    $itemBrand = 'Sin Marca';
+                if(!isset($data[$cart->created_at->toDateString()]))
+                    $data[$cart->created_at->toDateString()] = [];
                 
-                if(!isset($message[$cart->id]))
+                if(!isset($data[$cart->created_at->toDateString()][$itemBrand]))
                 {
-                    $message[$cart->id]['items'] = $item->quantity;
-                    $message[$cart->id]['amount'] = ($item->final_price * $item->quantity);
-                    $message[$cart->id]['date'] = $cart->created_at->toDateString();
+                    $data[$cart->created_at->toDateString()][$itemBrand]['items'] = $item->quantity;
+                    $data[$cart->created_at->toDateString()][$itemBrand]['amount'] = ($item->final_price * $item->quantity);
                 }
                 else
                 {
-                    $message[$cart->id]['items'] += $item->quantity;
-                    $message[$cart->id]['amount'] += ($item->final_price * $item->quantity);
-                    $message[$cart->id]['date'] = $cart->created_at->toDateString();
+                    $data[$cart->created_at->toDateString()][$itemBrand]['items'] += $item->quantity;
+                    $data[$cart->created_at->toDateString()][$itemBrand]['amount'] += ($item->final_price * $item->quantity);
                 }
 
-                $itemDate = $cart->created_at->format('m').'/'.$cart->created_at->format('y');
+                // if(!isset($message[$cart->id]))
+                // {
+                //     $message[$cart->id]['items'] = $item->quantity;
+                //     $message[$cart->id]['amount'] = ($item->final_price * $item->quantity);
+                //     $message[$cart->id]['date'] = $cart->created_at->toDateString();
+                //     $message[$cart->id]['brand'] = $itemBrand;
+                // }
+                // else
+                // {
+                //     $message[$cart->id]['items'] += $item->quantity;
+                //     $message[$cart->id]['amount'] += ($item->final_price * $item->quantity);
+                //     $message[$cart->id]['date'] = $cart->created_at->toDateString();
+                //     $message[$cart->id]['brand'] = $itemBrand;
+                // }
                 
-                if(!isset($data[$itemDate]))
-                {
-                    $data[$itemDate]['amount'] = ($item->final_price * $item->quantity);
-                    $data[$itemDate]['items'] = $item->quantity;
-                }
-                else   
-                {
-                    $data[$itemDate]['amount'] += ($item->final_price * $item->quantity);
-                    $data[$itemDate]['items'] += $item->quantity;
-                }
+
+                // $itemDate = $cart->created_at->format('m').'/'.$cart->created_at->format('y');
                 
-                $newAmount = ($item->final_price * $item->quantity);
-                $newItem = $item->quantity;
+                // if(!isset($data[$itemDate]))
+                // {
+                //     $data[$itemDate][$itemBrand]['amount'] = ($item->final_price * $item->quantity);
+                //     $data[$itemDate][$itemBrand]['items'] = $item->quantity;
+                // }
+                // else   
+                // {
+                //     $data[$itemDate][$itemBrand]['amount'] += ($item->final_price * $item->quantity);
+                //     $data[$itemDate][$itemBrand]['items'] += $item->quantity;
+                // }
+                
+                //$newAmount = ($item->final_price * $item->quantity);
+                //$newItem = $item->quantity;
            
                 
                 // dd('F price '. $item->final_price. ' x Quant' .  $item->quantity . ' = ' . $price);
@@ -92,8 +112,8 @@ class StatsController extends Controller
         $all['2'] = $data;
         dd($all);
 
-        dd($message);
-        dd($data);
+        // dd($message);
+        // dd($data);
 
         // return array(['amount' => $totalAmount, 'items' => $totalItems]);
     }

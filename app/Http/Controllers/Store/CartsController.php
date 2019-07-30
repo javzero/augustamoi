@@ -189,7 +189,8 @@ class CartsController extends Controller
                     foreach($cart->items as $item){
                         // Check if original article exists
                         if($item->article != null)
-                            $this->updateVariantStock($item->variant->id, $item->quantity);
+                            if($item->variant)
+                                $this->updateVariantStock($item->variant->id, $item->quantity);
                     }
                 }
                 $cart->delete();

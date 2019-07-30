@@ -167,7 +167,7 @@
 			</div>
 		{{--  Pagination  --}}
 		{!! $items->appends(request()->query())->render()!!}
-		{{-- <div id="Error"></div>	 --}}
+		<div id="Error"></div>	
 	</div>
 @endsection
 
