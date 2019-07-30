@@ -51,9 +51,10 @@ class StatsController extends Controller
                 // $m = 'CartId: '.$cart->id.': Quantity '. $item->quantity . ' - '.
                 //  'Amount: ' . ($item->final_price * $item->quantity);
                  
-                $itemBrand = $item->article->brand->name;
                 if(!$itemBrand)
                     $itemBrand = 'Sin Marca';
+                else
+                    $itemBrand = $item->article->brand->name;
                 if(!isset($data[$cart->created_at->toDateString()]))
                     $data[$cart->created_at->toDateString()] = [];
                 
