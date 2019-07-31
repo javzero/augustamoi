@@ -11,8 +11,8 @@
 		@slot('actions')
 			{{-- Actions --}}
 			<div class="list-actions">
-				<a href="{{ route('cat_brands.create') }}" class="btn btnBlue"><i class="icon-plus-round"></i>  Nueva marca</a>
-				<button id="SearchFiltersBtn" class="btn btnBlue"><i class="icon-ios-search-strong"></i></button>
+				<a href="{{ route('cat_brands.create') }}" class="btn btnMain"><i class="icon-plus-round"></i>  Nueva marca</a>
+				<button id="SearchFiltersBtn" class="btn btnMain"><i class="icon-ios-search-strong"></i></button>
 				{{-- Edit --}}
 				<button class="EditBtn btn btnGreen Hidden"><i class="icon-pencil2"></i> Editar</button>
 				<input id="EditId" type="hidden">
@@ -36,11 +36,18 @@
 
 {{-- CONTENT --}}
 @section('content')
+	<div class="alert alert-danger">
+		<b>ATENCIÓN:</b> <br>
+		No es recomendable eliminar marcas que hayan sido usadas o estén relacionadas a productos existentes activos o finalizados.  <br>
+		Tampoco es recomendable eliminarlas y volver a cargarlas con el mismo nombre. Para el sistema será una marca distinta.
+		<br>Esto puede generar errores en pedidos antiguos o en las estadísticas.
+
+	</div>
 	<div class="list-wrapper">
 		<div class="row">
 			@component('vadmin.components.list')
 				@slot('actions', '')
-				@slot('title', 'marcas')
+				@slot('title', 'Marcas')
 					@if(!$items->count() == '0')
 					@slot('tableTitles')
 						<th></th>

@@ -97,7 +97,7 @@
                             {{-- {{ $item->color }} @if($item->color != '') | @endif 
                             {{ $item->size}} | --}}
                         </td>
-                        <td>{{ $item->article->brand->name }}</td>
+                        <td>@if($item->article->brand) {{ $item->article->brand->name }} @else Sin Marca @endif</td>
                         {{-- Unit Price --}}
                         @if($order['rawdata']->status != 'Active')
                         {{-- FIXED PRICES | ORDER READY --}}

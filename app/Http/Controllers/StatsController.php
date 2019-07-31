@@ -25,6 +25,9 @@ class StatsController extends Controller
         // $this->middleware('auth:user');
     }
 
+    // Esta querie sql me sirvio para checkear el total agrupado por mes de una columna
+    // SELECT MONTH(created_at), SUM(final_price) FROM cart_items GROUP BY YEAR(created_at), MONTH(created_at)
+
     public function index(Request $request)
     {
         // Period is the amount of months to te past
@@ -34,7 +37,7 @@ class StatsController extends Controller
             $period = $request->period;
         
         $salesByPeriod = $this->salesByPeriod($period);
-
+        
         return view('vadmin.tools.stats')
             ->with('salesByPeriod', $salesByPeriod);
     }
@@ -47,7 +50,7 @@ class StatsController extends Controller
     
     public function salesByPeriod($period)
     {
-        $carts = Cart::where('created_at', '>', (new \Carbon\Carbon)->submonths($period))->get();
+        $carts = Cart::where('status', 'Finished')->where('created_at', '>', (new \Carbon\Carbon)->submonths($period))->orderBy('created_at', 'DESC')->get();
         $data = [];
 
         foreach ($carts as $cart) {
@@ -59,7 +62,7 @@ class StatsController extends Controller
                     $itemBrand = 'Sin Marca';
 
                 // $itemDate = $cart->created_at->toDateString(); Full Date string
-                $itemDate = $cart->created_at->format('M/y');
+                $itemDate = $cart->created_at->format('m/Y');
 
                 if(!isset($data[$itemDate]))
                     $data[$itemDate] = [];
@@ -77,6 +80,48 @@ class StatsController extends Controller
             }
         }
 
+        return $data;
+    }
+
+    public function statsCheck($brand, $period)
+    {
+        // $carts = Cart::where('created_at', '>', (new \Carbon\Carbon)->submonths($period))->where('status', 'Finished')->get();
+        $carts = Cart::whereDate('created_at', '=', date('2019-07-01'))->where('status', 'Finished')->get();
+        $data = [];
+
+    
+        foreach ($carts as $cart) {
+            foreach ($cart->items as $item) {
+                if($item->article->brand)
+                    $itemBrand = $item->article->brand->name;
+                else
+                    $itemBrand = 'Sin Marca';
+
+                $itemDate = $cart->created_at->format('d/m/y');
+
+                if(!isset($data[$itemDate]))
+                    $data[$itemDate] = [];
+                $data[$itemDate][$itemBrand]['brand'] = $itemBrand;
+                
+                if(!isset($data[$itemDate][$itemBrand]['items']))
+                    $data[$itemDate][$itemBrand]['items'] = $item->quantity;
+                else
+                    $data[$itemDate][$itemBrand]['items'] += $item->quantity;
+                // $data = array_push($data, $itemBrand);
+
+                // if(!isset($data[$itemDate][$itemBrand]))
+                // {
+                //     $data[$itemDate][$itemBrand]['items'] = $item->quantity;
+                //     $data[$itemDate][$itemBrand]['amount'] = ($item->final_price * $item->quantity);
+                // }
+                // else
+                // {
+                //     $data[$itemDate][$itemBrand]['items'] += $item->quantity;
+                //     $data[$itemDate][$itemBrand]['amount'] += ($item->final_price * $item->quantity);
+                // }
+            }
+        }
+        dd($data);
         return $data;
     }
 

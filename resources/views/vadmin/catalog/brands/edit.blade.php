@@ -21,7 +21,13 @@
 
 @section('content')
 	<div class="row inner-wrapper">
+		<div class="alert alert-danger">
+			<b>ATENCIÓN:</b> <br>
+			No es recomendable intercambiar nombres de marcas con una marca que haya sido usada o esté relacionada a productos existentes activos o finalizados. <br>Esto puede generar errores en pedidos antiguos o en las estadísticas.
+			<br><b>Por lo contrario, es inofensivo corregir errores de ortografía o de tipeo.</b>
+		</div>
 		<div class="col-sm-12 col-md-6">
+			
 			{!! Form::model($item, [
 					'method' => 'PATCH',
 					'url' => ['vadmin/cat_brands', $item->id],

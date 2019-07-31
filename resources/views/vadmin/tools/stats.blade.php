@@ -36,7 +36,7 @@
                             </div>
                             <br>
                             <div class="row">
-                                {{-- {{dd($salesByPeriod)}} --}}
+                                {{-- {{  var_dump($salesByPeriod)}} --}}
                                 @foreach($salesByPeriod as $key => $items)
                                     <div class="container-fluid data-container">
                                         <div class="data-header">{{ $key }}</div>

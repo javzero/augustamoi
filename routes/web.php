@@ -170,6 +170,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
     Route::get('estadisticas', ['as' => 'vadmin.stats', 'uses' => 'StatsController@index']);
     Route::get('estadisticas/{period}', ['as' => 'vadmin.stats', 'uses' => 'StatsController@index']);
     Route::get('getStats/{period}', 'StatsController@getChartData');
+    Route::get('statsCheck/{brand}/{date}', 'StatsController@statsCheck');
+
 
     Route::post('sendMail', ['as' => 'vadmin.sendMail', 'uses' => 'VadminController@sendMail']);
     Route::post('sendSupportMail', ['as' => 'vadmin.sendSupportMail', 'uses' => 'VadminController@sendSupportMail']);
