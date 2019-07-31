@@ -27,100 +27,57 @@ class StatsController extends Controller
 
     public function index(Request $request)
     {
-        // dd($request->all());
+        // Period is the amount of months to te past
+        if(!$request->period)
+            $period = 3;
+        else 
+            $period = $request->period;
+        
+        $salesByPeriod = $this->salesByPeriod($period);
 
-        $now = Carbon::now();
-        $month = $now->month;
-
-        // $monthSales = $this->getSellsPerMonth($month);
-        $totalSales = $this->totalSales();
-        dd($totalSales);
         return view('vadmin.tools.stats')
-            ->with('totalSales', $totalSales);
-            // ->with('monthSales', $monthSales);
+            ->with('salesByPeriod', $salesByPeriod);
+    }
+
+    public function getChartData($period)
+    {
+        $result = $this->salesByPeriod($period);
+        return response()->json($result);
     }
     
-    public function totalSales()
+    public function salesByPeriod($period)
     {
-        $carts = Cart::where('status', 'Finished')->get();
+        $carts = Cart::where('created_at', '>', (new \Carbon\Carbon)->submonths($period))->get();
         $data = [];
-        $message = [];
+
         foreach ($carts as $cart) {
             foreach ($cart->items as $item)
-            {
-                // $m = 'CartId: '.$cart->id.': Quantity '. $item->quantity . ' - '.
-                //  'Amount: ' . ($item->final_price * $item->quantity);
-                 
+            {                 
                 if($item->article->brand)
-                {
                     $itemBrand = $item->article->brand->name;
-                }   
                 else
-                {
                     $itemBrand = 'Sin Marca';
-                }
-                    
-                if(!isset($data[$cart->created_at->toDateString()]))
-                    $data[$cart->created_at->toDateString()] = [];
-                if(!isset($data[$cart->created_at->toDateString()][$itemBrand]))
+
+                // $itemDate = $cart->created_at->toDateString(); Full Date string
+                $itemDate = $cart->created_at->format('M/y');
+
+                if(!isset($data[$itemDate]))
+                    $data[$itemDate] = [];
+
+                if(!isset($data[$itemDate][$itemBrand]))
                 {
-                    $data[$cart->created_at->toDateString()][$itemBrand]['items'] = $item->quantity;
-                    $data[$cart->created_at->toDateString()][$itemBrand]['amount'] = ($item->final_price * $item->quantity);
+                    $data[$itemDate][$itemBrand]['items'] = $item->quantity;
+                    $data[$itemDate][$itemBrand]['amount'] = ($item->final_price * $item->quantity);
                 }
                 else
                 {
-                    $data[$cart->created_at->toDateString()][$itemBrand]['items'] += $item->quantity;
-                    $data[$cart->created_at->toDateString()][$itemBrand]['amount'] += ($item->final_price * $item->quantity);
+                    $data[$itemDate][$itemBrand]['items'] += $item->quantity;
+                    $data[$itemDate][$itemBrand]['amount'] += ($item->final_price * $item->quantity);
                 }
-
-                // if(!isset($message[$cart->id]))
-                // {
-                //     $message[$cart->id]['items'] = $item->quantity;
-                //     $message[$cart->id]['amount'] = ($item->final_price * $item->quantity);
-                //     $message[$cart->id]['date'] = $cart->created_at->toDateString();
-                //     $message[$cart->id]['brand'] = $itemBrand;
-                // }
-                // else
-                // {
-                //     $message[$cart->id]['items'] += $item->quantity;
-                //     $message[$cart->id]['amount'] += ($item->final_price * $item->quantity);
-                //     $message[$cart->id]['date'] = $cart->created_at->toDateString();
-                //     $message[$cart->id]['brand'] = $itemBrand;
-                // }
-                
-
-                // $itemDate = $cart->created_at->format('m').'/'.$cart->created_at->format('y');
-                
-                // if(!isset($data[$itemDate]))
-                // {
-                //     $data[$itemDate][$itemBrand]['amount'] = ($item->final_price * $item->quantity);
-                //     $data[$itemDate][$itemBrand]['items'] = $item->quantity;
-                // }
-                // else   
-                // {
-                //     $data[$itemDate][$itemBrand]['amount'] += ($item->final_price * $item->quantity);
-                //     $data[$itemDate][$itemBrand]['items'] += $item->quantity;
-                // }
-                
-                //$newAmount = ($item->final_price * $item->quantity);
-                //$newItem = $item->quantity;
-           
-                
-                // dd('F price '. $item->final_price. ' x Quant' .  $item->quantity . ' = ' . $price);
-                //$totalAmount +=  ($item->final_price * $item->quantity);
-                //$totalItems += $item->quantity;
-           
             }
         }
-        $all = [];
-        $all['1'] = $message;
-        $all['2'] = $data;
-        dd($all);
 
-        // dd($message);
-        // dd($data);
-
-        // return array(['amount' => $totalAmount, 'items' => $totalItems]);
+        return $data;
     }
 
     public function getSellsPerMonth($month)
