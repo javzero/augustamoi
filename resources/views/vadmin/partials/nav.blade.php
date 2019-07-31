@@ -412,7 +412,7 @@
 			@endif
 		</a></li> --}}
 		{{-- STATISTICS --}}
-		<li class="{{ Menu::activeMenu('estadisticas') }}"><a href="{{ route('vadmin.stats', ['periodo' => '3']) }}" class="menu-item">
+		<li class="{{ Menu::activeMenu('estadisticas') }}"><a href="{{ route('vadmin.stats', ['periodo' => '1']) }}" class="menu-item">
 			<i class="fas fa-sliders-h"></i> Estadísticas 
 		</a></li>
 		{{-- SETTINGS --}}
