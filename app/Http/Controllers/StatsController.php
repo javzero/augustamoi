@@ -127,6 +127,7 @@ class StatsController extends Controller
         if($period == 0)
         {
             $customers = Customer::select('id', 'created_at')
+            ->orderBy('created_at', 'DESC')
             ->get()
             ->groupBy(function($date) {
                 //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
@@ -136,6 +137,7 @@ class StatsController extends Controller
         else
         {
             $customers = Customer::select('id', 'created_at')
+                ->orderBy('created_at', 'DESC')
                 ->where('created_at', '>', (new \Carbon\Carbon)->submonths($period))
                 ->get()
                 ->groupBy(function($date) {
