@@ -12,8 +12,8 @@ use Carbon\Carbon;
 //use App\Mail\SendMail;
 //use App\Settings;
 
-//1)Ventas en $ y en unidades de todas las marcas x mes.
-//2)Cantidad de pedidos cerrados mes a mes.
+//1)Ventas en $ y en unidades de todas las marcas x mes. ✓
+//2)Cantidad de pedidos cerrados mes a mes. ✓
 //3)Cantidad de clientes distintos que compran x mes. 
 //4)Cantidad de registros x mes
 //5) saber cuál es el día de la semana que más pedidos se hacen y el que menos se hacen.
@@ -37,19 +37,45 @@ class StatsController extends Controller
             $period = $request->period;
         
         $salesByPeriod = $this->salesByPeriod($period);
-        
+
         return view('vadmin.tools.stats')
             ->with('salesByPeriod', $salesByPeriod);
     }
 
-    public function getChartData($period)
+    public function customStats(Request $request)
     {
-        $result = $this->salesByPeriod($period);
-        return response()->json($result);
+        // dd($request->all());
+        switch ($request->statsQuery) {
+            case 'customersPerMonth':
+                $data = $this->registersPerMonth($request->statsQueryPeriod);
+                break;
+            default:
+                $this->noValidFeature();
+                break;
+        }
+        
+        return response()->json([
+            'response' => 'success', 
+            'message' => 'Clientes registrados en los últimos '. $request->statsQueryPeriod .' meses',
+            'data' => $data[0]['data'],
+            'exec_time' => $data[0]['exec_time']
+        ]);
     }
     
+    public function noValidFeature()
+    {
+        return response()->json([
+            'response' => 'error', 
+            'message' => 'No seleccionó una función válida',
+            'data' => '',
+            'exec_time' => ''
+        ]);
+    }
+
     public function salesByPeriod($period)
     {
+        $executionStartTime = microtime(true);
+
         $carts = Cart::where('status', 'Finished')->where('created_at', '>', (new \Carbon\Carbon)->submonths($period))->orderBy('created_at', 'DESC')->get();
         $data = [];
 
@@ -79,8 +105,45 @@ class StatsController extends Controller
                 }
             }
         }
+        
+        $executionEndTime = microtime(true);
+        $seconds = $executionEndTime - $executionStartTime;
 
-        return $data;
+        return array(['data' => $data, 'exec_time' => $seconds]);
+        
+    }
+
+    public function registersPerMonth($period)
+    {
+       
+        $executionStartTime = microtime(true);
+
+        $customers = Customer::select('id', 'created_at')
+            ->where('created_at', '>', (new \Carbon\Carbon)->submonths($period))
+            ->get()
+            ->groupBy(function($date) {
+                //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
+                return Carbon::parse($date->created_at)->format('m/Y'); // grouping by months
+            });
+
+        $data = [];
+
+        foreach ($customers as $key => $value) {
+            $data[$key] = count($value);
+        }
+
+        $executionEndTime = microtime(true);
+        $execTime = $executionEndTime - $executionStartTime;
+        // dd($data);
+
+        return array(['data' => $data, 'exec_time' => $execTime]);
+    }
+
+    
+    public function getChartData($period)
+    {
+        $result = $this->salesByPeriod($period);
+        return response()->json($result);
     }
 
     public function statsCheck($brand, $period)
