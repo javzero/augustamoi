@@ -40,6 +40,7 @@
                                 <br>
                             @foreach($salesByPeriod[0]['data'] as $key => $items)
                                 <div class="container-fluid data-container">
+                                    <br>
                                     <div class="data-header">{{ $key }}</div>
                                     @php($totalItems = 0)
                                     @php($totalAmount = 0)

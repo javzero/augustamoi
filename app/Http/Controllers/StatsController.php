@@ -15,7 +15,7 @@ use Carbon\Carbon;
 //1)Ventas en $ y en unidades de todas las marcas x mes. ✓
 //2)Cantidad de pedidos cerrados mes a mes. ✓
 //3)Cantidad de clientes distintos que compran x mes. 
-//4)Cantidad de registros x mes
+//4)Cantidad de registros x mes ✓
 //5) saber cuál es el día de la semana que más pedidos se hacen y el que menos se hacen.
 
 class StatsController extends Controller
@@ -54,9 +54,14 @@ class StatsController extends Controller
                 break;
         }
         
+        if($request->period == 0)
+            $message = '<b>Clientes registrados</b>';
+        else
+            $message = '<b>Clientes registrados en los últimos '. $request->statsQueryPeriod .' meses</b>';
+
         return response()->json([
             'response' => 'success', 
-            'message' => 'Clientes registrados en los últimos '. $request->statsQueryPeriod .' meses',
+            'message' => $message,
             'data' => $data[0]['data'],
             'exec_time' => $data[0]['exec_time']
         ]);
@@ -115,16 +120,27 @@ class StatsController extends Controller
 
     public function registersPerMonth($period)
     {
-       
         $executionStartTime = microtime(true);
 
-        $customers = Customer::select('id', 'created_at')
-            ->where('created_at', '>', (new \Carbon\Carbon)->submonths($period))
+        if($period == 0)
+        {
+            $customers = Customer::select('id', 'created_at')
             ->get()
             ->groupBy(function($date) {
                 //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
                 return Carbon::parse($date->created_at)->format('m/Y'); // grouping by months
             });
+        }
+        else
+        {
+            $customers = Customer::select('id', 'created_at')
+                ->where('created_at', '>', (new \Carbon\Carbon)->submonths($period))
+                ->get()
+                ->groupBy(function($date) {
+                    //return Carbon::parse($date->created_at)->format('Y'); // grouping by years
+                    return Carbon::parse($date->created_at)->format('m/Y'); // grouping by months
+                });
+        }
 
         $data = [];
 
