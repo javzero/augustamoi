@@ -74,7 +74,7 @@
                                         <label for="">Período</label>
                                         <select name="statsQueryPeriod" class="form-control" class="form-control" required>
                                             <option value="" disabled selected>Seleccione una opción</option>
-                                            <option value="1">Último mes</option>
+                                            <option value="1">Mes actual</option>
                                             <option value="3">3 meses</option>
                                             <option value="6">6 meses</option>
                                             <option value="12">12 meses</option>
