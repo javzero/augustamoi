@@ -54,7 +54,7 @@ class StatsController extends Controller
                 break;
         }
         
-        if($request->period == 0)
+        if($request->statsQueryPeriod == 0)
             $message = '<b>Clientes registrados</b>';
         else
             $message = '<b>Clientes registrados en los últimos '. $request->statsQueryPeriod .' meses</b>';
