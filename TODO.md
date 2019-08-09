@@ -6,17 +6,18 @@ cuantos compraron mas de 5 veces
 cuantos mas de 10
 si se puede con nombre y apellido :P
 
-- En la pantalla de los pedidos que están EN PRODUCCION
-necesitaría poder tener visualizado cuales están pagos y cuáles no
-Obviamente lo tengo que poder hacer manualmente una vez que pagan
-Y después cuando no me deja cancelar los pedidos porque a lo mejor modifique algún ítem que tiene ese pedido que quiero cancelar y solo me deja finalizarlos. Lo cual es una cagada porque para las estadísticas estaría tomando pedidos que en realidad yo quise cancelar y no pude
-Debería poder forzar la cancelación y que no vayan a finalizados
+
 
 # Implementar
 - Usuarios no miembros solo ven: Pedidos y Clientes ()
 
 ==============================================
 # Hecho
+- En la pantalla de los pedidos que están EN PRODUCCION
+necesitaría poder tener visualizado cuales están pagos y cuáles no
+Obviamente lo tengo que poder hacer manualmente una vez que pagan
+Y después cuando no me deja cancelar los pedidos porque a lo mejor modifique algún ítem que tiene ese pedido que quiero cancelar y solo me deja finalizarlos. Lo cual es una cagada porque para las estadísticas estaría tomando pedidos que en realidad yo quise cancelar y no pude
+Debería poder forzar la cancelación y que no vayan a finalizados
 - Estadisticas
 - Mejorar carga de items desde vadmin
 - Al cargar productos desde vadmin .. primero cargar solo items si cantidad una vez creada la lista, agregar todas las cantidades

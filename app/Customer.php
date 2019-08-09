@@ -42,6 +42,17 @@ class Customer extends Authenticatable
         return $this->hasMany(Cart::class);
     }
 
+    public function closedCarts()
+    {
+        Customer::leftJoinRelations('posts')
+            ->groupBy('customers.id')
+            ->orderBy('carts','desc')
+            ->selectRaw('customers.*, count(cart.id) as carts_count')
+            ->take(5)
+            ->get();
+    }
+
+
     public function geoprov()
     {
         return $this->belongsTo('App\GeoProv');

@@ -123,11 +123,21 @@ class StatsController extends Controller
 
     public function realCustomers($query)
     {
-        dd($query);
+        $customers = Customer::withCount([ 
+            'carts as carts_count' => function ($query) {
+                $query->where('status', 'Finished');
+            }])->get();
         $data = [];
-        $data['data'] = ['test', 'test2'];
-        $data['message'] = 'No hay mensaje';
-        $data['exec_time'] = '0 segundos';
+        
+        foreach ($customers as $customer)
+        {
+            if($customer->carts_count >= $query)
+                $data[$customer->name.' '.$customer->surname] = $customer->carts_count;
+            // dd($customers[0]->name, $customers[0]->carts_count);
+
+        }
+
+        dd($data);
         
         return response()->json([
             'response' => 'success', 
