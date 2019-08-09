@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <div class="card-block">
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <h4>Calcular</h4>
                                 <form id="CustomStatsForm" class="stats-small-form">
                                     {!! csrf_field() !!}
