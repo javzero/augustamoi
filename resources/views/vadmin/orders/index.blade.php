@@ -92,6 +92,8 @@
 						</th>
 						<th>N°</th>
 						<th>Cliente</th>
+						<th>Método de pago</th>
+						<th>Estado de pago</th>
 						<th>Estado</th>
 						<th>Items</th>
 						<th>Totals</th>
@@ -114,6 +116,23 @@
 									<a href="{{ url('vadmin/customers/'.$item->customer_id) }}">
 										{{ $item->customer->name }} {{ $item->customer->surname }} ({{ $item->customer->username }})
 									</a>
+								</td>
+								<td>
+									@if($item->payment_method_id != NULL)
+										@if($item->payment)
+											{{ $item->payment->name }}
+										@endif
+									@else
+										No seleccionado
+									@endif
+								</td>
+								<td>
+									<div class="input-group"> 
+										{!! Form::select('group', 
+										[ '0' => 'Pendiente', '1' => 'Acreditado', '2' => 'En proceso', '3' => 'Rechazado'], 
+										$item->payment_status, ['class' => 'form-control custom-select minWidth150', 
+										'onChange' => "updateCartStatus(this, this.dataset.id, this.dataset.field)", 'data-field' => 'payment_status', 'data-id' => $item->id]) !!}
+									</div>
 								</td>
 								<td class="w-200">
 									<div class="input-group"> 

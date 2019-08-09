@@ -240,26 +240,21 @@
     |--------------------------------------------------------------------------
     */
 
-    function updateCartStatus(status, cartid){
-        
+    function updateCartStatus(status, cartid, field){
         var route  = "{{ url('vadmin/updateCartStatus') }}";
-        var data = { id: cartid, status: status.value};
+        var data = { id: cartid, status: status.value, field: field};
         $.ajax({
             url: route,
             type: 'POST',
-            data: data,
             dataType: 'JSON',
+            data: data,
             success: function(data){
-                console.log(data);
-                $('#Error').html(data.responseText);
                 if(data.response == true){
                     location.reload();
-                } 
-                else if(data.response == false)
-                {
-                    alert_error('Mmm...', data.message);
                 } else {
-                    $('#Error').html(data.responseText);
+                    // $('#Error').html(data.responseText);
+                    alert_error('Ups.', data.message);
+                    console.log(data);
                 }
             },
             error: function(data){
@@ -269,6 +264,36 @@
             }
         }); 
     }
+
+    // function updateCartStatus(status, cartid){
+        
+    //     var route  = "{{ url('vadmin/updateCartStatus') }}";
+    //     var data = { id: cartid, status: status.value};
+    //     $.ajax({
+    //         url: route,
+    //         type: 'POST',
+    //         data: data,
+    //         dataType: 'JSON',
+    //         success: function(data){
+    //             console.log(data);
+    //             $('#Error').html(data.responseText);
+    //             if(data.response == true){
+    //                 location.reload();
+    //             } 
+    //             else if(data.response == false)
+    //             {
+    //                 alert_error('Mmm...', data.message);
+    //             } else {
+    //                 $('#Error').html(data.responseText);
+    //             }
+    //         },
+    //         error: function(data){
+    //             console.log(data);
+    //             //alert_error('Ha ocurrido un error');
+    //             $('#Error').html(data.responseText);
+    //         }
+    //     }); 
+    // }
 
  
     //----------------------------------------------

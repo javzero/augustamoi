@@ -168,11 +168,12 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
 
     Route::get('configuracion', ['as' => 'vadmin.settings', 'uses' => 'VadminController@settings']);
     Route::get('estadisticas', ['as' => 'vadmin.stats', 'uses' => 'StatsController@index']);
-    Route::get('estadisticas/{period}', ['as' => 'vadmin.stats', 'uses' => 'StatsController@index']);
+    Route::get('ventasPorPeriodo/{period}', ['as' => 'vadmin.statsSalesByPeriod', 'uses' => 'StatsController@statsSalesByPeriod']);
     Route::get('getStats/{period}', 'StatsController@getChartData');
     Route::get('statsCheck/{brand}/{date}', 'StatsController@statsCheck');
     Route::get('customStats', 'StatsController@customStats');
-    Route::post('customStats', ['as' => 'vadmin.customStats', 'uses' => 'StatsController@customStats']);
+    Route::get('estadisticasPersonalizadas', ['as' => 'vadmin.customStats', 'uses' => 'StatsController@customStats']);
+    Route::post('customStats', ['as' => 'vadmin.customStats', 'uses' => 'StatsController@getCustomStats']);
 
     Route::post('sendMail', ['as' => 'vadmin.sendMail', 'uses' => 'VadminController@sendMail']);
     Route::post('sendSupportMail', ['as' => 'vadmin.sendSupportMail', 'uses' => 'VadminController@sendSupportMail']);

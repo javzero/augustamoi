@@ -412,9 +412,19 @@
 			@endif
 		</a></li> --}}
 		{{-- STATISTICS --}}
-		<li class="{{ Menu::activeMenu('estadisticas') }}"><a href="{{ route('vadmin.stats', ['periodo' => '1']) }}" class="menu-item">
-			<i class="fas fa-chart-bar"></i> Estadísticas 
-		</a></li>
+		<li class="has-sub is-shown {{ Menu::activeMenu('users') }}"><a href="#" data-i18n="nav.menu_levels.second_level_child.main" class="menu-item">
+			<i class="fas fa-chart-bar"></i> Estadísticas</a>
+			<ul class="menu-content">
+				<li class="is-shown {{ Menu::activeMenu('estadisticas') }}"><a href="{{ route('vadmin.statsSalesByPeriod', ['periodo' => '1']) }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item">
+					<i class="icon-plus-round"></i> 
+					Ventas por mes</a>
+				</li>
+				<li class="is-shown {{ Menu::activeMenu('estadisticas') }}"><a href="{{ route('vadmin.customStats') }}" data-i18n="nav.menu_levels.second_level_child.third_level" class="menu-item">
+					<i class="icon-plus-round"></i> 
+					Estadísticas</a>
+				</li>
+			</ul>
+		</li>
 		{{-- SETTINGS --}}
 		<li class="{{ Menu::activeMenu('configuracion') }}"><a href="{{ route('vadmin.settings') }}" class="menu-item">
 			<i class="fas fa-sliders-h"></i> Configuracion 

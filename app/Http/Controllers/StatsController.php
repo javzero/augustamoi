@@ -26,52 +26,29 @@ class StatsController extends Controller
     public function index(Request $request)
     {
         // Period is the amount of months to te past
+        // if(!$request->period)
+        //     $period = 3;
+        // else 
+        //     $period = $request->period;
+        
+        // $salesByPeriod = $this->salesByPeriod($period);
+
+        // return view('vadmin.tools.stats')
+        //     ->with('salesByPeriod', $salesByPeriod);
+    }
+
+    public function statsSalesByPeriod(Request $request)
+    {
+        // Period is the amount of months to te past
         if(!$request->period)
-            $period = 3;
+            $period = 1;
         else 
             $period = $request->period;
         
         $salesByPeriod = $this->salesByPeriod($period);
 
-        return view('vadmin.tools.stats')
+        return view('vadmin.tools.statsSalesByPeriod')
             ->with('salesByPeriod', $salesByPeriod);
-    }
-
-    public function customStats(Request $request)
-    {
-        // dd($request->all());
-        switch ($request->statsQuery) {
-            case 'customersPerMonth':
-                $data = $this->registersPerMonth($request->statsQueryPeriod);
-                break;
-            default:
-                $this->noValidFeature();
-                break;
-        }
-        
-        if($request->statsQueryPeriod == 0)
-            $message = '<b>Clientes registrados</b>';
-        elseif($request->statsQueryPeriod == 1)
-            $message = '<b>Clientes registrados en el mes actual</b>';
-        else
-            $message = '<b>Clientes registrados en los últimos '. $request->statsQueryPeriod .' meses</b>';
-
-        return response()->json([
-            'response' => 'success', 
-            'message' => $message,
-            'data' => $data[0]['data'],
-            'exec_time' => $data[0]['exec_time']
-        ]);
-    }
-    
-    public function noValidFeature()
-    {
-        return response()->json([
-            'response' => 'error', 
-            'message' => 'No seleccionó una función válida',
-            'data' => '',
-            'exec_time' => ''
-        ]);
     }
 
     public function salesByPeriod($period)
@@ -111,8 +88,53 @@ class StatsController extends Controller
         $executionEndTime = microtime(true);
         $seconds = $executionEndTime - $executionStartTime;
 
+
         return array(['data' => $data, 'exec_time' => $seconds]);
         
+    }
+
+    public function customStats()
+    {   
+        return view('vadmin.tools.statsCustomStats');
+    }
+
+    public function getCustomStats(Request $request)
+    {
+        switch ($request->statsQueryName) {
+            case 'customersPerMonth':
+                $data = $this->registersPerMonth($request->statsQuery);
+                break;
+            case 'realCustomers':
+                $data = $this->realCustomers($request->statsQuery);
+                
+            default:
+                $data = $this->noValidFeature();
+                break;
+        }
+        
+
+        return response()->json([
+            'response' => 'success', 
+            'data' => $data[0]['data'],
+            'message' => $data[0]['message'],
+            'exec_time' => $data[0]['exec_time']
+        ]);
+    }
+
+    public function realCustomers($query)
+    {
+        dd($query);
+        $data = [];
+        $data['data'] = ['test', 'test2'];
+        $data['message'] = 'No hay mensaje';
+        $data['exec_time'] = '0 segundos';
+        
+        return response()->json([
+            'response' => 'success', 
+            'data' => 'test',
+            'message' => 'test',
+            'exec_time' => 'test'
+        ]);
     }
 
     public function registersPerMonth($period)
@@ -149,9 +171,28 @@ class StatsController extends Controller
 
         $executionEndTime = microtime(true);
         $execTime = $executionEndTime - $executionStartTime;
-        // dd($data);
 
-        return array(['data' => $data, 'exec_time' => $execTime]);
+        
+        if($period == 0)
+            $message = '<b>Clientes registrados</b>';
+        elseif($period == 1)
+            $message = '<b>Clientes registrados en el mes actual</b>';
+        else
+            $message = '<b>Clientes registrados en los últimos '. $period .' meses</b>';
+
+        
+        return array(['data' => $data, 'exec_time' => $execTime, 'message' => $message]);
+    }
+
+        
+    public function noValidFeature()
+    {
+        return response()->json([
+            'response' => 'error', 
+            'message' => 'No seleccionó una función válida',
+            'data' => '',
+            'exec_time' => ''
+        ]);
     }
 
     public function statsCheck($brand, $period)

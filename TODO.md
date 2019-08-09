@@ -1,53 +1,38 @@
 # Errores - Fallas - Bugs - Glitches
 
 # Augusta Moi
+- Estadísticas
+cuantos compraron mas de 5 veces
+cuantos mas de 10
+si se puede con nombre y apellido :P
 
+- En la pantalla de los pedidos que están EN PRODUCCION
+necesitaría poder tener visualizado cuales están pagos y cuáles no
+Obviamente lo tengo que poder hacer manualmente una vez que pagan
+Y después cuando no me deja cancelar los pedidos porque a lo mejor modifique algún ítem que tiene ese pedido que quiero cancelar y solo me deja finalizarlos. Lo cual es una cagada porque para las estadísticas estaría tomando pedidos que en realidad yo quise cancelar y no pude
+Debería poder forzar la cancelación y que no vayan a finalizados
+
+# Implementar
+- Usuarios no miembros solo ven: Pedidos y Clientes ()
+
+==============================================
+# Hecho
+- Estadisticas
+- Mejorar carga de items desde vadmin
+- Al cargar productos desde vadmin .. primero cargar solo items si cantidad una vez creada la lista, agregar todas las cantidades
+- Agregar vista de listado
+-Te hago una consulta respecto al listado de clientes. Estamos haciendo publicidad en instagram y quisiera medir la repercusión.
+¿Se puede incluir en el listado de clientes la fecha de registro? ¿Y que me permita buscar por localidad o por provincia? Y lo último si me puede permitir ordenar segun distintos criterios: alfabeticamente, orden de registro, mayorista o minirista.
+Y lo otro es si se puede saber cuantas personas entran por día a la página, cuantas abren carros y no finalizan compras. Para poder sacar estadísticas de eso. Google analytics por ejemplo, pero no tengo idea, sólo sé que sirve para eso.
+- Que los productos se puedan destacar y se ordenen por fecha
+- Que desde vadmin se pueda hacer pedido nuevo y que ese pedido no tenga límite de prendas.
+- Carro de compra desde vadmin que soporte un detalle (columna) como por ejemplo nombre del cliente al que pertenece
 - Variantes talles colores
 - Items tienen marcas. Filtrar por marcas. Mostrar pedidos por marca
 - Registro: mail * , contraseña * , teléfono
 - 1 solo tipo de precio. 1 solo tipo de customer
 - Compra inicial $5000
 - Se aguanta por 30 días.
-
-
-
-# Implementar
-- Que los productos se puedan destacar y se ordenen por fecha
-- Que desde vadmin se pueda hacer pedido nuevo y que ese pedido no tenga límite de prendas.
-- Carro de compra desde vadmin que soporte un detalle (columna) como por ejemplo nombre del cliente al que pertenece
-
-- Estadisticas
-- Poder dar orden a articulos de listado
-
-- Mas vendidos
-- Mas favoritos
-
-- Vadmin agregar seccion vendedores
-- Usuarios no miembros solo ven: Pedidos y Clientes ()
-- Mejorar carga de items desde vadmin
-- Al cargar productos desde vadmin .. primero cargar solo items si cantidad una vez creada la lista, agregar todas las cantidades
-
-- Agregar vista de listado
-
-
-
-
-Te hago una consulta respecto al listado de clientes. Estamos haciendo publicidad en instagram y quisiera medir la repercusión.
-¿Se puede incluir en el listado de clientes la fecha de registro? ¿Y que me permita buscar por localidad o por provincia? Y lo último si me puede permitir ordenar segun distintos criterios: alfabeticamente, orden de registro, mayorista o minirista.
-Y lo otro es si se puede saber cuantas personas entran por día a la página, cuantas abren carros y no finalizan compras. Para poder sacar estadísticas de eso. Google analytics por ejemplo, pero no tengo idea, sólo sé que sirve para eso.
-
-
-## NOSE - Parece que anda
-==============================================
--Está tomando el mínimo como 12 artículos distintos cuando deberia tomar la cantidad total. Si yo quiero comprar 6 de un modelo y 6 de otro me tiene que dejar.
--En el carrito, cuando dice stock (marca 1 de menos).
-- Cuando toco la tecla de borrar sin querer afuera del cuadradito para modificar stock me lleva a la hoja anterior, esa tecla no tendría que hacer nada.
-- Modificar el nombre anda raro, se me recarga solo antes de que termine de escribir y no sé por qué, no entiendo si para modificarlo es con un click sólo o doble click sobre el nombre
-
-
-
-==============================================
-# Hecho
 Al editar una publicación: que no tome el “enter” como actualizar item, tiendo a apretarlo sin querer y se me va de la página. Que se actualice sólo tocando ese botón.
 - Poder editar el nombre del artículo desde la página principal al igual que con el stock y los precios.
 - Actualización de precios y stock: que haya un botón por página de actualizar cambios. Demora mucho refrescar item por item, cuando quiero hacer una actualización de todos los precios o el stock de varios artículos. Hasta ahora no lo había notado porque no hice modificaciones grandes.
@@ -84,11 +69,6 @@ Por otra parte, respecto a la decisión del menú lateral, cuando esté eso elim
 - Ocultar talle / color en listado
 - Ocultar talle en listado en filtros de busqueda
 - Artículos con 0 stock o menos que el mínimo se pausan? Salen en los listado ? No salen
-
-
-# Preguntas Bruna
-
-
 
 
 # RESUELTOS

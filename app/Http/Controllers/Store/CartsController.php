@@ -77,46 +77,108 @@ class CartsController extends Controller
             return back()->with('message', 'Error al actualizar: '. $e->getMessage());
         }
     }
-    
+
     public function updateStatus(Request $request)
     {
         $cart = Cart::findOrFail($request->id);
-        $oldStatus = $cart->status;
-
-        if($oldStatus == 'Canceled')
+        if($request->field == 'payment_status')
         {
-            return response()->json([
-                'response' => false,
-                'message' => 'Estás tratando de revivir una órden cancelada. Esta función aún no ha sido diseñada.'
-            ]); 
-        }
-
-        if($request->status == "Canceled")
-        {
-            foreach($cart->items as $item)
+            try 
             {
-                $this->updateVariantStock($item->variant->id, $item->quantity);
-            }
+                $cart->payment_status = $request->status;
+                $cart->save();
+                return response()->json([
+                    'response' => true,
+                    'newstatus' => $cart->payment_status
+                ]); 
+            }  
+            catch (\Exception $e) 
+            {
+                return response()->json([
+                    'response'   => false,
+                    'error'    => 'Error: '.$e->getMessage()
+                ]);    
+            }    
         }
-        
-        try 
+        else
         {
-            $cart->status = $request->status;
-            $cart->save();
-            return response()->json([
-                'response' => true,
-                'newstatus' => $cart->status
-            ]); 
-        }  
+            
+            if($request->status == "Active")
+            {
+                $existingActiveCart = Cart::where('customer_id', $cart->customer_id)->where('status', 'Active')->first();
+                if($existingActiveCart)
+                {
+                    return response()->json([
+                        'response' => false,
+                        'message' => "El cliente ya tiene un carro de compras abierto"
+                    ]); 
+                }
+            }
 
-        catch (\Exception $e) 
-        {
-            return response()->json([
-                'response'   => false,
-                'error'    => 'Error: '.$e->getMessage()
-            ]);    
-        } 
+            try {
+                if($request->status == "Canceled")
+                {
+                    foreach($cart->items as $item)
+                    {
+                        $this->updateCartItemStock($item->article_id, $item->quantity);
+                    }
+                }
+                         
+                $cart->status = $request->status;
+                $cart->save();
+                return response()->json([
+                    'response' => true,
+                    'newstatus' => $cart->status
+                ]); 
+            }  catch (\Exception $e) {
+                return response()->json([
+                    'response'   => false,
+                    'error'    => 'Error: '.$e->getMessage()
+                ]);    
+            } 
+        }
     }
+
+    
+    // public function updateStatus(Request $request)
+    // {
+    //     $cart = Cart::findOrFail($request->id);
+    //     $oldStatus = $cart->status;
+
+    //     if($oldStatus == 'Canceled')
+    //     {
+    //         return response()->json([
+    //             'response' => false,
+    //             'message' => 'Estás tratando de revivir una órden cancelada. Esta función aún no ha sido diseñada.'
+    //         ]); 
+    //     }
+
+    //     if($request->status == "Canceled")
+    //     {
+    //         foreach($cart->items as $item)
+    //         {
+    //             $this->updateVariantStock($item->variant->id, $item->quantity);
+    //         }
+    //     }
+        
+    //     try 
+    //     {
+    //         $cart->status = $request->status;
+    //         $cart->save();
+    //         return response()->json([
+    //             'response' => true,
+    //             'newstatus' => $cart->status
+    //         ]); 
+    //     }  
+
+    //     catch (\Exception $e) 
+    //     {
+    //         return response()->json([
+    //             'response'   => false,
+    //             'error'    => 'Error: '.$e->getMessage()
+    //         ]);    
+    //     } 
+    // }
     
     /*
     |--------------------------------------------------------------------------
