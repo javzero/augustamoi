@@ -39,7 +39,17 @@
                                         <button type="submit" class="btn btn-default">Calcular</button>
                                     </div>
                                 </form>
-                                <div id="CustomStatsDisplay" class="data-container">
+                                <div class="data-container">
+                                    <h2 style="padding-left: 33px" id="CSTitleMessage"></h2>
+                                    <table class='table table-condensed'>
+                                        <thead>
+                                                <tr>
+                                                    <th id="CSTableTitle1"></th><th id="CSTableTitle2"></th>
+                                                </tr>
+                                        </thead>
+                                        <tbody id="CSTableData">
+                                        </tbody>
+                                    </table>
                                     {{-- Ajax Data --}}
                                 </div>
                             </div>
@@ -69,9 +79,17 @@
                 dataType: 'JSON',
                 data: data,
                 success: function success(data) {
-                    $('#CustomStatsDisplay').html(data.message + '<br>');
+                    $('#CSTitleMessage, #CSTableTitle1, #CSTableTitle2, #CSTableData').html('');
+                    $('#CSTitleMessage').html(data.message + '<br>');
+
+                    $('#CSTableTitle1').html(data.column_title1);
+                    $('#CSTableTitle2').html(data.column_title2);
+                    
+
                     $.each(data.data, function( index, value ) {
-                        $('#CustomStatsDisplay').append(index + ' > ' + value + '<br>');
+                        const tableRow = "<tr><td>"+ index +"</td>" + 
+                                         "<td>"+ value +"</td></tr>";
+                        $('#CSTableData').append(tableRow);
                     });
 
                     console.log(data);

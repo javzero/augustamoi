@@ -106,16 +106,17 @@ class StatsController extends Controller
                 break;
             case 'realCustomers':
                 $data = $this->realCustomers($request->statsQuery);
-                
+                break;
             default:
                 $data = $this->noValidFeature();
                 break;
         }
-        
 
         return response()->json([
             'response' => 'success', 
             'data' => $data[0]['data'],
+            'column_title1' => $data[0]['column_title1'], 
+            'column_title2' => $data[0]['column_title2'],
             'message' => $data[0]['message'],
             'exec_time' => $data[0]['exec_time']
         ]);
@@ -134,17 +135,12 @@ class StatsController extends Controller
             if($customer->carts_count >= $query)
                 $data[$customer->name.' '.$customer->surname] = $customer->carts_count;
             // dd($customers[0]->name, $customers[0]->carts_count);
-
         }
+        $execTime = 'Disabled';
+        $message = '<b>Clientes con más de '. $query .' compras</b>';
 
-        dd($data);
+        return array(['data' => $data, 'column_title1' => 'Cliente', 'column_title2' => 'Compras', 'message' => $message, 'exec_time' => $execTime]);
         
-        return response()->json([
-            'response' => 'success', 
-            'data' => 'test',
-            'message' => 'test',
-            'exec_time' => 'test'
-        ]);
     }
 
     public function registersPerMonth($period)
@@ -181,7 +177,6 @@ class StatsController extends Controller
 
         $executionEndTime = microtime(true);
         $execTime = $executionEndTime - $executionStartTime;
-
         
         if($period == 0)
             $message = '<b>Clientes registrados</b>';
@@ -190,8 +185,7 @@ class StatsController extends Controller
         else
             $message = '<b>Clientes registrados en los últimos '. $period .' meses</b>';
 
-        
-        return array(['data' => $data, 'exec_time' => $execTime, 'message' => $message]);
+        return array(['data' => $data,  'column_title1' => 'Cliente', 'column_title2' => 'Registro', 'message' => $message, 'exec_time' => $execTime]);
     }
 
         
