@@ -185,7 +185,7 @@ class StatsController extends Controller
         else
             $message = '<b>Clientes registrados en los últimos '. $period .' meses</b>';
 
-        return array(['data' => $data,  'column_title1' => 'Cliente', 'column_title2' => 'Registro', 'message' => $message, 'exec_time' => $execTime]);
+        return array(['data' => $data,  'column_title1' => 'Fecha', 'column_title2' => 'Clientes Registrados', 'message' => $message, 'exec_time' => $execTime]);
     }
 
         
