@@ -55,18 +55,18 @@ class AutocompleteController extends Controller
     public function searchCatalogArticle(Request $request)
     {   
         // dd($request->all());
-        
         $customer = Customer::find($request['customer']);
         if($customer == null)
         {
             echo json_encode("Error");
             die();
         }
+
         $customerGroup = $customer->group;
         
         $articles = CatalogArticle::where('name', 'LIKE', "%{$request['request']['term']}%")
             ->orWhere('code', 'LIKE', "%{$request['request']['term']}%")
-            ->active()
+            // ->active()
             ->limit(15)
             ->get();
         
