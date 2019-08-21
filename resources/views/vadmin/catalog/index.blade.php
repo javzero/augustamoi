@@ -86,11 +86,14 @@
 				@slot('tableTitles')
 					@if(!$articles->count() == '0')
 						<th>
-							<label class="custom-control custom-checkbox list-checkbox">
-								<input type="checkbox" class="Select-All-To-Delete custom-control-input row-checkbox">
-								<span class="custom-control-indicator"></span>
-								<span class="custom-control-description"></span>
-							</label>
+							{{-- Uncomment to block this function to users --}}
+							{{-- @if(Auth::guard('user')->user()->role == 1 || Auth::guard('user')->user()->role == 2) --}}
+								<label class="custom-control custom-checkbox list-checkbox">
+									<input type="checkbox" class="Select-All-To-Delete custom-control-input row-checkbox">
+									<span class="custom-control-indicator"></span>
+									<span class="custom-control-description"></span>
+								</label>
+							{{-- @endif --}}
 						</th>
 						<th></th>
 						<th>Cód.</th>
@@ -102,11 +105,14 @@
 						@foreach($articles as $item)
 							<tr id="ItemId{{$item->id}}">
 								<td class="mw-50">
-									<label class="CheckBoxes custom-control custom-checkbox list-checkbox">
-										<input type="checkbox" class="List-Checkbox custom-control-input row-checkbox" data-id="{{ $item->id }}">
-										<span class="custom-control-indicator"></span>
-										<span class="custom-control-description"></span>
-									</label>
+									{{-- Uncomment to block this function to users --}}
+									{{-- @if(Auth::guard('user')->user()->role == 1 || Auth::guard('user')->user()->role == 2) --}}
+										<label class="CheckBoxes custom-control custom-checkbox list-checkbox">
+											<input type="checkbox" class="List-Checkbox custom-control-input row-checkbox" data-id="{{ $item->id }}">
+											<span class="custom-control-indicator"></span>
+											<span class="custom-control-description"></span>
+										</label>
+									{{-- @endif --}}
 								</td>
 								{{-- THUMBNAIL --}}
 								<td class="thumb">

@@ -219,7 +219,11 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
     Route::post('testMP', ['as' => 'vadmin.testMP', 'uses' => 'VadminTestsController@TestMp']);
     
 });
-
+Route::resource('catalogo', 'Catalog\ArticlesController');  
+    Route::group(['prefix' => 'vadmin', 'middleware' => ['active-user']], function(){
+    Route::post('updateStatus/{model}/{id}', 'VadminController@updateStatus');
+    Route::post('updateStatusMultiple/{id}/{model}/{status}', 'VadminController@updateStatusMultiple');
+});
 
 // Admin and SuperAdmin Only
 Route::group(['prefix' => 'vadmin', 'middleware' => ['active-user', 'admin']], function(){
@@ -227,9 +231,6 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['active-user', 'admin']], f
     Route::post('actualizar-opciones', ['as' => 'updateSettings', 'uses' => 'VadminController@updateSettings']);
     
     Route::get('panel-de-control', ['as' => 'storeControlPanel', 'uses' => 'VadminController@storeControlPanel']);
-    
-    Route::post('updateStatus/{model}/{id}', 'VadminController@updateStatus');
-    Route::post('updateStatusMultiple/{id}/{model}/{status}', 'VadminController@updateStatusMultiple');
     
     // -- USERS --
     Route::resource('users', 'UserController');
@@ -252,7 +253,6 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['active-user', 'admin']], f
     Route::post('deleteArticleImg/{id}', 'Portfolio\ArticlesController@deleteArticleImg');
     
     // -- CATALOG --
-    Route::resource('catalogo', 'Catalog\ArticlesController');
     Route::post('catalog_store_validation', ['as' => 'vadmin.catalog_store_validation', 'uses' => 'Catalog\ArticlesController@storeValidation']);
     Route::patch('catalog_update_validation', ['as' => 'vadmin.catalog_update_validation', 'uses' => 'Catalog\ArticlesController@updateValidation']);
     
