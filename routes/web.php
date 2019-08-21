@@ -219,8 +219,9 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
     Route::post('testMP', ['as' => 'vadmin.testMP', 'uses' => 'VadminTestsController@TestMp']);
     
 });
-Route::resource('catalogo', 'Catalog\ArticlesController');  
-    Route::group(['prefix' => 'vadmin', 'middleware' => ['active-user']], function(){
+
+Route::group(['prefix' => 'vadmin', 'middleware' => ['active-user']], function(){
+    Route::resource('catalogo', 'Catalog\ArticlesController');  
     Route::post('updateStatus/{model}/{id}', 'VadminController@updateStatus');
     Route::post('updateStatusMultiple/{id}/{model}/{status}', 'VadminController@updateStatusMultiple');
 });
