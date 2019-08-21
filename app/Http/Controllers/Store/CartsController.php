@@ -80,6 +80,7 @@ class CartsController extends Controller
 
     public function updateStatus(Request $request)
     {
+        // dd($request->all());
         $cart = Cart::findOrFail($request->id);
         if($request->field == 'payment_status')
         {
@@ -101,18 +102,24 @@ class CartsController extends Controller
             }    
         }
         else
-        {
-            
+        {   
             if($request->status == "Active")
             {
                 $existingActiveCart = Cart::where('customer_id', $cart->customer_id)->where('status', 'Active')->first();
                 if($existingActiveCart)
                 {
+                    
                     return response()->json([
                         'response' => false,
                         'message' => "El cliente ya tiene un carro de compras abierto"
-                    ]); 
+                        ]); 
                 }
+                foreach($cart->items as $item)
+                {
+                    $this->updateVariantStock($item->variant->id, -$item->quantity);
+                    // $this->updateCartItemStock($item->article_id, -$item->quantity);
+                }
+
             }
 
             try {
@@ -120,7 +127,8 @@ class CartsController extends Controller
                 {
                     foreach($cart->items as $item)
                     {
-                        $this->updateCartItemStock($item->article_id, $item->quantity);
+                        $this->updateVariantStock($item->variant->id, $item->quantity);
+                        // $this->updateCartItemStock($item->article_id, $item->quantity);
                     }
                 }
                          

@@ -37,6 +37,7 @@
 					</div>
 				</div> --}}
 			</section>
+			@if(Auth::guard('user')->user()->role == 1 || Auth::guard('user')->user()->role == 2)
 			<div class="row">
 				<div class="col-xl-6 col-md-6 col-sm-12">
 					<div class="card">
@@ -88,6 +89,7 @@
 				</div>
 			</div>
 			
+			
 			<div class="row match-height">
 				<a href="{{ route('catalogo.index') }}">
 					<div class="col-xl-4 col-lg-4">
@@ -134,7 +136,16 @@
 					</div>
 				</div>
 			</div>
-
+			@else
+				<div class="card">
+					<div class="card-body">
+						<div class="card-block fast-access">
+							<h4 class="card-title"><i class="fas fa-paper-plane"></i> Accesos rápidos</h4>
+							<a href="{{ route('catalogo.index') }}" class="btn btnMain"><i class="fas fa-list"></i> Listado de Prendas</a><br>
+						</div>
+					</div>
+				</div>
+			@endif
 			
 		</div>		
 	</div>

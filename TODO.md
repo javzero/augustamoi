@@ -2,9 +2,15 @@
 
 # Augusta Moi
 - Estadísticas
-cuantos compraron mas de 5 veces
-cuantos mas de 10
-si se puede con nombre y apellido :P
+Algo importante que necesito en las estadísticas o filtros. Poder filtrar usuarios x localidad. O sea, buscar por ej si vendo en FIRMAT santa fe y hacerlo con un filtro por localidad. Es posible?
+
+
+
+Lean puede que ahora al forzar los pedidos de COMPRANDO a CANCELADO no esté devolviendo stock?
+
+Ah y te quiero pedir un usuario que pueda ingresar a vadmin y vea solo la parte de productos en stock y productos pausados
+Que no vea pedidos, estadísticas, clientes ni nada de esa info.
+
 
 
 
@@ -13,6 +19,9 @@ si se puede con nombre y apellido :P
 
 ==============================================
 # Hecho
+-cuantos compraron mas de 5 veces
+cuantos mas de 10
+si se puede con nombre y apellido :P
 - En la pantalla de los pedidos que están EN PRODUCCION
 necesitaría poder tener visualizado cuales están pagos y cuáles no
 Obviamente lo tengo que poder hacer manualmente una vez que pagan
