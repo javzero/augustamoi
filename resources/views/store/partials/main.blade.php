@@ -38,7 +38,7 @@
 			s.parentNode.insertBefore(t,s)}(window,document,'script',
 			'https://connect.facebook.net/en_US/fbevents.js');
 			fbq('init', '355206442098319'); 
-			fbq('track', 'PageView');
+			fbq('track', 'Visitas');
 		
 			</script>
 			<noscript>
@@ -108,11 +108,11 @@
 			@endif
 			<script>
 				$('#AddToCartFormBtn').click(function(){
-					fbq('track', 'AddToCart');
+					fbq('track', 'Items agregados');
 				});
+				
 				$('.AddToFavs ').click(function(){
-					fbq('track', 'AddToWishlist');
-					console.log("Agregando a favoritos");
+					fbq('track', 'Favoritos');
 				});
 				
 			</script>
