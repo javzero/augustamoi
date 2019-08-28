@@ -108,8 +108,8 @@
 			@endif
 			<script>
 				$('#AddToCartFormBtn').click(function(){
-					console.log(fbq('track', 'AddToCart'));
-					console.log("Px ok");
+					fbq('track', 'AddToCart');
+					console.log("Px sent...");
 				});
 				
 			</script>
