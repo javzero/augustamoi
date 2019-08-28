@@ -109,7 +109,10 @@
 			<script>
 				$('#AddToCartFormBtn').click(function(){
 					fbq('track', 'AddToCart');
-					console.log("Px sent...");
+				});
+				$('.AddToFavs ').click(function(){
+					fbq('track', 'AddToWishlist');
+					console.log("Agregando a favoritos");
 				});
 				
 			</script>
