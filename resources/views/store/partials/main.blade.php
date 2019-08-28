@@ -39,7 +39,7 @@
 			'https://connect.facebook.net/en_US/fbevents.js');
 			fbq('init', '355206442098319'); 
 			fbq('track', 'PageView');
-			fbq('track', 'AddToCartFormBtn');
+		
 			</script>
 			<noscript>
 			<img height="1" width="1" 
@@ -106,6 +106,13 @@
 					checkoutSidebar('show');
 				</script>
 			@endif
+			<script>
+				$('#AddToCartFormBtn').click(function(){
+					console.log(fbq('track', 'AddToCart'));
+					console.log("Px ok");
+				});
+				
+			</script>
 	</body>
 </html>
 
