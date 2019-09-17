@@ -153,15 +153,54 @@
 				</div>
 					<div style="text-align: right"  class="row">
 					</div>
-					<div class="text-right hide-768">
-						<p><b>No olvides chequear bien tu pedido antes de continuar.</b> <br>
-						 Una vez que lo cierres no podremos modificar ni agregar productos
-						</p>
-						<button type="button" class="UpdateDataBtn btn main-btn">Actualizar <i class="fas fa-sync-alt"></i></button>
-						<button type="button" class="SubmitDataBtn btn main-btn">Continuar <i class="fa fa-arrow-right"></i></button>
+				<div class="row">
+					<div class="col-md-6">
+						@if($activeCart['orderDiscount'] > 0 )
+							{{-- If order has claimed coupon --}}
+							<div class="coupon-message">
+								<div class="inner">
+									<span class="small">Esta compra cuenta con un</span>
+									<span class="big">%{{ $activeCart['rawdata']->order_discount }} </span>
+									<span class="small">de descuento ! </span>
+								</div>
+							</div>
+						@else	
+							<div class="form-group small-form">
+								<label class="sub-title">¿ Tenés un cupón ?</label>
+								<div id="CouponDiv">
+									<label>Ingresá el código aquí</label>
+									<div class="coupon-container">
+										<input id="CuponCodeInput" class="form-control mw-200" type="text" name="coupon_id" value="">
+										<div class="button-and-loader">
+											<button id="CheckCoupon" type="button" class="btn btn-primary">Ingresar</button>
+											<div class="CouponLoader Hidden"><img src="{{ asset('images/gral/loader-sm.svg') }}" alt=""> Validando...</div>
+										</div>
+										<div class="coupon-message-validation" id="CouponValidationMessage"></div>
+									</div>
+								</div>
+								<div id="SettedCoupon" class="coupon-message Hidden">
+									<div class="inner">
+										<span class="big">Cupón válido !</span>
+									</div>
+								</div>	
+							</div>
+						@endif			
 					</div>
-				<div class="back-to-store"><a href="{{ url('tienda') }}"><i class="icon-arrow-left"></i> Volver a la tienda</a></div>
+							
+					{{-- Right --}}
+					<div class="col-md-6">
+						<div class="text-right hide-768">
+							<p><b>No olvides chequear bien tu pedido antes de continuar.</b> <br>
+								Una vez que lo cierres no podremos modificar ni agregar productos
+							</p>
+							<button type="button" class="UpdateDataBtn btn main-btn">Actualizar <i class="fas fa-sync-alt"></i></button>
+							<button type="button" class="SubmitDataBtn btn main-btn">Continuar <i class="fa fa-arrow-right"></i></button>
+						</div>
+					</div>
+				</div>
+					<div class="back-to-store"><a href="{{ url('tienda') }}"><i class="icon-arrow-left"></i> Volver a la tienda</a></div>
 			</div>{{-- / col-md-12 --}}
+			
 		</div> {{-- / Row --}}
 	</div> {{-- / Container --}}
 	<div id="Error"></div>
