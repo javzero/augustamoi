@@ -134,25 +134,7 @@
             <div class="row form-group">
                 <div class="col-md-12">
                     {{--  Images Input  --}}
-                    {{-- {!! Form::file('images[]', array('multiple'=>true, 'id' => 'ImagesUploader')) !!} --}}
-                    {{-- <input id="ImagesUploader" type="file" name="files[]" multiple="multiple"> --}}
                     @include('vadmin.components.addimgsform')
-                    {{-- @if(isset($article) && count($article->images) > 0 )
-                        @foreach($article->images as $image)
-                        <li class="fileuploader-item file-has-popup file-type-image file-ext-jpg">
-                            <div class="columns"><div class="column-thumbnail">
-                                <div class="fileuploader-item-image">
-                                    <canvas width="36" height="50"></canvas></div>
-                                    <span class="fileuploader-action-popup"></span>
-                                </div><div class="column-title">
-                                    <div title="44-0.jpg">44-0.jpg</div>
-                                    <span>37.4 KB</span></div><div class="column-actions">
-                                        <a class="fileuploader-action fileuploader-action-sort" title="Sort">
-                                            <i></i></a><a class="fileuploader-action fileuploader-action-remove" title="Remove">
-                                                <i></i></a></div></div><div class="progress-bar2">
-                                                    <span></span></div></li>
-                        @endforeach
-                    @endif --}}
                     <div class="ErrorImage"></div>
                 </div>
             </div>
