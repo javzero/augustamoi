@@ -55,7 +55,6 @@ Route::group(['prefix'=> 'vadmin'], function() {
     Route::post('password/reset', ['uses' => 'Auth\ResetPasswordController@reset']);
 });
 
-
 /*
 |--------------------------------------------------------------------------
 | Web
@@ -151,9 +150,7 @@ Route::group(['prefix'=> 'tienda', 'middleware' => 'active-customer'], function(
     Route::get('mp-pending', ['as' => 'tienda.mp-pending', 'uses' => 'MercadoPagoController@MPPending']);
     Route::get('mp-failure', ['as' => 'tienda.mp-failure', 'uses' => 'MercadoPagoController@MPFailure']);
     // Route::post('mp-pending/{params}', ['as' => 'web', 'uses' => 'VadminTestsController@MPPending']);
-
 });
-
 
 /*
 |--------------------------------------------------------------------------
