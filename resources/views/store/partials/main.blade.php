@@ -71,51 +71,50 @@
 			{{-- Site Content --}}
 			<div class="content"> @yield('content') </div>
 		</div>	
-			<!-- Site Footer-->
-			<footer class="site-footer">
-				<div class="container">
-					<p class="footer-copyright">
-						© {{ date('Y') }} - Desarrollado por <a href="https://vimana.studio/es" target="_blank">&nbsp; Vimana Studio </a>
-					</p>
-				</div>
-			</footer>
-
-			{{-- Whats App Cta--}}
-			<div class="floating-bottom-cta">
-				<div class="inner">
-					<a href="https://wa.me/5491133212292" target="_blank"><i class="fab fa-whatsapp"></i></a>
-				</div>
+		<!-- Site Footer-->
+		<footer class="site-footer">
+			<div class="container">
+				<p class="footer-copyright">
+					© {{ date('Y') }} - Desarrollado por <a href="https://vimana.studio/es" target="_blank">&nbsp; Vimana Studio </a>
+				</p>
 			</div>
-		
-			{{-- Back To Top Button --}}
-			<a class="scroll-to-top-btn" href="#"> <i class="icon-arrow-up"></i> </a>
+		</footer>
 
-			{{-- Backdrop --}}
-			<div class="site-backdrop"></div>
+		{{-- Whats App Cta--}}
+		<div class="floating-bottom-cta">
+			<div class="inner">
+				<a href="https://wa.me/5491133212292" target="_blank"><i class="fab fa-whatsapp"></i></a>
+			</div>
+		</div>
+	
+		{{-- Back To Top Button --}}
+		<a class="scroll-to-top-btn" href="#"> <i class="icon-arrow-up"></i> </a>
 
-			{{-- JavaScript (jQuery) libraries, vendor and custom scripts --}}
-			<script src="{{ asset('store-ui/js/vendor.min.js') }}"></script>
-			<script src="{{ asset('store-ui/js/scripts.min.js') }}"></script>
-			<script src="{{ asset('plugins/jquery/jquery-3.4.0.min.js') }}"></script>
-			<script src="{{ asset('store-ui/js/iziToast.min.js') }}"></script>
-			<script src="{{ asset('js/scripts.js') }}"></script>
-			@include('store.partials.scripts')
-			@yield('scripts')
-			@if(isset($_GET['checkout-on']))
-				<script>
-					checkoutSidebar('show');
-				</script>
-			@endif
+		{{-- Backdrop --}}
+		<div class="site-backdrop"></div>
+
+		{{-- JavaScript (jQuery) libraries, vendor and custom scripts --}}
+		<script src="{{ asset('store-ui/js/vendor.min.js') }}"></script>
+		<script src="{{ asset('store-ui/js/scripts.min.js') }}"></script>
+		<script src="{{ asset('plugins/jquery/jquery-3.4.0.min.js') }}"></script>
+		<script src="{{ asset('store-ui/js/iziToast.min.js') }}"></script>
+		<script src="{{ asset('js/scripts.js') }}"></script>
+		@include('store.partials.scripts')
+		@yield('scripts')
+		@if(isset($_GET['checkout-on']))
 			<script>
-				$('#AddToCartFormBtn').click(function(){
-					fbq('track', 'Items agregados');
-				});
-				
-				$('.AddToFavs ').click(function(){
-					fbq('track', 'Favoritos');
-				});
-				
+				checkoutSidebar('show');
 			</script>
+		@endif
+		<script>
+			$('#AddToCartFormBtn').click(function(){
+				fbq('track', 'Items agregados');
+			});
+			
+			$('.AddToFavs ').click(function(){
+				fbq('track', 'Favoritos');
+			});
+		</script>
 	</body>
 </html>
 
