@@ -105,7 +105,10 @@ class StoreController extends Controller
         }
         else 
         {
-            $articles = CatalogArticle::orderBy($orderBy, $order)->active()->paginate($pagination);
+            // Random Order
+            $articles = CatalogArticle::orderByRaw('RAND()')->active()->paginate($pagination);
+            // Static Order
+            // $articles = CatalogArticle::orderBy($orderBy, $order)->active()->paginate($pagination);
         }      
         
         return view('store.index')->with('articles', $articles);
