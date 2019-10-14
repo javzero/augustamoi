@@ -23,7 +23,7 @@
                             <div class="col-md-12">
                                 {{-- {{  dd($salesByPeriod[0]['data'])}} --}}
                                 <div class="row">
-                                    <div class="container">
+                                    <div class="container-fluid">
                                         <h4>Ventas por mes</h4>
                                         @php($periodNumber = request()->segment(count(request()->segments())) )
                                         <a href="{{ route('vadmin.statsSalesByPeriod', ['periodo' => '1']) }}" class="btn btnMain @if($periodNumber == 1) activeBtn @endif">
