@@ -29,6 +29,7 @@
                                         <a href="{{ route('vadmin.statsSalesByPeriod', ['periodo' => '1']) }}" class="btn btnMain @if($periodNumber == 1) activeBtn @endif">
                                             Mes Actual
                                         </a>
+                                        
                                         <a href="{{ route('vadmin.statsSalesByPeriod', ['periodo' => '3']) }}" class="btn btnMain @if($periodNumber == 3) activeBtn @endif"">
                                             Últimos 3 meses
                                         </a>
@@ -41,6 +42,11 @@
                                     </div>
                                 </div>
                                 <br>
+                            <div style="margin-bottom: 10px">
+                                <a href="{{ route('vadmin.exportStatsSalesByPeriod', ['periodo' => collect(request()->segments())->last()]) }}" style="text-decoration: underline; color: #8e8ef3">
+                                    Descargar CSV
+                                </a>
+                            </div>
                             @foreach($salesByPeriod[0]['data'] as $key => $items)
                                 <div class="container-fluid data-container">
                                     <br>

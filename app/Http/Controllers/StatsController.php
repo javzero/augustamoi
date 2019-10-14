@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Customer;
 use App\Cart;
 use Carbon\Carbon;
+use PDF;
 
 //1)Ventas en $ y en unidades de todas las marcas x mes. ✓
 //2)Cantidad de pedidos cerrados mes a mes. ✓
@@ -39,8 +40,7 @@ class StatsController extends Controller
 
     public function statsSalesByPeriod(Request $request)
     {
-        
-        // Period is the amount of months to te past
+        // Period is the amount of months to the past
         if(!$request->period)
             $period = 1;
         else 
@@ -62,9 +62,10 @@ class StatsController extends Controller
         else
         {
             $carts = Cart::where('status', 'Finished')->where('created_at', '>', (new \Carbon\Carbon)->submonths($period))->orderBy('created_at', 'DESC')->get();
-            $data = [];
         }
 
+        $data = [];
+        
         foreach ($carts as $cart) {
             foreach ($cart->items as $item)
             {                 
@@ -95,10 +96,26 @@ class StatsController extends Controller
         // $executionEndTime = microtime(true);
         // $seconds = $executionEndTime - $executionStartTime;
         $seconds = 0;
+        return array(['data' => $data, 'exec_time' => $seconds]);    
+    }
 
+    public function exportStatsSalesByPeriod($period)
+    {
+        $salesByPeriod = $this->salesByPeriod($period);
+        // dd($salesByPeriod[0]['data']);
+        $data = collect($salesByPeriod[0]['data']);
+        // dd($data);
 
-        return array(['data' => $data, 'exec_time' => $seconds]);
+        $pdf = PDF::loadView('vadmin.tools.export-stats', array('data' => $data));
+        $pdf->setPaper('A4', 'portrait');
         
+
+        if($period == '*')
+            $filename = 'Ventas de los últimos ' . $period . 'meses';
+        else
+            $filename = 'Ventas totales';
+        
+        return $pdf->stream($filename.'.pdf');
     }
 
     public function customStats()

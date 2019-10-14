@@ -166,6 +166,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
     Route::get('configuracion', ['as' => 'vadmin.settings', 'uses' => 'VadminController@settings']);
     Route::get('estadisticas', ['as' => 'vadmin.stats', 'uses' => 'StatsController@index']);
     Route::get('ventasPorPeriodo/{period}', ['as' => 'vadmin.statsSalesByPeriod', 'uses' => 'StatsController@statsSalesByPeriod']);
+    Route::get('ExportarVentasPorPeriodo/{period}', ['as' => 'vadmin.exportStatsSalesByPeriod', 'uses' => 'StatsController@exportStatsSalesByPeriod']);
     Route::get('getStats/{period}', 'StatsController@getChartData');
     Route::get('statsCheck/{brand}/{date}', 'StatsController@statsCheck');
     Route::get('customStats', 'StatsController@customStats');
