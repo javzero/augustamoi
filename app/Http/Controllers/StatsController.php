@@ -39,6 +39,7 @@ class StatsController extends Controller
 
     public function statsSalesByPeriod(Request $request)
     {
+        
         // Period is the amount of months to te past
         if(!$request->period)
             $period = 1;
@@ -53,10 +54,16 @@ class StatsController extends Controller
 
     public function salesByPeriod($period)
     {
-        $executionStartTime = microtime(true);
-
-        $carts = Cart::where('status', 'Finished')->where('created_at', '>', (new \Carbon\Carbon)->submonths($period))->orderBy('created_at', 'DESC')->get();
-        $data = [];
+        // $executionStartTime = microtime(true);
+        if($period == '*')
+        {
+            $carts = Cart::where('status', 'Finished')->orderBy('created_at', 'DESC')->get();
+        }
+        else
+        {
+            $carts = Cart::where('status', 'Finished')->where('created_at', '>', (new \Carbon\Carbon)->submonths($period))->orderBy('created_at', 'DESC')->get();
+            $data = [];
+        }
 
         foreach ($carts as $cart) {
             foreach ($cart->items as $item)
@@ -85,8 +92,9 @@ class StatsController extends Controller
             }
         }
         
-        $executionEndTime = microtime(true);
-        $seconds = $executionEndTime - $executionStartTime;
+        // $executionEndTime = microtime(true);
+        // $seconds = $executionEndTime - $executionStartTime;
+        $seconds = 0;
 
 
         return array(['data' => $data, 'exec_time' => $seconds]);

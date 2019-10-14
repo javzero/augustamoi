@@ -35,6 +35,9 @@
                                         <a href="{{ route('vadmin.statsSalesByPeriod', ['periodo' => '6']) }}" class="btn btnMain @if($periodNumber == 6) activeBtn @endif"">
                                             Últimos 6 meses
                                         </a>
+                                        <a href="{{ route('vadmin.statsSalesByPeriod', ['periodo' => '*']) }}" class="btn btnMain @if($periodNumber == 6) activeBtn @endif"">
+                                            Total
+                                        </a>
                                     </div>
                                 </div>
                                 <br>
