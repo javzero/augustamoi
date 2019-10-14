@@ -115,7 +115,7 @@ class StatsController extends Controller
         else
             $filename = 'Ventas totales';
         
-        return $pdf->stream($filename.'.pdf');
+        return $pdf->download($filename.'.pdf');
     }
 
     public function customStats()

@@ -46,7 +46,7 @@
                                 </td>    
                             </tr> 
                             @endforeach
-                            <tr style="background-color: #f9f9f9; ">
+                            <tr style="background-color: #f9f9f9;">
                                 <td class="white-space: nowrap;"><b>TOTAL</b> </span> > Prendas: {{$totalItems}} | $ {{ $totalAmount }}</td>
                             </tr> 
                         </tbody>
@@ -56,19 +56,3 @@
         </div>
     </body>
 </html>
-{{-- 
-
-@php($totalItems = 0)
-@php($totalAmount = 0)
-
-@foreach($items as $brand => $item)
-    <span class="data-main">{{ $brand}}</span>> 
-    Prendas: {{ $item['items'] }} | 
-    $ {{ $item['amount'] }}</br>
-
-    @php($totalItems += $item['items'])
-    @php($totalAmount += $item['amount'])
-@endforeach
-<hr class="softhr">
-<span class="data-main">Total </span> > Prendas: {{$totalItems}} | $ {{ $totalAmount }} 
- --}}
