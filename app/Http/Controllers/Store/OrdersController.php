@@ -208,10 +208,15 @@ class OrdersController extends Controller
                 }
                 else
                 {
+                    if($item->article->brand)
+                        $brand = $item->article->brand->name;
+                    else
+                        $brand = 'Sin Marca';
+
                     $collected[$key] = [
                         'article_code' => $item->article->code,
                         'article_name' => $item->article_name,
-                        'brand' => $item->article->brand->name,
+                        'brand' => $brand,
                         'talle' => $item->size,
                         'color' => $item->color,
                         'tela' => $item->textile,
