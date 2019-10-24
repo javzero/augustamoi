@@ -39,12 +39,14 @@ $('.Select-All-To-Delete').on("click", function() {
 
 function CheckToDeletion(type, row)
 {
+	console.log(type, row);
 	var selectedRows = [];
 	$(".List-Checkbox:checked").each(function() {          
 		selectedRows.push($(this).attr('data-id'));
 		$('#RowsToDeletion').val(selectedRows);
 	});
 	
+	$('#RowsToExport').val(selectedRows);
 	if(selectedRows.length == 1){
 		$('#EditId, #CreateFromAnotherId').val(selectedRows);
 	} else if(selectedRows.length < 1){
@@ -67,37 +69,6 @@ function CheckToDeletion(type, row)
 	}
 }
 
-// Original lines
-// Set List Action Buttons
-// $(document).on("click", ".List-Checkbox", function(e){
-//     e.stopPropagation();
-// 	var selectedRows = [];
-//     $(".List-Checkbox:checked").each(function() {          
-//         selectedRows.push($(this).attr('data-id'));
-// 		$('#RowsToDeletion').val(selectedRows);
-//     });
-       
-//     if(selectedRows.length == 1){
-// 		$('#EditId, #CreateFromAnotherId').val(selectedRows);
-//     } else if(selectedRows.length < 1){
-// 		$('#EditId, #CreateFromAnotherId').val('');
-//     } else if(selectedRows.length > 1){
-//         $('#EditId, #CreateFromAnotherId').val('');
-//     } else {
-//         $('#EditId, #CreateFromAnotherId').val('');
-//     }
-
-//     showButtons(this);
-
-// 	var checkbox = $(this).prop('checked');
-// 	if(checkbox){
-// 		$(this).parent().parent().parent().addClass('row-selected');
-// 	} else {
-// 		$(this).parent().parent().parent().removeClass('row-selected');
-// 	}
-// });
-
-
 function showButtons(trigger) {
 	
 	var countSelected = $('.List-Checkbox:checkbox:checked').length;
@@ -105,6 +76,7 @@ function showButtons(trigger) {
         $('.DeleteBtn').removeClass('Hidden');
 		$('.EditBtn').removeClass('Hidden');
 		$('.CreateFromAnotherBtn').removeClass('Hidden');
+		$('.ExportSelectedBtn').removeClass('Hidden');
 	} else if(countSelected >= 2) {
 		$('.EditBtn').addClass('Hidden');
 		$('.CreateFromAnotherBtn').addClass('Hidden');
@@ -112,6 +84,7 @@ function showButtons(trigger) {
         $('.DeleteBtn').addClass('Hidden');
 		$('.EditBtn').addClass('Hidden');
 		$('.CreateFromAnotherBtn').addClass('Hidden');
+		$('.ExportSelectedBtn').addClass('Hidden');
     }
 }
 
@@ -144,6 +117,8 @@ uncheckAll();
 |--------------------------------------------------------------------------
 */
 
+
+// Delete rows
 deleteRecord = function(id, route, bigtext, smalltext) {
 	swal({
 		title: bigtext,

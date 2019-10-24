@@ -201,6 +201,11 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
     Route::get('exportOrderToProd', ['as' => 'vadmin.exportOrderToProd', 'uses' => 'Store\OrdersController@exportOrderToProd']);
     Route::get('showOrderToProd', ['as' => 'vadmin.showOrderToProd', 'uses' => 'Store\OrdersController@showOrderToProd']);
 
+    Route::get('exportSelectedOrders/{ids}', ['as' => 'vadmin.exportSelectedOrders', 'uses' => 'Store\OrdersController@exportOrderToProd']);
+
+    // Can sow (But fix the generic export xls button from show section)
+    // Route::get('exportSelectedOrders/{ids}', ['as' => 'vadmin.exportSelectedOrders', 'uses' => 'Store\OrdersController@showOrderToProd']);
+    
     
     Route::get('mailChecker', ['as' => 'vadmin.mailChecker', 'uses' => 'ToolsController@mailChecker']);
     // Autocomplete

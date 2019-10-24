@@ -29,6 +29,13 @@
         deleteAndReload(id, route, 'Cuidado!','Está seguro?');
     });
 
+    $(document).on('click', '.ExportSelectedBtn', function(e) { 
+        let ids   = $('#RowsToExport').val();
+        let route = "{{ url('vadmin/exportSelectedOrders') }}/"+ ids;
+        window.location.replace(route);
+    });
+
+
     // Editable Input
     $('.editable-input').on('change', function(e) {
         let dataDiv = $(e.target).siblings('.editable-input-data');

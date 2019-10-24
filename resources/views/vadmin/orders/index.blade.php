@@ -22,8 +22,14 @@
 				{{-- Delete --}}
 				{{--  THIS VALUE MUST BE THE NAME OF THE SECTION CONTROLLER  --}}
 				<input id="ModelName" type="hidden" value="orders">
+				{{-- Export --}}
+				<button class="ExportSelectedBtn btn btnMain Hidden"><i class="icon-download"></i> Exportar Seleccionados</button>
+				<input id="RowsToExport" type="hidden" name="rowstoexport[]" value="">
+				{{-- <button class="ExportSelectedBtn btn btnMain Hidden"><i class="icon-download"></i> Exportar Seleccionados</button> --}}
+				{{-- Delete --}}
 				<button class="DeleteBtn btn btnRed Hidden"><i class="icon-bin2"></i> Eliminar</button>
 				<input id="RowsToDeletion" type="hidden" name="rowstodeletion[]" value="">
+
 				{{-- If Search --}}
 				@if(isset($_GET['customer']) || isset($_GET['id']))
 					@if(request()->status)
@@ -68,13 +74,15 @@
 			{{-- List --}}
 			@component('vadmin.components.list')
 				@slot('actions')
-				Producción:
-				<a href="{{ url('vadmin/exportOrderToProd') }}" data-toggle="tooltip" title="Exportar en .XLS" target="_blank">
-					 <span class="icon-container green"> <i class="fas fa-file-excel"></i></span> XLS
-				</a>
-				<a href="{{ url('vadmin/showOrderToProd') }}" data-toggle="tooltip" title="Ver pedidos para producción">
-					<span class="icon-container green"><i class="fa fa-eye"></i></span> VER
-			   	</a>
+				@if(app('request')->input('status') == 'Process')
+					Producción:
+					<a href="{{ url('vadmin/exportOrderToProd') }}" data-toggle="tooltip" title="Exportar en .XLS" target="_blank">
+						<span class="icon-container green"> <i class="fas fa-file-excel"></i></span> XLS
+					</a>
+					<a href="{{ url('vadmin/showOrderToProd') }}" data-toggle="tooltip" title="Ver pedidos para producción">
+						<span class="icon-container green"><i class="fa fa-eye"></i></span> VER
+					</a>
+				@endif
 				@endslot
 				@slot('title', 'Pedidos')
 					@if($items->count() == '0')

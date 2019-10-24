@@ -146,21 +146,27 @@ class OrdersController extends Controller
         })->export('csv');         
     }
 
-    public function showOrderToProd()
+    public function showOrderToProd($ids = null)
     {
+        // dd($request->ids);
         // Get all orders ready to production
-        $rawOrders = $this->getOrdersToProduction();
+        $rawOrders = $this->getOrdersToProduction($ids);
         $orders = orderMultiDimensionalArray($rawOrders, 'article_code');
         return view('vadmin.orders.showOrdersToProduction')
             ->with('orders', $orders);
     }
 
-    public function exportOrderToProd()
+    public function exportOrderToProd($ids = null)
     {
+        // dd($ids);
         // Get all orders ready to production
-        $rawOrders = $this->getOrdersToProduction();
+        $rawOrders = $this->getOrdersToProduction($ids);
         $orders = orderMultiDimensionalArray($rawOrders, 'article_code');
-        
+        // dd($orders);
+        // $format = 'xls';
+        // if($ids != null)
+        //     $format = 'csv';
+
         // Export to csv
         $filename = 'Ordenes-Para-Produccion';
         Excel::create($filename, function($excel) use($orders){
@@ -172,12 +178,22 @@ class OrdersController extends Controller
                 $sheet->loadView('vadmin.orders.invoiceOrdersToProd', 
                 compact('orders'));
             });
-        })->export('xls');
+        })->download('xls');
     }
 
-    public function getOrdersToProduction()
+
+    public function getOrdersToProduction($ids = null)
     {
+        // dd($ids);
+        
+        if($ids == null)
         $orders = Cart::where('status', 'Process')->get();
+        else
+        {
+            $idsArray = array_map('intval', explode(',', $ids));
+            $orders = Cart::whereIn('id', $idsArray)->get();
+        }
+
         $collected = [];
         
         foreach($orders as $order)
