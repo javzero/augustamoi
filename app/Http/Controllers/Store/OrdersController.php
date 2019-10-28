@@ -15,6 +15,7 @@ use App\CatalogArticle;
 use App\CatalogBrand;
 use PDF;
 use Excel;
+use Cookie;
 
 class OrdersController extends Controller
 {
@@ -27,13 +28,14 @@ class OrdersController extends Controller
     */
 
     public function index(Request $request)
-    {          
-        //dd($request->all());
+    {        
+        // dd($request->all());
+        $pagination = $this->getSetPaginationCookie($request->get('results'));
+
         $status = "Process";
         if($request->status)
             $status = $request->status;
 
-        $pagination = 20;
         
         if($request->id != null)
         {
@@ -58,6 +60,29 @@ class OrdersController extends Controller
         
         return view('vadmin.orders.index')->with('items', $items);    
 
+    }
+
+
+    // Pagination
+    public function getSetPaginationCookie($request)
+    {
+    
+        if($request)
+        {
+            Cookie::queue('store-pagination', $request, 2000);
+            $pagination = $request;
+        }
+        else
+        {   
+            if(Cookie::get('store-pagination'))
+            {
+                $pagination = Cookie::get('store-pagination');
+            }
+            else{
+                $pagination = 24;
+            }
+        } 
+        return $pagination;
     }
 
     /*

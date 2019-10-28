@@ -193,8 +193,23 @@
 				@endcomponent
 			</div>
 		{{--  Pagination  --}}
+
 		{!! $items->appends(request()->query())->render()!!}
-		<div id="Error"></div>	
+
+		
+		<div class="pagination-results">
+			<span class="title"><b>Resultados por página:</b></span>
+			@if(Request()->status != '' || Request()->status != null);
+				<a href="{{ route('orders.index', ['results' => '30', 'status' => Request()->status]) }}">30</a> | 
+				<a href="{{ route('orders.index', ['results' => '200', 'status' => Request()->status]) }}">200</a> |
+				<a href="{{ route('orders.index', ['results' => '500', 'status' => Request()->status]) }}">500</a>
+			@else
+				<a href="{{ route('orders.index', ['results' => '100', request()->query()]) }}">100</a> | 
+				<a href="{{ route('orders.index', ['results' => '200']) }}">200</a> |
+				<a href="{{ route('orders.index', ['results' => '500']) }}">500</a>
+			@endif
+		</div>
+		{{-- <div id="Error"></div>	 --}}
 	</div>
 @endsection
 
