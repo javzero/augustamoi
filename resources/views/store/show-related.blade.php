@@ -1,4 +1,4 @@
-<div class="container related-articles-container">
+<div class="container-fluid related-articles-container">
     <h3>Tambien puede interesarte</h3>
     <div class="row articles-container">
         @if(isset($relatedArticles))
