@@ -232,12 +232,32 @@ class StoreController extends Controller
             $isFav = false;
         }
 
+        $relatedArticles = CatalogArticle::where('category_id', $article->category->id)->where('id', '!=', $article->id)->get()->take(4);
+        $articlesCount = 0;
+        $articlesCount = count($relatedArticles);
+        // dd($articles);
+        
+        if($articlesCount < 4)
+        {   
+            $desiredAmmount = 4;
+            $take = $desiredAmmount - $articlesCount;
+            // dd($take);
+            $appendedArticles = CatalogArticle::whereHas('tags', function ($q) use ($article) {
+                return $q->whereIn('name', $article->tags->pluck('name')); 
+            })
+            ->where('id', '!=', $article->id) // So you won't fetch same post
+            ->get()->take($take);
+            // dd($appendedArticles);
+            $relatedArticles = $relatedArticles->merge($appendedArticles);
+        };
+        
         return view('store.show')
             ->with('article', $article)
             ->with('articleSizes', $atribute1)
             ->with('colors', $colors)
             ->with('isFav', $isFav)
-            ->with('user', $user);
+            ->with('user', $user)
+            ->with('relatedArticles', $relatedArticles);
     }
 
     public function checkVariantStock(Request $request)

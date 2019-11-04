@@ -1,12 +1,18 @@
 # Errores - Fallas - Bugs - Glitches
 
 # Augusta Moi
+
+
+
+Hola lean buen día. 2 cosas que te quería pedir.
+1) aunque carguemos como nuevo usuario la posibilidad de ponerle nombre al pedido. O sea, tenemos 10 pedidos de nuevo usuario y no sabemos cuál es de cuál cliente. 
+
+2) posibilidad de enviar mail a los que dejan carro abierto para recordarles que dejaron pendiente una selección de prendas en la tienda.
+
+
 - Estadísticas
 Algo importante que necesito en las estadísticas o filtros. Poder filtrar usuarios x localidad. O sea, buscar por ej si vendo en FIRMAT santa fe y hacerlo con un filtro por localidad. Es posible?
 
-
-
-Lean puede que ahora al forzar los pedidos de COMPRANDO a CANCELADO no esté devolviendo stock?
 
 Ah y te quiero pedir un usuario que pueda ingresar a vadmin y vea solo la parte de productos en stock y productos pausados
 Que no vea pedidos, estadísticas, clientes ni nada de esa info.
@@ -19,6 +25,8 @@ Que no vea pedidos, estadísticas, clientes ni nada de esa info.
 
 ==============================================
 # Hecho
+Lean puede que ahora al forzar los pedidos de COMPRANDO a CANCELADO no esté devolviendo stock?
+
 -cuantos compraron mas de 5 veces
 cuantos mas de 10
 si se puede con nombre y apellido :P

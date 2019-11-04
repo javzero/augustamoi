@@ -157,6 +157,9 @@
 					@endif
 				</div>
 			</div>
+			@include('store.show-related')
+			<div style="height: 150px"></div>
+			
 		</div>{{-- product-show --}}
 	</div>{{-- Row --}}
 </div>{{-- Container-Fluid --}}

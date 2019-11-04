@@ -5,6 +5,8 @@ namespace App\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Console\Commands\DeleteOldCarts;
+use App\Console\Commands\SendReminderEmail;
+
 
 class Kernel extends ConsoleKernel
 {
@@ -14,7 +16,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        DeleteOldCarts::class
+        DeleteOldCarts::class,
+        SendReminderEmail::class
     ];
 
     /**
@@ -31,6 +34,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('carts:purge')->cron('* * * * *');
         // $schedule->command('delete:oldcarts')->daily();
         $schedule->command('delete:oldcarts')->daily();
+        $schedule->command('send:reminder')->everyMinute();
     }
 
     /**
