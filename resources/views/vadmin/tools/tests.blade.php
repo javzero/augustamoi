@@ -26,7 +26,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">E-mail destino</label>
-                            <input class="form-control" type="text" name="maildestiny" value="info@vimana.studio">
+                            <input class="form-control" type="text" name="maildestiny" value="info@vimanastudio.com.ar">
                         </div>
                         <input class="btnSm btnBlue" type="submit" value="Enviar">
                     {!! Form::close() !!}
@@ -45,7 +45,7 @@
                         </div>
                         <div class="form-group">
                             <label for="">E-mail destino</label>
-                            <input class="form-control" type="text" name="email" value="dev@vimana.studio">
+                            <input class="form-control" type="text" name="email" value="info@vimanastudio.com.ar">
                         </div>
                         <input class="btnSm btnBlue" type="submit" value="Enviar">
                     {!! Form::close() !!}

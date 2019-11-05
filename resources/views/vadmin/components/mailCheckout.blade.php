@@ -24,7 +24,7 @@
     {{-- Footer --}}
     @slot('footer')
         @component('mail::footer')
-        Mensaje enviado desde <b>Vadmin</b> | Desarrollado por <a href="https://vimana.studio">Vimana Studio</a>
+        Mensaje enviado desde <b>Vadmin</b> | Desarrollado por <a href="https://vimanastudio.com.ar">Vimana Studio</a>
         @endcomponent
     @endslot
 @endcomponent

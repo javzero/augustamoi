@@ -77,7 +77,7 @@
 		</div>
 		<div class="main-copyright">
 			<div class="inner pull-right">
-				<div class="text">Desarrollado por <a href="https://vimana.studio">Vimana Studio</a></div>
+				<div class="text">Desarrollado por <a href="https://vimanastudio.com.ar">Vimana Studio</a></div>
 				<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">
 				<img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a>
 				{{-- <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"></a> --}}

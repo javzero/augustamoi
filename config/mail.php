@@ -57,7 +57,7 @@ return [
 
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'venta@augustamoi.com'),
-        'name' => env('MAIL_FROM_NAME', 'dev@vimana.studio'),
+        'name' => env('MAIL_FROM_NAME', 'info@vimanastudio.com.ar'),
     ],
 
     /*

@@ -16,30 +16,31 @@
                     </div>
                 @endif
                 {{-- =============== Image ================ --}}
-                <div class="image">
+                <a href="{{ url('tienda/articulo/'.$article->id) }}">
+                    <div class="image">
+                            <div class="overlay text-center">
+                                Ver producto !
+                            </div>
+                        
+                        @php($difference = now()->diff($article->created_at)->days) {{-- Check if article has less than 10 days.--}}
+                        @if($difference < 10)
+                            <div class="overlay-ribbon bottom-right-ribbon">
+                                <div class="triangle"></div>
+                                <div class="text">NUEVO! </div>
+                            </div>
+                        @endif
                     
-                    @php($difference = now()->diff($article->created_at)->days) {{-- Check if article has less than 10 days.--}}
-                    @if($difference < 10)
-                        <div class="overlay-ribbon bottom-right-ribbon">
-                            <div class="triangle"></div>
-                            <div class="text">NUEVO! </div>
-                        </div>
-                    @endif
-                   
-                    <img src="{{ asset($article->featuredImageName()) }}" alt="Producto del Catálogo">
-                    @if(Auth::guard('customer')->check())
-                    {{--  Check if product is in favs  --}}
-                    <a class="AddToFavs add-to-favs fa-icon fav-icon-nofav fav-btn
-                        @if(in_array($article->id, $favs['articleFavs'])) fav-icon-isfav @endif"
-                        data-id="{{ $article->id }}" data-toggle="tooltip" title="Agregar a Favoritos">
-                    </a>
-                    @endif
-                    <a href="{{ url('tienda/articulo/'.$article->id) }}">
-                        <div class="overlay text-center">
-                            Ver producto
-                        </div>
-                    </a>
-                </div>
+                        <img src="{{ asset($article->featuredImageName()) }}" alt="Producto del Catálogo">
+                        @if(Auth::guard('customer')->check())
+                        {{--  Check if product is in favs  --}}
+                        <a class="AddToFavs add-to-favs fa-icon fav-icon-nofav fav-btn
+                            @if(in_array($article->id, $favs['articleFavs'])) fav-icon-isfav @endif"
+                            data-id="{{ $article->id }}" data-toggle="tooltip" title="Agregar a Favoritos">
+                        </a>
+                        @endif
+                        
+                    </div>
+                </a>
                 {{-- ============== Content =============== --}}
                 <div class="content">
                     {{-- ============ Title-Info ============== --}}

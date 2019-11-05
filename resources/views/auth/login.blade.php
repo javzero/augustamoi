@@ -60,7 +60,7 @@
             
             <div class="card-footer">
                 <div class="vadmin-logo">
-                    <a href="https://vimana.studio" target="_blank">
+                    <a href="https://vimanastudio.com.ar" target="_blank">
                         <img src="{{ asset('vadmin-ui/app-assets/images/logo/app-logo2.png') }}" alt="branding logo"><br>
                         <span class="text">Gestor de Contenido</span>
                     </a>
