@@ -38,6 +38,7 @@ class ArticlesController extends Controller
         $order = $request->get('orden');
         $rowName = 'stock';
         $status = $request->get('status');
+        $brand = $request->get('brand');
         if($status == null)
             $status = 1;
 
@@ -45,7 +46,6 @@ class ArticlesController extends Controller
             $order = $request->orden_af;
             $rowName = "name";
         }
-
 
         // -------- Pagination -----------
         if ($request->get('results')) {
@@ -75,6 +75,8 @@ class ArticlesController extends Controller
                 $articles = CatalogArticle::searchName($name)->inactive()->orderBy($rowName, $order)->paginate($pagination);
             } elseif (isset($category)) {
                 $articles = CatalogArticle::where('category_id', $category)->inactive()->orderBy($rowName, $order)->paginate($pagination);
+            } elseif (isset($brand)) {
+                $articles = CatalogArticle::where('brand_id', $brand)->inactive()->orderBy($rowName, $order)->paginate($pagination);
             } else {
                 $articles = CatalogArticle::orderBy($rowName, $order)->inactive()->paginate($pagination);
             }
@@ -92,6 +94,8 @@ class ArticlesController extends Controller
                     $articles = CatalogArticle::searchName($name)->orderBy($rowName, $order)->active()->paginate($pagination);
                 } elseif (isset($category)) {
                     $articles = CatalogArticle::where('category_id', $category)->active()->orderBy($rowName, $order)->paginate($pagination);
+                } elseif (isset($brand)) {
+                    $articles = CatalogArticle::where('brand_id', $brand)->active()->orderBy($rowName, $order)->paginate($pagination);
                 } else {
                     $articles = CatalogArticle::orderBy($rowName, $order)->active()->paginate($pagination);
                 }
@@ -99,17 +103,20 @@ class ArticlesController extends Controller
         }
 
         $categories = CatalogCategory::orderBy('id', 'ASC')->pluck('name', 'id');
-        
+        $brands = CatalogBrand::orderBy('id', 'ASC')->pluck('name', 'id');
+
         // ---------- Redirect -------------
         if ($request->redirect == 'stock') {
             return view('vadmin.catalog.stock')
                 ->with('articles', $articles)
-                ->with('categories', $categories);
+                ->with('categories', $categories)
+                ->with('brands', $brands);
         }
 
         return view('vadmin.catalog.index')
             ->with('articles', $articles)
-            ->with('categories', $categories);
+            ->with('categories', $categories)
+            ->with('brands', $brands);
     }
 
     public function show($id)

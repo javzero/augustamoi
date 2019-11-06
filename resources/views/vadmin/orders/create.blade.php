@@ -77,7 +77,7 @@
                                 <br>
                                 <div id="FormContent" class="@if(!$existingOrder) Hidden @endif">
                                     <div class="row greyed-row-form">
-                                        <div class="col-md-3 form-group">
+                                        <div class="col-md-2 form-group">
                                             <label for="">Buscar un producto</label>
                                             <div class="input-group">
                                                 <input id="SearchArticles" type="text" autocomplete="off" class="form-control" placeholder="Ingrese Nombre o Código">
@@ -116,7 +116,13 @@
                                             </select>
                                             {{-- {!! Form::select('payment_method_id', $payment_methods, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!} --}}
                                         </div>
-                                        <div class="col-md-3 form-group">
+                                        <div class="col-md-2 form-group">
+                                            {!! Form::label('anon_name', 'Nombre') !!}
+                                            {!! Form::text('anon_name', null, 
+                                            ['class' => 'form-control', 'placeholder' => 'Nombre', 
+                                            'maxlength' => '25', 'minlength' => '2']) !!}
+                                        </div>
+                                        <div class="col-md-2 form-group">
                                             {!! Form::label('seller', 'Vendedor') !!}
                                             {!! Form::select('seller', $sellers, 
                                             Auth::guard('user')->user()->id , ['class' => 'form-control', 'placeholder' => 'Seleccione una vendedor']) !!}

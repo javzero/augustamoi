@@ -232,7 +232,9 @@ class StoreController extends Controller
             $isFav = false;
         }
 
-        $relatedArticles = CatalogArticle::where('category_id', $article->category->id)->where('id', '!=', $article->id)->get()->take(4);
+        $relatedArticles = CatalogArticle::where('category_id', $article->category->id)->where('id', '!=', $article->id)
+        ->active()
+        ->get()->take(4);
         $articlesCount = 0;
         $articlesCount = count($relatedArticles);
         // dd($articles);
@@ -246,6 +248,7 @@ class StoreController extends Controller
                 return $q->whereIn('name', $article->tags->pluck('name')); 
             })
             ->where('id', '!=', $article->id) // So you won't fetch same post
+            ->active()
             ->get()->take($take);
             // dd($appendedArticles);
             $relatedArticles = $relatedArticles->merge($appendedArticles);

@@ -37,8 +37,13 @@
         @component('vadmin.components.list')
             @slot('title')
             Pedido #{{ $order['rawdata']->id }}
-                    <span class="small"> | <b>Cliente: <a href="" data-toggle="modal" data-target="#CustomerDataModal"></b>
+                <span class="small"> | <b>Cliente: <a href="" data-toggle="modal" data-target="#CustomerDataModal"></b>
+                    @if($order['rawdata']->customer->username == 'Nuevo Usuario' && $order['rawdata']->anon_name != null)
+
+                        {{ $order['rawdata']->anon_name }} *
+                    @else
                         {{ $order['rawdata']->customer->name }} {{ $order['rawdata']->customer->surname }}</a> 
+                    @endif
                 <p>
                     {{ transDateT($order['rawdata']->created_at) }}</span>
                 </p>

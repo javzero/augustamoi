@@ -39,8 +39,8 @@
 		{{-- Search --}}
 		<div class="row inline-links">
 			<b>Órden:</b> 
-			<a href="{{ route('catalogo.index', ['orden_af' => 'ASC']) }}" >A-Z</a>
-			<a href="{{ route('catalogo.index', ['orden_af' => 'DESC']) }}" >Z-A</a>
+			<a href="{{ route('catalogo.index', ['orden_af' => 'ASC', http_build_query($_GET)]) }}" >A-Z</a>
+			<a href="{{ route('catalogo.index', ['orden_af' => 'DESC', http_build_query($_GET)]) }}" >Z-A</a>
 			{{-- <a href="{{ route('catalogo.index', ['orden' => 'ASC']) }}">Stock Bajo</a> 
 			<a href="{{ route('catalogo.index', ['orden' => 'DESC']) }}">Stock Alto</a>
 			<a href="{{ route('catalogo.index', ['orden' => 'limitados']) }}" >Stock Limitado</a> --}}
@@ -48,33 +48,7 @@
 		<div class="row">
 			@component('vadmin.components.list')
 				@slot('actions')
-					{{-- @if(isset($_GET['name']) || isset($_GET['code']) || isset($_GET['title']) || isset($_GET['category']) || isset($_GET['orden']))
-						<a href="{{ route('vadmin.exportCatalogListSheet', ['params' => http_build_query($_GET), 'format' => 'xls']) }}" data-toggle="tooltip" title="Exportar a .XLS"  class="icon-container green">
-							<i class="fas fa-file-excel"></i>
-						</a>
-						<a href="{{ route('vadmin.exportCatalogListSheet', ['params' => http_build_query($_GET), 'format' => 'csv']) }}" data-toggle="tooltip" title="Exportar a .CSV"  class="icon-container blue">
-							<i class="fas fa-file-excel"></i>
-						</a>
-						<a href="{{ route('vadmin.exportCatalogListPdf', ['params' => http_build_query($_GET), 'action' => 'download']) }}" data-toggle="tooltip" title="Exportar a .PDF" class="icon-container red">
-							<i class="fas fa-file-pdf"></i>
-						</a>
-						<a href="{{ route('vadmin.exportCatalogListPdf', ['params' => http_build_query($_GET), 'action' => 'stream']) }}" data-toggle="tooltip" title="Exportar a .PDF" class="icon-container red">
-							<i class="fas fa-eye"></i>
-						</a>
-					@else
-						<a href="{{ route('vadmin.exportCatalogListSheet', ['params' => 'all', 'format' => 'xls']) }}" data-toggle="tooltip" title="Exportar a XLS"  class="icon-container green">
-							<i class="fas fa-file-excel"></i>
-						</a>
-						<a href="{{ route('vadmin.exportCatalogListSheet', ['params' => 'all', 'format' => 'csv']) }}" data-toggle="tooltip" title="Exportar a .CSV"  class="icon-container blue">
-							<i class="fas fa-file-excel"></i>
-						</a>
-						<a href="{{ route('vadmin.exportCatalogListPdf', ['params' => 'all', 'action' => 'download']) }}" data-toggle="tooltip" title="Exportar a .PDF" class="icon-container black">
-							<i class="fas fa-file-pdf"></i>
-						</a>
-						<a href="{{ route('vadmin.exportCatalogListPdf', ['params' => 'all', 'action' => 'stream']) }}" data-toggle="tooltip" title="Exportar a .PDF" class="icon-container black">
-							<i class="fas fa-eye"></i>
-						</a>
-					@endif --}}
+
 				@endslot
 
 				@slot('title')
@@ -99,6 +73,7 @@
 						<th>Cód.</th>
 						<th>Título</th>
 						<th>Variantes (Color / Talle - Stock)</th>
+						<th>Precio</th>
 						<th>Estado</th>
 					@endslot
 					@slot('tableContent')
@@ -144,6 +119,10 @@
 											</div>
 										</div>
 									@endforeach
+								</td>
+								<td>
+									{{-- ${{ $item->price }} @if($item->discount != 0) <i>(${{calcArticlePrice($item->price, $item->discount) }}) @endif </i> /  --}}
+									${{ $item->reseller_price }} @if($item->reseller_discount != 0) <i>(${{calcArticlePrice($item->reseller_price, $item->reseller_discount) }})</i> @endif
 								</td>
 								{{-- STATUS --}}
 								<td class="w-50 pad0 centered">

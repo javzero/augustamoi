@@ -290,6 +290,10 @@ class OrdersController extends Controller
         // Store Cart
         $cart = new Cart();
         $cart->status = 'Approved';
+
+        if(isset($request->anon_name))
+            $cart->anon_name = $request->anon_name;
+
         
         //Set Payment Method
         $cart->payment_method_id = $request->payment_method_id;
@@ -302,7 +306,6 @@ class OrdersController extends Controller
         $cart->shipping_price = $shipping_price;
 
         $cart->customer_id = $request->customer_id;
-        
         $cart->save();
         $cart_id = $cart->id;
 

@@ -122,7 +122,11 @@
 								<td class="w-50 show-link"><a href="{{ url('vadmin/orders/'.$item->id) }}">#{{ $item->id }}</a></td>
 								<td class="show-link max-text">
 									<a href="{{ url('vadmin/customers/'.$item->customer_id) }}">
-										{{ $item->customer->name }} {{ $item->customer->surname }} ({{ $item->customer->username }})
+										@if($item->customer->username == 'Nuevo Usuario' && $item->anon_name != null)
+											{{ $item->anon_name }} *
+										@else
+											{{ $item->customer->name }} {{ $item->customer->surname }} ({{ $item->customer->username }})
+										@endif
 									</a>
 								</td>
 								<td>
