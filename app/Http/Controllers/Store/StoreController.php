@@ -232,9 +232,29 @@ class StoreController extends Controller
             $isFav = false;
         }
 
-        $relatedArticles = CatalogArticle::where('category_id', $article->category->id)->where('id', '!=', $article->id)
+        $relatedArticles = $this->getRelatedArticles($article);
+       
+        return view('store.show')
+            ->with('article', $article)
+            ->with('articleSizes', $atribute1)
+            ->with('colors', $colors)
+            ->with('isFav', $isFav)
+            ->with('user', $user)
+            ->with('relatedArticles', $relatedArticles);
+    }
+
+    public function getRelatedArticles($article)
+    {
+    
+        $relatedArticles = CatalogArticle::whereHas('tags', function ($q) use ($article) {
+            return $q->whereIn('name', $article->tags->pluck('name')); 
+        })
+        ->orderBy('id', 'DESC')
+        ->where('id', '!=', $article->id) // So you won't fetch same post
         ->active()
         ->get()->take(4);
+        // dd($relatedArticles);
+
         $articlesCount = 0;
         $articlesCount = count($relatedArticles);
         // dd($articles);
@@ -244,23 +264,14 @@ class StoreController extends Controller
             $desiredAmmount = 4;
             $take = $desiredAmmount - $articlesCount;
             // dd($take);
-            $appendedArticles = CatalogArticle::whereHas('tags', function ($q) use ($article) {
-                return $q->whereIn('name', $article->tags->pluck('name')); 
-            })
-            ->where('id', '!=', $article->id) // So you won't fetch same post
-            ->active()
-            ->get()->take($take);
+            $appendedArticles = CatalogArticle::where('category_id', $article->category->id)->orderBy('id', 'DESC')->where('id', '!=', $article->id)
+                ->active()
+                ->get()->take($take);
             // dd($appendedArticles);
             $relatedArticles = $relatedArticles->merge($appendedArticles);
         };
         
-        return view('store.show')
-            ->with('article', $article)
-            ->with('articleSizes', $atribute1)
-            ->with('colors', $colors)
-            ->with('isFav', $isFav)
-            ->with('user', $user)
-            ->with('relatedArticles', $relatedArticles);
+        return $relatedArticles;
     }
 
     public function checkVariantStock(Request $request)

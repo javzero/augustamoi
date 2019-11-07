@@ -294,7 +294,6 @@ class OrdersController extends Controller
         if(isset($request->anon_name))
             $cart->anon_name = $request->anon_name;
 
-        
         //Set Payment Method
         $cart->payment_method_id = $request->payment_method_id;
         $payment_percent = Payment::where('id', $request->payment_method_id)->first()->percent;
