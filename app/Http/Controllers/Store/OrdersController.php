@@ -289,7 +289,7 @@ class OrdersController extends Controller
 
         // Store Cart
         $cart = new Cart();
-        $cart->status = 'Approved';
+        $cart->status = 'Process';
 
         if(isset($request->anon_name))
             $cart->anon_name = $request->anon_name;
@@ -327,7 +327,7 @@ class OrdersController extends Controller
         }
 
         
-        return redirect()->route('orders.index', ['status' => 'Approved'])->with('message','Pedido cargado exitosamente');
+        return redirect()->route('orders.index', ['status' => 'Process'])->with('message','Pedido cargado exitosamente');
     }
 
     /*
