@@ -74,6 +74,7 @@
 						<th>Título</th>
 						<th>Variantes (Color / Talle - Stock)</th>
 						<th>Precio</th>
+						<th>Valor de Stock</th>
 						<th>Estado</th>
 					@endslot
 					@slot('tableContent')
@@ -107,6 +108,9 @@
 									</div>
 								</td>
 								<td style="white-space: normal">
+									@php
+										$stockAmount = 0;
+									@endphp	
 									@foreach($item->variants as $variant)
 										<div class="small-badge-with-data">
 											<div class="detail-data"><p>{{ $variant->combination }}</p></div>
@@ -118,11 +122,16 @@
 												</div>
 											</div>
 										</div>
+										@php($stockAmount += $variant->stock)
 									@endforeach
 								</td>
 								<td>
 									{{-- ${{ $item->price }} @if($item->discount != 0) <i>(${{calcArticlePrice($item->price, $item->discount) }}) @endif </i> /  --}}
 									${{ $item->reseller_price }} @if($item->reseller_discount != 0) <i>(${{calcArticlePrice($item->reseller_price, $item->reseller_discount) }})</i> @endif
+								</td>
+								<td>
+									{{-- Calc total value of stock--}}
+									$ {{ calcArticlePrice($item->reseller_price, $item->reseller_discount) * $stockAmount }}
 								</td>
 								{{-- STATUS --}}
 								<td class="w-50 pad0 centered">
