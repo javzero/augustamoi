@@ -48,24 +48,38 @@ h1,h2,h3,h4,h5,h6
                 color: #fff
                     
 header
-    margin-bottom: 15px
     margin-top: 15px
+    margin-bottom: 24px
 
 // Index
 .topbar
-    background: #fff
-    color: #000
+    background: $grey
+    color: #fff
     a
         margin: 5px
     span,i,p,a
-        color: #000
+        color: #fff
+        font-weight: 300
     .topbar-column
-        color: #000
+        color: #fff
         a
-            color: #000 !important
+            color: #fff !important
+        .social-button
+            padding: 2px 5px
+            height: 24px
+            width: 24px
+            border: 1px solid #fff
+            border-radius: 50%
+            i
+                font-size: 0.7rem
+.toolbar
+    top: 10px 
+    .cart
+        border: 0
 
-.toolbar .cart
-    border: 0
+@media (max-width: 768px)
+    .topbar
+        display: none
 
 // UserBan
 .dropdown-item.active, .dropdown-item
@@ -110,6 +124,12 @@ header
     &:hover
         background-color: $main-color
 
+.text-btn
+    border: 0
+    margin: 0
+    padding: 0 10px
+    height: 40px
+    font-size: 0.8rem 
 
 // FORMS
 .form-control

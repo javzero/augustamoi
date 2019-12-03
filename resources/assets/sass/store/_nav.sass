@@ -1,3 +1,270 @@
+.navbar-mobile
+	display: none
+	height: 60px
+	position: relative
+	padding: 10px 10px 
+	.open-btn
+		@include flex-center
+		height: 60px
+		float: left
+	.site-branding
+		@include flex-center
+		float: right
+		img
+			height: 50px
+			max-width: 100%
+	
+@media (max-width: 768px)
+	.navbar-mobile
+		display: block
+
+//
+// |--------------------------------------------------------------------------
+// | Nav Trigger
+// |--------------------------------------------------------------------------
+//
+.navfull-button
+	// position: fixed
+	cursor: pointer
+	z-index: 9999
+
+// Top Nav button
+.navfull-top-button
+	top: 20px
+	right: 20px
+	padding: 0
+	height: 28px
+	width: 50px
+	.bar
+		background-color: #383838
+		display: block
+		width: 100%
+		height: 8px
+		border: 0
+		-webkit-transition: all .35s ease
+		transition: all .35s ease
+		border-bottom: 1px solid #ccc
+		+ .bar
+			margin-top: 1px
+	.middle
+		top: 11px
+	.bottom
+		top: 22px
+	.toggle-button:hover
+		opacity: .7
+
+@media (max-width: 500px)
+	.navfull-top-button
+		padding: 0
+		margin: 0
+		right: 10px
+		top: 25px
+		width: 40px
+
+.navfull-top-active
+	.bar
+		background-color: #fff
+	.top
+		-webkit-transform: translateY(6px) translateX(0) rotate(45deg)
+	.middle
+		opacity: 0
+	.bottom
+		-webkit-transform: translateY(-12px) translateX(0) rotate(-45deg)
+
+
+//
+// |--------------------------------------------------------------------------
+// | Full Screen Navigation 
+// |--------------------------------------------------------------------------
+//
+.navfull
+	background-color: #fff
+	position: fixed
+	width: 100%
+	padding: 0
+	top: 60px
+	left: 0
+	height: 0
+	z-index: 9998
+	display: flex
+	visibility: hidden
+	-webkit-transition: opacity .35s, visibility .35s, height .35s
+	overflow: scroll
+	.menu-content
+		padding: 20px 0
+		width: 100%
+		padding-bottom: 50px
+		.nav-items
+			ul
+				text-align: left
+				margin-bottom: 0
+				li
+					width: 100
+					padding: 10px 20px
+					border-bottom: 1px solid #383838
+					color: #383838
+					&:last-child
+						border: 0 
+					.details
+						color: $lblue
+				
+		.foot-info
+			// padding: 180px 20px 120px
+			padding: 20px
+			position: absolute
+			bottom: 55px
+			left: 0
+			width: 100%
+			color: #383838
+			p
+				margin-bottom: 8px
+			li 
+				a 
+					border-radius: 100%
+					border: 1px solid $lblue
+					color: $lblue
+					height: 40px
+					width: 40px
+					padding: 8px 12px
+					font-size: 0.8rem
+				
+@media screen and (max-height: 700px)
+	.navfull .menu-content
+		.foot-info
+			position: relative
+			bottom: auto
+			margin-top: 40px
+
+
+	.social
+		height: 100%
+		@include flex-center()
+		position: absolute
+		left: 10px
+		.inner
+			ul li 
+				text-align: center
+				margin: 10px 0
+				height: 30px
+				width: 30px
+				i
+					opacity: 0
+					color: #fff
+					font-size: 1.5rem
+					@include transition(0.2s)
+				&:hover
+					i
+						color: #000
+						font-size: 1.2rem
+
+
+@media (max-width: 640px)
+	.nav-full
+		.right
+			display: none
+
+.navfull-active
+	visibility: visible
+	height: 100%
+	.menu-content ul li a, .social .inner ul li i
+		opacity: 1
+//
+// |--------------------------------------------------------------------------
+// | Nav Trigger
+// |--------------------------------------------------------------------------
+//
+.navfull-button
+	cursor: pointer
+	z-index: 9999
+
+// Top Nav button
+.navfull-top-button
+	top: 20px
+	right: 20px
+	padding: 0
+	height: 28px
+	width: 50px
+	.bar
+		background-color: #b9b9ef
+		display: block
+		width: 100%
+		height: 2px
+		border: 0
+		-webkit-transition: all .35s ease
+		transition: all .35s ease
+		+ .bar
+			margin-top: 8px
+	.middle
+		top: 11px
+	.bottom
+		top: 22px
+		width: 70%
+	.toggle-button:hover
+		opacity: .7
+
+@media (max-width: 500px)
+	.navfull-top-button
+		padding: 0
+		margin: 0
+		right: 10px
+		top: 25px
+		width: 40px
+
+.navfull-top-active
+	.bar
+		background-color: #383838
+	.top
+		-webkit-transform: translateY(6px) translateX(0) rotate(45deg)
+	.middle
+		opacity: 0
+	.bottom
+		-webkit-transform: translateY(-12px) translateX(0) rotate(-45deg)
+		.bottom
+		width: 100%
+
+
+//
+// |--------------------------------------------------------------------------
+// | Desktop NavBar
+// |--------------------------------------------------------------------------
+//
+.navbar
+	border: 0
+	position: relative
+	top: 0
+	left: 0
+	width: 100%
+	min-height: 40px
+	padding: 0
+	background-color: $white
+	z-index: 9000
+	&.navbar-stuck 
+		position: fixed
+		z-index: 9010
+	.site-branding
+		float: left
+		margin-right: 10px
+		img
+			max-width: 220px
+			max-height: 100%
+			padding: 0 10px 0
+	.left-nav-items
+		height: 40px
+		padding: 15px 0 0
+		@include flex-center-left
+		li
+			padding: 0 5px
+	.nav-actions
+		float: right !important
+		margin-right: -15px
+		position: absolute
+		right: 33px
+		top: 14px
+
+@media (max-width: 768px)
+	.navbar
+		display: none
+
 .navbar-sticky
 	.toolbar
 		.inner
@@ -5,8 +272,6 @@
 				.account
 					img
 						border-radius: 50%
-
-
 	
 .dropdown-product-item > .dropdown-product-info
 	max-width: 148px
@@ -17,7 +282,6 @@
 	max-width: 100%
 	max-height: 80px
 
-		
 .user-info-wrapper
 	padding-top: 20px
 	padding-bottom: 20px
@@ -31,7 +295,25 @@
 .top-info
 	padding-bottom: 20px
 
-
+.toolbar 
+	.account > .toolbar-dropdown
+		margin-left: -170px
+		top: 53px
+		border-radius: 0 
+		border: 1px solid #ccc
+		background-color: #f9f9f9
+		box-shadow: -2px 8px 10px -2px rgba(0, 0, 0, 0.55)
+		@include transition(0.2s)
+		li
+			&:hover,&:focus,&:active
+				background-color: $main-color
+				a
+					color: #fff
+				.dropdown-item
+					color: red
+		.sub-menu-title
+			&:hover
+				background-color: #f9f9f9
 
 @media (max-width: 1070px)
 	.toolbar 
@@ -44,10 +326,6 @@
 @media (max-width: 600px)
 	.toolbar
 		position: absolute
-
-.navbar
-	.site-logo-mobile
-		display: none
 
 @media (max-width: 481px)
 	.navbar
@@ -63,58 +341,6 @@
 	.toolbar .cart > .toolbar-dropdown
 		top: 100px
 
-
-// ------- Top Bar ---------
-.topbar 
-	.topbar-column
-		white-space: nowrap
-
-
-	
-@media (max-width: 490px)
-	.topbar .topbar-column
-		.e-mail-field
-			display: none !important
-
-
-.navbar
-	height: 65px
-	min-height: auto
-	border: 0
-	
-
-
-.site-branding
-	text-align: center
-	position: relative
-	top: auto
-	left: auto
-	max-height: 60px
-	a
-		max-height: 60px
-		padding: 2px
-		img
-			max-height: 100%
-
-.left-nav-items
-	position: absolute
-	left: 0
-	top: 0
-	height: 100%
-	z-index: 6
-	li
-		height: 30px
-		height: 100%
-		@include flex-center
-		a
-			padding: 20px
-
-@media (max-width: 768px)
-	.left-nav-items
-		display: none
-
-		
-
 .navbar-sticky	
 	.toolbar 
 		white-space: nowrap
@@ -125,26 +351,9 @@
 				height: auto
 				display: inline-flex
 
-.toolbar .account > .toolbar-dropdown
-	margin-left: -170px
-	top: 53px
-	border-radius: 0 
-	border: 1px solid #ccc
-	background-color: #f9f9f9
-	box-shadow: -2px 8px 10px -2px rgba(0, 0, 0, 0.55)
-	@include transition(0.2s)
-	li
-		&:hover,&:focus,&:active
-			background-color: $main-color
-			a
-				color: #fff
-			.dropdown-item
-				color: red
-	.sub-menu-title
-		&:hover
-			background-color: #f9f9f9
-@media (min-width: 481px)
 
+
+@media (min-width: 481px)
 	.toolbar .cart > .toolbar-dropdown
 		width: 300px
 		padding-left: 18px !important
@@ -159,16 +368,11 @@
 		top: 150px
 		left: 10px !important
 
-@media (max-width: 768px)
-	.site-branding
-		a img
-			max-height: 60px
-
 
 @media (max-width: 710px)
 	.navbar
-		min-height: auto
-		height: auto
+		// min-height: auto
+		// height: auto
 		.site-branding
 			position: relative
 			@include flex-center
@@ -208,25 +412,25 @@
 			margin-right: 10px
 			a
 				margin: 0 15px
-	.under-nav-container
-		display: none
+	// .under-nav-container
+	// 	display: none
 
-.under-nav-container
-	.under-nave-items
-		display: none
+// .under-nav-container
+// 	.under-nave-items
+// 		display: none
 
-@media (max-width: 768px)
-	.under-nav-container
-		.under-nave-items
-			display: block
+// @media (max-width: 768px)
+// 	.under-nav-container
+// 		.under-nave-items
+// 			display: block
 
-@media (max-width: 852px)
-	.under-nav-container
-		text-align: center
-		display: block
-		margin-bottom: 10px
-		.text-links
-			margin-right: 10px
-			a
-				margin: 0 15px
-				white-space: nowrap
+// @media (max-width: 852px)
+// 	.under-nav-container
+// 		text-align: center
+// 		display: block
+// 		margin-bottom: 10px
+// 		.text-links
+// 			margin-right: 10px
+// 			a
+// 				margin: 0 15px
+// 				white-space: nowrap

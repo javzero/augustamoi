@@ -12,8 +12,7 @@
                 @include('store.partials.profile-aside')
             </div>
             <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 white-container">
-                <h3>Órdenes realizadas</h3>
-                <div class="padding-top-2x mt-2 hidden-lg-up"></div>
+                <h2 class="customer-account-title">Órdenes realizadas</h2>
                 <div class="table-responsive">
                     <table class="table table-hover margin-bottom-none">
                         <thead>

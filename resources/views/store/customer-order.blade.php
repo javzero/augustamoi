@@ -9,7 +9,7 @@
     <div class="container padding-bottom-3x mb-2 marg-top-25">
         <div class="row">
             <div class="container white-container padding-bottom-3x mb-1">
-                <h2>Pedido N° {{ $cart['rawdata']->id }}</h2>
+                <h2 class="customer-account-title">Pedido N° {{ $cart['rawdata']->id }}</h2>
                 Estado:  {{ orderStatusTrd($cart['rawdata']->status) }}
                 <!-- Shopping Cart-->
                 <div class="table-responsive shopping-cart">

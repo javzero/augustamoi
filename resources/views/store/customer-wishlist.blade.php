@@ -12,14 +12,12 @@
                 @include('store.partials.profile-aside')
             </div>
             <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 white-container">
-				<h2>Productos favoritos</h2>
-				<div class="padding-top-2x mt-2 hidden-lg-up"></div>
+				<h2 class="customer-account-title">Productos favoritos</h2>
 				<!-- Wishlist Table-->
 				<div class="table-responsive wishlist-table margin-bottom-none">
 					<table class="table">
 						<thead>
 							<tr>
-								<th>Productos Favoritos</th>
 								@if($favs['favs']->count() > '0')
 								<th class="text-center"><a class="RemoveAllFromFavs btn btn-sm btn-outline-danger" data-customerid="{{ $customer->id }}" href="">Limpiar Lista</a></th>
 								@endif

@@ -1,3 +1,37 @@
+//
+// |--------------------------------------------------------------------------
+// | Navigation
+// |--------------------------------------------------------------------------
+//
+$('#navfull-top-btn, #navfull-bottom-btn').click(function() {
+    toggleNav();
+});
+
+window.toggleNav = function()
+{
+    const nav = $('.MobileNavigation');
+    const body = $('body');
+    const trigger = $('#navfull-top-btn');
+    const bottomTrigger = $('#navfull-bottom-btn');
+    const contentText = $('.content-effect');
+
+    if(nav.hasClass('navfull-active'))
+    {
+        nav.removeClass('navfull-active');
+        trigger.removeClass('navfull-top-active');
+        bottomTrigger.removeClass('navfull-bottom-active');
+        body.css('overflow','auto');
+        contentText.hide();
+    } else {
+        nav.addClass('navfull-active');
+        trigger.addClass('navfull-top-active');
+        bottomTrigger.addClass('navfull-bottom-active');
+        body.css('overflow','hidden');
+        contentText.fadeIn(500);
+    }
+}
+
+
 // Loaders
 // -------------------------------------------
 $(".loader-on-change").on('change', function () {

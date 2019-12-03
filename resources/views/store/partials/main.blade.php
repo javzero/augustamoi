@@ -47,7 +47,6 @@
 			&noscript=1"/>
 		</noscript>
 		<!-- End Facebook Pixel Code -->
-
 	</head>
 	<!-- Body-->
 	<body>

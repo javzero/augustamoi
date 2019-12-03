@@ -8,12 +8,11 @@
     @endif --}}
     <div class="container padding-bottom-3x mb-2 marg-top-25">
         <div class="row ">
-            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+            <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4 ">
                 @include('store.partials.profile-aside')
             </div>
             <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8">
-                <h2>Datos de contacto y entrega</h2>
-                <div class="padding-top-2x mt-2 hidden-lg-up"></div>
+                <h2 class="customer-account-title">Datos de contacto y entrega</h2>
                 @if(app('request')->input('from') == 'checkout')
                 <form class="row small-form" method="POST" action="{{ route('store.updateCustomer', array('from' => 'checkout')) }}">
                 @else

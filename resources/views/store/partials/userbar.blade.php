@@ -42,8 +42,8 @@
                 </div>
             @else
                 <div class="access-buttons">
-                    <a href="{{ route('customer.login') }}"><button class="btn  btn-main-sm-hollow">Ingresar</button></a>
-                    <a href="{{ url('tienda/registro') }}"><button class="btn  btn-main-sm">Registrarse</button></a>
+                    <a href="{{ route('customer.login') }}"><button class="btn text-btn">Ingresar</button></a>
+                    <a href="{{ url('tienda/registro') }}"><button class="btn text-btn">Registrarse</button></a>
                 </div>
                 {{-- <div class="access-icons">
                     <a href="{{ route('customer.login') }}"><button class="icon-button"><i class="fas fa-sign-in-alt"></i></button></a>

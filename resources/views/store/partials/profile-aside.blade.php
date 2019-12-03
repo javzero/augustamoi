@@ -31,7 +31,7 @@
     {!! Form::close() !!}  
 </aside>
 
-<nav class="list-group">
+<nav class="list-group customer-profile">
     <a class="list-group-item {{ Menu::activeMenu('cuenta') }}" href="{{ route('store.customer-account') }}"><i class="icon-head"></i>Cuenta</a>
     <a class="list-group-item justify-content-between {{ Menu::activeMenu('pedidos') }}" href="{{ route('store.customer-orders') }}">
             <span><i class="icon-bag"></i>Mis Pedidos</span>

@@ -15,6 +15,10 @@
 	transition: all $segs ease 0s
   
 
+@mixin transition-bounce($segs)
+	-webkit-transition: all $segs cubic-bezier(0.08, 0.71, 0.39, 1.15) 0s
+	transition: all $segs cubic-bezier(0.08, 0.71, 0.39, 1.15) 0s
+	
 ////////////////////////////////////////
 //                                    //
 //             SHADOWS                //
