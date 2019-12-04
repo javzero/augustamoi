@@ -36,7 +36,7 @@
 	<div class="brands-slider">
 		<div class="BrandsSlider owl-carousel owl-theme">
 			@foreach($brands as $brand)
-			<div class="item"><a href="{{ route('store', 'marca=').$brand->id }}">{{ $brand->name }}</a></div>
+				<div class="item"><a href="{{ route('store', 'marca=').$brand->id }}">{{ $brand->name }}</a></div>
 			@endforeach
 		</div>
 	</div>
@@ -82,7 +82,7 @@
 								@if(isset($_GET['marca']))
 									@foreach($brands as $brand)
 										@if($brand->id == $_GET['marca'])
-											<h3>Mostrando indumentaria de <b>{{ $brand->name }}</b></h3>
+											<h3>Mostrando indumentaria de <span style="white-space: nowrap"><b>{{ $brand->name }}</b></spans></h3>
 										@endif
 									@endforeach
 								@else									
