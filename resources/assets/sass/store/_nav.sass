@@ -5,7 +5,8 @@
 	padding: 10px 10px 
 	.open-btn
 		@include flex-center
-		height: 60px
+		height: 40px
+		padding-top: 5px
 		float: left
 	.site-branding
 		@include flex-center
@@ -77,6 +78,7 @@
 // | Full Screen Navigation 
 // |--------------------------------------------------------------------------
 //
+	
 .navfull
 	background-color: #fff
 	position: fixed
@@ -157,6 +159,9 @@
 						color: #000
 						font-size: 1.2rem
 
+@media (min-width: 768px)
+	.nav-full,.navfull
+		display: none
 
 @media (max-width: 640px)
 	.nav-full
@@ -238,6 +243,8 @@
 	padding: 0
 	background-color: $white
 	z-index: 9000
+	font-weight: 300 !important
+	font-size: 1rem
 	&.navbar-stuck 
 		position: fixed
 		z-index: 9010
@@ -269,6 +276,8 @@
 	.toolbar
 		.inner
 			.tools
+				.fa-heart
+					color: $red
 				.account
 					img
 						border-radius: 50%

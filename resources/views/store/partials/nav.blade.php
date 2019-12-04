@@ -8,9 +8,9 @@
 		</a>
 	</div>
 	<ul class="nav navbar-nav left-nav-items">
-		<li><a href="{{ url('como-comprar') }}"> Link 1 </a></li>
-		<li><a href="{{ url('como-comprar') }}"> Link 2 </a></li>
-		<li><a href="{{ url('como-comprar') }}"> Link 3 </a></li>
+		<li><a onchange="location = this.value;" href="{{ route('store', 'categoria=para_arriba') }}">Para arriba</a></li>
+		<li><a onchange="location = this.value;" href="{{ route('store', 'categoria=para_abajo') }}">Para abajo</a></li>
+		<li><a onchange="location = this.value;" href="{{ route('store', 'categoria=vestidos') }}">Vestidos</a></li>
 	</ul>
 	<div class="nav-actions">
 		@include('store.partials.userbar')

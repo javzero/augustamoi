@@ -232,3 +232,46 @@
 	padding: 26px 0 10px
 
 
+//
+// |--------------------------------------------------------------------------
+// | Image Filters
+// |--------------------------------------------------------------------------
+//
+
+.image-filters
+	@include flex-center
+	ul
+		display: flex
+		white-space: nowrap
+		li
+			margin: 0 15px
+			position: relative
+			.text
+				@include flex-center
+				font-size: 1.2rem
+				font-weight: 300
+				font-family: $font2
+				position: absolute
+				left: 0
+				top: 0
+				width: 100%
+				height: 100%
+				color: #fff
+			img
+				max-width: 100%
+
+@media (max-width: 600px)
+	.image-filters
+		ul
+			li
+				margin: 2px
+
+@media (max-width: 700px)
+	.image-filters
+		display: block
+		ul
+			display: block
+			li
+				display: block
+				margin: 2px
+				text-align: center

@@ -1,0 +1,53 @@
+.store-slider-mobile
+	display: none !important
+.store-slider-desktop
+
+.store-slider
+	.owl-dots
+		margin-top: 10px
+		position: absolute
+		width: 100%
+		bottom: 0px
+		.owl-dot span
+			width: 40px !important
+			height: 6px !important
+			border-radius: 0 !important
+			background-color: #fff !important
+		.owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span
+			background-color: $lblue !important
+			
+@media (max-width: 768px)
+	.store-slider-mobile
+		display: block !important
+	.store-slider-desktop
+		display: none !important
+
+.brands-slider
+	@include flex-center
+	.owl-carousel
+		max-width: 80%
+		padding: 20px 50px
+		.item
+			padding: 10px 5px
+			a
+				text-align: center
+				border: 1px solid #383838
+				color: $blue
+				text-transform: uppercase
+				font-weight: 600
+				padding: 8px 20px
+
+@media (max-width: 768px)
+	.brands-slider
+		.owl-carousel
+			padding: 10px
+
+@media (max-width: 1000px)
+	.brands-slider
+		.owl-carousel
+			max-width: 100%
+				
+@media (min-width: 1500px)
+	.brands-slider
+		.owl-carousel
+			max-width: 60%
