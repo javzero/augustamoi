@@ -307,8 +307,47 @@
 			margin-bottom: 15px
 			max-width: 200px
 
+.square-link-items
+	background-color: $red
+	margin-bottom: 28px
+	.container
+		padding: 16px 10px
+		@include flex-center
+		ul
+			li
+				padding: 5px 40px
+				float: left
+				margin: 0 10px
+				border: 1px solid #fff
+				float: left
+				@include transition(0.2s)
+				a
+					text-transform: uppercase
+					color: #fff
+					font-size: 0.9rem
+				&:hover
+					background: #fff
+					a
+						color: $red
 
 
+@media (max-width: 620px)
+	.square-link-items
+		.container
+			ul
+				li
+					padding: 5px 10px
+
+@media (max-width: 420px)
+	.square-link-items
+		.container
+			padding: 16px 10px 3px
+			ul
+				li
+					padding: 5px 10px
+					margin-bottom: 15px
+
+					
 //////////////////////////////////////
 //                                  //
 //             FORMS                //
@@ -705,6 +744,15 @@ ul.pagination
 	.articles-container
 		.article
 			min-width: 50%
+
+@media (max-width: 356px)
+	.articles-container
+		.col-add button
+			padding: 0 4px
+			font-size: 0.65rem
+
+
+
 
 .top-right-ribbon
 	position: absolute
@@ -1103,6 +1151,7 @@ ul.pagination
 		background: #f9f9f9
 	.bottom
 		margin-top: 50px
+
 
 //////////////////////////////////////
 //                                  //

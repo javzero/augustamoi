@@ -239,39 +239,46 @@
 //
 
 .image-filters
-	@include flex-center
-	ul
-		display: flex
-		white-space: nowrap
-		li
-			margin: 0 15px
-			position: relative
-			.text
-				@include flex-center
-				font-size: 1.2rem
-				font-weight: 300
-				font-family: $font2
-				position: absolute
-				left: 0
-				top: 0
-				width: 100%
-				height: 100%
-				color: #fff
-			img
-				max-width: 100%
+	// background: url(images/gral/filterimages/filter-image-1.jpg) no-repeat center center fixed
+	// -webkit-background-size: cover
+	// -moz-background-size: cover
+	// -o-background-size: cover
+	// background-size: cover
+	position: relative
+	.button
+		font-size: 1rem
+		font-weight: 300
+		font-family: $font2
+		position: absolute
+		right: 25px
+		bottom: 15px
+		color: #fff
+		background-color: #000
+		text-transform: uppercase
+		padding: 0px 18px
+		@include transition(0.2s)
+		.chevron
+			margin-left: 20px
+		&:hover
+			cursor: pointer
+			background-color: #ffffff
+			color: #000
+			font-weight: 600
+	.btn
+		border: 0 
+	img
+		max-width: 100%
+		width: 100%
 
-@media (max-width: 600px)
+@media (max-width: 890px)
 	.image-filters
-		ul
-			li
-				margin: 2px
+		a
+			margin-bottom: 20px
+		.button
+			font-size: 0.8rem
+			padding: 0 10px
 
-@media (max-width: 700px)
+@media (max-width: 768px)
 	.image-filters
-		display: block
-		ul
-			display: block
-			li
-				display: block
-				margin: 2px
-				text-align: center
+		.button
+			padding: 0 25px

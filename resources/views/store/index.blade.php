@@ -18,53 +18,22 @@
 	{{-- Main Slider --}}
 	<div class="StoreMainSlider store-slider store-slider-desktop owl-carousel owl-theme">
 		<div class="item">
-			<img src="{{ asset('images/web/home-banner.jpg')}}" alt="AugustaMoi Banner">
+			<img src="{{ asset('images/web/home-banner-1.jpg')}}" alt="AugustaMoi Banner">
 		</div>
 		<div class="item">
-			<img src="{{ asset('images/web/home-banner.jpg')}}" alt="AugustaMoi Banner">
+			<img src="{{ asset('images/web/home-banner-2.jpg')}}" alt="AugustaMoi Banner">
 		</div>
 	</div>
 	<div class="StoreMainSlider store-slider store-slider-mobile owl-carousel owl-theme">
 		<div class="item">
-			<img src="{{ asset('images/web/home-banner-mobile.jpg')}}" alt="AugustaMoi Banner">
+			<img src="{{ asset('images/web/home-banner-mobile-1.jpg')}}" alt="AugustaMoi Banner">
 		</div>
 		<div class="item">
-			<img src="{{ asset('images/web/home-banner-mobile.jpg')}}" alt="AugustaMoi Banner">
+			<img src="{{ asset('images/web/home-banner-mobile-2.jpg')}}" alt="AugustaMoi Banner">
 		</div>
 	</div>
-	{{-- Brands Slider --}}
-	<div class="brands-slider">
-		<div class="BrandsSlider owl-carousel owl-theme">
-			@foreach($brands as $brand)
-				<div class="item"><a href="{{ route('store', 'marca=').$brand->id }}">{{ $brand->name }}</a></div>
-			@endforeach
-		</div>
-	</div>
-	{{-- Categories Images --}}
-	<div class="image-filters">
-		<div class="horizontal-list">
-			<ul>
-				<li>
-					<a href="{{ route('store', ['filtrar' => 'descuentos']) }}">
-						<img src="{{ asset('images/gral/filterimages/filter-image-1.jpg') }}" alt="">
-						<div class="text">Con Descuento</div>
-					</a>
-				</li>
-				<li>
-					<a href="{{ route('store', ['filtrar' => 'populares']) }}">
-						<img src="{{ asset('images/gral/filterimages/filter-image-1.jpg') }}" alt="">
-						<div class="text">Populares</div></a>
-					</a>
-				</li>
-				<li>
-					<a href="{{ route('store', ['filtrar' => 'nuevos']) }}">
-						<img src="{{ asset('images/gral/filterimages/filter-image-1.jpg') }}" alt="">
-						<div class="text">Nuevos Ingresos</div></a>
-					</a>
-				</li>
-			</ul>
-		</div>
-	</div>
+	@include('store.partials.categories')
+	@include('store.partials.image-filters')
 	<div class="mobile-filters">
 		@include('store.partials.filters-mobile')
 	</div>

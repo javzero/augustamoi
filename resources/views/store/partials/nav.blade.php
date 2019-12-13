@@ -1,5 +1,4 @@
-<!-- Navbar-->
-<!-- Remove ".navbar-sticky" class to make navigation bar scrollable with the page.-->
+{{-- DESKTOP NAVIGATION --}}
 <header class="navbar navbar-sticky">
 	<div class="site-branding">
 		<!-- Site Logo-->
@@ -8,15 +7,18 @@
 		</a>
 	</div>
 	<ul class="nav navbar-nav left-nav-items">
-		<li><a onchange="location = this.value;" href="{{ route('store', 'categoria=para_arriba') }}">Para arriba</a></li>
-		<li><a onchange="location = this.value;" href="{{ route('store', 'categoria=para_abajo') }}">Para abajo</a></li>
-		<li><a onchange="location = this.value;" href="{{ route('store', 'categoria=vestidos') }}">Vestidos</a></li>
+		@foreach($brands as $brand)
+			
+			{{-- {{ dd() }} --}}
+			<li><a class="@if(app('request')->input('marca') == $brand->id) active @endif" href="{{ route('store', 'marca=').$brand->id }}">{{ $brand->name }}</a></li>
+		@endforeach
 	</ul>
 	<div class="nav-actions">
 		@include('store.partials.userbar')
 	</div>
-	<!-- Main Navigation-->
 </header>
+
+{{-- MOBILE NAVIGATION TRIGGER AND BRAND --}}
 <div class="navbar-mobile">
 	<div class="open-btn">
 		<div id="navfull-top-btn" class="navfull-button navfull-top-button">
@@ -35,6 +37,7 @@
 	</div>
 </div>
 
+{{-- MOBILE NAVIGATION --}}
 <div class="MobileNavigation navfull">
 	<div class="menu-content">
 		<div class="nav-items content-effect">
