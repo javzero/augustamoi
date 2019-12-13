@@ -69,7 +69,7 @@ class StoreController extends Controller
         {
             if($request->filtrar == 'populares')
             {  
-                $articles = CatalogArticle::has('hasFavs')->orderBy($orderBy, $order)->paginate($pagination);
+                $articles = CatalogArticle::has('hasFavs')->active()->orderBy($orderBy, $order)->paginate($pagination);
             } 
             else if($request->filtrar == 'nuevos')
             {

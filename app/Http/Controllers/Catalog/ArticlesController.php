@@ -32,6 +32,7 @@ class ArticlesController extends Controller
 
     public function index(Request $request)
     {
+        // dd($request->all());
         $code = $request->get('code');
         $name = $request->get('name');
         $category = $request->get('category');
