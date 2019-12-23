@@ -6,7 +6,7 @@
     </div>
     @endif
     @foreach($articles as $article)
-        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3 col-xl-3 article">
+        <div class="col-xs-6 col-md-5th-1 article">
             <div class="inner">
                 {{-- =========== Discount Badge =========== --}}
                 @if($article->reseller_discount > 0)
