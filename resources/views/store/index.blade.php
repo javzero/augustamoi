@@ -157,7 +157,7 @@
 			loop: true,  
 			center: true,
 			// rtl: true,
-			autoplay: false,
+			autoplay: true,
 			responsive:{
 				0:{
 					items:3
