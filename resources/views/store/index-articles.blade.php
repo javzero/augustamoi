@@ -25,13 +25,18 @@
                                     <div class="text">NUEVO! </div>
                                 </div>
                             @endif
-                            <img src="{{ asset($article->featuredImageName()) }}" onError="this.onerror=null;this.src='{{ asset('images/gen/catalog-gen.jpg') }}';"   alt="Producto del Catálogo">
+                            
+                            {{-- PRODUCT IMAGE --}}
+                            {{-- Prevent broken images - Use only on dev mode --}}
+                            {{-- <img src="{{ asset($article->featuredImageName()) }}" onError="this.onerror=null;this.src='{{ asset('images/gen/catalog-gen.jpg') }}';"   alt="Producto del Catálogo"> --}}
+                            <img src="{{ asset($article->featuredImageName()) }}" alt="Producto del Catálogo">
+
                             @if(Auth::guard('customer')->check())
-                            {{--  Check if product is in favs  --}}
-                            <a class="AddToFavs add-to-favs fa-icon fav-icon-nofav fav-btn
-                                @if(in_array($article->id, $favs['articleFavs'])) fav-icon-isfav @endif"
-                                data-id="{{ $article->id }}" data-toggle="tooltip" title="Agregar a Favoritos">
-                            </a>
+                                {{--  Check if product is in favs  --}}
+                                <a class="AddToFavs add-to-favs fa-icon fav-icon-nofav fav-btn
+                                    @if(in_array($article->id, $favs['articleFavs'])) fav-icon-isfav @endif"
+                                    data-id="{{ $article->id }}" data-toggle="tooltip" title="Agregar a Favoritos">
+                                </a>
                             @endif
                             
                         </div>

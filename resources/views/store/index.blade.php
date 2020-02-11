@@ -7,7 +7,6 @@
 @endsection
 
 @section('header-image')
-
 	{{-- <img class="desktop" src="{{ asset('images/web/home-banner.jpg')}}" alt="Augustamoi Banner">
 	<img class="mobile" src="{{ asset('images/web/home-banner-mobile.jpg')}}" alt="Augustamoi Banner">
 	{{-- <div class="index-header">	
@@ -18,26 +17,14 @@
 
 	{{-- Main Slider --}}
 	<div class="StoreMainSlider store-slider store-slider-desktop owl-carousel owl-theme">
-		<div class="item">
-			<img src="{{ asset('images/web/home-banner-1.jpg')}}" alt="AugustaMoi Banner">
-		</div>
-		<div class="item">
-			<img src="{{ asset('images/web/home-banner-2.jpg')}}" alt="AugustaMoi Banner">
-		</div>
-		<div class="item">
-			<img src="{{ asset('images/web/home-banner-3.jpg')}}" alt="AugustaMoi Banner">
-		</div>
+		<div class="item"><img src="{{ asset('images/web/home-banner-1.jpg')}}" alt="AugustaMoi Banner"></div>
+		<div class="item"><img src="{{ asset('images/web/home-banner-2.jpg')}}" alt="AugustaMoi Banner"></div>
+		<div class="item"><img src="{{ asset('images/web/home-banner-3.jpg')}}" alt="AugustaMoi Banner"></div>
 	</div>
 	<div class="StoreMainSlider store-slider store-slider-mobile owl-carousel owl-theme">
-		<div class="item">
-			<img src="{{ asset('images/web/home-banner-mobile-1.jpg')}}" alt="AugustaMoi Banner">
-		</div>
-		<div class="item">
-			<img src="{{ asset('images/web/home-banner-mobile-2.jpg')}}" alt="AugustaMoi Banner">
-		</div>
-		<div class="item">
-			<img src="{{ asset('images/web/home-banner-mobile-3.jpg')}}" alt="AugustaMoi Banner">
-		</div>
+		<div class="item"><img src="{{ asset('images/web/home-banner-mobile-1.jpg')}}" alt="AugustaMoi Banner"></div>
+		<div class="item"><img src="{{ asset('images/web/home-banner-mobile-2.jpg')}}" alt="AugustaMoi Banner"></div>
+		<div class="item"><img src="{{ asset('images/web/home-banner-mobile-3.jpg')}}" alt="AugustaMoi Banner"></div>
 	</div>
 	
 	{{-- If there is no articles focus view on message and on top banners and stuff --}}
@@ -108,25 +95,9 @@
 	<script type="text/javascript" src="{{ asset('plugins/owlcarousel2/owl.carousel.min.js')}} "></script>
 	<script>
 		// Check if any search parameters and focus articles on screen
-		
-
-		// const test = {{ $hasParams }}
-		// $( document ).ready(function() {
-		// 	const paramsExists = "<?php echo $hasParams ?>";
-		// 	if(paramsExists == '1')
-		// 	{
-		// 		if (typeof FocusOnList == 'function') { 
-		// 			FocusOnList(); 
-		// 		}
-		// 	}
-		// });
-
-	
 		$( document ).ready(function() {
-			
 			if(window.location.search != '')
 				FocusOnList();
-			
 		});
 
 		function FocusOnList() {
@@ -148,36 +119,40 @@
 			$('#SliSearcher').hide(100);
 		}
 
-		$('.BrandsSlider').owlCarousel({
-			loop: true,
-			margin: 10,
-			nav: false,
-			dots: false,
-			autoWidth: true,
-			loop: true,  
-			center: true,
-			// rtl: true,
-			autoplay: true,
-			responsive:{
-				0:{
-					items:3
-				},
-				600:{
-					items:3
-				},
-				1000:{
-					items:10
-				}
-			}
-		});
+		// $('.BrandsSlider').owlCarousel({
+		// 	loop: true,
+		// 	margin: 10,
+		// 	nav: false,
+		// 	dots: false,
+		// 	autoWidth: true,
+		// 	loop: true,  
+		// 	center: true,
+		// 	// rtl: true,
+		// 	autoplay: true,
+		// 	responsive:{
+		// 		0:{
+		// 			items:3
+		// 		},
+		// 		600:{
+		// 			items:3
+		// 		},
+		// 		1000:{
+		// 			items:10
+		// 		}
+		// 	}
+		// });
 
 		$('.StoreMainSlider').owlCarousel({
 			loop: true,
 			margin: 10,
 			nav: false,
 			stagePadding: 0,
+			autoplay: true,
 			items: 1
 		});
+		
+		$('.FadeSlow').hide();
+		setTimeout(function(){ $('.FadeSlow').show(); }, 1000);
 		
 	
 
