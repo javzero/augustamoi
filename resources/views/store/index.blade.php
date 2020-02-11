@@ -22,7 +22,7 @@
 		<div class="item"><img src="{{ asset('images/web/home-banner-3.jpg')}}" alt="AugustaMoi Banner"></div>
 	</div>
 	<div class="StoreMainSlider store-slider store-slider-mobile owl-carousel owl-theme">
-		<div class="item"><img src="{{ asset('images/web/home-banner-mobile-1.jpg')}}" alt="AugustaMoi Banner"></div>
+		<div class="item"><img src="{{ asset('images/web/home-banner-1.jpg')}}" alt="AugustaMoi Banner"></div>
 		<div class="item"><img src="{{ asset('images/web/home-banner-mobile-2.jpg')}}" alt="AugustaMoi Banner"></div>
 		<div class="item"><img src="{{ asset('images/web/home-banner-mobile-3.jpg')}}" alt="AugustaMoi Banner"></div>
 	</div>
