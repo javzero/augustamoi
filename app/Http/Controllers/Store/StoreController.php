@@ -46,6 +46,7 @@ class StoreController extends Controller
 
     public function index(Request $request)
     {   
+        $hasParams = '1';
         $pagination = $this->getSetPaginationCookie($request->get('results'));
         $order = 'DESC';
         $orderBy = 'created_at';
@@ -106,12 +107,13 @@ class StoreController extends Controller
         else 
         {
             // Random Order
-            $articles = CatalogArticle::orderByRaw('RAND()')->active()->paginate($pagination);
+            $articles = CatalogArticle::orderBy($orderBy, $order)->active()->paginate($pagination);
+            $hasParams = '0';
             // Static Order
             // $articles = CatalogArticle::orderBy($orderBy, $order)->active()->paginate($pagination);
         }      
         
-        return view('store.index')->with('articles', $articles);
+        return view('store.index')->with('articles', $articles)->with('hasParams', $hasParams);
     }
     
     // Pagination

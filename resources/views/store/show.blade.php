@@ -8,7 +8,6 @@
 		{
 			padding-top: 8px
 		}
-
 	</style>
 @endsection
 
@@ -68,6 +67,15 @@
 							<a href="{{ url('tienda/login') }}" class="fa-icon fav-icon-nofav"></a>
 						@endif
 					</div>
+					{{-- Title Desktop --}}
+					<div class="product-title product-title-desktop">
+						<span class="product-category sub-text"> <b>Categoría:&nbsp;</b></span>
+						<a class="sub-text" href="#">{{ $article->category->name }}</a>
+						{{--  Article Name  --}}
+						<h2>{{ $article->name }}</h2>
+						<span class="sub-text"> Código: #{{ $article->code }}</span>
+					</div>
+
 					{{-- PRICE --}}
 					@if($article->reseller_discount > 0)
 						<div class="product-price">
@@ -80,14 +88,7 @@
 							<span class="price-text">$ {{ $article->reseller_price }}</span>
 						</div>
 					@endif
-					{{-- Title Desktop --}}
-					<div class="product-title product-title-desktop">
-						<span class="product-category sub-text"> <b>Categoría:&nbsp;</b></span>
-						<a class="sub-text" href="#">{{ $article->category->name }}</a>
-						{{--  Article Name  --}}
-						<h2>{{ $article->name }}</h2>
-						<span class="sub-text"> Código: #{{ $article->code }}</span>
-					</div>
+					
 					{{-- Article Description --}}
 					<p class="product-description">{{ strip_tags($article->description) }}</p>
 					<div class="item"><div class="title">TELA: <b>{{ $article->textile }}</b></div></div>
@@ -154,6 +155,11 @@
 					@else
 						<div class="item"><div class="title">Colores: <b>@foreach($colors as $name) {{ $name }} @if(!$loop->last) | @endif @endforeach</b></div> <br></div>
 						<div class="item"><div class="title">Talles: <b>@foreach($articleSizes as $name) {{ $name }} @if(!$loop->last) | @endif @endforeach</b></div> <br></div>
+						<div class="row">
+							<div class="col-md-12">
+								<a href="{{ route('customer.login') }}"> <button class="btn btn-main-sm">Comprar</button> </a>
+							</div>
+						</div>
 					@endif
 				</div>
 			</div>

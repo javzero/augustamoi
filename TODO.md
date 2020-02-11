@@ -2,6 +2,35 @@
 
 # Augusta Moi
 
+Referencia: https://vestimeasuan.com/
+
+
+HACER: Paginacion no centra listado
+
+Listado de productos
+HECHO - Listado 5 con más padding.
+HECHO - Sacar random
+- 3 fotos de arriba estiradas como en referencia y sacar botones
+HECHO - Cuando se cliquea en filtros, ir a listado más abajo (encuadrar bien)
+HECHO - Arreglar producto chiquito cuando 1 resultad
+HECHO - En cel 2 productos no 1
+
+HECHO - Agregar buscador al lado de 3 categorias  (provisorio)
+
+
+Hoja de producto (show)
+órden de datos 
+Título, descripción y precio
+y botón de comprar abajo redirigido a logearse	
+
+- Pie con la misma info que arriba - ESPERANDO DATA
+- Widget con fotos de instagram
+
+- subscripcion a newsletter
+
+
+
+
 
 
 Hola lean buen día. 2 cosas que te quería pedir.

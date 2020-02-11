@@ -311,16 +311,19 @@
 	background-color: $red
 	margin-bottom: 8px
 	.container
+		position: relative
 		padding: 16px 10px
 		@include flex-center
 		ul
-			li
+			display: inline-flex
+			li.styled-item
 				padding: 5px 40px
 				float: left
 				margin: 0 10px
 				border: 1px solid #fff
 				float: left
 				@include transition(0.2s)
+				max-height: 38px
 				a
 					text-transform: uppercase
 					color: #fff
@@ -329,7 +332,49 @@
 					background: #fff
 					a
 						color: $red
-
+			li.stand-alone-item
+				color: #ffffff
+				padding: 5px 25px
+				&:hover
+					cursor: pointer
+		ul.full-width
+			width: 500px
+			max-width: 100%
+			@include flex-center
+			li.form-inner
+				width: 400px
+				max-width: 100%
+		.sli-search-field
+			.search-input
+				border-radius: 0
+				border-bottom: 1px solid #fff
+				max-height: 38px
+				margin: 0
+				margin-left: 10px
+				@include form-reset
+				input
+					max-height: 38px
+					width: 100%
+					background-color: transparent
+					border: 0
+					color: #fff
+				input::placeholder
+  					color: #fff
+				.icon-search
+					color: #fff
+	
+			.close-search-field
+				// position: absolute
+				// right: 0
+				// top: 0
+				color: #fff
+				font-size: 1.2rem
+				&:hover
+					color: #383838
+					
+@media (max-width: 845px)
+	.square-link-items .search-input
+		display: none
 
 @media (max-width: 620px)
 	.square-link-items
@@ -358,6 +403,8 @@
 				li
 					padding: 5px
 					margin: 0 5px 15px 0
+
+
 
 //////////////////////////////////////
 //                                  //
@@ -518,12 +565,13 @@ select
 
 
 .no-articles
-		position: absolute
-		margin-top: 200px
-		width: 100%
-		left: 0
-		top: 0
-		@include flex-center()
+	position: absolute
+	margin-top: 150px
+	width: 100%
+	left: 0
+	top: 0
+	// @include flex-center()
+	text-align: center
 
 @media (max-width: 576px)
 	.no-articles
@@ -597,7 +645,8 @@ ul.pagination
 .articles-container
 	padding: 0
 	.article
-		padding: 10px
+		padding: 30px
+		max-width: 50%
 		.inner
 			background: #fff
 			position: relative
@@ -627,26 +676,28 @@ ul.pagination
 					.overlay
 						opacity: 1	
 			.content
-				padding: 5px
+				padding: 0px
 				text-align: center
 				width: 100%
-				background-color: #f9f9f9
+				background-color: #fff
 				.title-info
 					font-family: $font2
 					width: 100%
 					// height: 80px
-					height: 40px
+					height: 25px
 					@include flex-column()
 					h3
 						font-weight: 300
 						font-size: 1rem
-						margin-bottom: 6px
+						margin: 0
+						margin-top: 15px
 				.footer
 					padding-bottom: 5px
 					.col-price
+						margin-top: 10px
 						.price
-							font-size: 1.2rem
-							font-weight: 700
+							font-size: 0.9rem
+							font-weight: 500
 							white-space: nowrap
 							text-align: center
 							color: $main-color
@@ -662,6 +713,8 @@ ul.pagination
 						input
 							max-width: 100%
 							// display: flex
+					.btn-main-sm
+						font-weight: 400
 					.col-add
 						margin-top: 5px
 						white-space: nowrap
@@ -692,17 +745,40 @@ ul.pagination
 							font-size: 0.9rem
 
 
-@media screen and (min-width: 1200px) and (max-width: 1640px)
-	.fix-column
-		.articles-container
-			.article
-				flex: 1 0 20.666667% !important
-				max-width: 30.666667% !important
+
+@media (min-width: 1151px)
+	.articles-container 
+		display: flex
+  		flex-wrap: wrap
+		.article
+			padding: 30px
+			flex-grow: 1
+			width: 20%
+
+@media screen and (min-width: 769px) and (max-width: 1150px)
+	.articles-container 
+		display: flex
+  		flex-wrap: wrap
+		.article
+			flex-grow: 1
+			width: 33%
+
+@media (max-width: 768px)
+	.articles-container .article
+		max-width: 50%
+
+// @media screen and (min-width: 1200px) and (max-width: 1640px)
+// 	.fix-column
+// 		.articles-container
+// 			.article
+// 				flex: 1 0 20.666667% !important
+// 				max-width: 30.666667% !important
 
 
 @media (max-width: 576px)
 	.articles-container
 		.article
+			padding: 15px
 			.inner
 				.image
 				.content
@@ -747,8 +823,8 @@ ul.pagination
 	.articles-container .article .inner .content .footer
 		.fa-icon
 			margin: 0
-		.btn
-			padding: 1px 5px
+		.btn-main-sm
+			padding: 1px 10px
 			font-size: 0.7rem
 
 @media (max-width: 400px)
@@ -920,6 +996,7 @@ ul.pagination
 	top: 36px
 
 .toolbar
+	right: 0
 	.text-links
 		display: none
 	.access-icons

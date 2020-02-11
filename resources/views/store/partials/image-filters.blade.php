@@ -1,5 +1,5 @@
 {{-- Categories Images --}}
-<div class="container">
+<div class="container-fluid">
 	<div class="row image-filters">
 		<a class="col-md-4 filter-item image-filters-1" href="{{ route('store', ['filtrar' => 'descuentos']) }}">
 			<img src="{{ asset('images/gral/filterimages/filter-image-1.jpg') }}" alt="">

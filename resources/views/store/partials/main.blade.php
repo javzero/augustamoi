@@ -106,6 +106,7 @@
 			</script>
 		@endif
 		<script>
+
 			$('#AddToCartFormBtn').click(function(){
 				fbq('track', 'Items agregados');
 			});
