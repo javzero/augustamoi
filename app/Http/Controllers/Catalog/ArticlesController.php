@@ -318,11 +318,7 @@ class ArticlesController extends Controller
 
     public function store(Request $request)
     {
-        
-        $featured = 0; 
-        
-        if($request->featured != null && $request->featured == 'on')
-            $featured = 1; 
+    
         
         if ($request->discount == null)
             $request->discount = '0';
@@ -331,7 +327,13 @@ class ArticlesController extends Controller
             $checkSlug = $this->checkSlug($request->slug);
 
         $article = new CatalogArticle($request->all());
-        $article->featured = $featured;
+
+        if($request->featured != null)
+            if($request->featured == 'on')
+                $article->featured = '1';
+            else
+                $article->featured = '0';
+
         $article->slug = $checkSlug;
         $article->user_id = \Auth::guard('user')->user()->id;
 
