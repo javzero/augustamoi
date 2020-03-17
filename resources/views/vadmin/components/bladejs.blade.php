@@ -45,9 +45,10 @@
         let type = dataDiv.attr('data-type');
         let action = dataDiv.attr('data-action');
         let value = $(e.target).val();
+        let nullable = dataDiv.attr('data-nullable');
         // Set Value on hidden div
         dataDiv.attr('data-value', value);
-        updateItem(route, id, field, value, type, action);
+        updateItem(route, id, field, value, type, action, nullable);
     });
 
     /*
@@ -77,12 +78,13 @@
     |--------------------------------------------------------------------------
     */
 
-    function updateItem(route, id, field, value, type, action)
+    function updateItem(route, id, field, value, type, action, nullable = '0')
     {
-        // console.log(type);
-        if(value == '' || value == undefined || value == null) {
-            alert_error("", "Falta llenar el campo");
-            return;
+        if(nullable == '0'){
+            if(value == '' || value == undefined || value == null) {
+                alert_error("", "Falta llenar el campo");
+                return;
+            }
         }
         
         if(!checkType(value, type)){
@@ -91,7 +93,7 @@
             return false;
         }
             
-        let data = { route: route, id: id, field: field, value: value};
+        let data = { route: route, id: id, field: field, value: value };
         
         $.ajax({
             url: "{{ url('vadmin/') }}/"+route,

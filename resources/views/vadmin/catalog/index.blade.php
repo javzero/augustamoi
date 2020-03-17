@@ -145,7 +145,7 @@
 									</label>
 									<br>
 									<input class="editable-input" onfocus="event.target.select()" type="text" value="{{ $item->priority }}" style="max-width: 50px; text-align: center; border: 1px solid #ccc">
-									<div class="editable-input-data" data-id="{{ $item->id }}" 
+									<div class="editable-input-data" data-id="{{ $item->id }}" data-nullable="1" 
 										data-route="update_catalog_field" data-field="priority" data-type="string" data-action="reload" data-value="">
 									</div>
 
