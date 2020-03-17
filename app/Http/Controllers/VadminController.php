@@ -279,6 +279,26 @@ class VadminController extends Controller
         ]);
 	}
     
+    public function updateFeatured($model, $id)
+    {
+        $model_name = '\\App\\'.$model;
+        $model = new $model_name;
+        $item = $model->find($id);
+
+        if($item->featured == '0'){
+            $item->featured = '1';
+        } else {
+            $item->featured = '0';
+        }
+        
+        $item->save();
+
+        return response()->json([
+            'success' => true,
+            'newFeatured' => $item->featured,
+            'itemId' => $item->id
+        ]);
+    }
     
 
     /*

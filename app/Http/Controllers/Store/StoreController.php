@@ -106,11 +106,8 @@ class StoreController extends Controller
         }
         else 
         {
-            // Random Order
-            $articles = CatalogArticle::orderBy($orderBy, $order)->active()->paginate($pagination);
+            $articles = CatalogArticle::orderBy('featured', 'DESC')->orderBy('priority', 'ASC')->orderBy($orderBy, $order)->active()->paginate($pagination);
             $hasParams = '0';
-            // Static Order
-            // $articles = CatalogArticle::orderBy($orderBy, $order)->active()->paginate($pagination);
         }      
         
         return view('store.index')->with('articles', $articles)->with('hasParams', $hasParams);

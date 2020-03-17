@@ -159,6 +159,40 @@
 
     /*
     |--------------------------------------------------------------------------
+    | UPDATE FEATURED 
+    |--------------------------------------------------------------------------
+    */
+
+    $('.UpdateFeatured').click(function(){
+        let model = $(this).data('model');
+        let id = $(this).data('id');
+        updateFeatured(model, id);
+    });
+
+    function updateFeatured(model, id){
+    
+        $.ajax({
+            url: "{{ url('vadmin/updateFeatured/')}}/"+model+"/"+id+"",
+            type: 'POST',
+            dataType: 'JSON',
+            beforeSend: function(){
+                
+            },
+            success: function(data){
+                console.log(data.newFeatured);
+            },
+            error: function(data){
+                console.log(data);
+                alert_error('Ha ocurrido un error');
+                $('#Error').html(data.responseText);
+            }
+        }); 
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
     | UPDATE STATUS (General)
     |--------------------------------------------------------------------------
     */

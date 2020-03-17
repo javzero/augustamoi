@@ -226,6 +226,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
 Route::group(['prefix' => 'vadmin', 'middleware' => ['active-user']], function(){
     Route::resource('catalogo', 'Catalog\ArticlesController');  
     Route::post('updateStatus/{model}/{id}', 'VadminController@updateStatus');
+    Route::post('updateFeatured/{model}/{id}', 'VadminController@updateFeatured');
+    Route::post('updateFeaturedOrder/{model}/{id}/{order}', 'VadminController@updateFeaturedOrder');
     Route::post('updateStatusMultiple/{id}/{model}/{status}', 'VadminController@updateStatusMultiple');
 });
 

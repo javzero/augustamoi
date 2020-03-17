@@ -41,6 +41,7 @@
 			<b>Órden:</b> 
 			<a href="{{ route('catalogo.index', ['orden_af' => 'ASC', http_build_query($_GET)]) }}" >A-Z</a>
 			<a href="{{ route('catalogo.index', ['orden_af' => 'DESC', http_build_query($_GET)]) }}" >Z-A</a>
+			<a href="{{ route('catalogo.index', ['featured' => '1', http_build_query($_GET)]) }}" >Destacados</a>
 			{{-- <a href="{{ route('catalogo.index', ['orden' => 'ASC']) }}">Stock Bajo</a> 
 			<a href="{{ route('catalogo.index', ['orden' => 'DESC']) }}">Stock Alto</a>
 			<a href="{{ route('catalogo.index', ['orden' => 'limitados']) }}" >Stock Limitado</a> --}}
@@ -75,6 +76,7 @@
 						<th>Variantes (Color / Talle - Stock)</th>
 						<th>Precio</th>
 						<th>Valor de Stock</th>
+						<th>Destacado</th>
 						<th>Estado</th>
 					@endslot
 					@slot('tableContent')
@@ -133,6 +135,23 @@
 									{{-- Calc total value of stock--}}
 									$ {{ calcArticlePrice($item->reseller_price, $item->reseller_discount) * $stockAmount }}
 								</td>
+								{{-- STATUS --}}
+								<td class="w-50 pad0 centered">
+									<label class="switch">
+										<input class="UpdateFeatured switch-checkbox" type="checkbox" 
+										data-model="CatalogArticle" data-id="{{ $item->id }}"
+										@if($item->featured == '1') checked @endif>
+										<span class="slider round"></span>
+									</label>
+									<br>
+									<input class="editable-input" onfocus="event.target.select()" type="text" value="{{ $item->priority }}" style="max-width: 50px; text-align: center; border: 1px solid #ccc">
+									<div class="editable-input-data" data-id="{{ $item->id }}" 
+										data-route="update_catalog_field" data-field="priority" data-type="string" data-action="reload" data-value="">
+									</div>
+
+									{{-- <input type="number" value="{{ $item->priority }}" name="priority" data-model="CatalogArticle" data-id="{{ $item->id }}" placeholder="Órden"> --}}
+								</td>
+
 								{{-- STATUS --}}
 								<td class="w-50 pad0 centered">
 									<label class="switch">

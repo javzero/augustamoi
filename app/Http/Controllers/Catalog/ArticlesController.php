@@ -33,6 +33,9 @@ class ArticlesController extends Controller
     public function index(Request $request)
     {
         // dd($request->all());
+
+      
+
         $code = $request->get('code');
         $name = $request->get('name');
         $category = $request->get('category');
@@ -47,6 +50,9 @@ class ArticlesController extends Controller
             $order = $request->orden_af;
             $rowName = "name";
         }
+
+    
+
 
         // -------- Pagination -----------
         if ($request->get('results')) {
@@ -67,6 +73,7 @@ class ArticlesController extends Controller
             $order = 'DESC';
         }
         
+             
         if($status == 0)
         {
             // Inactive Items
@@ -89,7 +96,10 @@ class ArticlesController extends Controller
                 $articles = CatalogArticle::whereRaw('catalog_articles.stock < catalog_articles.stockmin')->paginate($pagination);
             } else {
                 // ---------- Queries ------------    
-                if (isset($code)) {
+                if($request->featured == '1') {
+                    $articles = CatalogArticle::featured()->active()->orderBy($rowName, $order)->paginate($pagination);
+                }
+                elseif (isset($code)) {
                     $articles = CatalogArticle::where('code', 'LIKE', "%" . $code . "%")->active()->paginate($pagination);
                 } elseif (isset($name)) {
                     $articles = CatalogArticle::searchName($name)->orderBy($rowName, $order)->active()->paginate($pagination);
@@ -308,6 +318,12 @@ class ArticlesController extends Controller
 
     public function store(Request $request)
     {
+        
+        $featured = 0; 
+        
+        if($request->featured != null && $request->featured == 'on')
+            $featured = 1; 
+        
         if ($request->discount == null)
             $request->discount = '0';
 
@@ -315,6 +331,7 @@ class ArticlesController extends Controller
             $checkSlug = $this->checkSlug($request->slug);
 
         $article = new CatalogArticle($request->all());
+        $article->featured = $featured;
         $article->slug = $checkSlug;
         $article->user_id = \Auth::guard('user')->user()->id;
 
@@ -474,149 +491,18 @@ class ArticlesController extends Controller
         
     }
 
-    // public function update(Request $request, $id)
-    // {   
-        	
-    //     // initialize the FileUploader
-    //     $FileUploader = new FileUploader('files', array(
-    //         // Options will go here
-    //     ));
-        
-    //     // call to upload the files
-    //     $upload = $FileUploader->upload();
-        
-    //     if($upload['isSuccess']) {
-    //         // get the uploaded files
-    //         $files = $upload['files'];
-    //     } else {
-    //         // get the warnings
-    //         $warnings = $upload['warnings'];
-    //     }
-    //     dd($files);
-
-   
-
-    //     $article = CatalogArticle::find($request->article_id);
-    //     $article->fill($request->all());
-
-    //     if ($request->slug) {
-    //         $checkSlug = $this->checkSlug($request->slug);
-    //     }
-        
-    //     $images = $request->file('images');
-    //     $thumbnail = $request->file('thumbnail');
-    //     $imgPath = public_path("webimages/catalogo/");
-    //     $thumbPath = public_path("webimages/catalogo/thumbs/");
-    //     $extension = '.jpg';
-
-    //     $thumbWidth = 240; $thumbHeight = 360; $imgWidth = 500; $imgHeight = 700;
-
-    //     if ($article->save()) 
-    //     {
-    //         // SAVE VARIANTS (Combinations)
-    //         try 
-    //         {   
-    //             foreach ($request->variants as $newVariant => $data)
-    //             {
-    //                 $existingVariant = CatalogVariant::where('article_id', $article->id)->where('combination', $newVariant)->first();
-                    
-    //                 if($existingVariant)
-    //                 {
-    //                     $existingVariant->stock = $data['stock'];
-    //                     $existingVariant->save();   
-    //                 }
-    //                 else
-    //                 {
-    //                     $item = new CatalogVariant();
-    //                     $item->article_id = $article->id;
-    //                     $item->combination = $newVariant;
-    //                     $item->color_id = $data['color'];
-    //                     $item->size_id = $data['size'];
-    //                     $item->stock = $data['stock'];
-    //                     $item->save();   
-    //                 }    
-    //             }
-    //         } 
-    //         catch (\Exception $e) 
-    //         {
-    //             return redirect()->route('catalogo.index')->with('message', 'Error al crear la variante: ' . $e->getMessage());
-    //         }
-
-    //         // Sync Relations
-    //         $article->size()->sync($request->size);
-    //         $article->tags()->sync($request->tags);
-
-    //         if (!$article->images->isEmpty()) 
-    //         {
-    //             $number = $article->images->last()->name;
-    //             $number = explode('-', $number);
-    //             $number = explode('.', $number[1]);
-    //             $number = ($number[0] + '1');
-    //         } 
-    //         else 
-    //         {
-    //             $number = '0';
-    //         }
-
-    //         // Save Images
-    //         if ($images) 
-    //         {
-    //             try 
-    //             {
-    //                 // initialize the FileUploader
-    //                 $FileUploader = new FileUploader('images', array(
-    //                     // Options will go here
-    //                 ));
-                    
-    //                 // call to upload the files
-    //                 $upload = $FileUploader->upload();
-                    
-    //                 if($upload['isSuccess']) {
-    //                     // get the uploaded files
-    //                     $files = $upload['images'];
-    //                 } else {
-    //                     // get the warnings
-    //                     $warnings = $upload['warnings'];
-    //                 }
-
-    //                 dd($files);
-
-    //                 foreach ($files as $phisic_image) 
-    //                 {
-    //                     $filename = $article->id . '-' . $number;    
-
-    //                     $image = new CatalogImage();
-    //                     if ($number == '0') {
-    //                         $image->featured = 1;
-    //                     }
-    //                     $image->name = $filename . $extension;
-    //                     $image->article()->associate($article);
-
-    //                     //$thumb = \Image::make($phisic_image);
-    //                     //$thumb->encode('jpg', 80)->fit($thumbWidth, $thumbHeight)->save($thumbPath . $filename . $extension);
-    //                     //$article->thumb = $article->id.'-thumb'.$extension;
-    //                     $image->thumb = $filename . $extension;
-    //                     $image->save();
-    //                     $number++;
-    //                 }
-    //             } 
-    //             catch (\Exception $e) 
-    //             {
-    //                 // $article->delete();
-    //                 return redirect()->route('catalogo.index')->with('message', 'Error al crear la imágen: ' . $e->getMessage());
-    //             }
-    //         }
-    //     }
-    //     return redirect()->route('catalogo.index')->with('message', 'Se ha editado el item con éxito');
-    // }
-
 
     public function update(Request $request, $id)
     {
-
+       
         $article = CatalogArticle::find($request->article_id);
-
         $article->fill($request->all());
+        
+        if($request->featured != null)
+            if($request->featured == 'on')
+                $article->featured = '1';
+            else
+                $article->featured = '0';
 
         if ($request->slug) {
             $checkSlug = $this->checkSlug($request->slug);

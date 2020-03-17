@@ -128,8 +128,29 @@
             </div>
         </div>{{-- End Variants --}}
     </div> {{-- COL IZQ --}}
-
     <div class="col-xs-12 col-md-12 col-lg-6">
+        <div class="col-xs-12 col-md-3">
+            {!! Form::label('featured', 'Destacado') !!}
+            <br>
+            <label class="switch">
+                @if(isset($article))
+                    <input class="switch-checkbox" type="checkbox"" name="featured"
+                    @if($article->featured == 1) checked @endif>
+                    <span class="slider round"></span>
+                @else
+                    <input class="switch-checkbox" type="checkbox" name="featured">
+                    <span class="slider round"></span>
+                @endif
+
+            </label>
+            
+        </div>
+        <div class="col-xs-12 col-sm-3">
+            {!! Form::label('priority', 'Prioridad') !!}
+            <br>
+            {!! Form::number('priority', null, ['class' => 'form-control', 'placeholder' => 'Ingrese un número']) !!}
+        </div>
+        <br><br>
         <div class="col-md-12">
             <div class="row form-group">
                 <div class="col-md-12">

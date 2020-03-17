@@ -46,8 +46,8 @@ mix.js('resources/assets/js/app.js', 'public/js')
     })
     .options({
         sourcemaps: 'inline-source-map'
-    })
-    .browserSync('http://localhost/bruna/public/');
+    });
+    // .browserSync('http://localhost/bruna/public/');
 
 
 // Only Styles
