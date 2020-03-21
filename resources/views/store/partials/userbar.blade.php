@@ -14,8 +14,13 @@
                     </a>
                 </div>
                 <div class="CartResumen cart" onclick="checkoutSidebar();">
+                    @if($activeCart)
                     <i class="icon-bag"></i><span class="TotalCartItems count">@if($activeCart['totalItems'] == 0) 0 @else {{ $activeCart['totalItems'] }} @endif</span>
                     <span class="CartSubTotal subtotal">@if($activeCart['totalItems'] != 0) $ {{ $activeCart['cartSubTotal'] }} @endif</span>
+                    @else
+                        <i class="icon-bag"></i><span class="TotalCartItems count"> 0 </span>
+                        <span class="CartSubTotal subtotal"></span>
+                    @endif
                 </div>
                 {{-- User Avatar --}}
                 <div class="account"><a href="#" onclick="event.preventDefault();"></a>

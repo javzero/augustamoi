@@ -54,6 +54,7 @@
                                 </tr> 
                             @endforeach
                             
+                            {{-- OLD --}}
                             {{-- @foreach($items as $brand => $item)
                             <tr>    
                                 <td>

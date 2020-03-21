@@ -52,10 +52,16 @@
 	<body>
 		<div class="main-wrapper">
 			{{-- <div id="MainOverlay" class="main-overlay"></div> --}}
+
 			<div id="full-loader" class="full-loader Hidden">
 				<div class="inner">
 					<img src="{{ asset('store-ui/images/loader.gif') }}" alt="Loader">
 				</div>
+			</div>
+
+			<div id="LoaderBars" class="loader-bars Hidden">
+				<img src="{{ asset('store-ui/images/loader-bars.svg') }}" alt="">
+				<div class="text">Cargando</div>
 			</div>
 			
 			@yield('modal')

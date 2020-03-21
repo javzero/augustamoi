@@ -16,6 +16,10 @@ class CartItemController extends Controller
 
     public function store(Request $request)
     {   
+        // dd($this->activeCart());
+
+        // $totalItems = count($this->activeCart()->cartItems);
+
         $combination = $request->size_id;
         // This come from Customer Model getCartAttribute()
         $activeCartId = auth()->guard('customer')->user()->cart->id;
@@ -53,14 +57,15 @@ class CartItemController extends Controller
             $cartItem->color = $variant->color->name;
             $cartItem->size = $variant->size->name;
             $cartItem->textile = $article->textile;
-            
+
             try
             {
                 $cartItem->save();
                 // Discount Stock
                 // * Note the minus (-) sign in $request->quantity
                 $newStock = $this->updateVariantStock($variant->id, -$request->quantity);
-                return response()->json(['response' => 'success', 'newStock' => $newStock, 'message' => 'Producto "'. $article->name .'" agregado']); 
+                
+                return response()->json(['response' => 'success', 'newStock' => $newStock, 'message' => 'Producto "'. $article->name .'" agregado', 'totalCartItems' => $this->activeCart()['totalItems'], 'cartSubTotal' => $this->activeCart()['cartSubTotal'] ]); 
             } 
             catch (\Exception $e) 
             {
@@ -84,7 +89,7 @@ class CartItemController extends Controller
             {
                 $existingCartItem->save();
                 $newStock = $this->updateVariantStock($variant->id, -$request->quantity);
-                return response()->json(['response' => 'success', 'newStock' => $newStock, 'message' => 'Producto "'. $existingCartItem->article->name .'" agregado']); 
+                return response()->json(['response' => 'success', 'newStock' => $newStock, 'message' => 'Producto "'. $existingCartItem->article->name .'" agregado',  'totalCartItems' => $this->activeCart()['totalItems'], 'cartSubTotal' => $this->activeCart()['cartSubTotal'] ]); 
             } 
             catch (\Exception $e) 
             {
@@ -145,7 +150,7 @@ class CartItemController extends Controller
             $cart->delete();
             if(isset($request->action) && $request->action == 'reload')
             {
-                return response()->json(['response' => 'cart-removed', 'message' => 'Carro de compras eliminado']); 
+                return response()->json(['response' => 'cart-removed', 'message' => 'Carro de compras eliminado',  'totalCartItems' => $this->activeCart()['totalItems'], 'cartSubTotal' => $this->activeCart()['cartSubTotal']]); 
             }
             else 
             {

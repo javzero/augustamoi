@@ -267,6 +267,10 @@
 	img
 		max-width: 100%
 		width: 100%
+		@include transition(0.2s)
+		&:hover
+			cursor: pointer
+			opacity: (0.8)
 
 @media (max-width: 890px)
 	.image-filters

@@ -50,6 +50,18 @@ $('.dont-submit-on-enter, .dson').keypress(function (e) {
     if (e.which == 13) e.preventDefault();
 });
 
+window.loaderBars = function (action) {
+    
+    const loader = $('#LoaderBars');
+
+    if(action) {
+        loader.removeClass('Hidden');
+    } else {
+        loader.addClass('Hidden');
+    }
+
+};
+
 // Store Filters
 // -------------------------------------------
 
@@ -243,7 +255,7 @@ window.setItemsData = function () {
         let variant_id = $(this).data('variant');
         let quantity = $(this).val();
 
-        item = {}
+        item = {};
         item['id'] = id;
         item['variant_id'] = variant_id;
         item['price'] = price;
@@ -263,6 +275,9 @@ window.setItemsData = function () {
 // Add product to cart
 // -------------------------------------------
 window.addToCart = function (route, data) {
+    
+    loaderBars(true);
+
     $.ajax({
         url: route,
         method: 'POST',
@@ -271,10 +286,10 @@ window.addToCart = function (route, data) {
         success: function (data) {
             // console.log(data);
             if (data.response == 'success') {
-                // console.log(data);
+                
                 $('.AvailableStock').html("Stock disponible: " + data.newStock);
                 toast_success('Ok!', data.message, 'bottomCenter', '', 2500);
-                updateTotals();
+                updateTotals(data.totalCartItems, data.cartSubTotal);
                 setItemsData();
                 setTimeout(function () {
                     setItemsData();
@@ -286,10 +301,13 @@ window.addToCart = function (route, data) {
             }
         },
         error: function (data) {
-            $('#Error').html(data.responseText);
+            // $('#Error').html(data.responseText);
             console.log("Error en addtoCart()");
             // location.reload();
             console.log(data);
+        },
+        complete: function() {
+            loaderBars(false);
         }
     });
 }
@@ -298,6 +316,9 @@ window.addToCart = function (route, data) {
 // Remove product from cart
 // -------------------------------------------
 window.removeFromCart = function (route, cartItemId, variantId, quantity, div, action) {
+
+    loaderBars(true);
+
     $.ajax({
         url: route,
         method: 'POST',
@@ -306,13 +327,13 @@ window.removeFromCart = function (route, cartItemId, variantId, quantity, div, a
         success: function (data) {
             if (data.response == 'cart-removed') {
                 // console.log(data);
-                updateTotals();
+                updateTotals(data.totalCartItems, data.cartSubTotal);
                 window.location = window.location.href.split("?")[0];
                 setItemsData();
             } else if (data.response == 'success') {
                 $(div).hide(100);
                 $(div).remove();
-                updateTotals();
+                updateTotals(data.totalCartItems, data.cartSubTotal);
                 setItemsData();
             }   
         },
@@ -322,17 +343,21 @@ window.removeFromCart = function (route, cartItemId, variantId, quantity, div, a
             console.log(data);
             // If an error pops when destroying an item, reload and prevent bad magic
             location.reload();
+        },
+        complete: function () {
+            loaderBars(false);
         }
     });
 }
 
-function updateTotals() {
+function updateTotals(totalCartItems, cartSubtotal) {
+
     // Live Reloading stuff
+    $(".TotalCartItems").html(totalCartItems);
+    $(".CartSubTotal").html(cartSubtotal);
     $("#SideContainerItemsFixed").load(window.location.href + " #SideContainerItemsFixed");
     $("#SideContainerItemsFloating").load(window.location.href + " #SideContainerItemsFloating");
-    $(".TotalCartItems").load(window.location.href + " .TotalCartItems");
     $(".TotalCartItemsSidebar").load(window.location.href + " .TotalCartItemsSidebar");
-    $(".CartSubTotal").load(window.location.href + " .CartSubTotal");
     $(".AvailableStock").load(window.location.href + " .AvailableStock");
 }
 
