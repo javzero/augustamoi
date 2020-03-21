@@ -38,7 +38,7 @@ class CartItemController extends Controller
             $cartItem->quantity = $request->quantity;
             
             if(!$variant)
-            return response()->json(['response' => 'warning', 'message' => 'No se ha encontrado la variante']); 
+                return response()->json(['response' => 'warning', 'message' => 'No se ha encontrado la variante']); 
             
             // Stock management 
             if($request->quantity > $variant->stock)
@@ -46,6 +46,7 @@ class CartItemController extends Controller
             
             // Calc Item Price   
             // if($customerGroup == '3');
+            $cartItem->final_cost = $article->reseller_cost;
             $cartItem->final_price = $this->calcArticlePrice($article->reseller_price, $article->reseller_discount);
             $cartItem->article_name = $article->name;
             $cartItem->combination = $variant->color->name.'/'.$variant->size->name;

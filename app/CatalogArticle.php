@@ -10,7 +10,7 @@ class CatalogArticle extends Model
     protected $table = "catalog_articles";
 
     protected $fillable = ['category_id', 'brand_id', 'user_id', 'name', 'code',  'description', 'color', 'textile', 'stock', 'stockmin', 
-    'price', 'discount', 'reseller_price', 'reseller_discount', 'thumb', 'featured', 'priority', 'status', 'slug'];
+    'price', 'discount', 'reseller_cost', 'reseller_price', 'reseller_discount', 'thumb', 'featured', 'priority', 'status', 'slug'];
 
     public function variants(){
     	return $this->hasMany('App\CatalogVariant', 'article_id');

@@ -318,7 +318,8 @@ class ArticlesController extends Controller
 
     public function store(Request $request)
     {
-    
+        
+        // dd($request->all());
         
         if ($request->discount == null)
             $request->discount = '0';
@@ -333,6 +334,8 @@ class ArticlesController extends Controller
                 $article->featured = '1';
             else
                 $article->featured = '0';
+
+        // dd($article);
 
         $article->slug = $checkSlug;
         $article->user_id = \Auth::guard('user')->user()->id;

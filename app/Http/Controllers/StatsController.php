@@ -47,7 +47,7 @@ class StatsController extends Controller
             $period = $request->period;
         
         $salesByPeriod = $this->salesByPeriod($period);
-
+        
         return view('vadmin.tools.statsSalesByPeriod')
             ->with('salesByPeriod', $salesByPeriod);
     }
@@ -84,11 +84,13 @@ class StatsController extends Controller
                 {
                     $data[$itemDate][$itemBrand]['items'] = $item->quantity;
                     $data[$itemDate][$itemBrand]['amount'] = ($item->final_price * $item->quantity);
+                    $data[$itemDate][$itemBrand]['cost'] = ($item->final_cost * $item->quantity);
                 }
                 else
                 {
                     $data[$itemDate][$itemBrand]['items'] += $item->quantity;
                     $data[$itemDate][$itemBrand]['amount'] += ($item->final_price * $item->quantity);
+                    $data[$itemDate][$itemBrand]['cost'] += ($item->final_cost * $item->quantity);
                 }
             }
         }
@@ -102,6 +104,7 @@ class StatsController extends Controller
     public function exportStatsSalesByPeriod($period)
     {
         $salesByPeriod = $this->salesByPeriod($period);
+        
         // dd($salesByPeriod[0]['data']);
         $data = collect($salesByPeriod[0]['data']);
         // dd($data);
@@ -109,11 +112,10 @@ class StatsController extends Controller
         $pdf = PDF::loadView('vadmin.tools.export-stats', array('data' => $data));
         $pdf->setPaper('A4', 'portrait');
         
-
         if($period == '*')
-            $filename = 'Ventas de los últimos ' . $period . 'meses';
+            $filename = 'Ventas-de-los-últimos-' . $period . '-meses';
         else
-            $filename = 'Ventas totales';
+            $filename = 'Ventas-totales';
         
         return $pdf->download($filename.'.pdf');
     }

@@ -26,6 +26,8 @@
                 @foreach($data as $key => $items)
                     @php($totalItems = 0)
                     @php($totalAmount = 0)
+                    @php($totalCost = 0)
+
                     <table id="TableList" style="width: 100%; border: 1px solid #f9f9f9; padding: 0 10px 10px; margin-bottom: 15px"
                         class="table table-bordered table-striped custom-list">
                         <thead style="border: 0;">
@@ -34,7 +36,25 @@
                             </tr>
                         </thead>
                         <tbody>
+
                             @foreach($items as $brand => $item)
+                                <tr>    
+                                    <td>
+                                        {{ $brand}} >
+                                        Prendas: <b>{{ $item['items'] }} </b> | 
+                                        Total: <b>$ {{ $item['amount'] }} </b>|
+                                        Costo: <b>$ {{ $item['cost'] }} </b> |
+                                        Ganancia: <b>$ {{ $item['amount'] - $item['cost'] }} </b>
+                                
+                                        {{-- Calc totals --}}
+                                        @php($totalItems += $item['items'])
+                                        @php($totalAmount += $item['amount'])
+                                        @php($totalCost += $item['cost'])
+                                    </td>    
+                                </tr> 
+                            @endforeach
+                            
+                            {{-- @foreach($items as $brand => $item)
                             <tr>    
                                 <td>
                                     {{ $brand }} > 
@@ -45,9 +65,10 @@
                                     @php($totalAmount += $item['amount'])
                                 </td>    
                             </tr> 
-                            @endforeach
+                            @endforeach --}}
                             <tr style="background-color: #f9f9f9;">
-                                <td class="white-space: nowrap;"><b>TOTAL</b> </span> > Prendas: {{$totalItems}} | $ {{ $totalAmount }}</td>
+                                <td style="white-space: nowrap;"><b>TOTAL</b> </span> > Prendas: {{$totalItems}} | <b>$ {{ $totalAmount }} </b> | Costo <b> $ {{ $totalCost }}</b> | Ganancia <b>$ {{ $totalAmount - $totalCost}} </td>
+                                {{-- <td class="white-space: nowrap;"><b>TOTAL</b> </span> > Prendas: {{$totalItems}} | $ {{ $totalAmount }}</td> --}}
                             </tr> 
                         </tbody>
                     </table>

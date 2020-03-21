@@ -47,27 +47,56 @@
                                     Descargar CSV
                                 </a>
                             </div>
-                            @foreach($salesByPeriod[0]['data'] as $key => $items)
+
+                            {{-- @foreach($salesByPeriod[0]['data'] as $key => $items)
                                 <div class="container-fluid data-container">
                                     <br>
                                     <div class="data-header">{{ $key }}</div>
                                     @php($totalItems = 0)
                                     @php($totalAmount = 0)
-                                    
+
                                     @foreach($items as $brand => $item)
-                                        <span class="data-main">{{ $brand}}</span>> 
-                                        Prendas: {{ $item['items'] }} | 
+                                        <span class="data-main">{{ $brand}}</span>>
+                                        Prendas: {{ $item['items'] }} |
                                         $ {{ $item['amount'] }}</br>
 
-                                        {{-- Calc totals --}}
                                         @php($totalItems += $item['items'])
                                         @php($totalAmount += $item['amount'])
                                     @endforeach
                                     <hr class="softhr">
-                                    <span class="data-main">Total </span> > Prendas: {{$totalItems}} | $ {{ $totalAmount }} 
+                                    <span class="data-main">Total </span> > Prendas: {{$totalItems}} | $ {{ $totalAmount }}
+                                </div>
+                            @endforeach --}}
+
+                            @foreach($salesByPeriod[0]['data'] as $key => $items)
+                                {{-- {{ dd($salesByPeriod[0]['data']) }} --}}
+                                {{-- @if(Carbon::parse(2020-03-21 00:00:00)->lt(Carbon::now())) --}}
+                                <div class="container-fluid data-container">
+                                    <br>
+                                    <div class="data-header">{{ $key }}</div>
+                                    @php($totalItems = 0)
+                                    @php($totalAmount = 0)
+                                    @php($totalCost = 0)
+                                    
+                                    @foreach($items as $brand => $item)
+                                        <span class="data-main">{{ $brand}}</span>> 
+                                        Prendas: <b>{{ $item['items'] }} </b> | 
+                                        Total: <b>$ {{ $item['amount'] }} </b>|
+                                        Costo: <b>$ {{ $item['cost'] }} </b> |
+                                        Ganancia: <b>$ {{ $item['amount'] - $item['cost'] }} </b>
+                                        <br>
+                                        {{-- Calc totals --}}
+                                        @php($totalItems += $item['items'])
+                                        @php($totalAmount += $item['amount'])
+                                        @php($totalCost += $item['cost'])
+                                    @endforeach
+
+                                    <hr class="softhr">
+                                    <span class="data-main">Total </span> > Prendas: <b>{{$totalItems}}</b> | <b>$ {{ $totalAmount }} </b> | Costo <b> $ {{ $totalCost }}</b> | Ganancia <b>$ {{ $totalAmount - $totalCost}} </b>
                                 </div>
                             @endforeach
-                                {{-- <span class="small-data">Tiempo de ejecución: {{ $salesByPeriod[0]['exec_time'] }} segundos.</span> --}}
+                            
+                            {{-- <span class="small-data">Tiempo de ejecución: {{ $salesByPeriod[0]['exec_time'] }} segundos.</span> --}}
                             </div>
                         </div>
                     </div>

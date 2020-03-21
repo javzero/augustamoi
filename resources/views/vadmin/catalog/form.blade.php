@@ -12,9 +12,9 @@
             {!! Form::label('code', 'Código') !!}
             {!! Form::text('code', null, ['id' => 'CodeInput', 'class' => 'form-control', 'placeholder' => 'Ingrese el código', 'required' => '']) !!}
         </div>
-        <div class="col-xs-12 col-md-6 form-group">
-        {{--  price Price  --}}
-        {!! Form::label('reseller_price', 'Precio') !!}
+        <div class="col-xs-12 col-sm-8 col-md-4 col-lg-4 form-group">
+            {{--  price Price  --}}
+            {!! Form::label('reseller_price', 'Precio') !!}
             <div class="input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text">$</span>
@@ -23,7 +23,7 @@
             </div>
         </div>
         {{-- Reseller Discount --}}
-        <div class="col-xs-12 col-md-6 form-group">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 form-group">
             {!! Form::label('reseller_discount', 'Oferta') !!}
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -31,6 +31,17 @@
                 </div>
                 {!! Form::number('reseller_discount', null, ['class' => 'form-control',
                 'min' => '0', 'max' => '100', 'data-parsley-type' => 'integer', 'required' => '']) !!}
+            </div>
+        </div>
+         {{-- Reseller Cost --}}
+         <div class="col-xs-12 col-md-4 col-lg-4 form-group">
+            {!! Form::label('reseller_cost', 'Costo') !!}
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                </div>
+                {!! Form::number('reseller_cost', null, ['class' => 'form-control',
+                'min' => '0', 'data-parsley-type' => 'integer']) !!}
             </div>
         </div>
          {{-- Season --}}

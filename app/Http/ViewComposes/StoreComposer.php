@@ -17,6 +17,7 @@ class StoreComposer
         $google_analytics = $settings->google_analytics;
         $favs = $this->getCustomerFavs();
         $activeCart = $this->activeCart();
+        
         $brands = CatalogBrand::orderBy('name', 'asc')->get();
         $view
             ->with('activeCart', $activeCart)

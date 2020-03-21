@@ -147,75 +147,7 @@ class CartsController extends Controller
         }
     }
 
-    
-    // public function updateStatus(Request $request)
-    // {
-    //     $cart = Cart::findOrFail($request->id);
-    //     $oldStatus = $cart->status;
 
-    //     if($oldStatus == 'Canceled')
-    //     {
-    //         return response()->json([
-    //             'response' => false,
-    //             'message' => 'Estás tratando de revivir una órden cancelada. Esta función aún no ha sido diseñada.'
-    //         ]); 
-    //     }
-
-    //     if($request->status == "Canceled")
-    //     {
-    //         foreach($cart->items as $item)
-    //         {
-    //             $this->updateVariantStock($item->variant->id, $item->quantity);
-    //         }
-    //     }
-        
-    //     try 
-    //     {
-    //         $cart->status = $request->status;
-    //         $cart->save();
-    //         return response()->json([
-    //             'response' => true,
-    //             'newstatus' => $cart->status
-    //         ]); 
-    //     }  
-
-    //     catch (\Exception $e) 
-    //     {
-    //         return response()->json([
-    //             'response'   => false,
-    //             'error'    => 'Error: '.$e->getMessage()
-    //         ]);    
-    //     } 
-    // }
-    
-    /*
-    |--------------------------------------------------------------------------
-    | UPDATE
-    |--------------------------------------------------------------------------
-    */
-
-    // public function edit($id)
-    // {
-    //     $order = Cart::find($id);
-    //     return view('vadmin.orders.edit')->with('order', $order);
-    // }
-
-    // public function update(Request $request, $id)
-    // {
-    //     $category = Category::find($id);
-
-    //     $this->validate($request,[
-    //         'name' => 'required|min:4|max:250|unique:categories,name,'.$category->id,
-    //     ],[
-    //         'name.required' => 'Debe ingresar un nombre a la categoría',
-    //         'name.unique'   => 'La categoría ya existe'
-    //     ]);
-        
-    //     $category->fill($request->all());
-    //     $category->save();
-
-    //     return redirect()->route('categories.index')->with('message','Categoría editada');
-    // } 
 
     /*
     |--------------------------------------------------------------------------

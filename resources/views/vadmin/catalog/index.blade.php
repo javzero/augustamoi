@@ -75,6 +75,7 @@
 						<th>Título</th>
 						<th>Variantes (Color / Talle - Stock)</th>
 						<th>Precio</th>
+						<th>Costo</th>
 						<th>Valor de Stock</th>
 						<th>Destacado</th>
 						<th>Estado</th>
@@ -132,10 +133,16 @@
 									${{ $item->reseller_price }} @if($item->reseller_discount != 0) <i>(${{calcArticlePrice($item->reseller_price, $item->reseller_discount) }})</i> @endif
 								</td>
 								<td>
+									<input class="editable-input" onfocus="event.target.select()" type="text" value="{{ $item->reseller_cost }}" style="max-width: 70px; border: 1px solid #ccc">
+									<div class="editable-input-data" data-id="{{ $item->id }}" data-nullable="1" 
+										data-route="update_catalog_field" data-field="reseller_cost" data-type="string" data-action="reload" data-value="">
+									</div>
+								</td>
+								<td>
 									{{-- Calc total value of stock--}}
 									$ {{ calcArticlePrice($item->reseller_price, $item->reseller_discount) * $stockAmount }}
 								</td>
-								{{-- STATUS --}}
+								{{-- FEATURED --}}
 								<td class="w-50 pad0 centered">
 									<label class="switch">
 										<input class="UpdateFeatured switch-checkbox" type="checkbox" 
@@ -144,6 +151,7 @@
 										<span class="slider round"></span>
 									</label>
 									<br>
+									{{-- PRIORITY --}}
 									<input class="editable-input" onfocus="event.target.select()" type="text" value="{{ $item->priority }}" style="max-width: 50px; text-align: center; border: 1px solid #ccc">
 									<div class="editable-input-data" data-id="{{ $item->id }}" data-nullable="1" 
 										data-route="update_catalog_field" data-field="priority" data-type="string" data-action="reload" data-value="">

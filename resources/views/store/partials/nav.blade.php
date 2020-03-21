@@ -44,6 +44,7 @@
 			<ul>
 				@if(Auth::guard('customer')->check())
 					<li>
+						@if($activeCart)
 						<a onclick="checkoutSidebar();">
 							CARRO DE COMPRAS
 							<span class="details">
@@ -53,6 +54,7 @@
 								)	
 							</span>
 						</a>
+						@endif
 					</li>
 					<li><a href="{{ route('store.customer-account') }}">MI CUENTA</a></li>
 					<li><a href="{{ route('store.customer-orders') }}">MIS PEDIDOS</a></li>

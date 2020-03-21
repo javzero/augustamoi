@@ -10,7 +10,7 @@ class CartItem extends Model
 {
     protected $table = "cart_items";
 
-    protected $fillable = ['cart_id', 'article_id', 'variant_id', 'article_name', 'combination', 'color', 'size', 'textile', 'quantity', 'final_price', 'order_discount'];
+    protected $fillable = ['cart_id', 'article_id', 'variant_id', 'article_name', 'combination', 'color', 'size', 'textile', 'quantity', 'final_price', 'final_cost', 'order_discount'];
 
     public function cart()
     {

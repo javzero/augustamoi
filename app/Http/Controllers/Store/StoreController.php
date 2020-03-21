@@ -357,6 +357,7 @@ class StoreController extends Controller
     {
         // Check if customer has required data completed
         $checkCustomer = $this->checkAndUpdateCustomerData(auth()->guard('customer')->user()->id, $request);
+
         
         if($checkCustomer['response'] == 'error')
         {
@@ -474,9 +475,8 @@ class StoreController extends Controller
     // Check if customer has required data completed
     public function checkAndUpdateCustomerData($customerId, $data)
     {
-        // dd($customerId);
-
         $customer = Customer::findOrFail($customerId);
+        
         // $customer = Customer::where('id', $customerId)->first();
         // dd($data->all());
         $this->validate($data,[
@@ -499,7 +499,7 @@ class StoreController extends Controller
             'cp.required' => 'Debe ingresar su código postal'
         ]);
         $data = $data->all();
-            
+        
         if($customer->group == '3')
         {
             if($data['cuit'] == '' || $data['cuit'] == null)
@@ -507,9 +507,12 @@ class StoreController extends Controller
                 return (['response' => 'error', 'message' => 'Debe ingresar su número de CUIT']);
             }
         } 
+
         $customer->fill($data);
-        $customer->save();
+
         $response = (['response' => 'success', 'message' => 'Datos actualizados']);
+
+        return $response;
            
     }
 
