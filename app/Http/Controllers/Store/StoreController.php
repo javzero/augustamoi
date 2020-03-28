@@ -477,7 +477,6 @@ class StoreController extends Controller
     {
         $customer = Customer::findOrFail($customerId);
         
-        // $customer = Customer::where('id', $customerId)->first();
         // dd($data->all());
         $this->validate($data,[
             'name' => 'required|string|max:255',
@@ -498,7 +497,9 @@ class StoreController extends Controller
             'geoloc_id.required' => 'Debe ingresar su localidad',
             'cp.required' => 'Debe ingresar su código postal'
         ]);
+
         $data = $data->all();
+        // dd($data);
         
         if($customer->group == '3')
         {
@@ -509,6 +510,7 @@ class StoreController extends Controller
         } 
 
         $customer->fill($data);
+        $customer->save();
 
         $response = (['response' => 'success', 'message' => 'Datos actualizados']);
 

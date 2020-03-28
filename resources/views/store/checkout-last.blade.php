@@ -111,31 +111,31 @@
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Nombre de Usuario</label>
-							<input class="form-control dson" type="text" name="username" value="{{ Auth::guard('customer')->user()->username }}" required>
+							<input class="form-control dson" type="text" name="username" value="{{ Auth::guard('customer')->user()->username }}" 1required>
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Nombre</label>
-							<input class="form-control dson" type="text" name="name" value="{{ Auth::guard('customer')->user()->name }}" required>
+							<input class="form-control dson" type="text" name="name" value="{{ Auth::guard('customer')->user()->name }}" 1required>
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Apellido</label>
-							<input class="form-control dson" type="text" name="surname" value="{{ Auth::guard('customer')->user()->surname }}" required>
+							<input class="form-control dson" type="text" name="surname" value="{{ Auth::guard('customer')->user()->surname }}" 1required>
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>E-mail</label>
-							<input class="form-control dson" type="email" name="email" value="{{ Auth::guard('customer')->user()->email }}" required>
+							<input class="form-control dson" type="email" name="email" value="{{ Auth::guard('customer')->user()->email }}" 1required>
 						</div>
 					</div>
 					<div class="col-md-4">
 						<div class="form-group">
 							<label>Teléfono</label>
-							<input class="form-control dson" type="text" name="phone" value="{{ Auth::guard('customer')->user()->phone }}" required>
+							<input class="form-control dson" type="text" name="phone" value="{{ Auth::guard('customer')->user()->phone }}" 1required>
 						</div>
 					</div>
 					<div class="col-md-4">
@@ -147,13 +147,13 @@
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>Dirección</label>
-							<input class="form-control dson" type="text" name="address" value="{{ Auth::guard('customer')->user()->address }}" required>
+							<input class="form-control dson" type="text" name="address" value="{{ Auth::guard('customer')->user()->address }}" 1required>
 						</div>
 					</div>
 					<div class="col-md-6">
 						<div class="form-group">
 							<label>Código Postal</label>
-							<input class="form-control dson" type="text" name="cp" value="{{ Auth::guard('customer')->user()->cp }}" required>
+							<input class="form-control dson" type="text" name="cp" value="{{ Auth::guard('customer')->user()->cp }}" 1required>
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -170,13 +170,13 @@
 							<select id='GeoLocsSelect' name="geoloc_id" 
 								data-actualloc="{{ Auth::guard('customer')->user()->geoloc->name }}" 
 								data-actuallocid="{{ Auth::guard('customer')->user()->geoloc->id }}" 
-								class="form-control GeoLocsSelect dson" required>
+								class="form-control GeoLocsSelect dson" 1required>
 							</select>
 							@else
 							<select id='GeoLocsSelect' name="geoloc_id" 
 								data-actualloc="" 
 								data-actuallocid="" 
-								class="form-control GeoLocsSelect dson" required>
+								class="form-control GeoLocsSelect dson" 1required>
 							</select>
 							@endif
 						</div>
@@ -186,7 +186,7 @@
 							<div class="form-group">
 								<label>CUIT</label>
 								<input class="form-control dson" type="text" name="cuit" value="{{ Auth::guard('customer')->user()->cuit }}" placeholder="Ingrese su número de CUIT"
-									@if(Auth::guard('customer')->user()->group == '3') required @endif/>
+									@if(Auth::guard('customer')->user()->group == '3') 1required @endif/>
 							</div>
 						</div>
 					@endif
