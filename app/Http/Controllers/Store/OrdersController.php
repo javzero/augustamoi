@@ -212,7 +212,9 @@ class OrdersController extends Controller
         // dd($ids);
         
         if($ids == null)
-        $orders = Cart::where('status', 'Process')->get();
+        {
+            $orders = Cart::where('status', 'Process')->orderBy('id','ASC')->get();
+        }
         else
         {
             $idsArray = array_map('intval', explode(',', $ids));
@@ -223,31 +225,26 @@ class OrdersController extends Controller
         
         foreach($orders as $order)
         {
-
+           // l
             foreach($order->items as $item)
             {
-                $key = $item->article->code."|".$item->color."|".$item->size;
+                $key = $item->article->code."|".$item->color."|".$item->size."|".$item->final_price;
                 if(array_key_exists($key, $collected))
                 {
-                    $collected[$key]['quantity'] = $collected[$key]['quantity'] + $item->quantity;
+                    // If same article different price
+                    if($collected[$key]['price'] != $item->final_price)
+                    {
+                        $collected = $this->createNewItemToProduction($key, $item, $collected);  
+                    }
+                    else
+                    {
+                        
+                        $collected[$key]['quantity'] = $collected[$key]['quantity'] + $item->quantity;
+                    }
                 }
                 else
                 {
-                    if($item->article->brand)
-                        $brand = $item->article->brand->name;
-                    else
-                        $brand = 'Sin Marca';
-
-                    $collected[$key] = [
-                        'article_code' => $item->article->code,
-                        'article_name' => $item->article_name,
-                        'brand' => $brand,
-                        'talle' => $item->size,
-                        'color' => $item->color,
-                        'tela' => $item->textile,
-                        'quantity' => $item->quantity,
-                        'price' => $item->final_price
-                    ]; 
+                    $collected = $this->createNewItemToProduction($key, $item, $collected);
                 }
             }
         }
@@ -255,6 +252,27 @@ class OrdersController extends Controller
         // From Helpers
         sort_array_of_array($collected, 'article_name');
         // dd($collected);
+        return $collected;
+    }
+
+    public function createNewItemToProduction($key, $item, $collected)
+    {
+        if($item->article->brand)
+            $brand = $item->article->brand->name;
+        else
+            $brand = 'Sin Marca';
+
+        $collected[$key] = [
+            'article_code' => $item->article->code,
+            'article_name' => $item->article_name,
+            'brand' => $brand,
+            'talle' => $item->size,
+            'color' => $item->color,
+            'tela' => $item->textile,
+            'quantity' => $item->quantity,
+            'price' => $item->final_price
+        ]; 
+
         return $collected;
     }
 
