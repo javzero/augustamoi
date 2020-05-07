@@ -61,6 +61,9 @@ class CartsController extends Controller
             $payment_discount = Payment::where('id', $request->payment_method_id)->first()->discount;
             // dd($payment_discount);
             
+            $cart->payment_charge = 0;
+            $cart->payment_discount = 0;
+
             if($payment_discount != 0)
             {
                 $cart->payment_charge = 0;

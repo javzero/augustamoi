@@ -463,8 +463,7 @@ class StoreController extends Controller
     {
         $order = $this->calcCartData($order);
         // dd($order);
-        // dd($order['total']);
-        // dd($order);
+        // dd( $order['total']);
         $preference_data = [
             "external_reference" => $order['cart']->id,
             "items" => [
@@ -475,7 +474,7 @@ class StoreController extends Controller
                     'picture_url' => 'http://localhost/naitana/public/images/web/mp-logo.png',
                     'quantity' => 1,
                     'currency_id' => "ARS",
-                    'unit_price' => (float)$order['total']
+                    'unit_price' => $order['total']
                 ]
             ],
             "payer" => [

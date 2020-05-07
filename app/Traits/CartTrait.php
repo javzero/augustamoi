@@ -40,17 +40,17 @@ trait CartTrait {
                 (
                     "cart"                 => $cart, 
                     "totalItems"           => $cart->items->count(),
-                    "subTotal"             => number_format($cartValues['subTotal'], 2), 
+                    "subTotal"             => $cartValues['subTotal'], 
                     "paymentCharge"        => $cart->payment_charge,
-                    "paymentChargeValue"   => number_format($cartValues['paymentChargeValue'], 2),
+                    "paymentChargeValue"   => $cartValues['paymentChargeValue'],
                     "paymentDiscount"      => $cart->payment_discount,
-                    "paymentDiscountValue" => number_format($cartValues['paymentDiscountValue'], 2),
+                    "paymentDiscountValue" => $cartValues['paymentDiscountValue'],
                     "couponDiscount"       => $cart->coupon_discount,
-                    "couponDiscountValue"  => number_format($cartValues['couponDiscountValue'], 2),
-                    "shippingCost"         => number_format($cart->shipping_price, 2),
-                    "total"                => number_format($cartValues['total'], 2)
+                    "couponDiscountValue"  => $cartValues['couponDiscountValue'],
+                    "shippingCost"         => $cart->shipping_price,
+                    "total"                => $cartValues['total']
                 );
-
+            // dd($cart)
         return $cart;
 
     }
@@ -116,16 +116,16 @@ trait CartTrait {
                 (
                     "cart" => $cart,
                     "shippingId" => $cart->shipping_id,
-                    "shippingPrice" => stringToNumber($cart->shipping_price),
+                    "shippingPrice" => $cart->shipping_price,
                     "paymentId" =>$cart->payment_method_id,
-                    "paymentCharge" => number_format(stringToNumber($cart->payment_charge), 2),
-                    "paymentDiscount" => number_format(stringToNumber($cart->payment_discount), 2),
-                    "paymentDiscountValue" => number_format(stringToNumber($cartValues['paymentDiscountValue']), 2),
-                    "paymentChargeValue" => number_format(stringToNumber($cartValues['paymentChargeValue']), 2),
-                    "couponDiscount" => number_format(stringToNumber($cart->coupon_discount), 2),
-                    "couponDiscountValue" => stringToNumber($cartValues['couponDiscountValue']), 
-                    "cartSubTotal" => number_format(stringToNumber($cartSubTotal), 2),
-                    "cartTotal" =>  number_format(stringToNumber($cartValues['total']), 2),
+                    "paymentCharge" => $cart->payment_charge,
+                    "paymentDiscount" => $cart->payment_discount,
+                    "paymentDiscountValue" => $cartValues['paymentDiscountValue'],
+                    "paymentChargeValue" => $cartValues['paymentChargeValue'],
+                    "couponDiscount" => $cart->coupon_discount,
+                    "couponDiscountValue" => $cartValues['couponDiscountValue'], 
+                    "cartSubTotal" => $cartSubTotal,
+                    "cartTotal" =>  $cartValues['total'],
                     'totalItems' => $totalItems,
                     'goalQuantity' => $goalQuantity,
                     'minQuantityNeeded' => $minQuantityNeeded,
