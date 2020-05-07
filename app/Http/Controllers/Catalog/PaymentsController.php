@@ -58,14 +58,18 @@ class PaymentsController extends Controller
 
         $this->validate($request,[
             'name'             => 'required|min:4|max:250|unique:payment_methods',
-            'percent'          => 'required'
+            // 'percent'          => 'required'
         ],[
             'name.required'    => 'Debe ingresar un nombre',
             'name.unique'      => 'El item ya existe',
-            'percent.required' => 'Debe ingresar un porcentaje'
+            // 'percent.required' => 'Debe ingresar un porcentaje'
         ]);
 
         $item = new Payment($request->all());
+        if($request->charge != 0 && $request->discount != 0)
+            return back()->withInput()->with('error', 'Solo podés ingresar un descuento o un recargo, no ambos.');
+            
+
         $item->save();
 
         return redirect()->route('payments.index')->with('message', 'Método de pago creado');
@@ -86,15 +90,16 @@ class PaymentsController extends Controller
 
     public function update($id, Request $request)
     {
+        // dd($request->all());
         $item = Payment::find($id);
 
         $this->validate($request,[
             'name'             => 'required|unique:payment_methods,name,'.$item->id,
-            'percent'          => 'required'
+            // 'percent'          => 'required'
         ],[
             'name.required'    => 'Debe ingresar un nombre',
             'name.unique'      => 'El item ya existe',
-            'percent.required' => 'Debe ingresar un porcentaje'
+            // 'percent.required' => 'Debe ingresar un porcentaje'
         ]);
         
         $item->fill($request->all());

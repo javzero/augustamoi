@@ -34,26 +34,21 @@ trait CartTrait {
             //     unset($cart->items[$key]);
         }
 
-        $cartSubTotal = number_format($cartSubTotal, 2);
-        $discount = calcPercent($cartSubTotal, $cart->order_discount);
-        // Fixed Costs
-        $paymentCost = calcPercent($cartSubTotal, $cart->payment_percent);
-	    $cartSubTotal = okNum($cartSubTotal);
-        $cartPreTotal = $cartSubTotal + $paymentCost + $cart->shipping_price;        
+        $cartValues = $this->cartValues($cartSubTotal, $cart->payment_charge, $cart->payment_discount, $cart->shipping_price, $cart->coupon_discount);
         
-        $cartTotal = $cartPreTotal - $discount;        
-
         $cart = array
                 (
-                    "rawdata" => $cart, 
-                    "totalItems" => $cart->items->count(),
-                    "subTotal" => $cartSubTotal, 
-                    "paymentPercent" => $cart->payment_percent, 
-                    "paymentCost" => $paymentCost,
-                    "shippingCost" => $cart->shipping_price,
-                    "discountValue" => $discount,
-                    "orderDiscount" => $cart->order_discount,
-                    "total" => $cartTotal
+                    "cart"                 => $cart, 
+                    "totalItems"           => $cart->items->count(),
+                    "subTotal"             => number_format($cartValues['subTotal'], 2), 
+                    "paymentCharge"        => $cart->payment_charge,
+                    "paymentChargeValue"   => number_format($cartValues['paymentChargeValue'], 2),
+                    "paymentDiscount"      => $cart->payment_discount,
+                    "paymentDiscountValue" => number_format($cartValues['paymentDiscountValue'], 2),
+                    "couponDiscount"       => $cart->coupon_discount,
+                    "couponDiscountValue"  => number_format($cartValues['couponDiscountValue'], 2),
+                    "shippingCost"         => number_format($cart->shipping_price, 2),
+                    "total"                => number_format($cartValues['total'], 2)
                 );
 
         return $cart;
@@ -66,7 +61,9 @@ trait CartTrait {
     {
         $cartTotal = 0;
         $cartSubTotal = 0;
-        $payment_percent = 0;
+        $orderCharge = 0;
+        $orderDiscount = 0;
+        $couponDiscount = 0;
         $shipping_price = 0;
         $activeCart = null;
         $minQuantity = $this->settings->reseller_min;
@@ -78,8 +75,21 @@ trait CartTrait {
             if($cart != null) 
             {
                 $cartSubTotal = $this->calcSubtotal($cart->items, auth()->guard('customer')->user()->group);
-                $orderDiscount = calcPercent($cartSubTotal, $cart->order_discount);
-                $cartTotal = $cartSubTotal + calcPercent($cartSubTotal, $cart->payment_percent) + $cart->shipping_price - $orderDiscount;
+                
+                if($cart->payment_discount != 0)
+                {
+                    $orderDiscount = calcPercent($cartSubTotal, $cart->payment_discount);
+                } 
+                elseif($cart->payment_charge != 0) 
+                {
+                    $orderCharge = calcPercent($cartSubTotal, $cart->payment_charge);
+                }
+
+                if($cart->coupon_discount != 0 && $cart->coupon_discount != null)
+                    $couponDiscount = $cart->coupon_discount;
+
+                $cartValues = $this->cartValues($cartSubTotal, $cart->payment_charge, $cart->payment_discount, $cart->shipping_price, $couponDiscount);
+
                 $totalItems = '0';
 
                 // Count items and unset if item was eliminated
@@ -93,25 +103,29 @@ trait CartTrait {
                 
                 $minQuantityNeeded = false;
                 $minMoneyNeeded = false;
-
+                // dd($this->settings->reseller_money_min);
                 if($this->settings->reseller_min > 0 && $totalItems < $this->settings->reseller_min)
                     $minQuantityNeeded = true;
-                if($this->settings->reseller_money_min > 0 && $cartTotal < $this->settings->reseller_money_min)
+
+                if($this->settings->reseller_money_min > 0 && $cartValues['total'] < $this->settings->reseller_money_min)
                     $minMoneyNeeded = true;
 
                 $goalQuantity = $minQuantity - $totalItems;
-
+                
                 $activeCart = array
                 (
-                    "rawdata" => $cart,
-                    "paymentPercent" => $cart->payment_percent,
-                    "paymentId" =>$cart->payment_method_id,
-                    "shippingPrice" => $cart->shipping_price,
+                    "cart" => $cart,
                     "shippingId" => $cart->shipping_id,
-                    "orderDiscount" => $cart->order_discount,
-                    "orderDiscountValue" => $orderDiscount,
-                    "cartSubTotal" => $cartSubTotal,
-                    "cartTotal" => $cartTotal,
+                    "shippingPrice" => stringToNumber($cart->shipping_price),
+                    "paymentId" =>$cart->payment_method_id,
+                    "paymentCharge" => number_format(stringToNumber($cart->payment_charge), 2),
+                    "paymentDiscount" => number_format(stringToNumber($cart->payment_discount), 2),
+                    "paymentDiscountValue" => number_format(stringToNumber($cartValues['paymentDiscountValue']), 2),
+                    "paymentChargeValue" => number_format(stringToNumber($cartValues['paymentChargeValue']), 2),
+                    "couponDiscount" => number_format(stringToNumber($cart->coupon_discount), 2),
+                    "couponDiscountValue" => stringToNumber($cartValues['couponDiscountValue']), 
+                    "cartSubTotal" => number_format(stringToNumber($cartSubTotal), 2),
+                    "cartTotal" =>  number_format(stringToNumber($cartValues['total']), 2),
                     'totalItems' => $totalItems,
                     'goalQuantity' => $goalQuantity,
                     'minQuantityNeeded' => $minQuantityNeeded,
@@ -120,6 +134,30 @@ trait CartTrait {
             }
         } 
         return $activeCart;
+    }
+
+    public function cartValues($subTotal, $charge = 0, $discount = 0, $shippingPrice = 0, $couponDiscount = 0)
+    {
+        $total = 
+            $subTotal
+            + calcPercent($subTotal, $charge) // Order Charge
+            - calcPercent($subTotal, $discount) // Order discount
+            + $shippingPrice // Shipping
+            - calcPercent($subTotal, $couponDiscount); // Coupon discount
+
+            // array(number_format((float)$foo, 2, '.', '');
+        $values = array(
+            "subTotal"             => $subTotal,
+            "paymentChargeValue"   => calcPercent($subTotal, $charge),
+            "paymentDiscountValue" => calcPercent($subTotal, $discount),
+            "shippingPrice"        => $shippingPrice,
+            "couponDiscountValue"  => calcPercent($subTotal, $couponDiscount),
+            "total"                => $total
+
+        );
+        
+        return $values;
+
     }
 
     // Cacl Subtotal

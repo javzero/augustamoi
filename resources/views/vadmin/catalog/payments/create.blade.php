@@ -47,10 +47,13 @@
 			</div>
 		</div>
 	</div>  
+
+
 @endsection
 
 @section('scripts')
 	<script type="text/javascript" src="{{ asset('plugins/validation/parsley.min.js') }}" ></script>
 	<script type="text/javascript" src="{{ asset('plugins/validation/es/parsley-es.min.js') }}" ></script>
 @endsection
+
 

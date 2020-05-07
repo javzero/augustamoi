@@ -116,7 +116,10 @@ uncheckAll();
 | FUNCTIONS
 |--------------------------------------------------------------------------
 */
-
+// Receive ID with #
+setOtherToCero = function(other) {
+	$(other).val(0);
+}
 
 // Delete rows
 deleteRecord = function(id, route, bigtext, smalltext) {

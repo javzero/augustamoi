@@ -9,8 +9,8 @@
     <div class="container padding-bottom-3x mb-2 marg-top-25">
         <div class="row">
             <div class="container white-container padding-bottom-3x mb-1">
-                <h2 class="customer-account-title">Pedido N° {{ $cart['rawdata']->id }}</h2>
-                Estado:  {{ orderStatusTrd($cart['rawdata']->status) }}
+                <h2 class="customer-account-title">Pedido N° {{ $cart['cart']->id }}</h2>
+                Estado:  {{ orderStatusTrd($cart['cart']->status) }}
                 <!-- Shopping Cart-->
                 <div class="table-responsive shopping-cart">
                     <table class="table">
@@ -24,7 +24,7 @@
                         </thead>
                         <tbody>
                         {{--  Calc  Order Total Value  --}}
-                            @foreach($cart['rawdata']->items as $item)
+                            @foreach($cart['cart']->items as $item)
                                 <tr id="Detail{{$item->id}}">
                                     <td>
                                         <div class="product-item"><a class="product-thumb" href="{{ url('tienda/articulo/'.$item->article->id) }}">
@@ -65,13 +65,13 @@
                             @endif
                             <tr>
                                 <td></td><td></td>
-                                <td><b>Método de pago:</b> {{ $cart['rawdata']->payment->name }} <span class="dont-break">(% {{$cart['rawdata']->payment->percent }})</span></td>
+                                <td><b>Método de pago:</b> {{ $cart['cart']->payment->name }} <span class="dont-break">(% {{$cart['cart']->payment->percent }})</span></td>
                                 <td>$ {{ $cart['paymentCost'] }}</td>
                                 <td></td>
                             </tr>
                             <tr>
                                 <td></td><td></td>
-                                <td><b>Envío: </b>{{ $cart['rawdata']->shipping->name }} <span class="dont-break">($ {{$cart['rawdata']->shipping->price }})</span></td>
+                                <td><b>Envío: </b>{{ $cart['cart']->shipping->name }} <span class="dont-break">($ {{$cart['cart']->shipping->price }})</span></td>
                                 <td>$ {{ $cart['shippingCost'] }}</td>
                                 <td></td>
                             </tr>
@@ -89,8 +89,8 @@
                         <a class="btn btn-outline-secondary" href="{{ route('store') }}"><i class="icon-arrow-left"></i>&nbsp;Volver a la tienda</a>
                     </div>
                     <div class="column">
-                        <a class="btn btn-primary" href="{{ url('tienda/descargar-comprobante', [$cart['rawdata']->id, 'download']) }}" target="_blank"><i class="fas fa-download"></i> Descargar Comprobante</a>
-                        <a class="btn btn-primary" href="{{ url('tienda/descargar-comprobante', [$cart['rawdata']->id, 'stream']) }}" target="_blank"><i class="fas fa-file-pdf"></i> Ver Comprobante</a>
+                        <a class="btn btn-primary" href="{{ url('tienda/descargar-comprobante', [$cart['cart']->id, 'download']) }}" target="_blank"><i class="fas fa-download"></i> Descargar Comprobante</a>
+                        <a class="btn btn-primary" href="{{ url('tienda/descargar-comprobante', [$cart['cart']->id, 'stream']) }}" target="_blank"><i class="fas fa-file-pdf"></i> Ver Comprobante</a>
                     </div>
                 </div>
             </div>

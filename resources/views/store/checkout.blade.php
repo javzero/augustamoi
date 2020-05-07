@@ -9,7 +9,7 @@
 @endsection
 
 @section('content')
-	<input id="CartId" class="form-control" type="hidden" name="cart_id" value="{{ $activeCart['rawdata']->id }}">
+	<input id="CartId" class="form-control" type="hidden" name="cart_id" value="{{ $activeCart['cart']->id }}">
 	{{--------- Checkout Error Messages ----------}}
 	{{-- Missing shipping method Message --}}
 	@if(session('error')=='low-quantity')
@@ -25,7 +25,7 @@
    		<div class="row">
 			<div class="col-md-12">
 				<h3>Carro de Compras | Checkout</h3> 
-				{{-- <p>Pedido N: #{{ $activeCart['rawdata']->id }}</p> --}}
+				{{-- <p>Pedido N: #{{ $activeCart['cart']->id }}</p> --}}
 				@if(Auth::guard('customer')->user()->group == '3')
 					<div class="warning">
 						@if($settings->reseller_min > 0 || $settings->reseller_money_min > 0)
@@ -65,7 +65,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach($activeCart['rawdata']->items as $item)
+							@foreach($activeCart['cart']->items as $item)
 							<tr id="Item{{$item->id}}">
 								<td>
 									<div class="product-item">
@@ -155,12 +155,12 @@
 					</div>
 				<div class="row">
 					<div class="col-md-6">
-						@if($activeCart['orderDiscount'] > 0 )
+						@if($activeCart['couponDiscount'] > 0 )
 							{{-- If order has claimed coupon --}}
 							<div class="coupon-message">
 								<div class="inner">
 									<span class="small">Esta compra cuenta con un</span>
-									<span class="big">%{{ $activeCart['rawdata']->order_discount }} </span>
+									<span class="big">%{{ $activeCart['cart']->coupon_discount }} </span>
 									<span class="small">de descuento ! </span>
 								</div>
 							</div>

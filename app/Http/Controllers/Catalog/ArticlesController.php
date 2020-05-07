@@ -478,8 +478,6 @@ class ArticlesController extends Controller
             'image' => 'El archivo adjunto no es soportado',
         ]);
 
-       
-
         if (!$validator->fails())
         {
             return response()->json([
@@ -493,13 +491,11 @@ class ArticlesController extends Controller
             'message' => 'Error en validacion',
             'details' => $validator->errors()->all()
         ]);
-        
     }
 
 
     public function update(Request $request, $id)
     {
-       
         $article = CatalogArticle::find($request->article_id);
         $article->fill($request->all());
         

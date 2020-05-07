@@ -158,7 +158,7 @@ class OrdersController extends Controller
     public function exportOrderCsv($id)
     {   
         $order = $this->calcCartData(Cart::find($id));
-        $filename = 'Augustamoi-Pedido-'.$id.'-Cliente-'.$order['rawdata']->customer->name.' '.$order['rawdata']->customer->surname;
+        $filename = 'Augustamoi-Pedido-'.$id.'-Cliente-'.$order['cart']->customer->name.' '.$order['cart']->customer->surname;
         Excel::create($filename, function($excel) use($order){
             $excel->sheet('Listado', function($sheet) use($order) { 
                 $sheet->getDefaultStyle()->getFont()->setName('Arial');

@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </div>
-            @foreach($activeCart['rawdata']->items as $item)
+            @foreach($activeCart['cart']->items as $item)
                 <div id="Item{{ $item->id }}" class="row item">
                     <img src="{{ asset($item->article->featuredImageName()) }}" alt="Product">
                     <div class="details-1">

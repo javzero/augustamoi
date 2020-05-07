@@ -15,7 +15,7 @@
 					Productos
 					<div class="total-price-top">Total: <b>$<span>{{ $activeCart['cartTotal'] }}</span></b></div>
 				</div>
-				@foreach($activeCart['rawdata']->items as $item)
+				@foreach($activeCart['cart']->items as $item)
 					<div id="Item{{ $item->id }}" class="row item">
 						<div class="image">
 							<img src="{{ asset($item->article->featuredImageName()) }}" alt="Product">

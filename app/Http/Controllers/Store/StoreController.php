@@ -29,6 +29,7 @@ use App\Cart;
 use Cookie;
 use Mail;
 use PDF;
+use MP;
 
 
 class StoreController extends Controller
@@ -304,6 +305,7 @@ class StoreController extends Controller
         $activeCart = Cart::where('customer_id', auth()->guard('customer')->user()->id)->where('status', 'active')->get();
 
         $activeCart = $this->activeCart();
+
         if($activeCart == null || count($activeCart) == 0)
         {
             return redirect()->route('store')->with('message', 'No tiene productos en el carro de compras');
@@ -313,6 +315,7 @@ class StoreController extends Controller
 
     public function checkoutSetItems(Request $request)
     {
+        
         $updateQuantities = $this->updateItemsQuantities($request->all());
         $activeCart = $this->activeCart();
         
@@ -320,21 +323,30 @@ class StoreController extends Controller
             return response()->json(['response' => 'error', 'message' => 'La página solicitada no existe o ha expirado']);
             // return redirect()->route('store')->with('message', 'La página solicitada no existe o ha expirado');
 
-        if(count($activeCart['rawdata']->items) == 0)
+        if(count($activeCart['cart']->items) == 0)
         {
             return response()->json(['response' => 'error', 'message' => 'La página solicitada no existe o ha expirado']);
             // return redirect()->route('store')->with('message', 'La página solicitada no existe o ha expirado');
         }
+
         // Check minimun quantity - reseller
         if(auth()->guard('customer')->user()->group == '3' && $request->action == 'continue') {
-
+        
             if($activeCart['minQuantityNeeded'])
+            {
                 return response()->json(['response' => 'error', 'message' => 'Debe incluír al menos '. $this->settings->reseller_min.' prendas']);
+            }
+
             if($activeCart['minMoneyNeeded'])
+            {
+                
                 return response()->json(['response' => 'error', 'message' => 'El mínimo de compra es $'. $this->settings->reseller_money_min. '.']);
-            // return redirect()->back()->with('error', 'low-quantity');
+                // return redirect()->back()->with('error', 'low-quantity');
+            }
         }
+
         return response()->json(['response' => 'success', 'message' => "Go to checkout, bye !"]);
+
     }
     
     public function checkoutLast()
@@ -355,29 +367,32 @@ class StoreController extends Controller
 
     public function processCheckout(Request $request)
     {
-        // Check if customer has required data completed
-        $checkCustomer = $this->checkAndUpdateCustomerData(auth()->guard('customer')->user()->id, $request);
+        // dd($request->all());
+        $cart = Cart::findOrFail($request->cart_id);  
 
-        
-        if($checkCustomer['response'] == 'error')
+        // Check if customer has required data completed
+        if(auth()->guard('customer')->check())
         {
-            return redirect()->route('store.checkout-last')->with('message', $checkCustomer['message']);
+            $checkCustomer = $this->checkAndUpdateCustomerData(auth()->guard('customer')->user()->id, $request);
+            $customerEmail = auth()->guard('customer')->user()->email;
+            if($checkCustomer['response'] == 'error')
+                return redirect()->route('store.checkout-last')->with('message', $checkCustomer['message']);
         }
         
-        $cart = Cart::findOrFail($request->cart_id);  
         // Check if customer choose payment method
         if($cart->payment_method_id == null)
-            return back()->with('error', 'missing-payment');
+            return back()->withInput()->with('error', 'missing-payment');
+
         // Check if customer choose payment method and shipping
         if($cart->shipping_id == null)
-            return back()->with('error', 'missing-shipping');
+            return back()->withInput()->with('error', 'missing-shipping');
         
         // Set fixed prices on checkout confirmation
         foreach($cart->items as $key => $item){
             $order = CartItem::find($item->id);
             if($item->article != null && $item->article->status == 1)
             {
-                if(auth()->guard('customer')->user()->group == '3'){
+                if(auth()->guard('customer')->check() && auth()->guard('customer')->user()->group == '3'){
                     $order->final_price = calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount);
                 } else {
                     $order->final_price = calcValuePercentNeg($item->article->price, $item->article->discount);
@@ -393,8 +408,29 @@ class StoreController extends Controller
             }
         }
 
+         // MercadoPago
+        //-----------------------------------------
+        // Mercado Pago must have ID number 1 
+        if($cart->payment_method_id == 1 && env('MP_APP_REAL_MP'))
+        {
+            // Check if MercadoPago API is ON and proccess.
+            try
+            {
+
+                $mpUrl = $this->processMpPayment($cart, $customerEmail);
+                $cart->status = 'Active';
+                $cart->save();
+                return redirect($mpUrl);
+
+            } catch (\Exception $e) {   
+                // header("Refresh:0");
+                echo "Se produjo un error al intentar pagar con Mercado Pago (". $e->getMessage().")";
+                die();
+            }
+        }
+
         $cart->status = 'Process';
-        
+    
         try {
             $cart->save();
             try
@@ -402,8 +438,6 @@ class StoreController extends Controller
                 // Notify Bussiness
                 Mail::to(APP_EMAIL_1)->send(new SendMail('Compra Recibida', 'Checkout', $cart));
                 // Notify Customer
-                $customerEmail = auth()->guard('customer')->user()->email;
-                //$customerEmail = 'javzero1@gmail.com';
                 Mail::to($customerEmail)->send(new SendMail('Augustamoi - Compra recibida !', 'CustomerCheckout', ''));
             } catch (\Exception $e) {
                 //
@@ -418,6 +452,122 @@ class StoreController extends Controller
         return view('store.checkout-success')
             ->with('cart', $cart);
     }
+
+     /*
+    |--------------------------------------------------------------------------
+    | MERCADOPAGO
+    |--------------------------------------------------------------------------
+    */
+
+    public function processMpPayment($order, $customerEmail)
+    {
+        $order = $this->calcCartData($order);
+        // dd($order);
+        // dd($order['total']);
+        // dd($order);
+        $preference_data = [
+            "external_reference" => $order['cart']->id,
+            "items" => [
+                [
+                    'id' => 0,
+                    'title' => env('APP_BUSINESS_NAME'),
+                    'description' => '',
+                    'picture_url' => 'http://localhost/naitana/public/images/web/mp-logo.png',
+                    'quantity' => 1,
+                    'currency_id' => "ARS",
+                    'unit_price' => (float)$order['total']
+                ]
+            ],
+            "payer" => [
+                'email' => $customerEmail,
+                'date_created' => Carbon::now()
+            ],
+            'back_urls' => [
+                'success' => url('tienda/mp-success'),
+                'pending' => url('tienda/mp-pending'),
+                'failure' => url('tienda/mp-failure')
+            ],
+            "auto_return" => "approved"
+        ];
+
+        $preference = MP::post("/checkout/preferences", $preference_data);
+
+        // dd($preference);
+        // return dd($preference);
+        if(env('MP_APP_PRODUCTION'))
+            $initPoint = $preference['response']['init_point'];
+        else
+            $initPoint = $preference['response']['sandbox_init_point'];
+
+        return $initPoint;
+    }
+
+    // LEGACY Proccess Checkout
+    // public function processCheckout(Request $request)
+    // {
+    //     // Check if customer has required data completed
+    //     $checkCustomer = $this->checkAndUpdateCustomerData(auth()->guard('customer')->user()->id, $request);
+
+        
+    //     if($checkCustomer['response'] == 'error')
+    //     {
+    //         return redirect()->route('store.checkout-last')->with('message', $checkCustomer['message']);
+    //     }
+        
+    //     $cart = Cart::findOrFail($request->cart_id);  
+    //     // Check if customer choose payment method
+    //     if($cart->payment_method_id == null)
+    //         return back()->with('error', 'missing-payment');
+    //     // Check if customer choose payment method and shipping
+    //     if($cart->shipping_id == null)
+    //         return back()->with('error', 'missing-shipping');
+        
+    //     // Set fixed prices on checkout confirmation
+    //     foreach($cart->items as $key => $item){
+    //         $order = CartItem::find($item->id);
+    //         if($item->article != null && $item->article->status == 1)
+    //         {
+    //             if(auth()->guard('customer')->user()->group == '3'){
+    //                 $order->final_price = calcValuePercentNeg($item->article->reseller_price, $item->article->reseller_discount);
+    //             } else {
+    //                 $order->final_price = calcValuePercentNeg($item->article->price, $item->article->discount);
+    //             }   
+    //             $order->save();
+    //         }
+    //         else 
+    //         {
+    //             // If article was deleted while purchase was ocurring unset from array
+    //             unset($cart->items[$key]);
+    //             // Delete CartItem
+    //             $order->delete();
+    //         }
+    //     }
+
+    //     $cart->status = 'Process';
+        
+    //     try {
+    //         $cart->save();
+    //         try
+    //         {
+    //             // Notify Bussiness
+    //             Mail::to(APP_EMAIL_1)->send(new SendMail('Compra Recibida', 'Checkout', $cart));
+    //             // Notify Customer
+    //             $customerEmail = auth()->guard('customer')->user()->email;
+    //             //$customerEmail = 'javzero1@gmail.com';
+    //             Mail::to($customerEmail)->send(new SendMail('Augustamoi - Compra recibida !', 'CustomerCheckout', ''));
+    //         } catch (\Exception $e) {
+    //             //
+    //         }
+
+    //     } catch (\Exception $e) {
+    //         dd($e->getMessage());
+    //         // return back()->with('error', 'Ha ocurrido un error '. $e);
+    //     }    
+    
+    //     // return back()->with('message','Su compra se ha registrado. Muchas gracias !.');
+    //     return view('store.checkout-success')
+    //         ->with('cart', $cart);
+    // }
     
     public function updateItemsQuantities($data)
     {
@@ -554,7 +704,8 @@ class StoreController extends Controller
         }
         
         try {
-            $cart->order_discount = $coupon->percent;
+            $cart->coupon_discount = $coupon->percent;
+            $cart->coupon_id = $coupon->id;
             $cart->save();
             return response()->json(['response' => true, 'message' => $coupon->percent]);
         } catch (\Exception $e) {

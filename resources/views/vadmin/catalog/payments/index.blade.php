@@ -57,7 +57,8 @@
 						<th></th>
 						<th>Nombre</th>
 						<th>Descripción</th>
-						<th>Porcentaje</th>
+						<th>Descuento</th>
+						<th>Recargo</th>
 						<th>Fecha de Creación</th>
 					@endslot
 
@@ -72,8 +73,21 @@
 									</label>
 								</td>
 								<td class="show-link max-text"><a href="{{ url('vadmin/payments/'.$item->id) }}">{{ $item->name }}</a></td>
-								<td class="max-text"><a href="#">{{ $item->description }}</a></td>
-								<td class="max-text"><a href="#">% {{ $item->percent }}</a></td>
+								<td class="max-text">{{ $item->description }}</td>
+								<td class="max-text">
+									@if($item->discount != 0) 
+										% {{ $item->discount }}
+									@else
+										-
+									@endif
+								</td>
+								<td class="max-text">
+									@if($item->charge != 0)
+										% {{ $item->charge }}
+									@else
+										-
+									@endif
+								</td>
 								<td class="w-200">{{ transDateT($item->created_at) }}</td>
 							</tr>						
 						@endforeach

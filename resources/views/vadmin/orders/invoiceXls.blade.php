@@ -12,7 +12,7 @@
         <th></th>
         <th>Total</th>
     </tr>
-    @foreach($order['rawdata']->items as $item)
+    @foreach($order['cart']->items as $item)
     @if($item->article != null)
         <tr>
             <td>{{ $item->article->code }}</td>
@@ -42,9 +42,9 @@
     @endif
     <tr>
         <td></td><td></td><td></td><td></td>
-        @if($order['rawdata']->shipping_id != null)
+        @if($order['cart']->shipping_id != null)
         <td></td>
-        <td><b>Envío:</b> {{ $order['rawdata']->shipping->name }}</td>
+        <td><b>Envío:</b> {{ $order['cart']->shipping->name }}</td>
         <td>$ {{ $order['shippingCost'] }}</td>
         @else
         <td></td>
@@ -54,10 +54,10 @@
     </tr>
     <tr>
         <td></td><td></td><td></td><td></td>
-        @if($order['rawdata']->payment_method_id != null)
-            @if($order['rawdata']->payment != null)
+        @if($order['cart']->payment_method_id != null)
+            @if($order['cart']->payment != null)
                 <td></td>
-                <td><b>Método de pago:</b> {{ $order['rawdata']->payment->name }} (% {{ $order['paymentPercent'] }})</td>
+                <td><b>Método de pago:</b> {{ $order['cart']->payment->name }} (% {{ $order['paymentPercent'] }})</td>
                 <td>${{ $order['paymentCost'] }}</td>
             @else
                 <td></td>

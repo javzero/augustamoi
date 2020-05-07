@@ -104,7 +104,7 @@
 						<th>Estado de pago</th>
 						<th>Estado</th>
 						<th>Items</th>
-						<th>Totals</th>
+						<th>SubTotal</th>
 						<th>Fecha</th>
 						<th></th>
 					@endslot
@@ -167,7 +167,7 @@
 										foreach($item->items as $unit)
 											$totalPrice += $unit->final_price * $unit->quantity;
 										
-										$totalPrice += calcPercent($totalPrice, $item->payment_percent) + $item->shipping_price;
+										// $totalPrice += calcPercent($totalPrice, $item->payment_percent) + $item->shipping_price;
 										echo '$ '. $totalPrice;
 										unset($totalPrice);
 									@endphp

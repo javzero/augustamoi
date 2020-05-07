@@ -10,7 +10,7 @@ class Payment extends Model
 
     protected $primaryKey = 'id';
 
-    protected $fillable = ['name', 'description', 'percent'];
+    protected $fillable = ['name', 'description', 'charge', 'discount', 'status'];
     
     public function cart()
     {

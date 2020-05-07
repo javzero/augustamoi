@@ -373,7 +373,7 @@ window.submitCartToCheckout = function (route, target, data, action) {
         success: function (data) {
             console.log(data);
             if (data.response == 'success') {
-                console.log(target);
+                // console.log(target);
                 if (target == 'reload') {
                     // Refresh page, delete parametters and open checkout sidebar
                     window.location = window.location.href.split("?")[0] + "?checkout-on";
@@ -392,7 +392,7 @@ window.submitCartToCheckout = function (route, target, data, action) {
         error: function (data) {
             // $('#Error').html(data.responseText);
             console.log("Error en submitForm()");
-            location.reload();
+            // location.reload();
             console.log(data);
             // location.reload();
         }

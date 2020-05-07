@@ -129,8 +129,13 @@ function calcPercent($price, $percent)
 
 function okNum($number)
 {
+    return stringToNumber($number);
+}
+
+function stringToNumber($number)
+{
     if(is_string($number)){
-	$number = floatval(str_replace(',', '', $number));
+	    $number = floatval(str_replace(',', '', $number));
     }
     return $number;
 }

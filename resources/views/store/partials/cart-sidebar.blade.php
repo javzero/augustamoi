@@ -18,7 +18,7 @@
                 </div>
             </div>
             <div class="items">
-            @foreach($activeCart['rawdata']->items as $item)
+            @foreach($activeCart['cart']->items as $item)
                 
                 @if($item->article != null)
                     <div id="Item{{ $item->id }}" class="row item">

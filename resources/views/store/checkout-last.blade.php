@@ -16,7 +16,7 @@
 
 
 @section('content')
-	<input id="CartId" class="form-control" type="hidden" name="cart_id" value="{{ $activeCart['rawdata']->id }}">
+	<input id="CartId" class="form-control" type="hidden" name="cart_id" value="{{ $activeCart['cart']->id }}">
 	{{--------- Checkout Error Messages ----------}}
 	{{-- Missing shipping method Message --}}
 	@if(session('error')=='low-quantity')
@@ -61,14 +61,14 @@
 				{!! Form::open(['route' => 'store.updatePaymentAndShipping', 'class' => 'row small-form loader-on-submit dont-submit-on-enter', 'method' => 'POST']) !!}
 					<div class="col-md-6">
 						<div class="sub-title"> <i class="far fa-credit-card"></i> Medio de pago</div>
-						<input type="hidden" name="id" value="{{ $activeCart['rawdata']->id }}">
+						<input type="hidden" name="id" value="{{ $activeCart['cart']->id }}">
 						{{-- {!! Form::label('payment_method', 'Seleccione un medio de pago') !!} --}}
 						<select onchange="submit()" name="payment_method_id" class="Select-Atribute form-control mb-3" placeholder="Seleccionar forma de pago">
-							@if($activeCart['rawdata']->payment_method_id == null)
+							@if($activeCart['cart']->payment_method_id == null)
 							<option selected disabled>Seleccione una forma de pago</option>
 							@endif
 							@foreach($payment_methods as $payment)
-							<option  value="{{ $payment->id }}" @if($payment->id == $activeCart['rawdata']->payment_method_id ) selected @endif>
+							<option  value="{{ $payment->id }}" @if($payment->id == $activeCart['cart']->payment_method_id ) selected @endif>
 									{{ $payment->name }} @if($payment->percent > 0) - (Recargo %{{ $payment->percent }})@endif
 							</option>
 							@endforeach
@@ -76,7 +76,7 @@
 						{{-- RADIO BTN STYLE --}}
 						{{-- @foreach($payment_methods as $payment)
 							<input type="radio" name="payment_method_id" onclick="submit()" value="{{ $payment->id }}" 
-							@if($payment->id == $activeCart['rawdata']->payment_method_id ) checked @endif>
+							@if($payment->id == $activeCart['cart']->payment_method_id ) checked @endif>
 							{{ $payment->name }} @if($payment->percent > 0) - (Recargo %{{ $payment->percent }})@endif<br>
 						@endforeach --}}
 					</div>
@@ -84,11 +84,11 @@
 						<div class="sub-title"><i class="fas fa-truck"></i> Forma de envío</div>
 						{{-- {!! Form::label('shipping', 'Seleccione el tipo de envío') !!} --}}
 						<select onchange="submit()" name="shipping_id" class="Select-Atribute form-control" placeholder="Seleccionar forma de pago">
-							@if($activeCart['rawdata']->shipping_id == null)
+							@if($activeCart['cart']->shipping_id == null)
 								<option selected disabled>Seleccione forma de envío</option>
 							@endif
 							@foreach($shippings as $shipping)
-								<option value="{{ $shipping->id }}" @if($shipping->id == $activeCart['rawdata']->shipping_id ) selected @endif>
+								<option value="{{ $shipping->id }}" @if($shipping->id == $activeCart['cart']->shipping_id ) selected @endif>
 									{{ $shipping->name }} @if($shipping->price > 0) - (Costo ${{ $shipping->price }})@endif
 								</option>
 							@endforeach
@@ -96,7 +96,7 @@
 						{{-- RADIO BTN STYLE --}}
 						{{-- @foreach($shippings as $shipping)
 							<input type="radio" name="shipping_id" onclick="submit()" value="{{ $shipping->id }}" 
-							@if($shipping->id == $activeCart['rawdata']->shipping_id ) checked @endif>
+							@if($shipping->id == $activeCart['cart']->shipping_id ) checked @endif>
 							{{ $shipping->name }} @if($shipping->price > 0) - (Costo ${{ $shipping->price }})@endif<br>
 						@endforeach --}}
 					</div>
@@ -195,12 +195,13 @@
 					<div class="col-md-12">
 						<div class="sub-title">¿ Tenés un cupón de descuento ?</div>
 						<div class="form-group small-form">
-							@if($activeCart['orderDiscount'] > 0)
+
+							@if($activeCart['couponDiscount'] > 0)
 								{{-- If order has claimed coupon --}}
 								<div class="coupon-message">
 									<div class="inner">
 										<span class="small">Esta compra cuenta con un</span><br>
-										<span class="big">% {{ $activeCart['rawdata']->order_discount }} de descuento !</span>
+										<span class="big">% {{ $activeCart['cart']->coupon_discount }} de descuento !</span>
 									</div>
 								</div>
 							@else

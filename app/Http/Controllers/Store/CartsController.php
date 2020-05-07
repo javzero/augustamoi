@@ -52,12 +52,27 @@ class CartsController extends Controller
 
     public function updatePaymentAndShipping(Request $request)
     {
+        // dd($request->all());
         $cart = Cart::findOrFail($request->id);
         if($request->payment_method_id != null)
         {
             $cart->payment_method_id = $request->payment_method_id;
-            $payment_percent = Payment::where('id', $request->payment_method_id)->first()->percent;
-            $cart->payment_percent = $payment_percent;
+            $payment_charge = Payment::where('id', $request->payment_method_id)->first()->charge;
+            $payment_discount = Payment::where('id', $request->payment_method_id)->first()->discount;
+            // dd($payment_discount);
+            
+            if($payment_discount != 0)
+            {
+                $cart->payment_charge = 0;
+                $cart->payment_discount = $payment_discount;
+            }
+            
+            if($payment_charge != 0) 
+            {
+                $cart->payment_discount = 0;
+                $cart->payment_charge = $payment_charge;
+            }
+
         }
         
         if($request->shipping_id != null)

@@ -187,3 +187,18 @@ Cron log
 grep cron /var/log/syslog
 Cron restart
 service cron restart
+
+
+-----
+
+Checkout 
+	vista          -> checkout.blade	
+	clase/metodo   -> StoreController@checkoutItems
+
+boton Continuar en checkout 
+  dispara        -> submitCartToCheckout en resources/scripts.js
+  a clase/metodo -> StoreController@checkoutSetItems
+
+finalizando-compra 
+  vista          -> checkout-aside.blade.php
+  a clase/metodo -> 

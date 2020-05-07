@@ -1,12 +1,12 @@
 @extends('store.partials.main')
 
 @section('content')
-	<input id="CartId" class="form-control" type="hidden" name="cart_id" value="{{ $activeCart['rawdata']->id }}">
+	<input id="CartId" class="form-control" type="hidden" name="cart_id" value="{{ $activeCart['cart']->id }}">
   	<div class="container checkout-container padding-bottom-3x mb-2 marg-top-25">
    		<div class="row">
 			<div class="col-xl-9 col-lg-8">
 				<h3>Carro de Compras | Checkout</h3> 
-				{{-- <p>Pedido N: #{{ $activeCart['rawdata']->id }}</p> --}}
+				{{-- <p>Pedido N: #{{ $activeCart['cart']->id }}</p> --}}
 				@if(Auth::guard('customer')->user()->group == '3')
 				<div class="warning"><span>Compra mínima: <b>12 unidades</b></span></div>
 				@endif
@@ -61,7 +61,7 @@
 											</tr>
 										</thead>
 										<tbody>
-											@foreach($activeCart['rawdata']->items as $item)
+											@foreach($activeCart['cart']->items as $item)
 											<tr>
 												<td>
 													<div class="product-item">
@@ -129,25 +129,25 @@
 								</div>
 								<div class="card-block">
 									{!! Form::open(['route' => 'store.updatePaymentAndShipping', 'id' => 'form-test', 'method' => 'POST']) !!}	
-										<input type="hidden" name="id" value="{{ $activeCart['rawdata']->id }}">
+										<input type="hidden" name="id" value="{{ $activeCart['cart']->id }}">
 										{!! Form::label('payment_method', 'Forma de pago') !!}
 											<select onchange="submit()" name="payment_method_id" class="Select-Atribute form-control mb-3" placeholder="Seleccionar forma de pago">
-												@if($activeCart['rawdata']->payment_method_id == null)
+												@if($activeCart['cart']->payment_method_id == null)
 													<option selected disabled>Seleccione una forma de pago</option>
 												@endif
 											@foreach($payment_methods as $payment)
-												<option  value="{{ $payment->id }}" @if($payment->id == $activeCart['rawdata']->payment_method_id ) selected @endif>
+												<option  value="{{ $payment->id }}" @if($payment->id == $activeCart['cart']->payment_method_id ) selected @endif>
 													{{ $payment->name }} @if($payment->percent > 0) - (Recargo %{{ $payment->percent }})@endif
 												</option>
 											@endforeach
 											</select>
 										{!! Form::label('shipping', 'Envío') !!}
 											<select onchange="submit()" name="shipping_id" class="Select-Atribute form-control" placeholder="Seleccionar forma de pago">
-												@if($activeCart['rawdata']->shipping_id == null)
+												@if($activeCart['cart']->shipping_id == null)
 													<option selected disabled>Seleccione forma de envío</option>
 												@endif
 											@foreach($shippings as $shipping)
-												<option value="{{ $shipping->id }}" @if($shipping->id == $activeCart['rawdata']->shipping_id ) selected @endif>
+												<option value="{{ $shipping->id }}" @if($shipping->id == $activeCart['cart']->shipping_id ) selected @endif>
 													{{ $shipping->name }} @if($shipping->price > 0) - (Costo ${{ $shipping->price }})@endif
 												</option>
 											@endforeach
@@ -164,12 +164,12 @@
 								</div>
 								<div class="card-block">
 									<div class="form-group">
-										@if($activeCart['orderDiscount'] > 0)
+										@if($activeCart['couponDiscount'] > 0)
 										{{-- If order has claimed coupon --}}
 										<div class="coupon-message">
 											<div class="inner">
 												<span class="small">Esta compra cuenta con un</span><br>
-												<span class="big">% {{ $activeCart['rawdata']->order_discount }} de descuento !</span>
+												<span class="big">% {{ $activeCart['cart']->coupon_discount }} de descuento !</span>
 											</div>
 										</div>
 										@else

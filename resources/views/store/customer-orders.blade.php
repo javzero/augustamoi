@@ -61,7 +61,7 @@
                         <div class="column">
                             {!! Form::open(['route' => 'store.removeCartReturnStock', 'method' => 'POST']) !!}	
                                 {{ csrf_field() }}
-                                <input type="hidden" name="itemid" value="{{ $activeCart['rawdata']->id }}">
+                                <input type="hidden" name="itemid" value="{{ $activeCart['cart']->id }}">
                                 <button type="submit" class="btn btn-sm btn-block btn-danger">
                                     <i class="far fa-trash-alt"></i> Eliminar carro activo
                                 </button>
