@@ -31,3 +31,11 @@ thead {
 th {
     height: 45px;
 }
+
+.txtR {
+    text-align: right;
+}
+
+.txtL {
+    text-align: left;
+}
