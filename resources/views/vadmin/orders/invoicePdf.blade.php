@@ -11,8 +11,14 @@
         </div>
         <div class="content">
                 <div class="top-text">
-                    <b>Nombre y Apellido:</b> {{ $order->customer->name }} {{ $order->customer->surname }}
-                    <b>Usuario:</b> {{ $order->customer->username }} <br>
+                    <b>Nombre y Apellido:</b> 
+                    @if($order->customer->username == 'Nuevo Usuario')
+                        {{ $order->anon_name }} *
+                    @else
+                    {{ $order->customer->name }} {{ $order->customer->surname }}
+                    <b>Usuario:</b> {{ $order->customer->username }} 
+                    @endif
+                    <br>
                     <b>Dirección: </b> @if($order->customer->address){{ $order->customer->address }} @endif
                      | @if($order->customer->geoprov)
                         {{ $order->customer->geoprov->name }} 

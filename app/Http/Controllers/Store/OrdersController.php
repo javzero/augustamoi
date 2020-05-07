@@ -314,8 +314,17 @@ class OrdersController extends Controller
 
         //Set Payment Method
         $cart->payment_method_id = $request->payment_method_id;
-        $payment_percent = Payment::where('id', $request->payment_method_id)->first()->percent;
-        $cart->payment_percent = $payment_percent;
+        $paymentCharge = Payment::where('id', $request->payment_method_id)->first()->charge;
+        $paymentDiscount = Payment::where('id', $request->payment_method_id)->first()->discount;
+        // dd($paymentCharge);
+        // @if($cart)
+
+        $cart->payment_charge = 0;
+        $cart->payment_discount = 0; 
+        if($paymentCharge > 0)
+            $cart->payment_charge = $paymentCharge;
+        elseif($paymentDiscount > 0)
+            $cart->payment_discount = $paymentDiscount;
  
         // Set Shipping Method
         $cart->shipping_id = $request->shipping_id;
