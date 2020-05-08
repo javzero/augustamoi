@@ -88,7 +88,7 @@
 		{{-- Whats App Cta--}}
 		<div class="floating-bottom-cta">
 			<div class="inner">
-				<a href="https://wa.me/5491133212292" target="_blank"><i class="fab fa-whatsapp"></i></a>
+				<a href="https://wa.me/5491151161348" target="_blank"><i class="fab fa-whatsapp"></i></a>
 			</div>
 		</div>
 	
