@@ -53,7 +53,7 @@
 					<a href="{{ route('vadmin.exportCustomersListSheet', ['params' => 'all', 'format' => 'xls']) }}" data-toggle="tooltip" title="Exportar a XLS"  class="icon-container green">
 						<i class="fas fa-file-excel"></i>
 					</a>
-					<a href="{{ route('vadmin.exportCustomerEmails', ['format' => 'csv']) }}" data-toggle="tooltip" title="Exportar a .CSV"  class="icon-container blue">
+					<a href="{{ route('vadmin.exportCustomerEmails', ['format' => 'csv']) }}" data-toggle="tooltip" title="Exportar Emails a .CSV"  class="icon-container blue">
 						<i class="fas fa-file-excel"></i>
 					</a>
 					{{-- <a href="{{ route('vadmin.exportCustomersListPdf', ['params' => 'all', 'action' => 'download']) }}" data-toggle="tooltip" title="Exportar a .PDF" class="icon-container black">
