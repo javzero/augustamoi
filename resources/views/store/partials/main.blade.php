@@ -88,9 +88,10 @@
 		{{-- Whats App Cta--}}
 		<div class="floating-bottom-cta">
 			<div class="inner">
-				<a href="https://wa.me/5491151161348" target="_blank"><i class="fab fa-whatsapp"></i></a>
+				<a href="https://wa.me/{{ $settings->whatsapp }}" target="_blank"><i class="fab fa-whatsapp"></i></a>
 			</div>
 		</div>
+		{{-- 5491151161348 --}}
 	
 		{{-- Back To Top Button --}}
 		<a class="scroll-to-top-btn" href="#"> <i class="icon-arrow-up"></i> </a>

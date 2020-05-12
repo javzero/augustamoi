@@ -29,3 +29,11 @@
     </tr>
     @endforeach			
 @endsection
+
+{{-- item->id 
+name
+surname
+group
+cuit
+address
+cp --}}

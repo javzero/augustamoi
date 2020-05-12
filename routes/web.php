@@ -183,12 +183,17 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
     Route::post('removeFromOrder', ['as' => 'vadmin.removeFromOrder', 'uses' => 'Store\OrdersController@destroy']);
 
     // Route::post('actualizar-avatar', ['as' => 'vadmin.updateCustomerAvatar', 'uses' => 'CustomerController@updateCustomerAvatar']);
+    
     // Exports
     Route::get('exportViewPdf/{view}/{params}/{model}/{filename}', ['as' => 'vadmin.exportViewPdf', 'uses' => 'invoiceController@exportViewPdf']);
+    
     // Export Users
     Route::get('exportUsersListPdf/{params}', ['as' => 'vadmin.exportUsersListPdf', 'uses' => 'UserController@exportPdf']);
     Route::get('exportUsersListXls/{params}', ['as' => 'vadmin.exportUsersListXls', 'uses' => 'UserController@exportXls']);
+
     // Export Customers
+    Route::get('informacion-de-clientes', ['as' => 'vadmin.customerInfo', 'uses' => 'CustomerController@customerInfo']);
+    
     Route::get('exportCustomersListPdf/{params}/{action}', ['as' => 'vadmin.exportCustomersListPdf', 'uses' => 'CustomerController@exportPdf']);
     Route::get('exportCustomersListSheet/{params}/{format}', ['as' => 'vadmin.exportCustomersListSheet', 'uses' => 'CustomerController@exportSheet']);
 

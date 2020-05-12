@@ -76,7 +76,7 @@
 			</ul>
 		</div>
 		<div class="foot-info content-effect">
-			<p><a><i class="fas fa-phone"></i>&nbsp; 11-3321-2292</a></p>
+			<p><a><i class="fas fa-phone"></i>&nbsp;{{ $settings->phone1 }}</a></p>
 			<p><a href="mailto:venta@augustamoi.com"><i class="far fa-envelope"></i>&nbsp; venta@augustamoi.com</a></p>
 			<div class="horizontal-list">
 				<ul>

@@ -12,7 +12,7 @@
 		</a> --}}
 	
 		<a class="">
-			&nbsp; 11-3321-2292</a> 
+			&nbsp; {{ $settings->phone1 }}</a> 
 		<a class="e-mail-field" href="mailto:venta@augustamoi.com">
 			<i class="far fa-envelope"></i> &nbsp; venta@augustamoi.com
 		</a>

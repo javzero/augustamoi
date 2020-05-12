@@ -30,6 +30,14 @@
                                         <label for="">E-mail primario</label>
                                         <input class="form-control" type="text" name="email" value="{{ $settings->email }}">
                                     </div>
+                                    <div class="form-group">
+                                        <label for="">Whatsapp</label>
+                                        <input class="form-control" type="text" name="whatsapp" value="{{ $settings->whatsapp }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Teléfono</label>
+                                        <input class="form-control" type="text" name="phone1" value="{{ $settings->phone1 }}">
+                                    </div>
                                     <input class="btnSm btnBlue" type="submit" value="Actualizar">
                                 {!! Form::close() !!}
                             </div>

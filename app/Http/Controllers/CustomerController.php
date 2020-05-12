@@ -86,6 +86,15 @@ class CustomerController extends Controller
         return view('vadmin.customers.show', compact('customer'));
     }
 
+    public function customerInfo()
+    {   
+        $items = Customer::orderBy('id', 'ASC')->paginate(200);
+        // dd($items);
+
+        return view('vadmin.customers.customer-info', compact('items'));
+        
+    }
+
     /*
     |--------------------------------------------------------------------------
     | EXPORT
@@ -95,6 +104,7 @@ class CustomerController extends Controller
     public function exportPdf($params, $action)
     {   
         $items = $this->getData($params);
+        // dd("PDF");
         $pdf = PDF::loadView('vadmin.customers.invoice-pdf', array('items' => $items));
         $pdf->setPaper('A4', 'landscape');
         if($action == 'stream')
