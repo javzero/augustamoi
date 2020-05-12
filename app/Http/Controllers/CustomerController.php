@@ -95,6 +95,19 @@ class CustomerController extends Controller
         
     }
 
+    public function exportCustomerEmails($format) 
+    {
+
+        $items = Customer::pluck('email');
+        Excel::create('email-de-clientes', function($excel) use($items){
+            $excel->sheet('Listado', function($sheet) use($items) {   
+                $sheet->loadView('vadmin.customers.invoice-mails', 
+                compact('items'));
+            });
+        })->export($format);
+        
+    }
+
     /*
     |--------------------------------------------------------------------------
     | EXPORT
