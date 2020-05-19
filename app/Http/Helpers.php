@@ -102,6 +102,42 @@ function calcArticlePrice($price, $discount)
     
     return $result;
 }
+
+function calcFinalPriceWithExtras($totalPrice, $discount, $charge, $couponDiscount, $shippingPrice)
+{
+
+    $price = $totalPrice;
+
+    if($charge > 0) 
+    {
+        $chargeValue =  calcPercent($totalPrice, $charge);
+        // echo 'Cargo ' . $chargeValue .'<br>';
+        $price += $chargeValue;
+    } 
+    elseif($discount > 0)
+    {
+        $discountValue = calcPercent($totalPrice, $discount);
+        // echo 'Descuento ' . $discountValue .'<br>';
+        $price -= $discountValue;
+    }
+
+
+    if($couponDiscount > 0) 
+    {
+        $couponDiscountValue = calcPercent($totalPrice, $couponDiscount);
+        // echo 'Cupon ' . $couponDiscountValue .'<br>';
+        $price -= $couponDiscountValue;
+    }
+    
+    if($shippingPrice > 0) 
+    {
+        // echo 'Envio ' . $shippingPrice .'<br>';
+        $price += $shippingPrice;
+    }
+
+    return $price;
+    
+}
     
 function calcValuePercentNeg($price, $percent)
 {
@@ -182,7 +218,7 @@ function roleTrd($role)
             echo 'Usuario';
             break;
         case 4:
-            echo 'Invitado';
+            echo 'Vendedor';
             break;
         default:
             echo '';

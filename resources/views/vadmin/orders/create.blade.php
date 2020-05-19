@@ -86,32 +86,36 @@
                                         {{-- {{ dd($shippingData) }} --}}
                                         <div class="col-md-3 form-group">
                                             {!! Form::label('shipping_id', 'Envío') !!}
-                                                <select id="ShippingSelected" name="shipping_id" class="form-control" required="" id="shipping_id" name="shipping_id">
-                                                    <option selected="selected" value="">Seleccione una opcion</option>
-                                                    @foreach($shippingData as $shipping)
-                                                        <option 
-                                                            @if($existingOrder != null )
-                                                                @if($existingOrder->shipping)
-                                                                    @if($existingOrder->shipping->id == $shipping->id) selected @endif
-                                                                @endif
+                                            <select id="ShippingSelected" name="shipping_id" class="form-control" required="" id="shipping_id">
+                                                <option selected="selected" value="">Seleccione una opcion</option>
+                                                @foreach($shippingData as $shipping)
+                                                    <option 
+                                                        @if($existingOrder != null )
+                                                            @if($existingOrder->shipping)
+                                                                @if($existingOrder->shipping->id == $shipping->id) selected @endif
                                                             @endif
-                                                            value="{{ $shipping->id }}" price="{{ $shipping->price }}">{{ $shipping->name }} @if($shipping->price != 0) (${{ $shipping->price }}) @endif</option>
-                                                    @endforeach
-                                                </select>
-                                                {{-- {!! Form::select('shipping_id', $shippings, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!} --}}
+                                                        @endif
+                                                        value="{{ $shipping->id }}" price="{{ $shipping->price }}">{{ $shipping->name }} @if($shipping->price != 0) (${{ $shipping->price }}) @endif</option>
+                                                @endforeach
+                                            </select>
+                                            {{-- {!! Form::select('shipping_id', $shippings, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!} --}}
                                         </div>
                                         <div class="col-md-3 form-group">
                                             {!! Form::label('payment_method_id', 'Forma de Pago') !!}
-                                            <select id="PaymentSelected" name="payment_method_id" class="form-control" required="" id="payment_method_id" name="payment_method_id">
+                                            <select id="PaymentSelected" name="payment_method_id" class="form-control" id="payment_method_id" required="" >
                                                 <option selected="selected" value="">Seleccione una opcion</option>
                                                 @foreach($paymentData as $payment)
                                                     <option 
-                                                        @if($existingOrder != null )
-                                                            @if($existingOrder->payment)
-                                                                @if($existingOrder->payment->id == $payment->id) selected @endif
+                                                        {{-- Exclude Mercado pago --}}
+                                                        @if($payment->id != 1)
+                                                            @if($existingOrder != null )
+                                                                @if($existingOrder->payment)
+                                                                    @if($existingOrder->payment->id == $payment->id) selected @endif
+                                                                @endif
                                                             @endif
+                                                            
+                                                            value="{{ $payment->id }}" charge="{{ $payment->charge }}" discount="{{ $payment->discount }}">{{ $payment->name }} @if($payment->percent != 0) (%{{ $payment->percent }}) @endif</option>
                                                         @endif
-                                                        value="{{ $payment->id }}" percent="{{ $payment->percent }}">{{ $payment->name }} @if($payment->percent != 0) (%{{ $payment->percent }}) @endif</option>
                                                 @endforeach
                                             </select>
                                             {{-- {!! Form::select('payment_method_id', $payment_methods, null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!} --}}
@@ -129,62 +133,64 @@
                                         </div>
                                     </div>
                                     {{-- Articles Table --}}
-                                    <table id="TableList" class="Articles-List table table-striped custom-list @if(!$existingOrder) Hidden @endif">
-                                        <thead>
-                                            <tr>
-                                                <th class="w-50">Cód.</th>
-                                                <th>Nombre</th>
-                                                <th>Variante</th>
-                                                <th>Stock</th>
-                                                <th>Precio</th>
-                                                <th>Cantidad</th>
-                                                <th>Subtotales</th>
-                                                <th></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="Articles-List-Rows">
-                                            @if($existingOrder)
-                                                @foreach($existingOrder->items->sortBy('article_name') as $item)
-                                                    @if($item->variant)
-                                                    <tr id="OrderItem-{{ $item->variant->id }}">
-                                                        <td>#{{ $item->article->code }} | Variant {{ $item->variant->id }}</td>
-                                                        <td>{{ $item->article->name }}</td>
-                                                        <td>{{ $item->combination }}</td>
-                                                        <td>{{ $item->article->stock }}</td>
-                                                        <td>{{ $item->article->reseller_price }}</td>
-                                                        <input name="item[{{ $item->variant->id }}][variant_id]" value="{{ $item->variant->id }}" type='hidden' />
-                                                        <input name="item[{{ $item->variant->id }}][name]" value="{{  $item->article->name }}" type='hidden' />
-                                                        <input name="item[{{ $item->variant->id }}][combination]" value="{{ $item->combination }}" type='hidden' />
-                                                        <input name="item[{{ $item->variant->id }}][color]" value="{{ $item->color }}" type='hidden' />
-                                                        <input name="item[{{ $item->variant->id }}][size]" value="{{ $item->size }}" type='hidden' />
-                                                        <input name="item[{{ $item->variant->id }}][textile]" value="{{ $item->textile }}" type='hidden' />
-                                                        <input class='Row-Price-Item' name="item[{{ $item->variant->id}}][final_price]" value="{{ $item->final_price }}" type='hidden' />
+                                    <div class="table-responsive">
+                                        <table id="TableList" class="Articles-List table  table-striped custom-list @if(!$existingOrder) Hidden @endif">
+                                            <thead>
+                                                <tr>
+                                                    <th class="w-50">Cód.</th>
+                                                    <th>Nombre</th>
+                                                    <th>Variante</th>
+                                                    <th>Stock</th>
+                                                    <th>Precio</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Subtotales</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="Articles-List-Rows">
+                                                @if($existingOrder)
+                                                    @foreach($existingOrder->items->sortBy('article_name') as $item)
+                                                        @if($item->variant)
+                                                        <tr id="OrderItem-{{ $item->variant->id }}">
+                                                            <td>#{{ $item->article->code }} | Variant {{ $item->variant->id }}</td>
+                                                            <td>{{ $item->article->name }}</td>
+                                                            <td>{{ $item->combination }}</td>
+                                                            <td>{{ $item->article->stock }}</td>
+                                                            <td>{{ $item->article->reseller_price }}</td>
+                                                            <input name="item[{{ $item->variant->id }}][variant_id]" value="{{ $item->variant->id }}" type='hidden' />
+                                                            <input name="item[{{ $item->variant->id }}][name]" value="{{  $item->article->name }}" type='hidden' />
+                                                            <input name="item[{{ $item->variant->id }}][combination]" value="{{ $item->combination }}" type='hidden' />
+                                                            <input name="item[{{ $item->variant->id }}][color]" value="{{ $item->color }}" type='hidden' />
+                                                            <input name="item[{{ $item->variant->id }}][size]" value="{{ $item->size }}" type='hidden' />
+                                                            <input name="item[{{ $item->variant->id }}][textile]" value="{{ $item->textile }}" type='hidden' />
+                                                            <input class='Row-Price-Item' name="item[{{ $item->variant->id}}][final_price]" value="{{ $item->final_price }}" type='hidden' />
 
-                                                        {{-- Quantity --}}
-                                                        <td>
-                                                            <input class="ItemQuantityInput" data-rowid="OrderItem-{{ $item->variant->id }}" 
-                                                            data-price="{{ $item->article->reseller_price }}" name="item[{{ $item->variant->id }}][quantity]" value="{{ $item->quantity }}" 
-                                                            style="padding-left: 10px; max-width: 50px" type="number" />
-                                                            <input name="item[{{ $item->variant->id }}][id]" value="{{ $item->id }}" type="hidden" />
-                                                        </td>
-                                                        {{-- Subtotal --}}
-                                                        <td>$<input class="SubTotalItemPrice only-display-input" disabled name="subTotalItemPrice" 
-                                                            value="{{ $item->article->reseller_price * $item->quantity }}"></td>
-                                                        {{-- Delete Item --}}
-                                                        <td><i onclick="removeExistingItem({{ $item->id }}, {{ $item->variant->id}}, 'noreload');" class="cursor-pointer fa fa-trash"></td>
-                                                    </tr>
-                                                    @else
-                                                    <tr>
-                                                        <td>Variante Discontinuada</td>
-                                                    </tr>
-                                                    @endif
-                                                @endforeach
-                                            @endif
+                                                            {{-- Quantity --}}
+                                                            <td>
+                                                                <input class="ItemQuantityInput" data-rowid="OrderItem-{{ $item->variant->id }}" 
+                                                                data-price="{{ $item->article->reseller_price }}" name="item[{{ $item->variant->id }}][quantity]" value="{{ $item->quantity }}" 
+                                                                style="padding-left: 10px; max-width: 50px" type="number" />
+                                                                <input name="item[{{ $item->variant->id }}][id]" value="{{ $item->id }}" type="hidden" />
+                                                            </td>
+                                                            {{-- Subtotal --}}
+                                                            <td>$<input class="SubTotalItemPrice only-display-input" disabled name="subTotalItemPrice" 
+                                                                value="{{ $item->article->reseller_price * $item->quantity }}"></td>
+                                                            {{-- Delete Item --}}
+                                                            <td><i onclick="removeExistingItem({{ $item->id }}, {{ $item->variant->id}}, 'noreload');" class="cursor-pointer fa fa-trash"></td>
+                                                        </tr>
+                                                        @else
+                                                        <tr>
+                                                            <td>Variante Discontinuada</td>
+                                                        </tr>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
 
 
-                         
-                                        </tbody>
-                                    </table>
+                            
+                                            </tbody>
+                                        </table>
+                                    </div>
                                     <div class="row">
                                         <div id="Order-Total-Container" class="Hidden right-item right-data">
                                                 
@@ -193,12 +199,23 @@
                                                 <span id="Order-SubTotal"> </span>
                                             </span> <br>
 
-                                            <span class="text-small-thin" style="font-size: 1rem">Costo de envío: $</span> 
-                                            <span class="text-data" style="font-size: 1rem" id="OrderShippingCost">0</span> <br>
-                                            
-                                            <span class="text-small-thin" style="font-size: 1rem"> Recargo por forma de pago: $</span> 
-                                            <input type="hidden" name="paymentMethodCost" value="0" id="PaymentMethodPercentInput">      
-                                            <span id="OrderPaymentCost" class="text-data" style="font-size: 1rem">0</span> <br>
+                                            {{-- Shipping --}}
+                                            <div id="ShippingCostText" class="Hidden">
+                                                <span class="text-small-thin" style="font-size: 1rem">Costo de envío: $</span> 
+                                                <span id="OrderShippingCost" class="text-data" style="font-size: 1rem" >0</span> <br>
+                                            </div>
+
+                                            {{-- Payment Discount --}}
+                                            <div id="OrderPaymentChargeText" class="Hidden">
+                                                <span id="OrderPaymentChargeText" class="text-small-thin" style="font-size: 1rem"> Recargo por forma de pago: %</span>       
+                                                <span id="OrderPaymentCharge" class="text-data" style="font-size: 1rem">0</span> <br>
+                                            </div>
+
+                                            {{-- Payment Charge --}}
+                                            <div id="OrderPaymentDiscountText" class="Hidden">
+                                                <span  class="text-small-thin" style="font-size: 1rem"> Descuento por forma de pago: - %</span> 
+                                                <span id="OrderPaymentDiscount" class="text-data" style="font-size: 1rem">0</span> <br>
+                                            </div>
 
                                             <div style="border: 1px solid #d8d8d8; padding: 15px; margin-top: 10px;">
                                                 <span class="text-small-thin">Total: $</span>  
@@ -303,6 +320,7 @@
 
         savedVariants.push(variantId);
         $('#Articles-List-Rows').append(row);
+        
         calcAndShowTotals();
     }
 
@@ -314,38 +332,65 @@
         let total = Number(quantity) * Number(price);
         
         $('#'+ rowid + ' > td > .SubTotalItemPrice').val(total);
-        calcAndShowTotals();
+        calcAndShowTotals()
     });
 
     // SET SHIPPING PRICE AS SUBTOTAL
     $(document).on('change', '#ShippingSelected', function() {
-        calcAndShowTotals();
+        calcAndShowTotals()
     });
     
     $(document).on('change', '#PaymentSelected', function() {
-        calcPaymentMethodCost();
+        calcAndShowTotals()
     });
 
-    function calcPaymentMethodCost()
+    function calcShippingAndPaymentMethod(subTotal = 0)
     {
-        let subTotal = $('#Order-SubTotal').html();
+        let shippingCost = $('#ShippingSelected > option:selected').attr('price');
 
-        // Display calcs
-        console.log("Calculando costo de envio....");
-        console.log("Subtotal: " + subTotal);
-        let value = $('#PaymentSelected > option:selected').attr('percent');
-        console.log("Porcentaje por envio: " + value);
-        let paymentCost = Number(subTotal) * Number(value) / 100;
-        console.log("Total de envío: " + paymentCost);
-        console.info("----------------------------------------");
-        
-        $('#OrderPaymentCost').html(paymentCost);
+        if(shippingCost > 0) {
+            $('#OrderShippingCost').html(shippingCost);
+            $('#ShippingCostText').removeClass('Hidden');
+        } else {
+            $('#OrderShippingCost').html(0);
+            $('#ShippingCostText').addClass('Hidden');
+        }
+
+        let paymentCharge = $('#PaymentSelected > option:selected').attr('charge');
+        let paymentDiscount = $('#PaymentSelected > option:selected').attr('discount');
+
+        if(paymentCharge > 0) {
+            console.log(paymentCharge);
+            $('#OrderPaymentCharge').html(paymentCharge);
+            $('#OrderPaymentCharge').removeClass('Hidden');
+            $('#OrderPaymentChargeText').removeClass('Hidden');
+
+            $('#OrderPaymentDiscountText').addClass('Hidden');
+            $('#OrderPaymentDiscount').html('0');
+            $('#OrderPaymentDiscount').addClass('Hidden');
+        }
+        else if(paymentDiscount > 0) {
+            $('#OrderPaymentDiscount').html(paymentDiscount);
+            $('#OrderPaymentDiscount').removeClass('Hidden');
+            $('#OrderPaymentDiscountText').removeClass('Hidden');
+
+            $('#OrderPaymentChargeText').addClass('Hidden');
+            $('#OrderPaymentCharge').html('0');
+            $('#OrderPaymentCharge').addClass('Hidden');
+        } else {
+            $('#OrderPaymentCharge').html('0');
+            $('#OrderPaymentDiscount').html('0');
+            $('#OrderPaymentDiscountText').addClass('Hidden');
+            $('#OrderPaymentChargeText').addClass('Hidden');
+            $('#OrderPaymentCharge').addClass('Hidden');
+            $('#OrderPaymentDiscount').addClass('Hidden');
+        }
     }
 
-    
     // DISPLAY ORDER TOTAL
     function calcAndShowTotals()
-    {
+    {  
+        
         let values = [];
         $('.SubTotalItemPrice').each(function(){
             // If multiple data needed
@@ -353,27 +398,34 @@
             values.push(this.value); 
         });
 
-        let paymentMethodValue = $('#PaymentMethodPercentInput').val();
+      
 
         let subTotal = 0;
         for (var i = 0; i < values.length; i++) {
             subTotal += values[i] << 0;
         }
         
+        calcShippingAndPaymentMethod(subTotal);
+
         $('#Order-Total-Container').removeClass('Hidden');
         
         // Display Subtotal
         $('#Order-SubTotal').html(subTotal);
         
-        calcPaymentMethodCost(paymentMethodValue);
-        let setShippingCost = $('#ShippingSelected > option:selected').attr('price');
-        $('#OrderShippingCost').html(setShippingCost);
-        
+        let paymentCharge = $('#OrderPaymentCharge').html();
+        let paymentDiscount = $('#OrderPaymentDiscount').html();
         let shippingCost = $('#OrderShippingCost').html();
-        let paymentCost = $('#OrderPaymentCost').html();
-        let total = Number(subTotal) + Number(shippingCost) + Number(paymentCost);
+        
+        let total = Number(subTotal) + Number(shippingCost);
+
+        if(paymentCharge > 0) {
+            total += Number(subTotal) * Number(paymentCharge) / 100;
+        } else if(paymentDiscount > 0) {
+            total -= Number(subTotal) * Number(paymentDiscount) / 100
+        }
+
         //Display Total
-        $('#Order-Total').html(total);
+       $('#Order-Total').html(toDecimal(total));
     }
 
     // REMOVE EXISTING ITEM
@@ -467,7 +519,10 @@
         };
     });
 
-
+    
+    function toDecimal(x) {
+        return Number.parseFloat(x).toFixed(2);
+    }
     </script>
 
 @endsection

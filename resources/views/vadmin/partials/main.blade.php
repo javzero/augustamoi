@@ -41,6 +41,8 @@
   	<body data-open="click" data-menu="vertical-menu" data-col="2-columns" class="vertical-layout vertical-menu 2-columns fixed-navbar">
 		@if(Auth::guard('user')->user()->role == 1 || Auth::guard('user')->user()->role == 2) 
 			@include('vadmin.partials.adminNav')
+		@elseif(Auth::guard('user')->user()->role == 4)
+			@include('vadmin.partials.sellerNav')
 		@else
 			@include('vadmin.partials.userNav')
 		@endif

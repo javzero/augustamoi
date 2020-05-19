@@ -159,19 +159,9 @@ Route::group(['prefix'=> 'tienda', 'middleware' => 'active-customer'], function(
 */
 
 // Functions that all users can access
-Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
+Route::group(['prefix' => 'vadmin', 'middleware' => 'managers'], function(){
     
     Route::get('/', 'VadminController@index');
-
-    Route::get('configuracion', ['as' => 'vadmin.settings', 'uses' => 'VadminController@settings']);
-    Route::get('estadisticas', ['as' => 'vadmin.stats', 'uses' => 'StatsController@index']);
-    Route::get('ventasPorPeriodo/{period}', ['as' => 'vadmin.statsSalesByPeriod', 'uses' => 'StatsController@statsSalesByPeriod']);
-    Route::get('ExportarVentasPorPeriodo/{period}', ['as' => 'vadmin.exportStatsSalesByPeriod', 'uses' => 'StatsController@exportStatsSalesByPeriod']);
-    Route::get('getStats/{period}', 'StatsController@getChartData');
-    Route::get('statsCheck/{brand}/{date}', 'StatsController@statsCheck');
-    Route::get('customStats', 'StatsController@customStats');
-    Route::get('estadisticasPersonalizadas', ['as' => 'vadmin.customStats', 'uses' => 'StatsController@customStats']);
-    Route::post('customStats', ['as' => 'vadmin.customStats', 'uses' => 'StatsController@getCustomStats']);
 
     Route::post('sendMail', ['as' => 'vadmin.sendMail', 'uses' => 'VadminController@sendMail']);
     Route::post('sendSupportMail', ['as' => 'vadmin.sendSupportMail', 'uses' => 'VadminController@sendSupportMail']);
@@ -227,18 +217,13 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
     Route::post('testImageUpload', ['as' => 'vadmin.testImageUpload', 'uses' => 'VadminTestsController@testImageUpload']);
     Route::post('testMP', ['as' => 'vadmin.testMP', 'uses' => 'VadminTestsController@TestMp']);
     
-});
 
-Route::group(['prefix' => 'vadmin', 'middleware' => ['active-user']], function(){
     Route::resource('catalogo', 'Catalog\ArticlesController');  
     Route::post('updateStatus/{model}/{id}', 'VadminController@updateStatus');
     Route::post('updateFeatured/{model}/{id}', 'VadminController@updateFeatured');
     Route::post('updateFeaturedOrder/{model}/{id}/{order}', 'VadminController@updateFeaturedOrder');
     Route::post('updateStatusMultiple/{id}/{model}/{status}', 'VadminController@updateStatusMultiple');
-});
 
-// Admin and SuperAdmin Only
-Route::group(['prefix' => 'vadmin', 'middleware' => ['active-user', 'admin']], function(){
     
     Route::post('actualizar-opciones', ['as' => 'updateSettings', 'uses' => 'VadminController@updateSettings']);
     
@@ -308,6 +293,20 @@ Route::group(['prefix' => 'vadmin', 'middleware' => ['active-user', 'admin']], f
     Route::get('searchCustomer', ['as' => 'vadmin.searchCustomer', 'uses' => 'AutocompleteController@searchCustomer']);
 });
 
+Route::group(['prefix' => 'vadmin', 'middleware' => 'admin'], function(){
+
+    Route::get('configuracion', ['as' => 'vadmin.settings', 'uses' => 'VadminController@settings']);
+    Route::get('estadisticas', ['as' => 'vadmin.stats', 'uses' => 'StatsController@index']);
+    Route::get('ventasPorPeriodo/{period}', ['as' => 'vadmin.statsSalesByPeriod', 'uses' => 'StatsController@statsSalesByPeriod']);
+    Route::get('ExportarVentasPorPeriodo/{period}', ['as' => 'vadmin.exportStatsSalesByPeriod', 'uses' => 'StatsController@exportStatsSalesByPeriod']);
+    Route::get('getStats/{period}', 'StatsController@getChartData');
+    Route::get('statsCheck/{brand}/{date}', 'StatsController@statsCheck');
+    Route::get('customStats', 'StatsController@customStats');
+    Route::get('estadisticasPersonalizadas', ['as' => 'vadmin.customStats', 'uses' => 'StatsController@customStats']);
+    Route::post('customStats', ['as' => 'vadmin.customStats', 'uses' => 'StatsController@getCustomStats']);
+
+});
+
 /*
 |--------------------------------------------------------------------------
 | Shared Functions
@@ -323,7 +322,7 @@ Route::get('getGeoLocs/{id}', 'SharedController@getGeoLocs');
 |--------------------------------------------------------------------------
 */
 
-Route::prefix('vadmin')->middleware('admin')->group(function () {
+Route::prefix('vadmin')->middleware('managers')->group(function () {
     Route::post('destroy_users', 'UserController@destroy');
     Route::post('destroy_customers', 'CustomerController@destroy');
     Route::post('destroy_portfolio', 'Portfolio\ArticlesController@destroy');

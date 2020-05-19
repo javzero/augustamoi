@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 use Closure;
 
-class AdminMiddleware
+class ManagersMiddleware
 {
     /**
      * Handle an incoming request.
@@ -14,7 +14,6 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next, $guard = 'user')
     {
-       
         $user = auth()->guard($guard)->user();
         if(!auth()->guard($guard)->check()){
             return redirect('/vadmin/login');
@@ -24,16 +23,14 @@ class AdminMiddleware
             return redirect('/vadmin/login')->with('message','Su usuario está inactivo');
         };
         
-        if($user->role == '1' || $user->role == '2')
+        if($user->role == '1' || $user->role == '2' || $user->role == '4')
         {
-           
             return $next($request);
         } 
         else
         {
-            return redirect('/no-authorized')->with('message', 'Acceso no autorizado');
+            return redirect('/')->with('message', 'Acceso no autorizado');
         }
-
-
+       
     }
 }

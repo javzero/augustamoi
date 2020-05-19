@@ -33,7 +33,7 @@
     <div class="form-group">
         {{-- Roles: 1 Superadmin - 2 Admin - 3 User --}}
         {!! Form::label('role', 'Rol') !!}
-        {!! Form::select('role', [2 => 'Administrador', 3 => 'Usuario'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!}
+        {!! Form::select('role', [2 => 'Administrador', 3 => 'Usuario', 4 => 'Vendedor'], null, ['class' => 'form-control', 'placeholder' => 'Seleccione una opcion', 'required' => '']) !!}
     </div>
     <div class="form-group">
         {{-- Group: 1 Member --}}

@@ -161,14 +161,16 @@
 									$count += $sum->quantity;
 									@endphp
 								<td>{{ $count }}</td>
+								{{-- {{ dd($item) }} --}}
 								<td>	
 									@php
 										$totalPrice = '0';
-										foreach($item->items as $unit)
+										foreach($item->items as $unit) {
 											$totalPrice += $unit->final_price * $unit->quantity;
+										}
 										
 										// $totalPrice += calcPercent($totalPrice, $item->payment_percent) + $item->shipping_price;
-										echo '$ '. $totalPrice;
+										echo '$ '. calcFinalPriceWithExtras($totalPrice, $item->payment_discount, $item->payment_charge, $item->coupon_discount, $item->shipping_price);
 										unset($totalPrice);
 									@endphp
 								</td>
