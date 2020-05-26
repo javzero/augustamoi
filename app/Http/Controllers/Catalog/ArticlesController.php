@@ -32,9 +32,8 @@ class ArticlesController extends Controller
 
     public function index(Request $request)
     {
-        // dd($request->all());
-
       
+        // dd($request->all());
 
         $code = $request->get('code');
         $name = $request->get('name');
@@ -50,9 +49,6 @@ class ArticlesController extends Controller
             $order = $request->orden_af;
             $rowName = "name";
         }
-
-    
-
 
         // -------- Pagination -----------
         if ($request->get('results')) {
@@ -124,6 +120,16 @@ class ArticlesController extends Controller
                 ->with('brands', $brands);
         }
 
+        // If user redicter to user view.
+        if(\Auth::guard('user')->user()->role == 3) 
+        {
+            return view('vadmin.catalog.userList')
+                ->with('articles', $articles)
+                ->with('categories', $categories)
+                ->with('brands', $brands);
+        } 
+
+        // Managers redirection
         return view('vadmin.catalog.index')
             ->with('articles', $articles)
             ->with('categories', $categories)

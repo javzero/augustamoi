@@ -157,11 +157,20 @@ Route::group(['prefix'=> 'tienda', 'middleware' => 'active-customer'], function(
 | Vadmin - Sections
 |--------------------------------------------------------------------------
 */
-
-// Functions that all users can access
-Route::group(['prefix' => 'vadmin', 'middleware' => 'managers'], function(){
+Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
     
     Route::get('/', 'VadminController@index');
+    Route::resource('catalogo', 'Catalog\ArticlesController'); 
+    
+    // -- SUPPORT --
+    Route::get('docs', function(){ return view('vadmin.support.docs'); });
+    Route::get('help', function(){ return view('vadmin.support.help'); });
+
+});
+
+Route::group(['prefix' => 'vadmin', 'middleware' => 'managers'], function(){
+    
+    // Route::get('/', 'VadminController@index');
 
     Route::post('sendMail', ['as' => 'vadmin.sendMail', 'uses' => 'VadminController@sendMail']);
     Route::post('sendSupportMail', ['as' => 'vadmin.sendSupportMail', 'uses' => 'VadminController@sendSupportMail']);
@@ -202,14 +211,10 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'managers'], function(){
     // Can sow (But fix the generic export xls button from show section)
     // Route::get('exportSelectedOrders/{ids}', ['as' => 'vadmin.exportSelectedOrders', 'uses' => 'Store\OrdersController@showOrderToProd']);
     
-    
     Route::get('mailChecker', ['as' => 'vadmin.mailChecker', 'uses' => 'ToolsController@mailChecker']);
     // Autocomplete
     Route::get('search', ['as' => 'search', 'uses' => 'VadminController@searchData']);
 
-    // -- SUPPORT --
-    Route::get('docs', function(){ return view('vadmin.support.docs'); });
-    Route::get('help', function(){ return view('vadmin.support.help'); });
     
     // -- TESTS --
     Route::get('tests', ['as' => 'vadmin.tests', 'uses' => 'VadminTestsController@tests']);
@@ -217,14 +222,12 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'managers'], function(){
     Route::post('testImageUpload', ['as' => 'vadmin.testImageUpload', 'uses' => 'VadminTestsController@testImageUpload']);
     Route::post('testMP', ['as' => 'vadmin.testMP', 'uses' => 'VadminTestsController@TestMp']);
     
-
-    Route::resource('catalogo', 'Catalog\ArticlesController');  
+    // Route::resource('catalogo', 'Catalog\ArticlesController');  
     Route::post('updateStatus/{model}/{id}', 'VadminController@updateStatus');
     Route::post('updateFeatured/{model}/{id}', 'VadminController@updateFeatured');
     Route::post('updateFeaturedOrder/{model}/{id}/{order}', 'VadminController@updateFeaturedOrder');
     Route::post('updateStatusMultiple/{id}/{model}/{status}', 'VadminController@updateStatusMultiple');
 
-    
     Route::post('actualizar-opciones', ['as' => 'updateSettings', 'uses' => 'VadminController@updateSettings']);
     
     Route::get('panel-de-control', ['as' => 'storeControlPanel', 'uses' => 'VadminController@storeControlPanel']);
