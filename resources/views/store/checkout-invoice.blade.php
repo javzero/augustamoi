@@ -36,37 +36,72 @@
                                 <td>{{ $item->size }}</td>
                                 <td>{{ $item->color }}</td>
                                 <td>$ {{ $item->final_price }} (x {{ $item->quantity }})</td>
-                                <td>$ {{ number_format($item->final_price * $item->quantity, 2) }}</td>
+                                <td class="txtR">$ {{ number_format($item->final_price * $item->quantity, 2) }}</td>
                             </tr>
                         @endif
                     @endforeach
                     <tr class="bottom-data">
                         <td></td><td></td><td></td><td></td>
                         <td>Subtotal</td>
-                        <td>$ {{ $cart['subTotal'] }}</td>
+                        <td class="txtR">$ {{ $cart['subTotal'] }}</td>
                     </tr>
-                    @if($cart['orderDiscount'] > 0)
-                    <tr>
-                        <td></td><td></td><td></td><td></td>
-                            <td>Descuento <span class="dont-break">(% {{$cart['orderDiscount']}})</span></td>
-                        <td>$ - {{ $cart['discountValue'] }}</td>
+                    
+                    {{-- Shipping Method --}}
+                     <tr>
+                        <td></td><td></td><td></td>
+                        <td>Método de envío</td>
+                        <td>{{ $cart['cart']->shipping->name }}</td>
+                        <td class="txtR">$ {{ $cart['shippingCost'] }}</td>
                     </tr>
+
+
+                    {{-- Payment Method --}}
+                    @if($cart['cart']->payment) != null)
+                        <tr>
+                            <td></td><td></td><td></td>
+                            <td>Forma de pago</td>
+                            <td>
+                                <span class="dont-break" style="white-space: nowrap">
+                                    {{ $cart['cart']->payment->name }}
+                                    @if($cart['paymentCharge'] != 0 )
+                                        ( % {{ $cart['paymentCharge'] }} )
+                                    @elseif($cart['paymentDiscount'] != 0)
+                                        ( - % {{ $cart['paymentDiscount'] }} )
+                                    @endif
+                                </span>
+                            </td>
+                            <td class="txtR">
+                                <span class="dont-break" style="white-space: nowrap">
+                                    @if($cart['paymentCharge'] != 0 )
+                                        $ {{ number_format($cart['paymentChargeValue'], 2) }}
+                                    @elseif($cart['paymentDiscount'] != 0)
+                                        - $ {{ number_format($cart['paymentDiscountValue'], 2)}}
+                                    @endif
+                                </span>
+                            </td>
+                        </tr>
                     @endif
+                        {{-- Coupon discount --}}
+                    @if($cart['couponDiscount'] > 0)
+                        <tr>
+                            <td></td><td></td><td></td>
+                            <td>
+                                Cupón de Descuento
+                            </td>
+                            <td>
+                                <span class="dont-break">
+                                    - % {{ $cart['couponDiscount'] }}
+                                </span>
+                            </td>
+                            <td class="txtR">- $ {{ $cart['couponDiscountValue'] }}</td>
+                        </tr>
+                    @endif
+                        
                     <tr>
                         <td></td><td></td><td></td><td></td>
-                        <td>Costo de envío</td>
-                        <td>$ {{ $cart['shippingCost'] }}</td>
-                    </tr>
-                    <tr>
-                        <td></td><td></td><td></td><td></td>
-                        <td>Recargo por forma de pago <span class="dont-break">(% {{ $cart['paymentPercent'] }})</span></td>
-                        <td>$ {{ calcPercent($cart['subTotal'], $cart['paymentPercent']) }}</td>
-                    </tr>
-                    <tr>
-                        <td></td><td></td><td></td><td></td>
-                        <td>TOTAL</td>
-                        <td>$ {{ $cart['total'] }}</td>
-                    </tr>
+                        <td><b>TOTAL:</b></td>
+                        <td class="txtR"><h3>$ {{ $cart['total'] }}</h3></td>
+                    </tr> 
                 </tbody>
             </table>
         </div>

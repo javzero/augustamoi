@@ -123,6 +123,7 @@ class OrdersController extends Controller
         // return $pdf->dowload($filename.'.pdf');
         // return $pdf->stream($filename.'.pdf');
         $order = Cart::find($id);
+        
         if($order != null){
             $cart = $this->calcCartData($order);
             $pdf = PDF::loadView($view, compact('order', 'cart'))->setPaper('a4', 'portrait');

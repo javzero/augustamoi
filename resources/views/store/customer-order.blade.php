@@ -19,10 +19,11 @@
                                 <th>Detalle</th>
                                 <th class="text-center">P.U.</th>
                                 <th class="text-center">Cantidad</th>
-                                <th>Subtotal</th>
+                                <th class="text-right">Subtotal</th>
                             </tr>
                         </thead>
                         <tbody>
+                        
                         {{--  Calc  Order Total Value  --}}
                             @foreach($cart['cart']->items as $item)
                                 <tr id="Detail{{$item->id}}">
@@ -36,9 +37,11 @@
                                                 <span><b>Tela:</b> {{ $item->article->textile }}</span>
                                                 <span><b>Color:</b> {{ $item->article->color }}</span>
                                                 <span><b>Talle:</b> 
-                                                    @foreach($item->article->atribute1 as $size)
-                                                        {{ $size->name }}
-                                                    @endforeach
+                                                    @if($item->article->atribute1) 
+                                                        @foreach($item->article->atribute1 as $size)
+                                                            {{ $size->name }}
+                                                        @endforeach
+                                                    @endif
                                                     </span>
                                                 </div>
                                             </div>
@@ -46,41 +49,70 @@
                                     </td>
                                     <td class="text-center">{{ $item->final_price }}</td>
                                     <td class="text-center">{{ $item->quantity }}</td>
-                                    <td>{{ number_format($item->final_price * $item->quantity, 2) }}</td>
+                                    <td class="text-right">{{ number_format($item->final_price * $item->quantity, 2) }}</td>
                                 </tr>
                             @endforeach
                             <tr>
                                 <td></td><td></td>
                                 <td><b>SubTotal: </b></td>
-                                <td>$ {{ $cart['subTotal'] }} </td>
-                                <td></td>
-                            </tr>
-                            @if($cart['orderDiscount'] > 0)
+                                <td class="text-right">$ {{ $cart['subTotal'] }} </td>
+                            </tr>   
+
                             <tr>
-                                <td></td><td></td>
-                                <td><b>Descuento: </b> <span class="dont-break">% {{$cart['orderDiscount']}}</span></td>
-                                <td>$ - {{ $cart['discountValue'] }}</td>
                                 <td></td>
+                                <td>Método de envío</td>
+                                <td>{{ $cart['cart']->shipping->name }}</td>
+                                <td class="text-right">$ {{ $cart['shippingCost'] }}</td>
                             </tr>
+
+                              {{-- Payment Method --}}
+                            @if($cart['cart']->payment) != null)
+                                <tr>
+                                    <td></td>
+                                    <td>Forma de pago</td>
+                                    <td>
+                                        <span class="dont-break" style="white-space: nowrap">
+                                            {{ $cart['cart']->payment->name }}
+                                            @if($cart['paymentCharge'] != 0 )
+                                                ( % {{ $cart['paymentCharge'] }} )
+                                            @elseif($cart['paymentDiscount'] != 0)
+                                                ( - % {{ $cart['paymentDiscount'] }} )
+                                            @endif
+                                        </span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span class="dont-break" style="white-space: nowrap">
+                                            @if($cart['paymentCharge'] != 0 )
+                                                $ {{ number_format($cart['paymentChargeValue'], 2) }} 
+                                            @elseif($cart['paymentDiscount'] != 0)
+                                                - $ {{ number_format($cart['paymentDiscountValue'], 2) }}
+                                            @endif
+                                        </span>
+                                    </td>
+                                </tr>
                             @endif
-                            <tr>
-                                <td></td><td></td>
-                                <td><b>Método de pago:</b> {{ $cart['cart']->payment->name }} <span class="dont-break">(% {{$cart['cart']->payment->percent }})</span></td>
-                                <td>$ {{ $cart['paymentCost'] }}</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td><td></td>
-                                <td><b>Envío: </b>{{ $cart['cart']->shipping->name }} <span class="dont-break">($ {{$cart['cart']->shipping->price }})</span></td>
-                                <td>$ {{ $cart['shippingCost'] }}</td>
-                                <td></td>
-                            </tr>
+                              {{-- Coupon discount --}}
+                            @if($cart['couponDiscount'] > 0)
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        Cupón de Descuento
+                                    </td>
+                                    <td>
+                                        <span class="dont-break">
+                                            - % {{ $cart['couponDiscount'] }}
+                                        </span>
+                                    </td>
+                                    <td class="text-right">- $ {{ $cart['couponDiscountValue'] }}</td>
+                                </tr>
+                            @endif
+                        
                             <tr>
                                 <td></td><td></td>
                                 <td><b>TOTAL:</b></td>
-                                <td><h3>$ {{ $cart['total'] }}</h3></td>
-                                <td></td>
-                            </tr>
+                                <td  class="text-right"><h3>$ {{ $cart['total'] }}</h3></td>
+                            </tr> 
+
                         </tbody>
                     </table>
                 </div>
