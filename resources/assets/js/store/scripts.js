@@ -338,11 +338,11 @@ window.removeFromCart = function (route, cartItemId, variantId, quantity, div, a
             }   
         },
         error: function (data) {
-            //$('#Error').html(data.responseText);
+            $('#Error').html(data.responseText);
             console.log("Error en removeFromCart()");
             console.log(data);
             // If an error pops when destroying an item, reload and prevent bad magic
-            location.reload();
+            // location.reload();
         },
         complete: function () {
             loaderBars(false);
@@ -364,7 +364,7 @@ function updateTotals(totalCartItems, cartSubtotal) {
 // Submit Cart Form to Checkout
 // -------------------------------------------
 window.submitCartToCheckout = function (route, target, data, action) {
-    //console.log("Ruta: " + route + " Target: " + target + " Data: " + data + "Action: "+ action);
+
     $.ajax({
         url: route,
         method: 'POST',
@@ -376,7 +376,7 @@ window.submitCartToCheckout = function (route, target, data, action) {
                 // console.log(target);
                 if (target == 'reload') {
                     // Refresh page, delete parametters and open checkout sidebar
-                    window.location = window.location.href.split("?")[0] + "?checkout-on";
+                    // window.location = window.location.href.split("?")[0] + "?checkout-on";
                 } else {
                     window.location.href = target;
                 }

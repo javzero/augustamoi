@@ -131,13 +131,9 @@
 								<td>$ <span class="{{ $item->id }}-TotalItemPrice TotalItemPrice">{{ ($articlePrice * $item->quantity) }}</span></td>
 								{{-- REMOVE ITEMS FROM CART --}}
 								<td class="text-center">
-									<a onclick="removeFromCart('{{ route('store.removeFromCart') }}', {{ $item->id }}, {{ $item->quantity }}, '#Item'+{{ $item->id }}, 'reload');" class="icon-only-btn"><i class="far fa-trash-alt"></i></a>
-									{{-- {!! Form::open(['route' => 'store.removeFromCart', 'method' => 'POST', 'class' => 'loader-on-submit']) !!}	
-										{{ csrf_field() }}
-										<input type="hidden" name="itemid" value="{{ $item->id }}">
-										<input type="hidden" name="quantity" value="{{ $item->quantity }}">
-										<button type="submit" class="icon-only-btn"><i class="far fa-trash-alt"></i></button>
-									{!! Form::close() !!} --}}
+									<a onclick="removeFromCart('{{ route('store.removeFromCart') }}', {{$item->id}}, {{ $item->variant_id }}, {{ $item->quantity }}, '#Item'+{{ $item->id }}, 'reload');">
+                               			<i class="far fa-trash-alt"></i>
+                            		</a>
 								</td>
 							</tr>
 							@endforeach
@@ -198,7 +194,7 @@
 						</div>
 					</div>
 				</div>
-					<div class="back-to-store"><a href="{{ url('tienda') }}"><i class="icon-arrow-left"></i> Volver a la tienda</a></div>
+				<div class="back-to-store"><a href="{{ url('tienda') }}"><i class="icon-arrow-left"></i> Volver a la tienda</a></div>
 			</div>{{-- / col-md-12 --}}
 			
 		</div> {{-- / Row --}}
