@@ -418,7 +418,7 @@ class StoreController extends Controller
             {
 
                 $mpUrl = $this->processMpPayment($cart, $customerEmail);
-                $cart->status = 'Active';
+                $cart->status = 'Process';
                 $cart->save();
                 return redirect($mpUrl);
 
