@@ -35,6 +35,9 @@
 @section('scripts')
 	@include('store.components.bladejs')
     <script>
+
+        fbq('track', 'Purchase');
+
         // Prevent backbtn
         history.pushState(null, null, location.href);
         window.onpopstate = function () {
