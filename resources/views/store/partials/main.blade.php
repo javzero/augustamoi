@@ -75,7 +75,10 @@
 			
 			{{-- Site Content --}}
 			<div class="content"> @yield('content') </div>
+
+
 		</div>	
+
 		<!-- Site Footer-->
 		<footer class="site-footer">
 			<div class="container">
@@ -104,7 +107,10 @@
 		<script src="{{ asset('store-ui/js/scripts.min.js') }}"></script>
 		<script src="{{ asset('plugins/jquery/jquery-3.4.0.min.js') }}"></script>
 		<script src="{{ asset('store-ui/js/iziToast.min.js') }}"></script>
+		<script src="{{ asset('plugins/instagramfeed/InstagramFeed.min.js') }}"></script>
+
 		<script src="{{ asset('js/scripts.js') }}"></script>
+
 		@include('store.partials.scripts')
 		@yield('scripts')
 		@if(isset($_GET['checkout-on']))
@@ -112,7 +118,7 @@
 				checkoutSidebar('show');
 			</script>
 		@endif
-		<script>
+		<script>	
 
 			$('#AddToCartFormBtn').click(function(){
 				fbq('track', 'Items agregados');

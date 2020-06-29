@@ -87,7 +87,7 @@
 		</div>
 	</div>
 	{{-- <div id="Error"></div> --}}
-	@php($name = 'LEA')
+	{{-- @php($name = 'LEA') --}}
 @endsection
 
 @section('scripts')
