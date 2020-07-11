@@ -82,10 +82,11 @@
 				{{-- If there is search results focus view on article index --}}
 				<a id="IndexArticles" href="#"></a>
 			@endif
-				<!-- Products Grid -->
-				@include('store.index-articles')
+			<!-- Products Grid -->
+			@include('store.index-articles')
 		</div>
 	</div>
+	@include('store.partials.instagramfeed')
 	{{-- <div id="Error"></div> --}}
 	{{-- @php($name = 'LEA') --}}
 @endsection

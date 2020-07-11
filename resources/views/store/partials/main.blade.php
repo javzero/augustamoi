@@ -47,6 +47,11 @@
 			&noscript=1"/>
 		</noscript>
 		<!-- End Facebook Pixel Code -->
+		@php
+			header('Access-Control-Allow-Origin: *');
+			header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+			header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
+		@endphp
 	</head>
 	<!-- Body-->
 	<body>
@@ -79,6 +84,8 @@
 
 		</div>	
 
+
+
 		<!-- Site Footer-->
 		<footer class="site-footer">
 			<div class="container">
@@ -107,7 +114,6 @@
 		<script src="{{ asset('store-ui/js/scripts.min.js') }}"></script>
 		<script src="{{ asset('plugins/jquery/jquery-3.4.0.min.js') }}"></script>
 		<script src="{{ asset('store-ui/js/iziToast.min.js') }}"></script>
-		<script src="{{ asset('plugins/instagramfeed/InstagramFeed.min.js') }}"></script>
 
 		<script src="{{ asset('js/scripts.js') }}"></script>
 
@@ -127,6 +133,23 @@
 			$('.AddToFavs ').click(function(){
 				fbq('track', 'Favoritos');
 			});
+
+
+			 $.ajax({
+				url: 'https://www.instagram.com/augusta_moi/?__a=1',
+				method: 'get',
+				dataType: 'jsonp',
+				success: function (data) {
+					$('#InstagramFeed').html(data.responseText);
+					console.log(data);
+				},
+				error: function (data) {
+					console.error(data);
+				}
+			});
+			
+
+	
 		</script>
 	</body>
 </html>
