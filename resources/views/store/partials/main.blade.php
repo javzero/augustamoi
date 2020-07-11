@@ -47,11 +47,11 @@
 			&noscript=1"/>
 		</noscript>
 		<!-- End Facebook Pixel Code -->
-		@php
+		{{-- @php
 			header('Access-Control-Allow-Origin: *');
 			header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 			header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
-		@endphp
+		@endphp --}}
 	</head>
 	<!-- Body-->
 	<body>
@@ -135,18 +135,18 @@
 			});
 
 
-			 $.ajax({
-				url: 'https://www.instagram.com/augusta_moi/?__a=1',
-				method: 'get',
-				dataType: 'jsonp',
-				success: function (data) {
-					$('#InstagramFeed').html(data.responseText);
-					console.log(data);
-				},
-				error: function (data) {
-					console.error(data);
-				}
-			});
+			// $.ajax({
+			//	url: 'https://www.instagram.com/augusta_moi/?__a=1',
+			//	method: 'get',
+			//	dataType: 'jsonp',
+			//	success: function (data) {
+			//		$('#InstagramFeed').html(data.responseText);
+			//		console.log(data);
+			//	},
+			//	error: function (data) {
+			//		console.error(data);
+			//	}
+			//});
 			
 
 	
