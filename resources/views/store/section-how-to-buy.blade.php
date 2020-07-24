@@ -15,149 +15,89 @@
         </div>
         <div class="row text-center">
             <br>
-
-
             <div class="col-sm-12 col-md-3 col-lg-3 item">
                 <img src="{{ asset('images/web/como-comprar/1.svg') }}" alt="Augustamoi-Icon">
                 <h4><b>Ingreso / Registro</b></h4>
-                <p>Para ver talles y colores de cada modelo así como para comprar debes crear tu usuario e ingresar al sistema.</p>
+                <p>
+                    Para ver talles y colores de cada modelo así como para comprar debes crear tu usuario e ingresar al sistema.
+                </p>
             </div>
             
             <div class="col-sm-12 col-md-3 col-lg-3 item">
                 <img src="{{ asset('images/web/como-comprar/2.svg') }}" alt="Augustamoi-Icon">
                 <h4><b>Agregar Productos</b></h4>
-                <p>Elegí el producto que más te guste, selecciona la combinación de color y talles disponibles. Ahora podés agregar al carrito!</p>
+                <p>
+                    Elegí el producto que más te guste, selecciona la combinación de color y talles disponibles. Ahora podés agregar al carrito!
+                </p>
             </div>
 
             <div class="col-sm-12 col-md-3 col-lg-3 item">
                 <img src="{{ asset('images/web/como-comprar/3.svg') }}" alt="Augustamoi-Icon">
-                <h4><b>Acordar con el vendedor / Cheques</b></h4>
-                <p>Nos pondremos en contacto dentro de las 48 hs habiles via Whatsapp posterior al cierre del pedido.</p>
+                <h4><b>Monto Mínimo</b></h4>
+                <p>
+                   Para poder finalizar la compra tenés que alcanzar el monto mínimo de compra requerido que de $7500. Luego podrás iniciar tu pedido, haz clic en "Continuar"
+                </p>
             </div>
 
             <div class="col-sm-12 col-md-3 col-lg-3 item">
                 <img src="{{ asset('images/web/como-comprar/4.svg') }}" alt="Augustamoi-Icon">
-                <h4><b>Mercado Pago</b></h4>
-                <p>Si elegís MERCADO PAGO el sistema está integrado a la web asi que directamente lo haces en el momento.. Podes pagar con dinero disponible en Mercado Pago con un 15% de recargo</p>
+                <h4><b>Forma de pago</b></h4>
+                <p>
+                   Elegí la forma de pago que te sea más cómoda para continuar con tu compra del listado que te ofrecemos.
+                </p>
             </div>
 
             <div class="col-sm-12 col-md-3 col-lg-3 item">
                 <img src="{{ asset('images/web/como-comprar/5.svg') }}" alt="Augustamoi-Icon">
-                <h4><b>Ingreso / Registro</b></h4>
-                <p>Para ver talles y colores de cada modelo así como para comprar debes crear tu usuario e ingresar al sistema.</p>
+                <h4><b>Elegí el envío</b></h4>
+                <p>
+                    El envío es a cargo del comprador, consulta las empresas que más te sirvan y el aparatado de aclaraciones de envío.
+                </p>
             </div>
             
             <div class="col-sm-12 col-md-3 col-lg-3 item">
                 <img src="{{ asset('images/web/como-comprar/6.svg') }}" alt="Augustamoi-Icon">
-                <h4><b>Agregar Productos</b></h4>
-                <p>Elegí el producto que más te guste, selecciona la combinación de color y talles disponibles. Ahora podés agregar al carrito!</p>
+                <h4><b>Datos Personales</b></h4>
+                <p>
+                    Los datos que usaremos para el envio son los que están en el registro. Chequeá bien la informacion porque esa es la utilizaremos al momento de armar el rotulo del envio.
+                </p>
             </div>
 
             <div class="col-sm-12 col-md-3 col-lg-3 item">
                 <img src="{{ asset('images/web/como-comprar/7.svg') }}" alt="Augustamoi-Icon">
-                <h4><b>Acordar con el vendedor / Cheques</b></h4>
-                <p>Nos pondremos en contacto dentro de las 48 hs habiles via Whatsapp posterior al cierre del pedido.</p>
+                <h4><b>Armado de pedidos</b></h4>
+                <p>
+                    Posterior al pago comenzamos la preparación del pedido, tené en cuenta que ese plazo varía de 48 a 96 hs habiles depediendo factores como alta demanda en temporada o epoca de fiestas.
+                </p>
             </div>
 
             <div class="col-sm-12 col-md-3 col-lg-3 item">
                 <img src="{{ asset('images/web/como-comprar/8.svg') }}" alt="Augustamoi-Icon">
-                <h4><b>Mercado Pago</b></h4>
-                <p>Si elegís MERCADO PAGO el sistema está integrado a la web asi que directamente lo haces en el momento.. Podes pagar con dinero disponible en Mercado Pago con un 15% de recargo</p>
+                <h4><b>Chequeo de Stock</b></h4>
+                <p>
+                    Te avisaremos si algun producto no está en stock posterior al pago dándote las opciones de cambio o devolución del monto de dicho artículo.
+                </p>
             </div>
 
         </div>
 	</div>
-
-
-
-
-
-
-
-
-        {{-- OLD --}}
-		{{-- <div class="row justify-content-center main-title">
-            <img src="{{ asset('images/web/como-comprar/titulo-1.png') }} " alt="Compras">
-        </div>
-        <div class="row text-center">
-            <div class="col-sm-12 col-md-3 col-lg-3 item">
-                <img src="{{ asset('images/web/como-comprar/img-1.jpg') }} " alt="Compras">
-                <p>Para ver talles y colores de cada modelo así como para comprar debes crear tu usuario e ingresar al sistema.</p>
-            </div>
-            <div class="col-sm-12 col-md-3 col-lg-3 item">
-                <img src="{{ asset('images/web/como-comprar/img-2.jpg') }} " alt="Compras">
-                <p>Una vez que ingreses, elegí talle,
-                        color y cantidad de cada modelo y el
-                        sistema irá cargando tu carrito. Una
-                        vez que hayas elegido todas las
-                        prendas podrás previsualizar tu
-                        pedido para corregir, cambiar, sacar
-                        o agregar prendas.</p>
-            </div>
-            <div class="col-sm-12 col-md-3 col-lg-3 item">
-                <img src="{{ asset('images/web/como-comprar/img-3.jpg') }} " alt="Compras">
-                <p>Luego tendrás que elegir como
-                        recibir la ropa y cómo querés pagar-
-                        la. Las opciones son muchas. En este
-                        paso sólo nos informas a nosotros lo
-                        que preferís pero no realizas pago.</p>
-            </div>
-            <div class="col-sm-12 col-md-3 col-lg-3 item">
-                <img src="{{ asset('images/web/como-comprar/img-4.jpg') }} " alt="Compras">
-                <p>Si tenemos que entregar tu
-                        encomienda en algún transporte de
-                        tu localidad que se encuentra en
-                        Soldati o Pompeya u otra zona de
-                        expresos debes elegir la opción
-                        motomensajería CABA y pagar $250
-                        del cadete que usaremos
-                        exclusivamente para enviar tu pedido.
-                        <b>Retiro no tiene costo.</b>
+        <div class="container-fluid full-info-container grey-bg">
+            <div class="row">
+                <div class="col-md-8">
+                    <h4 class="red-font">¡ACLARACIONES!</h4>
+                    <p>
+                        Ante falla de productos deberan informarse dentro de las 48 hs de recibido el pedido, luego no se aceptarán reclamos. Podrás elegir entre dejar pendiente el monto para una proxima compra, elegir otro producto en caso de hacer un nuevo pedido o solicitar la devolucion del importe por el mismo medio que realizaste el pago de la compra.
+                        MÍnimo de compra mayorista $7500  - Los productos no incluyen IVA.
                     </p>
-            </div>
-            <div class="col-sm-12 col-md-3 col-lg-3 item">
-                <img src="{{ asset('images/web/como-comprar/img-5.jpg') }} " alt="Compras">
-                <p>
-                    Completá tus datos o los de quien va a recibir la encomienda en la pantalla
-                     siguiente y listo! Conﬁrmas el pedido y te llega un mail para que estés tranquila de que lo recibimos.
-                </p>
-            </div>
-            <div class="col-sm-12 col-md-3 col-lg-3 item">
-                <img src="{{ asset('images/web/como-comprar/img-6.jpg') }} " alt="Compras">
-                <p>
-                    Una vez que hayas conﬁrmado tu pedido chequeamos stock y dentro de las 48 hs te contactamos para
-                    decirte si está todo ok o si algo no está en stock para elegir juntos otra opción.
-                </p>
-            </div>
-
-            <div class="col-sm-12 col-md-3 col-lg-3 item">
-                <img src="{{ asset('images/web/como-comprar/img-7.jpg') }} " alt="Compras">
-                <p>
-                    El pago lo realizas cuando te contactamos por Whatsapp para enviarte datos de la cuenta bancaria o codígo de Rapi Pago, etc. 
-                </p>
-            </div>
-            
-            <div class="col-sm-12 col-md-3 col-lg-3 item">
-                <img src="{{ asset('images/web/como-comprar/img-8.jpg') }} " alt="Compras">
-                <p>
-                    Luego del pago procedemos a armar tu pedido y el envío es dentro de las 48 hs siguientes.
-                </p>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="red-font">Cambios en mi pedido</h4>
+                    <p>
+                        Una vez finalizada la compra no se podrá quitar, agregar prendas ni cambiar el pedido, se anula la compra y deberás efectuar una nueva orden con un nuevo numero de pedido.
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <img src="{{ asset('images/web/como-comprar/titulo-2.png') }} " alt="Compras">
-            <p class="text-center">
-                <b>PRENDAS QUE NO TENGAMOS:</b> <br>Si el faltante se produjera luego de que hagas el pago de todos modos te informaremos para buscar <br>
-                otra opción de color o modelo o para reembolsar el
-                monto del producto que no tengamos. <br> <br>
-                Los carros abiertos permanecen por 24 hs y luego se dan de baja. <br>
-                No demores más de este tiempo para conﬁrmar tu pedido o te quedarás sin stock.
-                <br><br>
-                La venta es solo <b>mayorísta</b> con un mínimo por pedido de <b class="main-color">$5000.</b>
-            </p>
-        </div> --}}
-
-	</div>
 @endsection
 
 
