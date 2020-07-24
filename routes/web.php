@@ -88,7 +88,10 @@ Route::get('/', 'Store\StoreController@index')->middleware('active-customer');
 Route::get('tienda', ['as' => 'store', 'uses' => 'Store\StoreController@index'])->middleware('active-customer');
 Route::get('politica-de-exclusividad', function(){ return view('store.reseller-policy'); });
 Route::get('condiciones-de-compra', function(){ return view('store.buy-conditions'); });
-Route::get('como-comprar', function(){ return view('store.how-to-buy'); });
+Route::get('como-comprar', function(){ return view('store.section-how-to-buy'); });
+Route::get('formas-de-pago', function(){ return view('store.section-payment-methods'); });
+Route::get('formas-de-envio', function(){ return view('store.section-shipping-methods'); });
+
 
 // Searchs
 Route::get('tienda/talle/{name}', ['as' => 'store.search.size', 'uses' => 'Store\StoreController@searchSize']);
@@ -294,6 +297,11 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'managers'], function(){
     
     Route::get('searchCatalogArticle', ['as' => 'vadmin.searchCatalogArticle', 'uses' => 'AutocompleteController@searchCatalogArticle']);
     Route::get('searchCustomer', ['as' => 'vadmin.searchCustomer', 'uses' => 'AutocompleteController@searchCustomer']);
+
+    Route::get('newsletter', ['as' => 'vadmin.newsletter', 'uses' => 'NewsletterController@index']);
+    Route::post('saveNewsletterEmail', 'NewsletterController@saveEmail');
+    Route::get('exportar-emails/{format}', ['as' => 'vadmin.exportNewsletterEmails', 'uses' => 'NewsletterController@exportEmails']);
+
 });
 
 Route::group(['prefix' => 'vadmin', 'middleware' => 'admin'], function(){
@@ -347,6 +355,7 @@ Route::prefix('vadmin')->middleware('managers')->group(function () {
     Route::post('destroy_carts', 'Store\CartsController@destroy');
     Route::post('destroy_orders', 'Store\CartsController@destroy');
     Route::post('destroy_cartitem', 'Store\CartsController@destroy');
+    Route::post('destroy_newsletter', 'NewsletterController@destroy');
 });
 
 

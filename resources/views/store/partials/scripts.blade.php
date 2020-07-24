@@ -19,13 +19,13 @@
     */
     // Positions:  bottomRight, bottomLeft, topRight, topLeft, topCenter, bottomCenter or center.
     
-    function toast_success(title, text, position, action, time){
+    function toast_success(title = '', text = '', position = 'bottomRight', action, time = '5000'){
         iziToast.show({
             title: title,
             message: text,
             position: position,
             messageSize: '1.5rem',
-            color: 'green',
+            color: '#C2185B',
             timeout: time,
             onClosing: function () {
                 switch(action) {
@@ -40,12 +40,12 @@
         });
     }
 
-    function toast_error(title, text, position, action, time){
+    function toast_error(title = '', text = '', position = 'bottomRight', action, time = '5000'){
         iziToast.show({
             title: title,
             message: text,
             position: position,
-            color: 'red',
+            color: 'rgb(252 67 67)',
             timeout: time,
             onClosing: function () {
                 switch(action) {
@@ -88,5 +88,39 @@
         readURL(this);
         $('#ConfirmChange').removeClass('Hidden');
     });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Newsletter
+    |--------------------------------------------------------------------------
+    */
+
+    function submitNewsletter() {
+        console.log("SUBMITEANDO");
+
+        let data = $('#NewsletterForm').serialize();
+        
+        $.ajax({
+            url: '/vadmin/saveNewsletterEmail',
+            method: 'POST',
+            data: data,
+            success: function success(data) {
+            
+                if(data.status == 'success') {
+                    toast_success(data.message)
+                } else if(data.status == 'validationError') {
+                    
+                    let message = data.message['email'];
+                    message.forEach(function(item) {
+                        toast_error(item);
+                    });
+                }
+            },
+            error: function error(data) {
+                console.log("Error guardando email", data);
+            }
+        });
+
+    }
     
 </script>

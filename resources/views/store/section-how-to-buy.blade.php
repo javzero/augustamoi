@@ -1,5 +1,6 @@
 @extends('store.partials.main')
 
+
 @section('header-image')
 	<img src="{{ asset('images/web/home-banner-1.jpg')}}" alt="Augustamoi Banner">		
 	{{-- <div class="index-header">	
@@ -7,8 +8,75 @@
 @endsection
 
 @section('content')
-	<div class="container-fluid info-container">
-		<div class="row justify-content-center main-title">
+	<div class="container-fluid info-container2">
+		<div class="row justify-content-center">
+            <h3><b>Como Comprar</b></h4>
+            
+        </div>
+        <div class="row text-center">
+            <br>
+
+
+            <div class="col-sm-12 col-md-3 col-lg-3 item">
+                <img src="{{ asset('images/web/como-comprar/1.svg') }}" alt="Augustamoi-Icon">
+                <h4><b>Ingreso / Registro</b></h4>
+                <p>Para ver talles y colores de cada modelo así como para comprar debes crear tu usuario e ingresar al sistema.</p>
+            </div>
+            
+            <div class="col-sm-12 col-md-3 col-lg-3 item">
+                <img src="{{ asset('images/web/como-comprar/2.svg') }}" alt="Augustamoi-Icon">
+                <h4><b>Agregar Productos</b></h4>
+                <p>Elegí el producto que más te guste, selecciona la combinación de color y talles disponibles. Ahora podés agregar al carrito!</p>
+            </div>
+
+            <div class="col-sm-12 col-md-3 col-lg-3 item">
+                <img src="{{ asset('images/web/como-comprar/3.svg') }}" alt="Augustamoi-Icon">
+                <h4><b>Acordar con el vendedor / Cheques</b></h4>
+                <p>Nos pondremos en contacto dentro de las 48 hs habiles via Whatsapp posterior al cierre del pedido.</p>
+            </div>
+
+            <div class="col-sm-12 col-md-3 col-lg-3 item">
+                <img src="{{ asset('images/web/como-comprar/4.svg') }}" alt="Augustamoi-Icon">
+                <h4><b>Mercado Pago</b></h4>
+                <p>Si elegís MERCADO PAGO el sistema está integrado a la web asi que directamente lo haces en el momento.. Podes pagar con dinero disponible en Mercado Pago con un 15% de recargo</p>
+            </div>
+
+            <div class="col-sm-12 col-md-3 col-lg-3 item">
+                <img src="{{ asset('images/web/como-comprar/5.svg') }}" alt="Augustamoi-Icon">
+                <h4><b>Ingreso / Registro</b></h4>
+                <p>Para ver talles y colores de cada modelo así como para comprar debes crear tu usuario e ingresar al sistema.</p>
+            </div>
+            
+            <div class="col-sm-12 col-md-3 col-lg-3 item">
+                <img src="{{ asset('images/web/como-comprar/6.svg') }}" alt="Augustamoi-Icon">
+                <h4><b>Agregar Productos</b></h4>
+                <p>Elegí el producto que más te guste, selecciona la combinación de color y talles disponibles. Ahora podés agregar al carrito!</p>
+            </div>
+
+            <div class="col-sm-12 col-md-3 col-lg-3 item">
+                <img src="{{ asset('images/web/como-comprar/7.svg') }}" alt="Augustamoi-Icon">
+                <h4><b>Acordar con el vendedor / Cheques</b></h4>
+                <p>Nos pondremos en contacto dentro de las 48 hs habiles via Whatsapp posterior al cierre del pedido.</p>
+            </div>
+
+            <div class="col-sm-12 col-md-3 col-lg-3 item">
+                <img src="{{ asset('images/web/como-comprar/8.svg') }}" alt="Augustamoi-Icon">
+                <h4><b>Mercado Pago</b></h4>
+                <p>Si elegís MERCADO PAGO el sistema está integrado a la web asi que directamente lo haces en el momento.. Podes pagar con dinero disponible en Mercado Pago con un 15% de recargo</p>
+            </div>
+
+        </div>
+	</div>
+
+
+
+
+
+
+
+
+        {{-- OLD --}}
+		{{-- <div class="row justify-content-center main-title">
             <img src="{{ asset('images/web/como-comprar/titulo-1.png') }} " alt="Compras">
         </div>
         <div class="row text-center">
@@ -87,7 +155,7 @@
                 <br><br>
                 La venta es solo <b>mayorísta</b> con un mínimo por pedido de <b class="main-color">$5000.</b>
             </p>
-        </div>
+        </div> --}}
 
 	</div>
 @endsection

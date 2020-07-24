@@ -80,20 +80,11 @@
 			
 			{{-- Site Content --}}
 			<div class="content"> @yield('content') </div>
-
-
 		</div>	
 
-
-
 		<!-- Site Footer-->
-		<footer class="site-footer">
-			<div class="container">
-				<p class="footer-copyright">
-					© {{ date('Y') }} - Desarrollado por <a href="https://vimanastudio.com.ar" target="_blank">&nbsp; Vimana Studio </a>
-				</p>
-			</div>
-		</footer>
+		@include('store.partials.newsletter')
+		@include('store.partials.footer')
 
 		{{-- Whats App Cta--}}
 		<div class="floating-bottom-cta">

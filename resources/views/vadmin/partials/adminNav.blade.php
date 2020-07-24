@@ -432,6 +432,10 @@
 				</li>
 			</ul>
 		</li>
+		{{-- NEWSLETTER --}}
+		<li class="{{ Menu::activeMenu('newsletter') }}"><a href="{{ route('vadmin.newsletter') }}" class="menu-item">
+			<i class="fas fa-mail-bulk"></i> Newsletter 
+		</a></li>
 		{{-- SETTINGS --}}
 		<li class="{{ Menu::activeMenu('configuracion') }}"><a href="{{ route('vadmin.settings') }}" class="menu-item">
 			<i class="fas fa-sliders-h"></i> Configuracion 

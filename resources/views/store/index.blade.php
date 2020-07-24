@@ -86,7 +86,7 @@
 			@include('store.index-articles')
 		</div>
 	</div>
-	@include('store.partials.instagramfeed')
+	{{-- @include('store.partials.instagramfeed') --}}
 	{{-- <div id="Error"></div> --}}
 	{{-- @php($name = 'LEA') --}}
 @endsection

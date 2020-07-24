@@ -1,0 +1,77 @@
+footer
+	border: 0
+	background: #fff
+	.copyright
+		padding-top: 10px
+	.inner
+		color: #ccc
+		padding-top: 20px
+		padding-bottom: 20px
+		li
+			border: 1px solid #ccc
+			&:hover 
+				cursor: pointer
+		a,i
+			color: #656565
+			
+	.bussiness-info
+		margin-bottom: 60px
+		.column		
+			li 
+				color: #a0a0a0
+				a
+					color: #a0a0a0
+					&:hover
+						color: $red
+				i
+					width: 20px
+					margin-right: 10px
+					text-align: right
+			.title
+                height: 60px
+                font-weight: 500
+                color: $red2
+			.brand img
+                width: 190px
+                margin-bottom: -15px
+                max-width: 100%
+
+@media (max-width: 768px)
+    footer
+        .bussiness-info
+            .column
+                text-align: center
+                margin-bottom: 40px
+                .title
+                    height: auto
+                    margin-bottom: 20px
+            .bussines-data
+                max-width: 100%
+                width: 100%
+                margin-bottom: 20px
+                text-align: center
+
+// Newsletter
+
+.newsletter
+    padding: 20px 0
+    background-color: $red2
+    color: #fff
+    margin-bottom: 40px
+    .item1
+        font-size: 1.2rem
+    button
+        height: 40px
+        border: 0
+    input
+        margin-right: 20px
+        border: 1px solid #ffffff
+        color: #fff
+        background-color: transparent
+        height: 40px
+        width: 300px
+        max-width: 100%
+        padding: 10px
+        border-radius: 0
+        &:focus,&:active
+            border-radius: 0

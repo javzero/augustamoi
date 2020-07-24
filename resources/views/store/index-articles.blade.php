@@ -70,11 +70,23 @@
     </div>
 </div>
 @if($articles->count() != '0')
-<div class="pagination-results">
-    <span class="title"><b>Resultados por página:</b></span>
-    <a href="{{ route('store', ['results' => '24']) }}">24</a> | 
-    <a href="{{ route('store', ['results' => '96']) }}">96</a> |
-    <a href="{{ route('store', ['results' => '142']) }}">142</a>
-</div>
+    <div class="pagination-results">
+        <span class="title"><b>Resultados por página:</b></span>
+        <a href="{{ route('store', ['results' => '20']) }}">20</a> | 
+        <a href="{{ route('store', ['results' => '40']) }}">40</a> |
+        <a href="{{ route('store', ['results' => '60']) }}">60</a>
+    </div>
 @endif
 {!! $articles->appends(request()->query())->render()!!}
+
+
+{{--  OLD
+@if($articles->count() != '0')
+    <div class="pagination-results">
+        <span class="title"><b>Resultados por página:</b></span>
+        <a href="{{ route('store', ['results' => '24']) }}">24</a> | 
+        <a href="{{ route('store', ['results' => '96']) }}">96</a> |
+        <a href="{{ route('store', ['results' => '142']) }}">142</a>
+    </div>
+@endif
+{!! $articles->appends(request()->query())->render()!!} --}}

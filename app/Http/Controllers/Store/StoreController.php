@@ -130,7 +130,7 @@ class StoreController extends Controller
                 $pagination = Cookie::get('store-pagination');
             }
             else{
-                $pagination = 24;
+                $pagination = 20;
             }
         } 
         return $pagination;

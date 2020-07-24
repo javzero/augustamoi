@@ -43,7 +43,7 @@ class DeleteOldCarts extends Command
      */
     public function handle()
     {
-        $maxTime = 24;
+        $maxTime = 2;
         $time = Carbon::now()->subHour($maxTime);
         $oldCarts = Cart::where('status','ACTIVE')->where('created_at', '<=', $time)->get();
         

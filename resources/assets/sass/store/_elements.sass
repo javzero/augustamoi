@@ -176,15 +176,16 @@
 
 .info-container
 	background-color: #ffffff
-	// border: 1px solid #ccc
-	// border-top: 4px solid #ccc
-	padding: 20px 100px
+	padding: 20px 50px
 	margin-top: 50px
-	margin-bottom: 150px
+	margin-bottom: 40px
 	.main-title
 		margin-bottom: 60px
 	.item
 		margin-bottom: 15px
+	h4
+		font-size: 1rem
+		color: $red2
 		i
 			font-size: 2rem
 			color: $main-color
@@ -201,6 +202,29 @@
 @media (min-width: 1200px)
 	.info-container
 		padding: 0 300px	
+
+
+.info-container2
+	background-color: #ffffff
+	padding: 20px 50px
+	margin-top: 50px
+	margin-bottom: 40px
+	p
+		font-family: $font2
+		font-size: 1rem
+		font-weight: 300
+		line-height: 1.4rem
+		width: 100%
+		margin: 10px 0 20px 0
+	h4
+		font-size: 1rem
+		color: $red2
+	.item
+		margin-top: 30px
+		margin-bottom: 15px
+		img
+			margin-bottom: 10px
+			filter: brightness(1.4)
 
 //////////////////////////////////////
 //                                  //
@@ -324,7 +348,7 @@
 			max-width: 200px
 
 .square-link-items
-	background-color: $red
+	background-color: $red2
 	margin-bottom: 8px
 	.container
 		position: relative
@@ -428,6 +452,12 @@
 					margin: 0 5px 15px 0
 
 
+.round-icon
+	width: 35px
+	height: 35px
+	padding: 5px 12px
+	border-radius: 50%
+	border: 1px solid #000
 
 //////////////////////////////////////
 //                                  //
@@ -1194,10 +1224,13 @@ ul.pagination
 //                                  //
 //////////////////////////////////////
 // Izi Toast Alerts
-.iziToast-wrapper 
+.iziToast-wrapper
+
 	.iziToast-message
 		font-size: 1.2rem !important
-	
+		color: #fff
+	.iziToast-title
+		color: #fff	 !important
 	.iziToast.iziToast-color-red
 		background-color: $main-color !important
 		border: 0 
@@ -1298,10 +1331,21 @@ ul.pagination
 	// 		max-width: 100%
 			
 
-.site-footer
-	padding: 15px 5px
-	text-align: center
-	border: 0
-	background: #383838
-	.footer-copyright
-		padding: 0
+.items-horizontal
+	@include flex-center-left
+	.item1
+		border-right: 1px solid #ccc
+		padding: 10px 30px 10px 0
+	.item2
+		padding: 10px 30px
+
+@media (max-width: 768px)
+	.items-horizontal
+		margin-bottom: 20px
+		.item1
+			padding: 10px 50px 10px 30px
+			text-align: center
+			
+		.item2
+			width: 100%
+			text-align: center
