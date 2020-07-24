@@ -4,9 +4,11 @@
 			<ul id="SliCategories">
 				{{-- {{ dd($categories)}} --}}
 				@foreach($categories as $category)
-					<a href="{{ route('store', 'categoria='. $category->id)  }}">
-						<span class="styled-item"> {{ $category->name }}</span>
-					</a>
+					@if($category->activeArticles->count() > '0')
+						<a href="{{ route('store', 'categoria='. $category->id)  }}">
+							<span class="styled-item"> {{ $category->name }}</span>
+						</a>
+					@endif
 				@endforeach
 				
 				{{-- <li class="styled-item"><a href="{{ route('store', 'categoria=58') }}">Para arriba</a></li>
