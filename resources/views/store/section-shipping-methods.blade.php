@@ -10,7 +10,6 @@
 	<div class="container-fluid info-container2">
 		<div class="row justify-content-center">
             <h3 class="red-font"><b>Formas de Envío</b></h3>
-            
         </div>
         <div class="row text-center">
             <div class="col-sm-12 col-md-4 col-lg-4 item">

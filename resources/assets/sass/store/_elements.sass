@@ -364,7 +364,7 @@
 		@include flex-center
 		ul
 			display: inline-flex
-			li.styled-item
+			.styled-item
 				padding: 5px 40px
 				float: left
 				margin: 0 10px
@@ -373,12 +373,14 @@
 				@include transition(0.2s)
 				max-height: 38px
 				white-space: nowrap
-				a
+				color: #fff
+				span
 					text-transform: uppercase
 					color: #fff
 					font-size: 0.9rem
 				&:hover
 					background: #fff
+					color: #000
 					a
 						color: $red
 			li.stand-alone-item

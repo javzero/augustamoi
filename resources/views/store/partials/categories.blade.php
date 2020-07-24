@@ -2,9 +2,17 @@
 	<div class="container">
 		<div class="row">
 			<ul id="SliCategories">
-				<li class="styled-item"><a href="{{ route('store', 'categoria=58') }}">Para arriba</a></li>
+				{{-- {{ dd($categories)}} --}}
+				@foreach($categories as $category)
+					<a href="{{ route('store', 'categoria='. $category->id)  }}">
+						<span class="styled-item"> {{ $category->name }}</span>
+					</a>
+				@endforeach
+				
+				{{-- <li class="styled-item"><a href="{{ route('store', 'categoria=58') }}">Para arriba</a></li>
 				<li class="styled-item"><a href="{{ route('store', 'categoria=59') }}">Para abajo</a></li>
-				<li class="styled-item"><a href="{{ route('store', 'categoria=32') }}">Vestidos</a></li>
+				<li class="styled-item"><a href="{{ route('store', 'categoria=32') }}">Vestidos</a></li> --}}
+
 				<li class="stand-alone-item" onclick="OpenSearchField()">
 					<i class="icon-search"></i>
 				</li>

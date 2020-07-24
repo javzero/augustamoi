@@ -73,7 +73,6 @@ class CategoriesController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($request->all());
         $category = CatalogCategory::find($id);
 
         $this->validate($request,[
