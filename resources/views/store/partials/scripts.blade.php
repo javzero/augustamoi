@@ -101,7 +101,7 @@
         let data = $('#NewsletterForm').serialize();
         
         $.ajax({
-            url: '/vadmin/saveNewsletterEmail',
+            url: '/saveNewsletterEmail',
             method: 'POST',
             data: data,
             success: function success(data) {

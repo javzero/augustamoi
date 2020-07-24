@@ -171,6 +171,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
 
 });
 
+Route::post('saveNewsletterEmail', 'NewsletterController@saveEmail');
+
 Route::group(['prefix' => 'vadmin', 'middleware' => 'managers'], function(){
     
     // Route::get('/', 'VadminController@index');
@@ -299,7 +301,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'managers'], function(){
     Route::get('searchCustomer', ['as' => 'vadmin.searchCustomer', 'uses' => 'AutocompleteController@searchCustomer']);
 
     Route::get('newsletter', ['as' => 'vadmin.newsletter', 'uses' => 'NewsletterController@index']);
-    Route::post('saveNewsletterEmail', 'NewsletterController@saveEmail');
+ 
     Route::get('exportar-emails/{format}', ['as' => 'vadmin.exportNewsletterEmails', 'uses' => 'NewsletterController@exportEmails']);
 
 });
