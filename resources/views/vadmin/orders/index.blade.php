@@ -25,6 +25,9 @@
 				{{-- Export --}}
 				<button class="ExportSelectedBtn btn btnMain Hidden"><i class="icon-download"></i> Exportar Seleccionados</button>
 				<input id="RowsToExport" type="hidden" name="rowstoexport[]" value="">
+
+				<button class="ExportToShippingBtn btn btnMain Hidden"><i class="icon-download"></i> Exportar Rótulos</button>
+				<input id="RowsToShipping" type="hidden" name="rowstoshipping[]" value="1,2">
 				{{-- <button class="ExportSelectedBtn btn btnMain Hidden"><i class="icon-download"></i> Exportar Seleccionados</button> --}}
 				{{-- Delete --}}
 				<button class="DeleteBtn btn btnRed Hidden"><i class="icon-bin2"></i> Eliminar</button>
@@ -60,7 +63,6 @@
 
 {{-- CONTENT --}}
 @section('content')
-	
 	<div class="list-wrapper">
 		
 		<div class="row">
@@ -202,15 +204,14 @@
 
 		{!! $items->appends(request()->query())->render()!!}
 
-		
 		<div class="pagination-results">
 			<span class="title"><b>Resultados por página:</b></span>
 			@if(Request()->status != '' || Request()->status != null);
 				<a href="{{ route('orders.index', ['results' => '30', 'status' => Request()->status]) }}">30</a> | 
 				<a href="{{ route('orders.index', ['results' => '200', 'status' => Request()->status]) }}">200</a> |
 				<a href="{{ route('orders.index', ['results' => '500', 'status' => Request()->status]) }}">500</a>
-			@else
-				<a href="{{ route('orders.index', ['results' => '100', request()->query()]) }}">100</a> | 
+			@else				
+				<a href="{{ route('orders.index', ['results' => '100']) }}">100</a> | 
 				<a href="{{ route('orders.index', ['results' => '200']) }}">200</a> |
 				<a href="{{ route('orders.index', ['results' => '500']) }}">500</a>
 			@endif

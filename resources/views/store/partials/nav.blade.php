@@ -7,11 +7,9 @@
 		</a>
 	</div>
 	<ul class="nav navbar-nav left-nav-items">
-		@foreach($brands as $brand)
-			
-			{{-- {{ dd() }} --}}
+		{{-- @foreach($brands as $brand)
 			<li><a class="@if(app('request')->input('marca') == $brand->id) active @endif" href="{{ route('store', 'marca=').$brand->id }}">{{ $brand->name }}</a></li>
-		@endforeach
+		@endforeach --}}
 	</ul>
 	<div class="nav-actions">
 		@include('store.partials.userbar')

@@ -62,4 +62,24 @@
             
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | UI Functions
+    |--------------------------------------------------------------------------
+    */
+
+    window.toggleDivOnClick = function({div: div, icon: icon}) {
+        let togleableDiv = $(div);
+        let iconDiv = $(icon);
+        
+        if(togleableDiv.hasClass('Hidden')) {
+            togleableDiv.removeClass('Hidden');
+            iconDiv.html('-');
+        } else {
+            togleableDiv.addClass('Hidden');
+            iconDiv.html('+');
+        }
+        
+    }
+
 </script>

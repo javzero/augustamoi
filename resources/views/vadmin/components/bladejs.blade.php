@@ -35,6 +35,13 @@
         window.location.replace(route);
     });
 
+    // Export Orders for Shipping
+    
+    $(document).on('click', '.ExportToShippingBtn', function(e) { 
+        let ids   = $('#RowsToShipping').val();
+        let route = "{{ url('vadmin/exportOrderToShipping') }}/"+ ids;
+        window.location.replace(route);
+    });
 
     // Editable Input
     $('.editable-input').on('change', function(e) {

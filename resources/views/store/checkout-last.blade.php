@@ -105,6 +105,11 @@
 			{{-- Proccess Checkout --}}
 			{!! Form::open(['id' => 'CheckoutForm', 'route' => 'store.processCheckout', 'method' => 'POST', 'class' => 'loader-on-submit']) !!}	
 				<div class="row small-form">
+					<div class="col-md-12 mb-5 form-group">
+						{{-- <label for=""></label> --}}
+						<div class="sub-title"><i class="fas fa-pencil-alt"></i>Observaciones de envío</div>
+						<textarea class="form-control" name="shipping_details" cols="20" rows="5" placeholder="Texto explicativo a definir"></textarea>
+					</div>
 					<div class="col-md-12">
 						<div class="sub-title"><i class="far fa-address-card"></i> Datos de entrega</div>
 					</div>

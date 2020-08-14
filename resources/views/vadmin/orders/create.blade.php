@@ -28,9 +28,9 @@
 
 {{-- CONTENT --}}
 @section('content')
-    @if($existingOrder)
+    {{-- @if($existingOrder)
         <div class="alert alert-error">Esta función "Edición de pedidos existentes" está en fase <b>beta</b>. ** Requiere testeo ** </div>
-    @endif
+    @endif --}}
 	<div class="list-wrapper">
 		<div class="row">
             <div class=" card">
@@ -130,6 +130,19 @@
                                             {!! Form::label('seller', 'Vendedor') !!}
                                             {!! Form::select('seller', $sellers, 
                                             Auth::guard('user')->user()->id , ['class' => 'form-control', 'placeholder' => 'Seleccione una vendedor']) !!}
+                                        </div>
+                                        <div class="col-md-12 form-group">
+                                            <a href="#" onclick="toggleDivOnClick({div: '#ShippingDetailsInput', icon: '#ShippingDetailsIcon'})" class="mb-4">
+                                                Observaciones <span id="ShippingDetailsIcon">+</span>
+                                            </a>
+                                            <div id="ShippingDetailsInput" class="Hidden">
+                                                @php
+                                                    $shippingDetails = null;
+                                                    if($existingOrder) 
+                                                        $shippingDetails = $existingOrder->shipping_details;
+                                                @endphp
+                                                {!! Form::textarea('shipping_details', $shippingDetails, ['rows' => 2, 'class' => 'form-control', 'placeholder' => '']) !!}
+                                            </div>
                                         </div>
                                     </div>
                                     {{-- Articles Table --}}
@@ -261,268 +274,268 @@
     @include('vadmin.components.bladejs')
 
     <script>
-    calcAndShowTotals();
-        
-    function selectClient(id, name, surname, username, group)
-    {
-        let div =   "<div><b>Cliente seleccionado</div></b>" +
-                    "<div class='info-label'>#" + id + " - " + name + " " + surname + " ("+username+") - " + group + 
-                    "<a onclick='resetForm();' class='right-info'>Cambiar</a>" +
-                    "</div>";
-        // Set client id in article search
-        $('#SelectedCustomer').val(id);
-        $('#ClientDataContainer').removeClass('Hidden');
-        $('#ClientSelectorContainer').addClass('Hidden');
-        $('#FormContent').removeClass('Hidden');
-        return div;
-    } 
-
-    // Store Id to prevent duplicated items
-    let savedVariants = [];
-
-    function buildItemRow(id, code, name, variant, variantId, color, size, textile, stock, price)
-    {   
-        // console.log(name);
-        $('#TableList').removeClass('Hidden');
-        $('.Empty-Table').addClass('Hidden');
-        $('.Articles-List').removeClass('Hidden');
-        
-        // Prevent duplicated items
-        // if ($.inArray(id, saveIds) !== -1 && $.inArray(variant, savedVariants) !== -1)
-        if($.inArray(variantId, savedVariants) !== -1)
+        calcAndShowTotals();
+            
+        function selectClient(id, name, surname, username, group)
         {
-            alert_error("", "El producto/variante ya está agregado");
-            return;
+            let div =   "<div><b>Cliente seleccionado</div></b>" +
+                        "<div class='info-label'>#" + id + " - " + name + " " + surname + " ("+username+") - " + group + 
+                        "<a onclick='resetForm();' class='right-info'>Cambiar</a>" +
+                        "</div>";
+            // Set client id in article search
+            $('#SelectedCustomer').val(id);
+            $('#ClientDataContainer').removeClass('Hidden');
+            $('#ClientSelectorContainer').addClass('Hidden');
+            $('#FormContent').removeClass('Hidden');
+            return div;
+        } 
+
+        // Store Id to prevent duplicated items
+        let savedVariants = [];
+
+        function buildItemRow(id, code, name, variant, variantId, color, size, textile, stock, price)
+        {   
+            // console.log(name);
+            $('#TableList').removeClass('Hidden');
+            $('.Empty-Table').addClass('Hidden');
+            $('.Articles-List').removeClass('Hidden');
+            
+            // Prevent duplicated items
+            // if ($.inArray(id, saveIds) !== -1 && $.inArray(variant, savedVariants) !== -1)
+            if($.inArray(variantId, savedVariants) !== -1)
+            {
+                alert_error("", "El producto/variante ya está agregado");
+                return;
+            }
+
+            let name2 = name;
+            let row =   "<tr id='OrderItem-"+ variantId +"'>" +
+                            "<td>#"+ code +"</td>" + 
+                            "<td>"+ name2 +"</td>" +
+                            "<td>"+ variant +"</td>" +
+                            "<td>"+ stock +"</td>" +
+                            "<td>$"+ price + "</td>" +
+                                "<input name=item["+ variantId +"][variant_id] value="+ variantId +" type='hidden' />" +
+                                "<input name=item["+ variantId +"][name] value='"+ name2 +"' type='hidden' />" +
+                                "<input name=item["+ variantId +"][combination] value="+ variant +" type='hidden' />" +
+                                "<input name=item["+ variantId +"][color] value="+ color +" type='hidden' />" +
+                                "<input name=item["+ variantId +"][size] value="+ size +" type='hidden' />" +
+                                "<input name=item["+ variantId +"][textile] value="+ textile +" type='hidden' />" +
+                                "<input class='Row-Price-Item' name=item["+ variantId +"][final_price] value="+ price +" type='hidden' />" +
+                            // "</td>" + 
+                            "<td>" +
+                                "<input class='ItemQuantityInput' data-rowid='OrderItem-"+ variantId +"'  data-price="+ price +" name=item["+ variantId +"][quantity] value='1' style='padding-left: 10px; max-width: 50px' type='number' />" +
+                                "<input name=item["+ variantId +"][id] value='"+ id +"' type='hidden' />" +
+                            "</td>" +
+                            "<td>$<input class='SubTotalItemPrice only-display-input' disabled name='subTotalItemPrice' value="+ price +"></td>" +
+                            "<td><i onclick='removeRow("+ variantId +");' class='cursor-pointer fa fa-trash'</td>" +
+                        "</tr>";
+
+            savedVariants.push(variantId);
+            $('#Articles-List-Rows').append(row);
+            
+            calcAndShowTotals();
         }
 
-        let name2 = name;
-        let row =   "<tr id='OrderItem-"+ variantId +"'>" +
-                        "<td>#"+ code +"</td>" + 
-                        "<td>"+ name2 +"</td>" +
-                        "<td>"+ variant +"</td>" +
-                        "<td>"+ stock +"</td>" +
-                        "<td>$"+ price + "</td>" +
-                            "<input name=item["+ variantId +"][variant_id] value="+ variantId +" type='hidden' />" +
-                            "<input name=item["+ variantId +"][name] value='"+ name2 +"' type='hidden' />" +
-                            "<input name=item["+ variantId +"][combination] value="+ variant +" type='hidden' />" +
-                            "<input name=item["+ variantId +"][color] value="+ color +" type='hidden' />" +
-                            "<input name=item["+ variantId +"][size] value="+ size +" type='hidden' />" +
-                            "<input name=item["+ variantId +"][textile] value="+ textile +" type='hidden' />" +
-                            "<input class='Row-Price-Item' name=item["+ variantId +"][final_price] value="+ price +" type='hidden' />" +
-                        // "</td>" + 
-                        "<td>" +
-                            "<input class='ItemQuantityInput' data-rowid='OrderItem-"+ variantId +"'  data-price="+ price +" name=item["+ variantId +"][quantity] value='1' style='padding-left: 10px; max-width: 50px' type='number' />" +
-                            "<input name=item["+ variantId +"][id] value='"+ id +"' type='hidden' />" +
-                        "</td>" +
-                        "<td>$<input class='SubTotalItemPrice only-display-input' disabled name='subTotalItemPrice' value="+ price +"></td>" +
-                        "<td><i onclick='removeRow("+ variantId +");' class='cursor-pointer fa fa-trash'</td>" +
-                    "</tr>";
-
-        savedVariants.push(variantId);
-        $('#Articles-List-Rows').append(row);
-        
-        calcAndShowTotals();
-    }
-
-    // CALC NEW SUBTOTAL PRICE IF USER CHANGE QUANTITY
-    $(document).on('change keyup keydown', '.ItemQuantityInput', function(e) {  
-        let quantity = $(this).val();
-        let price = $(this).data('price');
-        let rowid = $(this).data('rowid');
-        let total = Number(quantity) * Number(price);
-        
-        $('#'+ rowid + ' > td > .SubTotalItemPrice').val(total);
-        calcAndShowTotals()
-    });
-
-    // SET SHIPPING PRICE AS SUBTOTAL
-    $(document).on('change', '#ShippingSelected', function() {
-        calcAndShowTotals()
-    });
-    
-    $(document).on('change', '#PaymentSelected', function() {
-        calcAndShowTotals()
-    });
-
-    function calcShippingAndPaymentMethod(subTotal = 0)
-    {
-        let shippingCost = $('#ShippingSelected > option:selected').attr('price');
-
-        if(shippingCost > 0) {
-            $('#OrderShippingCost').html(shippingCost);
-            $('#ShippingCostText').removeClass('Hidden');
-        } else {
-            $('#OrderShippingCost').html(0);
-            $('#ShippingCostText').addClass('Hidden');
-        }
-
-        let paymentCharge = $('#PaymentSelected > option:selected').attr('charge');
-        let paymentDiscount = $('#PaymentSelected > option:selected').attr('discount');
-
-        if(paymentCharge > 0) {
-            console.log(paymentCharge);
-            $('#OrderPaymentCharge').html(paymentCharge);
-            $('#OrderPaymentCharge').removeClass('Hidden');
-            $('#OrderPaymentChargeText').removeClass('Hidden');
-
-            $('#OrderPaymentDiscountText').addClass('Hidden');
-            $('#OrderPaymentDiscount').html('0');
-            $('#OrderPaymentDiscount').addClass('Hidden');
-        }
-        else if(paymentDiscount > 0) {
-            $('#OrderPaymentDiscount').html(paymentDiscount);
-            $('#OrderPaymentDiscount').removeClass('Hidden');
-            $('#OrderPaymentDiscountText').removeClass('Hidden');
-
-            $('#OrderPaymentChargeText').addClass('Hidden');
-            $('#OrderPaymentCharge').html('0');
-            $('#OrderPaymentCharge').addClass('Hidden');
-        } else {
-            $('#OrderPaymentCharge').html('0');
-            $('#OrderPaymentDiscount').html('0');
-            $('#OrderPaymentDiscountText').addClass('Hidden');
-            $('#OrderPaymentChargeText').addClass('Hidden');
-            $('#OrderPaymentCharge').addClass('Hidden');
-            $('#OrderPaymentDiscount').addClass('Hidden');
-        }
-    }
-
-    // DISPLAY ORDER TOTAL
-    function calcAndShowTotals()
-    {  
-        
-        let values = [];
-        $('.SubTotalItemPrice').each(function(){
-            // If multiple data needed
-            // values.push({ name: this.name, price: this.value }); 
-            values.push(this.value); 
+        // CALC NEW SUBTOTAL PRICE IF USER CHANGE QUANTITY
+        $(document).on('change keyup keydown', '.ItemQuantityInput', function(e) {  
+            let quantity = $(this).val();
+            let price = $(this).data('price');
+            let rowid = $(this).data('rowid');
+            let total = Number(quantity) * Number(price);
+            
+            $('#'+ rowid + ' > td > .SubTotalItemPrice').val(total);
+            calcAndShowTotals()
         });
 
-      
-
-        let subTotal = 0;
-        for (var i = 0; i < values.length; i++) {
-            subTotal += values[i] << 0;
-        }
-        
-        calcShippingAndPaymentMethod(subTotal);
-
-        $('#Order-Total-Container').removeClass('Hidden');
-        
-        // Display Subtotal
-        $('#Order-SubTotal').html(subTotal);
-        
-        let paymentCharge = $('#OrderPaymentCharge').html();
-        let paymentDiscount = $('#OrderPaymentDiscount').html();
-        let shippingCost = $('#OrderShippingCost').html();
-        
-        let total = Number(subTotal) + Number(shippingCost);
-
-        if(paymentCharge > 0) {
-            total += Number(subTotal) * Number(paymentCharge) / 100;
-        } else if(paymentDiscount > 0) {
-            total -= Number(subTotal) * Number(paymentDiscount) / 100
-        }
-
-        //Display Total
-       $('#Order-Total').html(toDecimal(total));
-    }
-
-    // REMOVE EXISTING ITEM
-    function removeRow(variantId)
-    {
-        $("#OrderItem-"+ variantId).remove();
-        savedVariants = $.grep(savedVariants, function(value) {
-            return value != variantId;
+        // SET SHIPPING PRICE AS SUBTOTAL
+        $(document).on('change', '#ShippingSelected', function() {
+            calcAndShowTotals()
         });
-        calcAndShowTotals();
-    }
-
-    function removeExistingItem(itemId, variantId, action)
-    {
-        let element = $('#OrderItem-'+variantId);
-        removeFromCart("{{ route('vadmin.removeFromOrder') }}", itemId, action, element);
-        setTimeout(function(){ calcAndShowTotals(); }, 1000);
         
-    }
+        $(document).on('change', '#PaymentSelected', function() {
+            calcAndShowTotals()
+        });
 
-    function resetForm()
-    {
-        $('form')[0].reset();
-        location.reload();
-    }
+        function calcShippingAndPaymentMethod(subTotal = 0)
+        {
+            let shippingCost = $('#ShippingSelected > option:selected').attr('price');
 
-    $(document).ready(function(){
-
-        // Search Customer - Autocomplete
-        // ------------------------------
-
-        $("#SearchCustomer").autocomplete({
-            source: "{{ url('vadmin/searchCustomer') }}",
-                focus: function(request, response) {
-                return false;
-            },
-            select: function(event, ui) {
-                // Show Info
-                $('#ClientData').html(selectClient(ui.item.id, ui.item.name, ui.item.surname, ui.item.username, ui.item.group));
+            if(shippingCost > 0) {
+                $('#OrderShippingCost').html(shippingCost);
+                $('#ShippingCostText').removeClass('Hidden');
+            } else {
+                $('#OrderShippingCost').html(0);
+                $('#ShippingCostText').addClass('Hidden');
             }
-        }).data("ui-autocomplete")._renderItem = function(ul, item) {
-            if(item.empty != undefined)
-            {
-                return $("<li onclick='event.stopPropagation();'></li>").append("<div class='label'>Sin resultados</div>").appendTo(ul);
+
+            let paymentCharge = $('#PaymentSelected > option:selected').attr('charge');
+            let paymentDiscount = $('#PaymentSelected > option:selected').attr('discount');
+
+            if(paymentCharge > 0) {
+                console.log(paymentCharge);
+                $('#OrderPaymentCharge').html(paymentCharge);
+                $('#OrderPaymentCharge').removeClass('Hidden');
+                $('#OrderPaymentChargeText').removeClass('Hidden');
+
+                $('#OrderPaymentDiscountText').addClass('Hidden');
+                $('#OrderPaymentDiscount').html('0');
+                $('#OrderPaymentDiscount').addClass('Hidden');
             }
-            else
-            {
-                let inner_html = "<div class='label'>" + item.id + " - " + item.name + " " + item.surname + " (" + item.username + ")</div>";
-                return $("<li></li>").data( "item.autocomplete", item).append(inner_html).appendTo(ul);
+            else if(paymentDiscount > 0) {
+                $('#OrderPaymentDiscount').html(paymentDiscount);
+                $('#OrderPaymentDiscount').removeClass('Hidden');
+                $('#OrderPaymentDiscountText').removeClass('Hidden');
+
+                $('#OrderPaymentChargeText').addClass('Hidden');
+                $('#OrderPaymentCharge').html('0');
+                $('#OrderPaymentCharge').addClass('Hidden');
+            } else {
+                $('#OrderPaymentCharge').html('0');
+                $('#OrderPaymentDiscount').html('0');
+                $('#OrderPaymentDiscountText').addClass('Hidden');
+                $('#OrderPaymentChargeText').addClass('Hidden');
+                $('#OrderPaymentCharge').addClass('Hidden');
+                $('#OrderPaymentDiscount').addClass('Hidden');
             }
-        };
+        }
 
+        // DISPLAY ORDER TOTAL
+        function calcAndShowTotals()
+        {  
+            
+            let values = [];
+            $('.SubTotalItemPrice').each(function(){
+                // If multiple data needed
+                // values.push({ name: this.name, price: this.value }); 
+                values.push(this.value); 
+            });
 
-        // Search Article - Autocomplete
-        // ------------------------------
+        
 
-        $("#SearchArticles").autocomplete({
-            source: function(request, response) {
-                let customerId = $('#SelectedCustomer').val();
-                if(customerId == '' || customerId == undefined)
+            let subTotal = 0;
+            for (var i = 0; i < values.length; i++) {
+                subTotal += values[i] << 0;
+            }
+            
+            calcShippingAndPaymentMethod(subTotal);
+
+            $('#Order-Total-Container').removeClass('Hidden');
+            
+            // Display Subtotal
+            $('#Order-SubTotal').html(subTotal);
+            
+            let paymentCharge = $('#OrderPaymentCharge').html();
+            let paymentDiscount = $('#OrderPaymentDiscount').html();
+            let shippingCost = $('#OrderShippingCost').html();
+            
+            let total = Number(subTotal) + Number(shippingCost);
+
+            if(paymentCharge > 0) {
+                total += Number(subTotal) * Number(paymentCharge) / 100;
+            } else if(paymentDiscount > 0) {
+                total -= Number(subTotal) * Number(paymentDiscount) / 100
+            }
+
+            //Display Total
+        $('#Order-Total').html(toDecimal(total));
+        }
+
+        // REMOVE EXISTING ITEM
+        function removeRow(variantId)
+        {
+            $("#OrderItem-"+ variantId).remove();
+            savedVariants = $.grep(savedVariants, function(value) {
+                return value != variantId;
+            });
+            calcAndShowTotals();
+        }
+
+        function removeExistingItem(itemId, variantId, action)
+        {
+            let element = $('#OrderItem-'+variantId);
+            removeFromCart("{{ route('vadmin.removeFromOrder') }}", itemId, action, element);
+            setTimeout(function(){ calcAndShowTotals(); }, 1000);
+            
+        }
+
+        function resetForm()
+        {
+            $('form')[0].reset();
+            location.reload();
+        }
+
+        $(document).ready(function(){
+
+            // Search Customer - Autocomplete
+            // ------------------------------
+
+            $("#SearchCustomer").autocomplete({
+                source: "{{ url('vadmin/searchCustomer') }}",
+                    focus: function(request, response) {
+                    return false;
+                },
+                select: function(event, ui) {
+                    // Show Info
+                    $('#ClientData').html(selectClient(ui.item.id, ui.item.name, ui.item.surname, ui.item.username, ui.item.group));
+                }
+            }).data("ui-autocomplete")._renderItem = function(ul, item) {
+                if(item.empty != undefined)
                 {
-                    alert_error("Primero debe seleccionar un cliente");
+                    return $("<li onclick='event.stopPropagation();'></li>").append("<div class='label'>Sin resultados</div>").appendTo(ul);
                 }
                 else
                 {
-                    $.getJSON("{{ url('vadmin/searchCatalogArticle') }}", {request, customer: customerId }, response);
+                    let inner_html = "<div class='label'>" + item.id + " - " + item.name + " " + item.surname + " (" + item.username + ")</div>";
+                    return $("<li></li>").data( "item.autocomplete", item).append(inner_html).appendTo(ul);
                 }
-            },
-            select: function(event, ui) {
-                // console.log("En search");
-                // console.log(ui.item);
-                // id, code, name, variant, variantId, color, size,  stock, price
-                buildItemRow(ui.item.id, ui.item.code, ui.item.name, ui.item.variant, ui.item.variant_id, ui.item.variant_color, ui.item.variant_size,
-                ui.item.textile, ui.item.stock, ui.item.price);
-            }
-        }).data( "ui-autocomplete" )._renderItem = function(ul, item) {
+            };
 
-            if(item.name === 0)
-            {
-                return $("<li onclick='event.stopPropagation();'></li>").append("<div class='label'>Sin resultados</div>").appendTo(ul);
-            }
-            else
-            {
-                let inner_html = '<div class="label">#' + item.code + ' '+ item.name +' | ' + item.variant + '</div>';
-                // Multiline
-                //let inner_html = '<div class="label">#' + item.code + ' '+ item.name +'<br><div>'+ item.name +'</div></b></div>';
-                return $( "<li></li>" ).data( "item.autocomplete", item).append(inner_html).appendTo(ul);
 
-            }
-            
-        };
-    });
+            // Search Article - Autocomplete
+            // ------------------------------
 
-    
-    function toDecimal(x) {
-        return Number.parseFloat(x).toFixed(2);
-    }
+            $("#SearchArticles").autocomplete({
+                source: function(request, response) {
+                    let customerId = $('#SelectedCustomer').val();
+                    if(customerId == '' || customerId == undefined)
+                    {
+                        alert_error("Primero debe seleccionar un cliente");
+                    }
+                    else
+                    {
+                        $.getJSON("{{ url('vadmin/searchCatalogArticle') }}", {request, customer: customerId }, response);
+                    }
+                },
+                select: function(event, ui) {
+                    // console.log("En search");
+                    // console.log(ui.item);
+                    // id, code, name, variant, variantId, color, size,  stock, price
+                    buildItemRow(ui.item.id, ui.item.code, ui.item.name, ui.item.variant, ui.item.variant_id, ui.item.variant_color, ui.item.variant_size,
+                    ui.item.textile, ui.item.stock, ui.item.price);
+                }
+            }).data( "ui-autocomplete" )._renderItem = function(ul, item) {
+
+                if(item.name === 0)
+                {
+                    return $("<li onclick='event.stopPropagation();'></li>").append("<div class='label'>Sin resultados</div>").appendTo(ul);
+                }
+                else
+                {
+                    let inner_html = '<div class="label">#' + item.code + ' '+ item.name +' | ' + item.variant + '</div>';
+                    // Multiline
+                    //let inner_html = '<div class="label">#' + item.code + ' '+ item.name +'<br><div>'+ item.name +'</div></b></div>';
+                    return $( "<li></li>" ).data( "item.autocomplete", item).append(inner_html).appendTo(ul);
+
+                }
+                
+            };
+        });
+
+        
+        function toDecimal(x) {
+            return Number.parseFloat(x).toFixed(2);
+        }
     </script>
 
 @endsection

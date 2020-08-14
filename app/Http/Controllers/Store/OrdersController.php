@@ -207,6 +207,19 @@ class OrdersController extends Controller
         })->download('xls');
     }
 
+    public function exportOrderToShipping($ids = null, $action = 'stream')
+    {
+        $idsArray = array_map('intval', explode(',', $ids));
+        $orders = Cart::whereIn('id', $idsArray)->orderBy('id','ASC')->get();
+
+        $pdf = PDF::loadView('vadmin.orders.invoiceExportToShipping', compact('orders'))->setPaper('a4', 'portrait');
+        $filename = 'Rotulos-para-envio('.$ids.')';
+        
+        if($action == 'download')
+            return $pdf->download($filename.'.pdf');
+
+        return $pdf->stream($filename.'.pdf');
+    }
 
     public function getOrdersToProduction($ids = null)
     {
@@ -332,6 +345,7 @@ class OrdersController extends Controller
         $shipping_price = Shipping::where('id', $request->shipping_id)->first()->price;
         $cart->shipping_price = $shipping_price;
 
+        $cart->shipping_details = $request->shipping_details;
         $cart->customer_id = $request->customer_id;
         $cart->save();
         $cart_id = $cart->id;

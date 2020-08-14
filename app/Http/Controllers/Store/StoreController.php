@@ -387,7 +387,7 @@ class StoreController extends Controller
         if($cart->shipping_id == null)
             return back()->withInput()->with('error', 'missing-shipping');
         
-        // Set fixed prices on checkout confirmation
+        // Proceed to set fixed prices on checkout confirmation
         foreach($cart->items as $key => $item){
             $order = CartItem::find($item->id);
             if($item->article != null && $item->article->status == 1)
@@ -429,6 +429,7 @@ class StoreController extends Controller
             }
         }
 
+        $cart->shipping_details = $request->shipping_details;
         $cart->status = 'Process';
     
         try {

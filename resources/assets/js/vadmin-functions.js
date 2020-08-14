@@ -16,6 +16,7 @@ $(document).on("click", ".List-Checkbox", function(e)
 {
 	e.stopPropagation();
 	CheckToDeletion("single", $(this));
+	CheckToShipping($(this));
 });
 
 // Select All present checkboxes to deletion
@@ -37,9 +38,23 @@ $('.Select-All-To-Delete').on("click", function() {
 	}
 });
 
+function CheckToShipping(id)
+{
+	var selectedRows = [];
+	$(".List-Checkbox:checked").each(function() {          
+		selectedRows.push($(this).attr('data-id'));
+		$('#RowsToShipping').val(selectedRows);
+	});
+
+	$('#RowsToExport').val(selectedRows);
+	if(selectedRows.length == 0){
+		$('#EditId, #RowsToShipping').val('');
+	} 
+}
+
 function CheckToDeletion(type, row)
 {
-	console.log(type, row);
+	// console.log(type, row);
 	var selectedRows = [];
 	$(".List-Checkbox:checked").each(function() {          
 		selectedRows.push($(this).attr('data-id'));
@@ -72,33 +87,42 @@ function CheckToDeletion(type, row)
 function showButtons(trigger) {
 	
 	var countSelected = $('.List-Checkbox:checkbox:checked').length;
+
+
 	if(countSelected == 1) {
         $('.DeleteBtn').removeClass('Hidden');
 		$('.EditBtn').removeClass('Hidden');
 		$('.CreateFromAnotherBtn').removeClass('Hidden');
 		$('.ExportSelectedBtn').removeClass('Hidden');
+		$('.ExportToShippingBtn').removeClass('Hidden');
+	} else if(countSelected > 0 ) {
+		$('.ExportToShippingBtn').removeClass('Hidden');
 	} else if(countSelected >= 2) {
 		$('.EditBtn').addClass('Hidden');
 		$('.CreateFromAnotherBtn').addClass('Hidden');
     } else if(countSelected == 0) {
-        $('.DeleteBtn').addClass('Hidden');
+		$('.DeleteBtn').addClass('Hidden');
 		$('.EditBtn').addClass('Hidden');
 		$('.CreateFromAnotherBtn').addClass('Hidden');
 		$('.ExportSelectedBtn').addClass('Hidden');
+		$('.ExportToShippingBtn').addClass('Hidden');
     }
 }
 
 // Show Edit and Delete buttons in bottom if scrolled to mutch
 $(document).scroll(function(e){
 	var scrollAmount = $(window).scrollTop();
+	// This is VERY ARCHAIC... DON´T JUDGE ME.
 	if(scrollAmount > 150){
 		$('.DeleteBtn').css({"position":"fixed", "bottom":"50px", "right":"10px", "z-index":"999"});
 		$('.EditBtn').css({"position":"fixed", "bottom":"50px", "right":"130px", "z-index":"999"});
 		$('.CreateFromAnotherBtn').css({"position":"fixed", "bottom":"50px", "right":"235px", "z-index":"999"});
+		$('.ExportToShippingBtn').css({ "position": "fixed", "bottom": "50px", "right": "236px", "z-index": "999" });
 	} else {
 		$('.DeleteBtn').css({"position":"relative", "bottom":"auto", "right":"auto", "z-index":"999"});
 		$('.EditBtn').css({"position":"relative", "bottom":"auto", "right":"auto", "z-index":"999"});
 		$('.CreateFromAnotherBtn').css({"position":"relative", "bottom":"auto", "right":"auto", "z-index":"999"});
+		$('.ExportToShippingBtn').css({ "position": "relative", "bottom": "auto", "right": "auto", "z-index": "999" });
 		
 	}
 });
