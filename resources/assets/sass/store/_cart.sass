@@ -11,20 +11,23 @@
 	padding: 0
 	@include transition(0.2s)
 	z-index: 9998
-	border-left: 1px solid #e1e7ec
+	// border-left: 1px solid #e1e7ec
+	box-shadow: -5px 10px 6px -1px rgba(0,0,0,0.22)
 	.cart-continue
 		font-size: 1rem
 	.inner
+		position: relative
 		// padding: 25px 15px
 		padding: 0
 		padding-top: 0
+		padding-bottom: 150px
+		height: 100%
 		.top
 			padding: 0
 			.title
 				width: 100%
-				padding: 8px 15px 8px
-				padding: 10px 30px
-				margin-bottom: 5px
+				height: 39px
+				padding: 8px 15px
 				i
 					font-size: 1rem
 					margin-right: 6px
@@ -63,7 +66,7 @@
 		.close
 			position: absolute
 			right: 20px
-			top: 5px
+			top: 8px
 			z-index: 998
 			color: #ccc
 		.item
@@ -123,12 +126,19 @@
 			padding: 15px
 			font-size: 1.2rem
 			font-family: $font2
-	.cart-remaining-time
-		margin-top: 20px
-		padding: 40px 20px
-		background-color: $red
-		color: #fff
-		@include flex-center
+		.cart-remaining-time
+			position: absolute
+			bottom: 0
+			right: 0
+			width: 100%
+			font-size: 1.2rem
+			font-weight: 300
+			margin-top: 20px
+			// padding: 40px 20px
+			background-color: $red
+			color: #fff
+			@include flex-center
+			height: 140px
 
 @media screen and (min-width: 930px) and (max-width: 1210px)
 	.fix-column-small
@@ -163,7 +173,7 @@
 
 @media (max-width: 1200px)
 	.allow-sidebar
-		width: 71%
+		width: 71.2%
 	.cart-sidebar
 		width: 30%
 

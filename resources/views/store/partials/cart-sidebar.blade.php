@@ -93,7 +93,13 @@
                 
                 Tu carro vence en <br>  
                 <span id="CountDownTimer" data-remainingtime="{{ $remainingTime }}">
-                    {{ $finalTime[0] * 1 }} hora  {{ $finalTime[1]  }} minutos</span>
+                    {{ $finalTime[0] * 1 }} 
+                    @if($finalTime[0] * 1 > 1) 
+                    horas
+                    @else
+                    hora
+                    @endif
+                    {{ $finalTime[1]  }} minutos</span>
                     
             </div>
         </div>
