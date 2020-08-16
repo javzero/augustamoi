@@ -164,7 +164,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'active-user'], function(){
     
     Route::get('/', 'VadminController@index');
     Route::resource('catalogo', 'Catalog\ArticlesController'); 
-    
+    Route::get('valueStock/{view}/{ids}', ['as' => 'vadmin.valueStock', 'uses' => 'Catalog\ArticlesController@valueStock']);
     // -- SUPPORT --
     Route::get('docs', function(){ return view('vadmin.support.docs'); });
     Route::get('help', function(){ return view('vadmin.support.help'); });

@@ -349,6 +349,21 @@ function transDateTO($data)
     }
 }
 
+function sumHoursToDate($date, $hours = 2)
+{
+    $now = $date;
+    $now->add(new DateInterval("PT2H"));
+    $newTime = $now;
+    return $newTime;
+}
+
+function remainingTimeIHours($startDate, $endDate, $format = 'H:i:s')
+{   
+    $totalDuration = $endDate->diffInSeconds($startDate);
+    return gmdate($format, $totalDuration);
+}
+
+
 function getMonthName($month)
 {
     switch ($month) {

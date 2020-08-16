@@ -4,7 +4,51 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>@yield('title')</title>
         <link rel="shortcut icon" href="{{ asset('webimages/logos/favicon.png') }}"><!-- Favicon -->
-        <link rel="stylesheet" type="text/css" href="{{ asset('css/invoice.css') }}">
+        <style>
+            .invoice .title {
+                font-family: Verdana, Geneva, sans-serif;
+                font-size: 18px;
+                margin-left: 20px
+            }
+
+            .highlight{
+                border: 1px solid rgba(red,.3);
+            }
+
+            .center {
+                text-align: center
+            }
+
+            table {
+                width: 100%
+            }
+
+            td,th {
+                padding-left: 20px;
+                font-family: Verdana, Geneva, sans-serif;
+                font-size: 14px
+            }
+
+            td {
+                padding-top: 5px 
+            }
+
+            thead {
+                border-bottom: 1px solid #383838
+            }
+
+            th {
+                height: 45px;
+            }
+
+            .txtR, .text-right {
+                text-align: right;
+            }
+
+            .txtL {
+                text-align: left;
+            }
+        </style>
     </head>
     <body>
         <div class="invoice">

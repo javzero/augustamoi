@@ -587,6 +587,8 @@ $(document).ready(function(){
     });
 });
 
+
+
 /*
 |--------------------------------------------------------------------------
 | MIX FUNCTIONS
@@ -623,3 +625,5 @@ window.getParams = function(url) {
 	}
 	return params;
 }
+
+

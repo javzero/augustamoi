@@ -6,6 +6,12 @@ Vadmin es un gestor de contenido. Permite el manejo de distintas secciones de un
 - 
 ## FUNCIONALIDADES
 
+### UI
+
+toggleDivOnClick({div: '#ShippingDetailsInput', icon: '#ShippingDetailsIcon'});
+Basado en la clase .Hidden
+
+
 ### Actualizar estados con strings:
 Con esta función se pueden actualizar estados basados en strings<br>
 <b>Función (js):</b> updateStatusMultiple(id, route, status, username, action);

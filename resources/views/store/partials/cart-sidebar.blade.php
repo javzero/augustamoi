@@ -2,18 +2,18 @@
     <div id="SideContainerItemsFixed" class="inner">
         <div class="close" onclick="checkoutSidebar('hide')">X</div>
         @if(isset($activeCart))
-            <div class="top row">
-                <div class="col-md-12 title">
+            <div class="top">
+                <div class="title">
                     <i class="fas fa-shopping-cart"></i> Carro de Compras
                 </div>
-                <div class="top-actions">
+                {{-- <div class="top-actions"> --}}
                     {{-- <div class="text values"> 
                         Prendas: <b><span class="TotalCartItemsSidebar count">@if($activeCart['totalItems'] == 0) 0 @else {{ $activeCart['totalItems'] }} @endif </b>
                         <br>
                         Total: <b>$<span>{{ $activeCart['cartTotal'] }}</span></b>
                     </div> --}}
-                </div>
-                <div class="col-md-12 text-right">
+                {{-- </div> --}}
+                <div class="action-button-top">
                     <a class="cart-continue" href="{{ route('store.checkout')}}">CONTINUAR</a>
                 </div>
             </div>
@@ -21,7 +21,7 @@
             @foreach($activeCart['cart']->items as $item)
                 
                 @if($item->article != null)
-                    <div id="Item{{ $item->id }}" class="row item">
+                    <div id="Item{{ $item->id }}" class="item">
                         <img src="{{ asset($item->article->featuredImageName()) }}" alt="Product">
                         <div class="details-1">
                             <a href="{{ url('tienda/articulo/'.$item->article->id) }}">
@@ -70,12 +70,11 @@
                 @endif
             @endforeach
         </div>
-        <div class="update-btn">
+        {{-- <div class="update-btn"> --}}
             {{-- Disabled function --}}
             {{-- <button class="UpdateDataBtn block-btn-hollow"><i class="fas fa-sync"></i> Calcular nuevos totales</button> --}}
-        </div>
-        <hr>
-        <div class="total-price-bottom row">
+        {{-- </div> --}}
+        <div class="row total-price-bottom">
             <div class="col-xs-6 col-md-6 text-left inner-text" class="">
                 Prendas: <b><span class="TotalCartItemsSidebar count">@if($activeCart['totalItems'] == 0) 0 @else {{ $activeCart['totalItems'] }} @endif </b>
             </div>
@@ -83,8 +82,20 @@
                 Total: <b>$<span>{{ $activeCart['cartTotal'] }}</span></b>
             </div>
         </div>
-        <div class="text-right">
+        <div class="action-button-bottom">
             <a href="{{ route('store.checkout')}}" class="cart-continue">CONTINUAR</a>
+        </div>
+        <div class="cart-remaining-time">
+            <div class="text-center">
+
+               	@php($remainingTime = remainingTimeIHours(now(), sumHoursToDate($activeCart['cart']->created_at, 2), 'H:i:s'))
+                @php($finalTime = explode(':', $remainingTime))
+                
+                Tu carro vence en <br>  
+                <span id="CountDownTimer" data-remainingtime="{{ $remainingTime }}">
+                    {{ $finalTime[0] * 1 }} hora  {{ $finalTime[1]  }} minutos</span>
+                    
+            </div>
         </div>
     @else
         <div class="empty-cart">

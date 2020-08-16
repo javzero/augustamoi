@@ -11,19 +11,29 @@
 		@slot('actions')
 			{{-- Actions --}}
 			<div class="list-actions">
-				<a href="{{ route('catalogo.create') }}" class="btn btnMain"><i class="icon-plus-round"></i>  Nuevo artículo</a>
-				<button id="SearchFiltersBtn" class="btn btnMain"><i class="icon-ios-search-strong"></i></button>
-				{{-- Edit --}}
-				<button class="EditBtn btn btnMain Hidden"><i class="icon-pencil2"></i> Editar</button>
-				<input id="EditId" type="hidden">
-				{{-- Add Similar --}}
-				<button class="CreateFromAnotherBtn btn btnMain Hidden"><i class="icon-pencil2"></i> Publicar Similar</button>
-				<input id="CreateFromAnotherId" type="hidden">
-				{{-- Delete --}}
+
+				<input id="SelectedItems" type="hidden" name="SelectedItems[]">
+
 				{{-- THIS VALUE MUST BE THE NAME OF THE SECTION CONTROLLER --}}
 				<input id="ModelName" type="hidden" value="catalogo">
-				<button class="DeleteBtn btn btnRed Hidden"><i class="icon-bin2"></i> Eliminar</button>
-				<input id="RowsToDeletion" type="hidden" name="rowstodeletion[]" value="">
+
+				<a href="{{ route('catalogo.create') }}" class="btn btnMain"><i class="icon-plus-round"></i>  Nuevo artículo</a>
+				<button id="SearchFiltersBtn" class="btn btnMain"><i class="icon-ios-search-strong"></i></button>
+				
+				{{-- Edit --}}
+				<button onclick="listAction({ action: 'edit', id: $('#EditId').val(), model: $('#ModelName').val() })"
+					class="ListActionBtn EditBtn btn btnMain Hidden" data-visibleif="1"><i class="icon-pencil2"></i> Editar</button>
+				<input id="EditId" type="hidden">
+
+				{{-- Create article based on existing article --}}
+				<button onclick="listAction({ action: 'createFromAnother', id: $('#EditId').val() })" 
+					class="ListActionBtn btn btnMain Hidden" data-visibleif="1"><i class="icon-pencil2"></i> Publicar Similar</button>
+				
+				<button onclick="listAction({ action: 'valueStock', ids: $('#SelectedItems').val(), view: 'stream' })" 
+					class="ListActionBtn btn btnMain Hidden" data-visibleif=">0"><i class="icon-pencil2"></i> Valuar Stock</button>
+
+				{{-- Delete --}}
+				<button class="ListActionBtn DeleteBtn btn btnRed Hidden" data-visibleif=">0"><i class="icon-bin2"></i> Eliminar</button>
 			</div>
 		@endslot
 		@slot('searcher')

@@ -31,7 +31,9 @@
 				{{-- Title Mobile --}}
 				<div class="product-title product-title-mobile">
 					<span class="product-category sub-text"> <b>Categoría:&nbsp;</b></span>
-					<a class="sub-text" href="#">{{ $article->category->name }}</a>
+					@if($article->category) 
+						<a class="sub-text" href="#"> {{ $article->category->name }}</a>
+					@endif
 					{{--  Article Name  --}}
 					<h2>{{ $article->name }}</h2>
 					<span class="sub-text"> Código: #{{ $article->code }}</span>
@@ -70,7 +72,9 @@
 					{{-- Title Desktop --}}
 					<div class="product-title product-title-desktop">
 						<span class="product-category sub-text"> <b>Categoría:&nbsp;</b></span>
-						<a class="sub-text" href="#">{{ $article->category->name }}</a>
+						@if($article->category) 
+							<a class="sub-text" href="#">{{ $article->category->name }}</a>
+						@endif
 						{{--  Article Name  --}}
 						<h2>{{ $article->name }}</h2>
 						<span class="sub-text"> Código: #{{ $article->code }}</span>

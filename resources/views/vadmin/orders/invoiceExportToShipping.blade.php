@@ -2,9 +2,7 @@
 
 @section('title', 'Rótulos | Envíos')
 
-
 @section('content')
-    @php($count = 0)
     @foreach ($orders as $order)
         <div class="invoice-simple" style="page-break-inside: avoid;">
             <table class="table-header">
@@ -19,7 +17,7 @@
                             <p>Seguro Mínimo</p>
                         </th>
                         <th style="border-left: 1px solid #000" class="brand">
-                            <img src="{{ asset('webimages/web/app-logo.png') }}" alt="">
+                            <img src="./webimages/web/app-logo.png" alt="">
                         </th>
                     </tr>
                 </thead>
@@ -57,10 +55,6 @@
                 <p><b>Ciudad de Buenos Aires </b>
             </div>
         </div>
-        @php($count++)
-        @if($count == 1)
-            <div class="page-break"></div>
-            @php($count = 0)
-        @endif
+        <div class="page-break"></div>
     @endforeach
 @endsection

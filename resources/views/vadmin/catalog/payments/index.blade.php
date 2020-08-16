@@ -15,16 +15,22 @@
 		@slot('actions')
 			{{-- Actions --}}
 			<div class="list-actions">
-				<a href="{{ route('payments.create') }}" class="btn btnBlue"><i class="icon-plus-round"></i>  Nuevo método de pago</a>
-				<button id="SearchFiltersBtn" class="btn btnBlue"><i class="icon-ios-search-strong"></i></button>
-				{{-- Edit --}}
-				<button class="EditBtn btn btnGreen Hidden"><i class="icon-pencil2"></i> Editar</button>
-				<input id="EditId" type="hidden">
-				{{-- Delete --}}
+
+				<input id="SelectedItems" type="hidden" name="SelectedItems[]">
+
 				{{--  THIS VALUE MUST BE THE NAME OF THE SECTION CONTROLLER  --}}
 				<input id="ModelName" type="hidden" value="payments">
-				<button class="DeleteBtn btn btnRed Hidden"><i class="icon-bin2"></i> Eliminar</button>
-				<input id="RowsToDeletion" type="hidden" name="rowstodeletion[]" value="">
+				
+				<a href="{{ route('payments.create') }}" class="btn btnMain"><i class="icon-plus-round"></i>  Nuevo método de pago</a>
+				<button id="SearchFiltersBtn" class="btn btnMain"><i class="icon-ios-search-strong"></i></button>
+				
+				{{-- Edit --}}
+				<button onclick="listAction({ action: 'edit', id: $('#EditId').val(), model: $('#ModelName').val() })"
+					class="ListActionBtn EditBtn btn btnMain Hidden" data-visibleif="1"><i class="icon-pencil2"></i> Editar</button>
+				<input id="EditId" type="hidden">
+
+				{{-- Delete --}}
+				<button class="ListActionBtn DeleteBtn btn btnRed Hidden" data-visibleif=">0"><i class="icon-bin2"></i> Eliminar</button>
 				{{-- If Search --}}
 				@if(isset($_GET['name']))
 					<a href="{{ url('vadmin/payments') }}"><button type="button" class="btn btnGrey">Mostrar Todos</button></a>

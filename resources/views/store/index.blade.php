@@ -37,8 +37,9 @@
 	@include('store.partials.image-filters')
 	<div class="mobile-filters">
 		@include('store.partials.filters-mobile')
-	</div>
-	
+	</div> 
+
+
 	<div id="main" class="row main-container container-fluid padding-bottom-3x mb-1">
 			{{-- col-xs-12 col-lg-9 col-sm-8 col-md-8 --}}
 			{{-- <div class="col-sm-3 col-md-3 col-lg-2 pad0 hide-768">

@@ -219,6 +219,20 @@ class ArticlesController extends Controller
         return $items;
     }
 
+    public function valueStock($action = 'download', $ids) 
+    {
+        $idsArray = array_map('intval', explode(',', $ids));
+        $items = CatalogArticle::whereIn('id', $idsArray)->orderBy('id','ASC')->get();
+
+        $pdf = PDF::loadView('vadmin.catalog.value-stock', array('items' => $items));
+        $pdf->setPaper('A4', 'landscape');
+
+        if ($action == 'stream')
+            return $pdf->stream('valuacion-de-stock.pdf');
+
+        return $pdf->download('valuacion-de-stock.pdf');
+    }
+
 
     /*
     |--------------------------------------------------------------------------

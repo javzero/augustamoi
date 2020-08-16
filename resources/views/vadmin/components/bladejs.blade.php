@@ -1,47 +1,86 @@
 <script>
+
     /*
     |--------------------------------------------------------------------------
     | LISTS
     |--------------------------------------------------------------------------
-    */
+    */ 
 
-    // List Edit Row Trigger
-    $(document).on("click", ".EditBtn", function(e){
-        var id    = $('#EditId').val();
-        var model = $('#ModelName').val();
-        var route = "{{ url('vadmin') }}/"+model+"/"+id+"/edit";
-        // console.log(route);
-        location.replace(route);
-    });
+    function listAction({ action: action, ids: ids, model: model, id: id, view: view}) {
+        //console.log(action, ids, model, id);
+        let route = '';
 
-    // Create Item from another
-    $(document).on('click', '.CreateFromAnotherBtn', function(e) { 
-        var id    = $('#RowsToDeletion').val();
-        var model = $('#ModelName').val();
-        var route = "{{ url('vadmin') }}/createFromAnother/"+model+"/"+id;
-        location.replace(route);
-    });
+        switch (action) {
+        case 'rotulesForShipping':
+            route = "{{ url('vadmin/exportOrderToShipping') }}/" + ids;
+            break;
+        case 'exportPdf':
+            route = "{{ url('vadmin/exportSelectedOrders') }}/" + ids; 
+            break;
+        case 'createFromAnother':
+            route = "{{ url('vadmin') }}/createFromAnother/" + model +"/" + id;
+            break;
+        case 'edit':
+            route = "{{ url('vadmin') }}/"+model+"/"+id+"/edit";
+            break;
+        case 'valueStock':
+            route = "{{ url('vadmin/valueStock') }}/" + view + "/" + ids; 
+            break;
+            
+        default:
+            console.log('Acción no determinada');
+        }
+        //console.log(route);
+        window.location.replace(route);
+    }
 
+    
     $(document).on('click', '.DeleteBtn', function(e) { 
-        var id    = $('#RowsToDeletion').val();
+        var id    = $('#SelectedItems').val();
         var model = $('#ModelName').val();
         var route = "{{ url('vadmin') }}/destroy_"+model;
+        
         deleteAndReload(id, route, 'Cuidado!','Está seguro?');
     });
+    
 
-    $(document).on('click', '.ExportSelectedBtn', function(e) { 
-        let ids   = $('#RowsToExport').val();
-        let route = "{{ url('vadmin/exportSelectedOrders') }}/"+ ids;
-        window.location.replace(route);
-    });
+    // List Edit Row Trigger
+    //$(document).on("click", ".EditBtn", function(e){
+    //    var id    = $('#EditId').val();
+    //    var model = $('#ModelName').val();
+    //    var route = "{{ url('vadmin') }}/"+model+"/"+id+"/edit";
+    //    // console.log(route);
+    //    location.replace(route);
+    //});
+
+    // Create Item from another
+    //$(document).on('click', '.CreateFromAnotherBtn', function(e) { 
+    //    var id    = $('#EditId').val();
+    //    var model = $('#ModelName').val();
+    //    var route = "{{ url('vadmin') }}/createFromAnother/"+model+"/"+id;
+    //    location.replace(route);
+    //});
+
+
+    // $(document).on('click', '.ExportSelectedBtn', function(e) { 
+    //     let ids   = $('#RowsToExport').val();
+    //     let route = "{{ url('vadmin/exportSelectedOrders') }}/"+ ids;
+    //     window.location.replace(route);
+    // });
 
     // Export Orders for Shipping
     
-    $(document).on('click', '.ExportToShippingBtn', function(e) { 
-        let ids   = $('#RowsToShipping').val();
-        let route = "{{ url('vadmin/exportOrderToShipping') }}/"+ ids;
-        window.location.replace(route);
-    });
+   // $(document).on('click', '.ExportToShippingBtn', function(e) { 
+   //     let ids   = $('#RowsToShipping').val();
+   //     let route = "{{ url('vadmin/exportOrderToShipping') }}/"+ ids;
+   //     window.location.replace(route);
+   // });
+
+    /*
+    |--------------------------------------------------------------------------
+    | EDITABLE INPUTS
+    |--------------------------------------------------------------------------
+    */ 
 
     // Editable Input
     $('.editable-input').on('change', function(e) {

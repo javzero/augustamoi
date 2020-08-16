@@ -88,15 +88,4 @@
                 border-top: 0;
                 padding: 20px
             }
-
-
-
-        </style>
-    </head>
-    <body>
-        <div class="invoice">
-            @yield('content')
-        </div>
-    </body>
-</html>
-
+</style></head><body>@yield('content')</body></html>

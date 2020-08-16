@@ -10,104 +10,207 @@ $.ajaxSetup({
 |--------------------------------------------------------------------------
 */
 
-
 // Select checkbox to deletion
 $(document).on("click", ".List-Checkbox", function(e)
 {
 	e.stopPropagation();
-	CheckToDeletion("single", $(this));
-	CheckToShipping($(this));
+	// CheckToDeletion("single", $(this));
+	// CheckToShipping($(this));
+	selectListItem($(this).attr('data-id'));
+	
 });
 
-// Select All present checkboxes to deletion
-$('.Select-All-To-Delete').on("click", function() {
+// Select rows on a list
+function selectListItem(rowId) {
 	
+	var selectedRows = [];
+	$(".List-Checkbox:checked").each(function() {          
+		selectedRows.push($(this).attr('data-id'));
+		$('#SelectedItems').val(selectedRows);
+	});
+
+	// Select single item for edition
+	if(selectedRows.length == 1)
+		$('#EditId').val(selectedRows);
+	else
+		$('#EditId').val('');
+	
+	if(selectedRows.length == 0)
+		$('#SelectedItems').val('');
+
+	toggleActionButtons(selectedRows.length);
+}
+
+// Select all rows on a list
+$('#SelectAllRows, .Select-All-To-Delete').on("click", function() {
+	
+	let selectedRows = [];
+
+	// Select all items
 	if ($(this).prop('checked')) {
 		$('.List-Checkbox').prop('checked', true);
 		if($('.List-Checkbox').length >= 1)
 		{
-			CheckToDeletion("all")
+			// CheckToDeletion("all")
 			$('.DeleteBtn').removeClass('Hidden');
 		}
 
 		$('tbody tr').addClass('row-selected');
+
+		// Fill selected items array for actions (Delete, export, etc.)
+		$(".List-Checkbox").each(function() {          
+			selectedRows.push($(this).attr('data-id'));
+		});
+		$('#SelectedItems').val(selectedRows);
+
+	// Deselect all items
 	} else {
 		$('.List-Checkbox').prop('checked', false);
 		$('.DeleteBtn').addClass('Hidden');
 		$('tbody tr').removeClass('row-selected');
+
+		// Empty selected items array
+		$('#SelectedItems').val('');
 	}
 });
 
-function CheckToShipping(id)
-{
-	var selectedRows = [];
-	$(".List-Checkbox:checked").each(function() {          
-		selectedRows.push($(this).attr('data-id'));
-		$('#RowsToShipping').val(selectedRows);
-	});
 
-	$('#RowsToExport').val(selectedRows);
-	if(selectedRows.length == 0){
-		$('#EditId, #RowsToShipping').val('');
-	} 
-}
-
-function CheckToDeletion(type, row)
-{
-	// console.log(type, row);
-	var selectedRows = [];
-	$(".List-Checkbox:checked").each(function() {          
-		selectedRows.push($(this).attr('data-id'));
-		$('#RowsToDeletion').val(selectedRows);
-	});
+function toggleActionButtons(selectedRowsCount) {
+	let buttons = $('.ListActionBtn');
 	
-	$('#RowsToExport').val(selectedRows);
-	if(selectedRows.length == 1){
-		$('#EditId, #CreateFromAnotherId').val(selectedRows);
-	} else if(selectedRows.length < 1){
-		$('#EditId, #CreateFromAnotherId').val('');
-	} else if(selectedRows.length > 1){
-		$('#EditId, #CreateFromAnotherId').val('');
-	} else {
-		$('#EditId, #CreateFromAnotherId').val('');
-	}
-
-	showButtons(this);
-	if(type == 'single' && row != undefined)
-	{
-		var checkbox = row.prop('checked');
-		if(checkbox){
-			row.parent().parent().parent().addClass('row-selected');
+	$.each(buttons, function (index, item) {
+		let visibility = $(item).data('visibleif');
+		
+		if(selectedRowsCount == 1 && visibility == '1' ) {
+			$(item).removeClass('Hidden');
+		} else if(selectedRowsCount >= 2 && visibility == '>2') {
+			$(item).removeClass('Hidden');
+		} else if(selectedRowsCount > 0 && visibility == '>0') {
+			$(item).removeClass('Hidden');
 		} else {
-			row.parent().parent().parent().removeClass('row-selected');
+			$(item).addClass('Hidden');
 		}
-	}
+
+	});
+
+	// $('.ListActionBtn').each(function(e) {          
+	// 	console.log(this.data());
+	// });
+
+
+	// if(selectedRows == 1) {
+    //     $('.DeleteBtn').removeClass('Hidden');
+	// 	$('.EditBtn').removeClass('Hidden');
+	// 	$('.CreateFromAnotherBtn').removeClass('Hidden');
+	// 	$('.ExportSelectedBtn').removeClass('Hidden');
+	// 	$('.ExportToShippingBtn').removeClass('Hidden');
+	// } else if(selectedRows >= 2) {
+	// 	$('.EditBtn').addClass('Hidden');
+	// 	$('.CreateFromAnotherBtn').addClass('Hidden');
+    // } else if(selectedRows > 0 ) {
+	// 	$('.ExportToShippingBtn').removeClass('Hidden');
+	// } else if(selectedRows == 0) {
+	// 	$('.DeleteBtn').addClass('Hidden');
+	// 	$('.EditBtn').addClass('Hidden');
+	// 	$('.CreateFromAnotherBtn').addClass('Hidden');
+	// 	$('.ExportSelectedBtn').addClass('Hidden');
+	// 	$('.ExportToShippingBtn').addClass('Hidden');
+	// }
 }
 
-function showButtons(trigger) {
+// Select All present checkboxes to deletion
+// $('.Select-All-To-Delete').on("click", function() {
+// 	console.log($(this));	
+// 	if ($(this).prop('checked')) {
+// 		$('.List-Checkbox').prop('checked', true);
+// 		if($('.List-Checkbox').length >= 1)
+// 		{
+// 			CheckToDeletion("all")
+// 			$('.DeleteBtn').removeClass('Hidden');
+// 		}
+
+// 		$('tbody tr').addClass('row-selected');
+// 	} else {
+// 		$('.List-Checkbox').prop('checked', false);
+// 		$('.DeleteBtn').addClass('Hidden');
+// 		$('tbody tr').removeClass('row-selected');
+// 	}
+// });
+
+
+// function CheckToShipping(id)
+// {
+// 	var selectedRows = [];
+// 	$(".List-Checkbox:checked").each(function() {          
+// 		selectedRows.push($(this).attr('data-id'));
+// 		$('#RowsToShipping').val(selectedRows);
+// 	});
+
+// 	$('#RowsToExport').val(selectedRows);
+// 	if(selectedRows.length == 0){
+// 		$('#EditId, #RowsToShipping').val('');
+// 	} 	
+// }
+
+// function CheckToDeletion(type, row)
+// {
+// 	// console.log(type, row);
+// 	var selectedRows = [];
+// 	$(".List-Checkbox:checked").each(function() {          
+// 		selectedRows.push($(this).attr('data-id'));
+// 		$('#RowsToDeletion').val(selectedRows);
+// 	});
+
+
+// 	$('#RowsToExport').val(selectedRows);
+// 	if(selectedRows.length == 1){
+// 		$('#EditId, #CreateFromAnotherId').val(selectedRows);
+// 	} else if(selectedRows.length < 1){
+// 		$('#EditId, #CreateFromAnotherId').val('');
+// 	} else if(selectedRows.length > 1){
+// 		$('#EditId, #CreateFromAnotherId').val('');
+// 	} else {
+// 		$('#EditId, #CreateFromAnotherId').val('');
+// 	}
+
+// 	toggleActionButtons(selectedRows.length);
+
+// 	// showButtons(this);
+// 	// if(type == 'single' && row != undefined)
+// 	// {
+// 	// 	var checkbox = row.prop('checked');
+// 	// 	if(checkbox){
+// 	// 		row.parent().parent().parent().addClass('row-selected');
+// 	// 	} else {
+// 	// 		row.parent().parent().parent().removeClass('row-selected');
+// 	// 	}
+// 	// }
+// }
+
+// function showButtons(trigger) {
+
+// 	var countSelected = $('.List-Checkbox:checkbox:checked').length;
+
+// 	if(countSelected == 1) {
+//         $('.DeleteBtn').removeClass('Hidden');
+// 		$('.EditBtn').removeClass('Hidden');
+// 		$('.CreateFromAnotherBtn').removeClass('Hidden');
+// 		$('.ExportSelectedBtn').removeClass('Hidden');
+// 		$('.ExportToShippingBtn').removeClass('Hidden');
+// 	} else if(countSelected > 0 ) {
+// 		$('.ExportToShippingBtn').removeClass('Hidden');
+// 	} else if(countSelected >= 2) {
+// 		$('.EditBtn').addClass('Hidden');
+// 		$('.CreateFromAnotherBtn').addClass('Hidden');
+//     } else if(countSelected == 0) {
+// 		$('.DeleteBtn').addClass('Hidden');
+// 		$('.EditBtn').addClass('Hidden');
+// 		$('.CreateFromAnotherBtn').addClass('Hidden');
+// 		$('.ExportSelectedBtn').addClass('Hidden');
+// 		$('.ExportToShippingBtn').addClass('Hidden');
+// 	}
 	
-	var countSelected = $('.List-Checkbox:checkbox:checked').length;
-
-
-	if(countSelected == 1) {
-        $('.DeleteBtn').removeClass('Hidden');
-		$('.EditBtn').removeClass('Hidden');
-		$('.CreateFromAnotherBtn').removeClass('Hidden');
-		$('.ExportSelectedBtn').removeClass('Hidden');
-		$('.ExportToShippingBtn').removeClass('Hidden');
-	} else if(countSelected > 0 ) {
-		$('.ExportToShippingBtn').removeClass('Hidden');
-	} else if(countSelected >= 2) {
-		$('.EditBtn').addClass('Hidden');
-		$('.CreateFromAnotherBtn').addClass('Hidden');
-    } else if(countSelected == 0) {
-		$('.DeleteBtn').addClass('Hidden');
-		$('.EditBtn').addClass('Hidden');
-		$('.CreateFromAnotherBtn').addClass('Hidden');
-		$('.ExportSelectedBtn').addClass('Hidden');
-		$('.ExportToShippingBtn').addClass('Hidden');
-    }
-}
+// }
 
 // Show Edit and Delete buttons in bottom if scrolled to mutch
 $(document).scroll(function(e){

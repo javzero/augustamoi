@@ -14,24 +14,29 @@
 		@slot('actions')
 			{{-- Actions --}}
 			<div class="list-actions">
-				<a href="{{ route('orders.create') }}" class="btn btnMain">Cargar Pedido</a>
-				<button id="SearchFiltersBtn" class="btn btnMain"><i class="icon-ios-search-strong"></i></button>
-				{{-- Edit --}}
-				<button class="EditBtn btn btnGreen Hidden"><i class="icon-pencil2"></i> Editar</button>
-				<input id="EditId" type="hidden">
-				{{-- Delete --}}
+
+				<input id="SelectedItems" type="hidden" name="SelectedItems[]">
 				{{--  THIS VALUE MUST BE THE NAME OF THE SECTION CONTROLLER  --}}
 				<input id="ModelName" type="hidden" value="orders">
-				{{-- Export --}}
-				<button class="ExportSelectedBtn btn btnMain Hidden"><i class="icon-download"></i> Exportar Seleccionados</button>
-				<input id="RowsToExport" type="hidden" name="rowstoexport[]" value="">
 
-				<button class="ExportToShippingBtn btn btnMain Hidden"><i class="icon-download"></i> Exportar Rótulos</button>
-				<input id="RowsToShipping" type="hidden" name="rowstoshipping[]" value="1,2">
-				{{-- <button class="ExportSelectedBtn btn btnMain Hidden"><i class="icon-download"></i> Exportar Seleccionados</button> --}}
-				{{-- Delete --}}
-				<button class="DeleteBtn btn btnRed Hidden"><i class="icon-bin2"></i> Eliminar</button>
-				<input id="RowsToDeletion" type="hidden" name="rowstodeletion[]" value="">
+				<a href="{{ route('orders.create') }}" class="btn btnMain">Cargar Pedido</a>
+				<button id="SearchFiltersBtn" class="btn btnMain"><i class="icon-ios-search-strong"></i></button>
+
+				{{-- Edit --}}
+				<button onclick="listAction({ action: 'edit', id: $('#EditId').val(), model: $('#ModelName').val() })"
+					class="ListActionBtn EditBtn btn btnMain Hidden" data-visibleif="1"><i class="icon-pencil2"></i> Editar</button>
+				<input id="EditId" type="hidden">
+
+				{{-- Export --}}
+				<button onclick="listAction({ action: 'exportPdf', ids: $('#SelectedItems').val() })"
+					class="ListActionBtn ExportSelectedBtn btn btnMain Hidden" data-visibleif=">0">
+					<i class="icon-download"></i> Exportar Seleccionados</button>
+
+				<button onclick="listAction({ action: 'rotulesForShipping', ids: $('#SelectedItems').val() })" 
+					class="ListActionBtn ExportToShippingBtn btn btnMain Hidden" data-visibleif=">0">
+					<i class="icon-download"></i> Rótulos para envío</button>
+
+				<button class="ListActionBtn DeleteBtn btn btnRed Hidden" data-visibleif=">0"><i class="icon-bin2"></i> Eliminar</button>
 
 				{{-- If Search --}}
 				@if(isset($_GET['customer']) || isset($_GET['id']))
@@ -95,7 +100,7 @@
 					@slot('tableTitles')
 						<th>
 							<label class="custom-control custom-checkbox list-checkbox">
-								<input type="checkbox" class="Select-All-To-Delete custom-control-input row-checkbox">
+								<input type="checkbox" id="SelectAllRows" class="Select-All-To-Delete custom-control-input row-checkbox">
 								<span class="custom-control-indicator"></span>
 								<span class="custom-control-description"></span>
 							</label>

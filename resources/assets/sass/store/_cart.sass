@@ -15,17 +15,21 @@
 	.cart-continue
 		font-size: 1rem
 	.inner
-		padding: 25px 15px
+		// padding: 25px 15px
+		padding: 0
 		padding-top: 0
 		.top
-			margin-bottom: 20px
-			@include flex-center
+			padding: 0
 			.title
+				width: 100%
 				padding: 8px 15px 8px
+				padding: 10px 30px
 				margin-bottom: 5px
 				i
 					font-size: 1rem
 					margin-right: 6px
+			
+				
 			.top-actions
 				display: flex
 				width: 100%
@@ -39,9 +43,12 @@
 				.right-button
 					width: 100%
 					text-align: right
+		.action-button-top,.action-button-bottom
+			padding: 10px 20px
+			text-align: right
 		.total-price-bottom
 			text-align: right
-			padding: 15px 0
+			padding: 15px 20px
 			font-size: 1.2rem
 			font-weight: 300
 			.inner-text
@@ -60,7 +67,8 @@
 			z-index: 998
 			color: #ccc
 		.item
-			padding: 0 65px 0 75px
+			padding: 10px
+			padding-left: 80px
 			position: relative
 			min-height: 75px
 			img
@@ -115,6 +123,12 @@
 			padding: 15px
 			font-size: 1.2rem
 			font-family: $font2
+	.cart-remaining-time
+		margin-top: 20px
+		padding: 40px 20px
+		background-color: $red
+		color: #fff
+		@include flex-center
 
 @media screen and (min-width: 930px) and (max-width: 1210px)
 	.fix-column-small
