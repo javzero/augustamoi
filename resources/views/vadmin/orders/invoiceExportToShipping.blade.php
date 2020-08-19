@@ -36,6 +36,7 @@
                     @if($order->customer->geoloc)
                         {{ $order->customer->geoloc->name }} <br>
                     @endif
+                    <b>C.P.:</b> {{ $order->customer->cp }}
                 </p>
                 <p><b>Método de pago: </b>{{ $order->payment->name }}</p>
                 <p><b>Envío: </b>{{ $order->shipping->name }}</p>
