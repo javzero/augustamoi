@@ -223,6 +223,8 @@ class ArticlesController extends Controller
     {
         $idsArray = array_map('intval', explode(',', $ids));
         $items = CatalogArticle::whereIn('id', $idsArray)->orderBy('id','ASC')->get();
+        // dd($items);
+        // dd($items->sum('stock'));
 
         $pdf = PDF::loadView('vadmin.catalog.value-stock', array('items' => $items));
         $pdf->setPaper('A4', 'landscape');

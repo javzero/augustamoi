@@ -12,16 +12,24 @@
 
 @section('table-content')
     
+    @php 
+        $totalStock = 0;
+        $totalValue = 0;
+    @endphp
+
     @foreach($items as $item)
         {{-- {{ dd($item) }} --}}
         @php
-            $stock = 0;
+            $stock = 0;    
             $value = calcArticlePrice($item->reseller_price, $item->reseller_discount);
         @endphp 
         
         @foreach ($item->variants as $variant )
             {{-- {{ dd($variant->stock) }} --}}
-            @php($stock += $variant->stock)
+            @php
+                $stock += $variant->stock;
+                
+            @endphp
         @endforeach
         <tr>
             <td class="w-50"> {{ $item->code }} </td>
@@ -35,6 +43,18 @@
             <td class="text-right"> {{ $stock }} </td>	
             <td class="text-right"> $ {{ $value * $stock }} </td>
         </tr>
+        @php
+            $totalStock += $stock;
+            $totalValue += $value * $stock;
+        @endphp
+
     @endforeach
+    <tr >
+        <td class="border-top"></td>
+        <td class="border-top"></td>
+        <td class="border-top"></td>
+        <td class="border-top text-right"><b>{{ $totalStock }}</b></td>
+        <td class="border-top text-right"><b>$ {{ $totalValue }}</b></td>
+    </tr>
     	
 @endsection

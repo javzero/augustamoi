@@ -48,6 +48,10 @@
             .txtL {
                 text-align: left;
             }
+
+            .border-top {
+                border-top: 1px solid #ccc;
+            }
         </style>
     </head>
     <body>
