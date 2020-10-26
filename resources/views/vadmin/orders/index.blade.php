@@ -36,6 +36,10 @@
 					class="ListActionBtn ExportToShippingBtn btn btnMain Hidden" data-visibleif=">0">
 					<i class="icon-download"></i> Rótulos para envío</button>
 
+				<button onclick="listAction({ action: 'exportRotuleAndOrderInfo', ids: $('#SelectedItems').val() })" 
+					class="ListActionBtn ExportToShippingBtn btn btnMain Hidden" data-visibleif=">0">
+					<i class="icon-download"></i> Exportar Rótulo y Pedido</button>
+
 				<button class="ListActionBtn DeleteBtn btn btnRed Hidden" data-visibleif=">0"><i class="icon-bin2"></i> Eliminar</button>
 
 				{{-- If Search --}}

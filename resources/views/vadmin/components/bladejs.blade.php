@@ -23,6 +23,9 @@
         case 'edit':
             route = "{{ url('vadmin') }}/"+model+"/"+id+"/edit";
             break;
+        case 'exportRotuleAndOrderInfo':
+            route = "{{ url('vadmin/exportRotuleAndOrder') }}/" + ids;
+            break;
         case 'valueStock':
             route = "{{ url('vadmin/valueStock') }}/" + view + "/" + ids; 
             break;

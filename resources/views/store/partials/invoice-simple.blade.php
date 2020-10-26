@@ -88,4 +88,72 @@
                 border-top: 0;
                 padding: 20px
             }
+
+       
+
+            .header {
+                background: #dbdbdb;
+                position: relative
+            }
+            .header .right {
+                position: absolute;
+                right: 10px;
+                top: 15px
+            }
+
+
+            .invoice-ticket {
+                padding: 0;
+                border: 1px solid #f9f9f9;
+            }
+
+            .invoice-ticket .ticket-header {
+                background: #f9f9f9;
+                padding: 15px;
+                position: relative
+            }
+
+            .invoice-ticket .ticket-header .right {
+                position: absolute;
+                right: 10px;
+                top: 15px
+            }
+
+            .invoice-ticket .ticket-heade .soft-hr {
+               border-top: 1px solid red;
+            }
+
+            .invoice-ticket .content-ticket {
+                padding: 10px
+            }
+
+             .invoice-ticket .invoice-ticket-table {
+                width: 100%;
+                border: 1px solid #ccc;
+                padding: 0;
+            }
+
+             .invoice-ticket .invoice-ticket-table thead {
+                background-color: #dbdbdb;
+            }
+             .invoice-ticket .invoice-ticket-table thead tr th {
+                padding: 0 5px;
+                height: 25px;
+            }
+
+             .invoice-ticket .invoice-ticket-table tbody tr td {
+                padding: 2px 5px;
+            }
+            
+             .invoice-ticket .invoice-ticket-table tbody tr.content {
+                background: #f9f9f9
+            }
+
+            .invoice-ticket .bottom-data td {
+                border-top: 1px solid #ccc;
+                padding-top: 10px
+            }
+
+
+            
 </style></head><body>@yield('content')</body></html>

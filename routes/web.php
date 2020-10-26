@@ -211,6 +211,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'managers'], function(){
     Route::get('exportOrderToProd', ['as' => 'vadmin.exportOrderToProd', 'uses' => 'Store\OrdersController@exportOrderToProd']);
     Route::get('exportOrderToShipping/{id}', ['as' => 'vadmin.exportOrderToShipping', 'uses' => 'Store\OrdersController@exportOrderToShipping']);
     
+    Route::get('exportRotuleAndOrder/{id}', ['as' => 'vadmin.exportRotuleAndOrder', 'uses' => 'Store\OrdersController@exportRotuleAndOrder']);
+    
     Route::get('showOrderToProd', ['as' => 'vadmin.showOrderToProd', 'uses' => 'Store\OrdersController@showOrderToProd']);
 
     Route::get('exportSelectedOrders/{ids}', ['as' => 'vadmin.exportSelectedOrders', 'uses' => 'Store\OrdersController@exportOrderToProd']);

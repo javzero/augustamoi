@@ -23,11 +23,14 @@
                 </thead>
             </table>
             <div class="content">
+
                 <h1>DATOS DEL CLIENTE</h1>
                 <p><b>Nombre y Apellido: </b> {{ $order->customer->name }} {{ $order->customer->surname }}</p>
                 <p><b>Usuario: </b> {{ $order->customer->username }}</p>
                 <p><b>Teléfonos: </b>{{ $order->customer->phone }} {{ $order->customer->phone1 }}</p>
                 <p><b>EMail: </b>{{ $order->customer->email }}</p>
+                <p><b>CUIT:  </b> @if($order->customer->cuit) {{ $order->customer->cuit }} @else - @endif  </p>
+                <p><b>DNI:  </b> @if($order->customer->dni) {{ $order->customer->dni }} @else - @endif  </p>
                 <p>
                     <b>Dirección: </b>{{ $order->customer->address }}
                      | @if($order->customer->geoprov)

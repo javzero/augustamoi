@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Store;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Collection;
 use App\Customer;
 use App\Traits\CartTrait;
 use App\Shipping;
@@ -16,6 +17,7 @@ use App\CatalogBrand;
 use PDF;
 use Excel;
 use Cookie;
+
 
 class OrdersController extends Controller
 {
@@ -209,10 +211,54 @@ class OrdersController extends Controller
 
     public function exportOrderToShipping($ids = null, $action = 'stream')
     {
+       $action = 'stream'; 
         $idsArray = array_map('intval', explode(',', $ids));
         $orders = Cart::whereIn('id', $idsArray)->orderBy('id','ASC')->get();
 
         $pdf = PDF::loadView('vadmin.orders.invoiceExportToShipping', compact('orders'))->setPaper('a4', 'portrait');
+        $filename = 'Rotulos-para-envio('.$ids.')';
+        
+        if($action == 'download')
+            return $pdf->download($filename.'.pdf');
+
+        return $pdf->stream($filename.'.pdf');
+    }
+
+    public function exportRotuleAndOrder($ids = null) 
+    {   
+        // $order = Cart::find(5014);
+        // if($order != null){
+        //     $cart = $this->calcCartData($order);
+
+        //     dd($order['cart']);
+        //     $pdf = PDF::loadView($view, compact('order', 'cart'))->setPaper('a4', 'portrait');
+        //     $filename = 'Comprobante-Pedido-N-'.$order->id;
+        //     if($action == 'stream')
+        //     {
+        //         return $pdf->stream($filename.'.pdf');
+        //     } else {
+        //         return $pdf->download($filename.'.pdf');
+        //     }
+        //     die();
+
+        // } else {
+        //     return redirect()->route('store')->with('message','Estás intentando una acción ilegal...');
+        // }
+
+
+        $action = 'stream'; 
+        $idsArray = array_map('intval', explode(',', $ids));
+
+        $data = new Collection();
+
+        $orders = Cart::whereIn('id', $idsArray)->orderBy('id','ASC')->get();
+
+        foreach($orders as $order) {
+            $order['cartData'] = $this->calcCartData($order);
+
+        }
+        // dd($order->cartData->shipping);
+        $pdf = PDF::loadView('vadmin.orders.exportRotuleAndOrder', compact('orders'))->setPaper('a4', 'portrait');
         $filename = 'Rotulos-para-envio('.$ids.')';
         
         if($action == 'download')
