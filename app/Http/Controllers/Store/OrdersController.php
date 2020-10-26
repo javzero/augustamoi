@@ -226,27 +226,7 @@ class OrdersController extends Controller
 
     public function exportRotuleAndOrder($ids = null) 
     {   
-        // $order = Cart::find(5014);
-        // if($order != null){
-        //     $cart = $this->calcCartData($order);
-
-        //     dd($order['cart']);
-        //     $pdf = PDF::loadView($view, compact('order', 'cart'))->setPaper('a4', 'portrait');
-        //     $filename = 'Comprobante-Pedido-N-'.$order->id;
-        //     if($action == 'stream')
-        //     {
-        //         return $pdf->stream($filename.'.pdf');
-        //     } else {
-        //         return $pdf->download($filename.'.pdf');
-        //     }
-        //     die();
-
-        // } else {
-        //     return redirect()->route('store')->with('message','Estás intentando una acción ilegal...');
-        // }
-
-
-        $action = 'stream'; 
+        $action = 'download'; 
         $idsArray = array_map('intval', explode(',', $ids));
 
         $data = new Collection();
