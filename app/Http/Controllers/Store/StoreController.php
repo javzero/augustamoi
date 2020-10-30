@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Store;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-// use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth;
 // use Illuminate\Support\Facades\View;
 use App\CatalogArticle;
 use App\CatalogVariant;
@@ -454,10 +454,23 @@ class StoreController extends Controller
         }    
     
         // return back()->with('message','Su compra se ha registrado. Muchas gracias !.');
-        return view('store.checkout-success')
-            ->with('cart', $cart);
+        
+        return redirect()->route('store.checkout-success', $cart->id);
+        // return view('store.checkout-success')
+        //     ->with('cart', $cart);
     }
 
+    public function checkoutSuccess($cartId)
+    {
+        $cart = Cart::find($cartId);
+        
+        if( $cart && auth()->guard('customer')->user()->id == $cart->customer->id ) 
+        {
+            return view('store.checkout-success')->with('cart', $cart);
+        } else {
+            return view('errors.500');
+        }
+    }
      /*
     |--------------------------------------------------------------------------
     | MERCADOPAGO
