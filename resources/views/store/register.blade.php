@@ -70,7 +70,19 @@
                         </span>
                     @endif
                 </div> 	
+                
+                <div class="col-sm-12">
+                    <div class="form-group">
+                     <label>Condición frente al Iva</label>
+                        <select class="form-control round" name="tax_type">
+                            <option value="Monotributista">Monotributista</option>
+                            <option value="Responsable Inscripto">Responsable Inscripto</option>
+                            <option value="Consumidor Final">Consumidor Final</option>
+                        </select>
+                    </div>
+                </div>
             </div>
+            
 
             <div class="row">
                 {{-- Password --}}

@@ -73,6 +73,7 @@ class RegisterController extends Controller
             'password' => 'required|string|min:6|confirmed',
         ], [
             'username.required' => 'Debe ingresar un nombre de usuario',
+            'username.unique' => 'Ya hay un usuario registrado con este nombre',
             'email.required' => 'Debe ingresar un email',
             'email.email' => 'La dirección de email parece inválida',
             'email.unique' => 'Ya hay un usuario registrado con el mismo email',
@@ -119,6 +120,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'phone' => $data['phone'],
             'status' => $status,
+            'tax_type' => $data['tax_type'],
             // 'geoprov_id' => $geoProvId,
             // 'geoloc_id' => $geoLocId,
             // 'cuit' => $cuit,
@@ -150,6 +152,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+        // dd($request->all());
         // Custom Horrible Validations
         if ($request->group != '2' && $request->group != '3')
             return back()->withErrors('No se ha seleccionado un tipo de usuario');
@@ -162,7 +165,6 @@ class RegisterController extends Controller
             if ($request->CuitOrDni == 'Dni')
                 if (strlen($request->dni) != 8)
                 return redirect()->back()->withErrors('El DNI debe tener 8 números');
-
         }
 
         $this->validator($request->all())->validate();

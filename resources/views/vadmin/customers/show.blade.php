@@ -94,6 +94,10 @@
                             <div class="label"><b>Dni: </b></div>
                             <span class="data">{{ $customer->dni }}</span>
                         </div><br>
+                         <div class="row item">
+                            <div class="label"><b>Condición frente al Iva: </b></div>
+                            <span class="data">{{ $customer->tax_type }}</span>
+                        </div><br>
                         <div class="row item">
                             <div class="label"><b>Tipo de cliente: </b></div>
                             <span class="data">{{ clientGroupTrd($customer->group) }}</span>

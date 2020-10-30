@@ -18,7 +18,8 @@ class Customer extends Authenticatable
     protected $table = 'customers';
 
     protected $fillable = [
-        'name', 'surname', 'username', 'email', 'cuit', 'dni', 'address', 'geoprov_id', 'geoloc_id', 'cp', 'phone', 'phone2', 'password', 'group', 'status', 'avatar'
+        'name', 'surname', 'username', 'email', 'cuit', 'dni', 'address', 'geoprov_id', 'geoloc_id', 'cp', 'phone', 
+        'phone2', 'password', 'group', 'status', 'avatar', 'tax_type'
     ];
 
     protected $hidden = [

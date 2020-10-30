@@ -204,14 +204,18 @@ class StoreController extends Controller
     {
         $article = CatalogArticle::findOrFail($request->id);
         
-        // Get only used colors and sizes
+        // Get only colors used by the variant
         $variants = $article->variants;
-        $colorsId = []; $sizesId = [];
+        $colorsId = []; 
+        $sizesId = [];
 
         foreach($variants as $variant) 
         { 
-            $colorsId[] = $variant->color_id;
-            $sizesId[] = $variant->size_id;
+            // Don´t include colors or sizes without stock
+            if($variant->stock > 0) {
+                $colorsId[] = $variant->color_id;
+                $sizesId[] = $variant->size_id;
+            }
         }
 
         $atribute1 = CatalogSize::whereIn('id', $sizesId)->orderBy('name', 'ASC')->pluck('name','id');
