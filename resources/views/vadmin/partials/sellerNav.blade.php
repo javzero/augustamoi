@@ -73,7 +73,7 @@
 							</li>
 							<li class="dropdown-menu-footer">
 								<a href="javascript:void(0)" class="setAllMessagesAsReaded dropdown-item text-muted text-xs-center">
-									Marcar todos como leídoMarcar todos como leídos
+									Marcar todos como leído
 								</a>
 							</li>
 						</ul>

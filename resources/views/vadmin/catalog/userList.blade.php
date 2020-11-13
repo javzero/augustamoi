@@ -10,6 +10,17 @@
 		@endslot
 		@slot('actions')
 			{{-- Actions --}}
+			<div class="list-actions">
+
+				{{-- THIS VALUE MUST BE THE NAME OF THE SECTION CONTROLLER --}}
+				<input id="ModelName" type="hidden" value="catalogo">
+
+				<button id="SearchFiltersBtn" class="btn btnMain"><i class="icon-ios-search-strong"></i></button>
+				
+				{{-- Edit --}}
+				<button onclick="listAction({ action: 'edit', id: $('#EditId').val(), model: $('#ModelName').val() })"
+					class="ListActionBtn EditBtn btn btnMain Hidden" data-visibleif="1"><i class="icon-pencil2"></i> Editar</button>
+			</div>
 		@endslot
 		@slot('searcher')
 			@include('vadmin.catalog.searcher')
