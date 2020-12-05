@@ -437,9 +437,20 @@
 			<i class="fas fa-mail-bulk"></i> Newsletter 
 		</a></li>
 		{{-- SETTINGS --}}
-		<li class="{{ Menu::activeMenu('configuracion') }}"><a href="{{ route('vadmin.settings') }}" class="menu-item">
-			<i class="fas fa-sliders-h"></i> Configuracion 
-		</a></li>
+		<li class="has-sub is-shown {{ Menu::activeMenu('users') }}"><a href="#" data-i18n="nav.menu_levels.second_level_child.main" class="menu-item">
+			<i class="fas fa-sliders-h"></i> Configuración</a>
+			<ul class="menu-content">
+				<li class="{{ Menu::activeMenu('configuracion') }}"><a href="{{ route('vadmin.settings') }}" class="menu-item">
+					<i class="fas fa-cog"></i> Generales 
+				</a></li>
+
+				<li class="{{ Menu::activeMenu('imagenes-de-inicio') }}"><a href="{{ route('vadmin.home-images') }}" class="menu-item">
+					<i class="fas fa-image"></i> Imágenes de Inicio 
+				</a></li>
+			</ul>
+		</li>
+
+		
 		{{-- TESTS --}}
 		{{-- <li class="{{ Menu::activeMenu('tests') }}"><a href="{{ route('vadmin.tests') }}" class="menu-item">
 			<i class="fas fa-sliders-h"></i> Tests 

@@ -14,6 +14,7 @@ use Mail;
 use App\Mail\SendMail;
 use App\Mail\SendSupportMail;
 use App\Settings;
+use File;
 
 
 class VadminController extends Controller
@@ -319,6 +320,32 @@ class VadminController extends Controller
         $settings->save();
 
         return redirect()->back()->with('message', 'Opciones actualizadas');
+    }
+
+    public function homeImages(Request $request)
+    {
+        return view('vadmin.tools.home-images');
+    }
+
+    public function updateHomeImages(Request $request)
+    {
+        // // dd($request->all());
+        // dd($request->file('image'));
+        $imgPath = public_path("images/web/");
+
+        try {
+            foreach($request->file('image') as $filename => $image) {
+                // dd($index);
+                $img = \Image::make($image);
+                $img->encode('jpg', 80)->save($imgPath . $filename . '.jpg');
+                // ->fit($imgWidth, $imgHeight)   
+            }
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+
+        return back()->with('message', 'Las imágenes han sido actualizadas correctamente.');
+
     }
 
     /*

@@ -202,11 +202,9 @@
 		&:last-child
 			border: 0
 
-
 @media (max-width: 768px)
 	.inline-links
 		line-height: 2rem
-
 
 .column-data
 	.item
@@ -219,8 +217,6 @@
 			border-bottom: 1px solid #f9f9f9
 		.data
 			border-bottom: 1px solid #f9f9f9
-
-
 
 .right-item 
 	text-align: right
@@ -338,11 +334,13 @@
 
 
 
+
 //////////////////////////////////////
 //                                  //
 //            FORMS                 //
 //                                  //
 //////////////////////////////////////
+
 input,select
 	color: #000
 
@@ -653,6 +651,34 @@ input,select
 		max-width: 250px
 		input
 			margin-bottom: 5px
+
+.single-image-upload
+	padding-top: 10px
+	border-top: 1px solid #ccc
+	margin-bottom: 15px
+	margin-top: 15px
+	.preview
+		position: relative
+		max-width: 100%
+		.overlay
+			opacity: 0
+			left: 0
+			top: 0
+			width: 100%
+			max-width: 100%
+			height: 100%
+			position: absolute
+			background-color: rgba(0,0,0,.8)
+			@include transition(0.2s)
+			@include flex-center
+			.text
+				color: #fff
+	img
+		max-width: 100%
+	&:hover
+		cursor: pointer
+		.preview .overlay
+			opacity: 1
 //////////////////////////////////////
 //                                  //
 //            BUTTONS               //
@@ -1240,6 +1266,12 @@ input:checked + .slider:before
 //                                  //
 //////////////////////////////////////
 
+.title-with-detail
+	.title
+		font-size: 1.3rem
+	.detail
+		font-size: .9rem
+		font-weight: 300
 
 .text-small-thin
 	font-weight: 300

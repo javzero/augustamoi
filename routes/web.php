@@ -240,6 +240,7 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'managers'], function(){
     Route::post('updateStatusMultiple/{id}/{model}/{status}', 'VadminController@updateStatusMultiple');
 
     Route::post('actualizar-opciones', ['as' => 'updateSettings', 'uses' => 'VadminController@updateSettings']);
+    Route::post('actualizar-imagenes-de-inicio', ['as' => 'updateHomeImages', 'uses' => 'VadminController@updateHomeImages']);  
     
     Route::get('panel-de-control', ['as' => 'storeControlPanel', 'uses' => 'VadminController@storeControlPanel']);
     
@@ -315,6 +316,8 @@ Route::group(['prefix' => 'vadmin', 'middleware' => 'managers'], function(){
 Route::group(['prefix' => 'vadmin', 'middleware' => 'admin'], function(){
 
     Route::get('configuracion', ['as' => 'vadmin.settings', 'uses' => 'VadminController@settings']);
+    Route::get('imagenes-de-inicio', ['as' => 'vadmin.home-images', 'uses' => 'VadminController@homeImages']);
+    
     Route::get('estadisticas', ['as' => 'vadmin.stats', 'uses' => 'StatsController@index']);
     Route::get('ventasPorPeriodo/{period}', ['as' => 'vadmin.statsSalesByPeriod', 'uses' => 'StatsController@statsSalesByPeriod']);
     Route::get('ExportarVentasPorPeriodo/{period}', ['as' => 'vadmin.exportStatsSalesByPeriod', 'uses' => 'StatsController@exportStatsSalesByPeriod']);
