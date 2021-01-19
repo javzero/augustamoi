@@ -48,7 +48,7 @@
                     @if($order->shipping)
                         {{ $order->shipping->name }}</p>
                     @else
-                        Método de envío
+                        Método de envío discontinuado
                     @endif
                 <br>
                 <h1>OBSERVACIONES: </h1>
@@ -133,7 +133,13 @@
                         <tr>
                             <td></td><td></td>
                             <td>Método de envío</td>
-                            <td>{{ $order->shipping->name }}</td>
+                            <td>
+                                @if($order->shipping)
+                                    {{ $order->shipping->name }}</p>
+                                @else
+                                    Método de envío discontinuado
+                                @endif
+                            </td>
                             
                             <td class="txtR">$ {{ $order->cartData['shippingCost'] }}</td>
                         </tr>
