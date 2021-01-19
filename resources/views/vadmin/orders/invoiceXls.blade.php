@@ -37,7 +37,13 @@
         <td></td><td></td><td></td><td></td>
         @if($order['cart']->shipping_id != null)
             <td></td><td></td>
-            <td><b>Método de Envío:</b> {{ $order['cart']->shipping->name }}</td>
+            <td><b>Método de Envío:</b> 
+            @if($order['cart']->shipping)
+                {{ $order['cart']->shipping->name }}
+            @else
+                Método de envío discontinuado.
+            @endif    
+            </td>
             <td>$ {{ $order['shippingCost'] }}</td>
         @else
             <td></td><td></td>
