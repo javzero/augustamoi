@@ -71,7 +71,13 @@
                         <tr>
                             <td></td><td></td>
                             <td>Método de envío</td>
-                            <td>{{ $cart['cart']->shipping->name }}</td>
+                            <td>
+                                @if($cart['cart']->shipping)
+                                    {{ $cart['cart']->shipping->name }}
+                                @else
+                                    Envío discontinuado
+                                @endif
+                            </td>
                             <td class="txtR">$ {{ $cart['shippingCost'] }}</td>
                         </tr>
                         
