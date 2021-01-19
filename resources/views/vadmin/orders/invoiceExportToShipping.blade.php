@@ -42,7 +42,13 @@
                     <b>C.P.:</b> {{ $order->customer->cp }}
                 </p>
                 <p><b>Método de pago: </b>{{ $order->payment->name }}</p>
-                <p><b>Envío: </b>{{ $order->shipping->name }}</p>
+                <p><b>Envío: </b>
+                    @if($order->shipping)
+                        {{ $order->shipping->name }}
+                    @else
+                        Método de envío discontinuado
+                    @endif
+                    </p>
                 <br>
                 <h1>OBSERVACIONES: </h1>
                 @if($order->shipping_details == '' || $order->shipping_details == null)
