@@ -8,6 +8,9 @@
 		<meta name="keywords" content="augustamoi, indumentaria, ropa, vestidos, ropa interior, lenceria, bombachas, tangas">
 		<meta name="author" content="Vimana Studio">
 		<meta name="csrf-token" content="{{ csrf_token() }}">
+		
+		<meta name="facebook-domain-verification" content="62i3ql603vrzabsm0o41huunpkjpxk" />
+
 		<!-- Mobile Specific Meta Tag-->
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<!-- Favicon and Apple Icons-->

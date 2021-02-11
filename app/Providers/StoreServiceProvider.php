@@ -34,6 +34,7 @@ class StoreServiceProvider extends ServiceProvider
             'store.show',
             'store.buy-conditions',
             'store.how-to-buy',
+            'store.section-how-to-buy',
             'store.reseller-policy',
             'store.cartdetail',
             'store.wishlist'

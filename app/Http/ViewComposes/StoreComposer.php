@@ -24,6 +24,6 @@ class StoreComposer
             ->with('favs', $favs)
             ->with('settings', $settings)
             ->with('google_analytics', $google_analytics)
-			->with('brands', $brands);;
+			->with('brands', $brands);
 	}
 }

@@ -8,6 +8,7 @@
 @endsection
 
 @section('content')
+
 	<div class="container-fluid info-container2">
 		<div class="row justify-content-center">
             <h3><b>Como Comprar</b></h4>
@@ -35,7 +36,8 @@
                 <img src="{{ asset('images/web/como-comprar/3.svg') }}" alt="Augustamoi-Icon">
                 <h4><b>Monto Mínimo</b></h4>
                 <p>
-                   Para poder finalizar la compra tenés que alcanzar el monto mínimo de compra requerido que de $7500. Luego podrás iniciar tu pedido, haz clic en "Continuar"
+                   Para poder finalizar la compra tenés que alcanzar el monto mínimo de compra requerido que de ${{ $settings->reseller_money_min }}. 
+                   Luego podrás iniciar tu pedido, haz clic en "Continuar"
                 </p>
             </div>
 
@@ -87,7 +89,7 @@
                     <h4 class="red-font">¡ACLARACIONES!</h4>
                     <p>
                         Ante falla de productos deberan informarse dentro de las 48 hs de recibido el pedido, luego no se aceptarán reclamos. Podrás elegir entre dejar pendiente el monto para una proxima compra, elegir otro producto en caso de hacer un nuevo pedido o solicitar la devolucion del importe por el mismo medio que realizaste el pago de la compra.
-                        MÍnimo de compra mayorista $7500  - Los productos no incluyen IVA.
+                        MÍnimo de compra mayorista ${{$settings->reseller_money_min}}  - Los precios incluyen IVA.
                     </p>
                 </div>
                 <div class="col-md-4">
