@@ -53,9 +53,11 @@
                         <div class="footer">
                             <div class="col-price pad0">
                                 {{-- <del>$ {{ $article->reseller_price + 0 }}</del>  --}}
+                                @if(Auth::guard('customer')->check())
                                 <span class="price">
                                     $ {{ calcValuePercentNeg($article->reseller_price, $article->reseller_discount + 0) }}
                                 </span>
+                                @endif
                             </div>
                             <div class="col-add pad0">
                                 <a href="{{ url('tienda/articulo/'.$article->id) }}">

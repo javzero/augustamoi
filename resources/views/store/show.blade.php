@@ -80,17 +80,19 @@
 						<span class="sub-text"> Código: #{{ $article->code }}</span>
 					</div>
 
-					{{-- PRICE --}}
-					@if($article->reseller_discount > 0)
-						<div class="product-price">
-							DESCUENTO % {{ $article->reseller_discount }}!! <br>
-							<span class="text-muted text-small">$ {{ $article->reseller_price }}</span>
-							<span class="price-text">&nbsp; ${{ calcValuePercentNeg($article->reseller_price, $article->reseller_discount) }}</span>
-						</div>
-					@else
-						<div class="product-price">
-							<span class="price-text">$ {{ $article->reseller_price }}</span>
-						</div>
+					@if(Auth::guard('customer')->check())
+						{{-- PRICE --}}
+						@if($article->reseller_discount > 0)
+							<div class="product-price">
+								DESCUENTO % {{ $article->reseller_discount }}!! <br>
+								<span class="text-muted text-small">$ {{ $article->reseller_price }}</span>
+								<span class="price-text">&nbsp; ${{ calcValuePercentNeg($article->reseller_price, $article->reseller_discount) }}</span>
+							</div>
+						@else
+							<div class="product-price">
+								<span class="price-text">$ {{ $article->reseller_price }}</span>
+							</div>
+						@endif
 					@endif
 					
 					{{-- Article Description --}}
